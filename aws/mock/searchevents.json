@@ -1,0 +1,139 @@
+{
+    "resource": "/events/search",
+    "path": "/events/search",
+    "httpMethod": "POST",
+    "headers": {
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+        "CloudFront-Forwarded-Proto": "https",
+        "CloudFront-Is-Desktop-Viewer": "true",
+        "CloudFront-Is-Mobile-Viewer": "false",
+        "CloudFront-Is-SmartTV-Viewer": "false",
+        "CloudFront-Is-Tablet-Viewer": "false",
+        "CloudFront-Viewer-Country": "IN",
+        "content-type": "application/json",
+        "Host": "gvt671bgdc.execute-api.eu-west-1.amazonaws.com",
+        "origin": "https://thepromoapp.com",
+        "Referer": "https://thepromoapp.com/",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "cross-site",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36",
+        "Via": "2.0 cd1c0733e01629a638b6d3fb67b10526.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Id": "pNEIIHHn80x3GrtGQwmGmOvd1ebsqK5quYNdHNw1578Su8iSirMkSA==",
+        "X-Amzn-Trace-Id": "Root=1-5db0283c-2d773ea0e664b1685ea58020",
+        "x-api-key": "31MOD5bR6Y5OoC8uPyXIc4LbCEn3AMmpilA3wL00",
+        "X-Forwarded-For": "119.82.86.198, 64.252.163.161",
+        "X-Forwarded-Port": "443",
+        "X-Forwarded-Proto": "https"
+    },
+    "multiValueHeaders": {
+        "Accept": [
+            "application/json, text/plain, */*"
+        ],
+        "Accept-Encoding": [
+            "gzip, deflate, br"
+        ],
+        "Accept-Language": [
+            "en-GB,en-US;q=0.9,en;q=0.8"
+        ],
+        "CloudFront-Forwarded-Proto": [
+            "https"
+        ],
+        "CloudFront-Is-Desktop-Viewer": [
+            "true"
+        ],
+        "CloudFront-Is-Mobile-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-SmartTV-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-Tablet-Viewer": [
+            "false"
+        ],
+        "CloudFront-Viewer-Country": [
+            "IN"
+        ],
+        "content-type": [
+            "application/json"
+        ],
+        "Host": [
+            "gvt671bgdc.execute-api.eu-west-1.amazonaws.com"
+        ],
+        "origin": [
+            "https://thepromoapp.com"
+        ],
+        "Referer": [
+            "https://thepromoapp.com/"
+        ],
+        "sec-fetch-mode": [
+            "cors"
+        ],
+        "sec-fetch-site": [
+            "cross-site"
+        ],
+        "User-Agent": [
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+        ],
+        "Via": [
+            "2.0 cd1c0733e01629a638b6d3fb67b10526.cloudfront.net (CloudFront)"
+        ],
+        "X-Amz-Cf-Id": [
+            "pNEIIHHn80x3GrtGQwmGmOvd1ebsqK5quYNdHNw1578Su8iSirMkSA=="
+        ],
+        "X-Amzn-Trace-Id": [
+            "Root=1-5db0283c-2d773ea0e664b1685ea58020"
+        ],
+        "x-api-key": [
+            "31MOD5bR6Y5OoC8uPyXIc4LbCEn3AMmpilA3wL00"
+        ],
+        "X-Forwarded-For": [
+            "119.82.86.198, 64.252.163.161"
+        ],
+        "X-Forwarded-Port": [
+            "443"
+        ],
+        "X-Forwarded-Proto": [
+            "https"
+        ]
+    },
+    "queryStringParameters": null,
+    "multiValueQueryStringParameters": null,
+    "pathParameters": null,
+    "stageVariables": null,
+    "requestContext": {
+        "resourceId": "t52wq8",
+        "resourcePath": "/events/search",
+        "httpMethod": "POST",
+        "extendedRequestId": "CAs5iG01DoEFuCA=",
+        "requestTime": "23/Oct/2019:10:15:24 +0000",
+        "path": "/dev/events/search",
+        "accountId": "576180419135",
+        "protocol": "HTTP/1.1",
+        "stage": "dev",
+        "domainPrefix": "gvt671bgdc",
+        "requestTimeEpoch": 1571825724964,
+        "requestId": "183c3aa0-2900-421b-888e-c9d08183ceeb",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "cognitoIdentityId": null,
+            "apiKey": "31MOD5bR6Y5OoC8uPyXIc4LbCEn3AMmpilA3wL00",
+            "principalOrgId": null,
+            "cognitoAuthenticationType": null,
+            "userArn": null,
+            "apiKeyId": "brjb2s7an6",
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36",
+            "accountId": null,
+            "caller": null,
+            "sourceIp": "119.82.86.198",
+            "accessKey": null,
+            "cognitoAuthenticationProvider": null,
+            "user": null
+        },
+        "domainName": "gvt671bgdc.execute-api.eu-west-1.amazonaws.com",
+        "apiId": "gvt671bgdc"
+    },
+    "body": "{\"categories\":[\"concerts\",\"festivals\",\"performing-arts\",\"community\",\"sports\",\"politics\"],\"startDate\":\"2019-10-23\",\"endDate\":\"2019-10-30\",\"location\":[51.5073509,-0.12775829999998223]}",
+    "isBase64Encoded": false
+}

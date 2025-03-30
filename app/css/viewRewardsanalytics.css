@@ -1,0 +1,992 @@
+.rewards-analytics {
+    border: 1px solid #EEEEEE;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 30px;
+    position: relative;
+}
+
+.rewards-analytics-img {
+    position: relative;
+    height: 181px;
+    overflow: hidden;
+    border-radius: 8px;
+    width: 261px;
+    float: left;
+}
+
+.rewards-analytics-img img {
+    object-fit: cover;
+    height: 181px;
+    width: 256px;
+    border-radius: 8px;
+}
+
+.rewards-analytics-content-child .pa-break-word {
+    color: #333333;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 28px;
+    margin-bottom: 15px;
+}
+
+.rewards-analytics-content {
+    display: block;
+    width: auto;
+    overflow: hidden;
+}
+
+.rewards-analytics-venu {
+    display: flex;
+}
+
+.rewards-analytics-venu-list {
+    color: #333333;
+    font-size: 13px;
+    width: 50%;
+    margin-bottom: 15px;
+}
+
+.rewards-analytics-venu-list i {
+    float: left;
+    margin-right: 5px;
+    opacity: 0.6;
+}
+
+.rewards-analytics-venu-list span {
+    display: block;
+    opacity: 0.6;
+}
+
+.rewards-analytics-venu-list b {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 19px;
+    margin-top: 5px;
+}
+
+.rewards-analytics-content-child {
+    width: 588px;
+    padding-left: 30px;
+    float: left;
+}
+
+.rewards-analytics-detail span {
+    color: #666666;
+    font-size: 14px;
+    line-height: 20px;
+    display: block;
+}
+
+.rewards-analytics-detail {
+    margin-top: 10px;
+}
+
+.rewards-analytics-detail a {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 26px;
+    display: block;
+    margin-top: 5px;
+}
+
+.rewards-analytics-more-event {
+    display: inline-block;
+    width: 100%;
+    border: 1px solid #EEEEEE;
+    border-radius: 0 0 4px 4px;
+    background-color: #FBFBFB;
+    padding: 12px 30px;
+    position: relative;
+}
+
+.rewards-analytics-more-event-head {
+    float: left;
+    color: #333333;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 22px;
+}
+
+.rewards-analytics-more-event-head a {
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+}
+
+.share-eventon {
+    float: right;
+}
+
+.total-result-number {
+    border: 1px solid #EEEEEE;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 33px 0;
+}
+
+.total-result-number h2 {
+    margin: 0 auto;
+    color: #333333;
+    font-size: 52px;
+    font-weight: bold;
+    line-height: 62px;
+    margin-bottom: 12px;
+}
+
+.total-result-number span {
+    color: #666666;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    margin-top: 15px;
+    display: block;
+}
+
+.rewards-analytics-total-result {
+    margin: 20px 0;
+}
+
+.rewards-analytics-total-result .row {
+    margin-right: -15px;
+}
+
+.rewards-analytics-social {
+    display: inline-block;
+    width: auto;
+    height: 62px;
+}
+
+.rewards-analytics-social[ng-if*="!most_"] {
+    height: 57px;
+}
+
+.rewards-analytics-social i {
+    font-size: 55px;
+    color: #F8EC1F;
+    float: left;
+}
+
+.rewards-analytics-social span {
+    float: right;
+    margin: 14px 5px;
+    width: auto;
+    color: #333333;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 29px;
+}
+
+.rewards-analytics-view-list {
+    border: 1px solid #EEEEEE;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+    padding: 20px 30px;
+}
+
+.rewards-analytics-view-head h3 {
+    color: #333333;
+    font-size: 18px;
+    line-height: 22px;
+    float: left;
+    margin: 0;
+    font-weight: bold;
+}
+
+.rewards-analytics-view-head {
+    display: inline-block;
+    width: 100%;
+    padding-bottom: 18px;
+    position: relative;
+}
+
+.rewards-analytics-view-head h3 a {
+    float: right;
+    color: #666666;
+    text-decoration: none;
+    margin-left: 8px;
+}
+
+.rewards-analytics-view-head h3 i {
+    font-style: normal;
+    color: #666666;
+}
+
+.rewards-analytics-view-head h2>a {
+    top: 4px;
+}
+
+.rewards-analytics-view-list a {
+    float: right;
+}
+
+.analytics-view-winners-list table {
+    width: 100%;
+}
+
+.analytics-view-winners-list table img {
+    width: 32px;
+}
+
+.winners-name {
+    color: #666666;
+    font-size: 12px;
+    padding-left: 10px;
+    display: block;
+}
+
+.winners-name b {
+    color: #333333;
+    font-size: 14px;
+    display: block;
+}
+
+.analytics-view-winners-list table td {
+    padding: 10px 0;
+}
+
+td.winners-user-pro {
+    width: 33px;
+    padding-right: 12px;
+}
+
+.analytics-view-winners-list table td {
+    color: #333333;
+    font-size: 14px;
+}
+
+.analytics-view-icon a {
+    color: #666666;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.analytics-view-winners-list table tr {
+    border-top: solid 1px #D6D6D6;
+}
+
+.rewards-analytics-view-winners .pa-tabs md-tab-item {
+    font-size: 18px;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-right: 30px;
+}
+
+td.winners-user-pro-list img {
+    float: left;
+    margin-right: 10px;
+}
+
+.analytics-text-block {
+    display: inline-flex;
+    align-items: center;
+    color: #D0021B;
+    font-size: 16px;
+    line-height: normal;
+    font-family: "Lato";
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.analytics-text-block>i.material-icons {
+    color: #D0021B;
+    margin-right: 10px;
+    opacity: 1;
+}
+
+.analytics-view-winners-list table tr th.sr-number {
+    padding-right: 00;
+}
+
+md-tabs.pa-tabs .rewards-analytics-view-list {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    border: initial;
+}
+
+.analytics-view-winners-list table tr th {
+    color: #999999;
+    font-size: 14px;
+    line-height: 19px;
+    padding: 14px 0;
+}
+
+.Downloadcsv-postion {
+    position: absolute;
+    right: 0;
+    top: 14px;
+    z-index: 9;
+}
+
+.graph-analytics {
+    border-top: solid 1px #D6D6D6;
+    padding-top: 50px;
+}
+
+.graph-analytics img {
+    width: 100%;
+}
+
+.viewshare {
+    float: right;
+    width: 153px;
+    font-size: 14px;
+    margin-top: 2px;
+    position: relative;
+}
+
+.viewshare span {
+    height: 15px;
+    width: 15px;
+    border-radius: 4px;
+    position: absolute;
+    margin-left: -20px;
+    margin-top: 3px;
+}
+
+.share-any span {
+    background: #38B968;
+}
+
+.views-any span {
+    background: #f5af00;
+}
+
+.viewshare .views-any {
+    float: left;
+}
+
+.share-any {
+    float: right;
+}
+
+.rewards-analytics-popup-featured {
+    text-align: left;
+    width: auto;
+}
+
+.full-analytics-cloum {
+    border-bottom: solid 1px #E4E4E4;
+    padding-bottom: 23px;
+    margin-bottom: 17px;
+}
+
+.rewards-analytics-popup-featured i {
+    float: left;
+    opacity: 0.6;
+    color: #333333;
+}
+
+.rewards-analytics-popup-featured span {
+    color: #858585;
+    font-size: 13px;
+    line-height: 24px;
+    margin-left: 8px;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.rewards-analytics-popup-featured span b {
+    color: #333333;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 19px;
+    display: block;
+    text-transform: none;
+}
+
+.not-provide-yet {
+    padding-left: 15px;
+}
+
+.not-provide-yet i {
+    color: #EB9D01;
+    opacity: 1;
+}
+
+.analytics-disqualify-btn {
+    float: right;
+    width: 106px;
+    border: 1px solid #CBCBCB;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    color: #A02740;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px 0;
+    text-decoration: none;
+}
+
+.analytics-disqualify-btn:hover {
+    text-decoration: none;
+    color: #A02740;
+}
+
+.not-provide-yet span {
+    color: #eb9d01;
+}
+
+.disqualify-section {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.disqualify-section span {
+    color: #D0021B;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 19px;
+    margin: 0;
+    float: left;
+}
+
+.disqualify-section i {
+    color: #D0021B;
+    opacity: 1;
+    float: left;
+    margin-right: 7px;
+    margin-top: -1px;
+}
+
+.rewards-analytics-popup .modal-dialog.login-modal {
+    width: 700px;
+}
+
+
+/*manage reward live*/
+
+.manageRewardsLive md-tabs-wrapper {
+    border-bottom: solid 1px #E4E4E4;
+}
+
+.manageRewardsLivebtn a {
+    border: 1px solid #CBCBCB;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    float: right;
+    padding: 6px 20px;
+    color: #A02740;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.manageRewardsLivebtn a:hover {
+    color: #A02740;
+}
+
+.manageRewardsLive .upgrade-manage-events-title {
+    color: #333333;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 26px;
+    margin-bottom: 8px;
+    text-decoration: none;
+}
+
+.attendeeregularuser-details .ticket-details {
+    margin-top: 20px;
+}
+
+.attendeeregularuser-details .ticket-date span {
+    line-height: 18px;
+}
+
+.attendeeregularuser-details .view-temrs-attendee .event-share-imgdecrption p {
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.manageRewardsLive .upgrade-manage-events-title {
+    width: 90%;
+}
+
+.md-tab {
+    padding-top: 8px;
+}
+
+.manageRewardsLive .upcoming-event-box-img img.object-cover {
+    height: 196px;
+}
+
+.valid-option {
+    font-size: 16px;
+    color: #666666;
+}
+
+.valid-option-live-rew {
+    display: inline-block;
+    width: auto;
+    margin-top: 1px;
+}
+
+.tags-label-des span {
+    border: 1px solid #5B4DDD;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    float: left;
+    padding: 3px 12px;
+    color: #5B4DDD;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.manageRewardsLive-tablist {
+    display: inline-block;
+    width: 100%;
+}
+
+.tags-label-des {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.manageRewardsLive .pa-tabs md-tab-item {
+    padding-left: 2px;
+    padding-right: 2px;
+    font-size: 18px;
+    margin-right: 40px;
+}
+
+.manageRewardsLive .rebecca-head {
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.manageRewardsLive .search-people-head {
+    display: inline-block;
+    width: 100%;
+}
+
+.manageRewardsLive .search-people-head h1 {
+    float: left;
+    margin-top: 0px;
+}
+
+.manageRewardsLive .addPaypal {
+    margin-top: 0;
+}
+
+
+/*---------------reward trems--------------------*/
+
+.reward-Info-head .col-sm-5 {
+    padding-right: 0;
+}
+
+.reward-Info-head .col-sm-5 img {
+    width: 261px;
+}
+
+.reward-Info {
+    border-top: solid 1px #D6D6D6;
+    margin-top: 30px;
+}
+
+.reward-manage-event .event-share h3,
+.reward-manage-event .event-share h3 a {
+    font-size: 20px;
+    text-transform: capitalize;
+    cursor: pointer;
+    color: #333;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: flex-end;
+    line-height: 24px;
+}
+
+.reward-manage-event .event-share h3 i {
+    font-size: 22px;
+    display: inline-flex;
+    vertical-align: middle;
+    margin-left: 8px;
+    opacity: 0.8;
+}
+
+.reward-manage-event .event-share h3:hover i {
+    opacity: 1;
+}
+
+.reward-manage-event .event-share h3:hover,
+.reward-manage-event .event-share h3:hover a {
+    color: #A02541;
+}
+
+.reward-action.manageevent-fth-sec.check-attendees .tt-scan-attendees a {
+    font-weight: bold;
+}
+
+.reward-action.manageevent-fth-sec.check-attendees .tt-scan-attendees a span {
+    margin-right: 10px;
+}
+
+.reward-action.manageevent-fth-sec.check-attendees .tt-scan-attendees {
+    width: 190px;
+    height: 42px;
+}
+
+.reward-action.manageevent-fth-sec.check-attendees .tt-scan-attendees[disabled] {
+    background-color: #d6d6d6 !important;
+    cursor: not-allowed;
+    border-color: #7f7f7f;
+}
+
+.reward-action.manageevent-fth-sec.check-attendees .tt-scan-attendees[disabled]>a {
+    color: #999;
+    cursor: not-allowed;
+}
+
+.pa-tabs md-tab-item {
+    font-size: 18px !important;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-right: 40px;
+}
+
+.share-events-get-rewards-head {
+    float: left;
+}
+
+.share-events-get-rewards-head h2 {
+    color: #333333;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 19px;
+    margin-top: 34px;
+    margin-bottom: 12px;
+}
+
+.share-events-get-rewards-head span {
+    color: #666666;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.share-events-get-rewards-card {
+    float: right;
+    width: 380px;
+    border: 1px solid #EEEEEE;
+    border-radius: 8px;
+    background-color: rgba(245, 166, 35, 0.1);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px 25px 20px 25px;
+    margin-top: 30px;
+}
+
+.event-date-postion {
+    margin-top: 40px !important;
+}
+
+.notification-attende-btn-group a:first-child {
+    padding-top: 8px;
+}
+
+.share-events-get-rewards-card img {
+    margin: 0 auto;
+    display: table;
+    margin-bottom: 33px;
+}
+
+.gift-card-share-head {
+    display: block;
+    color: #333333;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 34px;
+    text-align: center;
+}
+
+.share-events-get-rewards-card a {
+    padding: 6px 30px;
+    width: auto;
+    display: inline-block;
+    height: auto;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.share-events-get-rewards {
+    display: inline-block;
+    width: 100%;
+}
+
+.share-events-get-list {
+    margin-top: 32px;
+}
+
+.share-events-get-list {
+    float: left;
+    margin-top: 10px;
+    max-width: 705px;
+    width: 100%
+}
+
+.share-events-get-list .manageRewardsLivebtn {
+    float: right;
+    margin-top: -12px;
+}
+
+.share-events-get-list .manageRewardsLivebtn i {
+    float: left;
+    margin-right: 6px;
+}
+
+.share-events-get-list .manageRewardsLivebtn span {
+    float: right;
+    margin-top: 1px;
+}
+
+.share-events-get-list .upcoming-event-box-img,
+.share-events-get-list .upcoming-event-box-img img,
+.event-interested .upcoming-event-box-img,
+.event-interested .upcoming-event-box-img img {
+    width: 240px;
+}
+
+.minus-mr {
+    margin-right: -15px !important;
+}
+
+.customtooltip.type-twotoltip {
+    position: absolute;
+    top: 0;
+    overflow: visible;
+}
+
+.no-data-case-analytics-view {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.social-img {
+    width: 30px;
+    height: 30px;
+    margin: 15px 0;
+}
+
+.pa-tabs .md-tab {
+    text-transform: capitalize;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.login-modal .modal-body {
+    padding: 20px;
+}
+
+.rewardtermspopup .modal-body {
+    border: 1px solid #F6F6F6;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.rewardtermspopup .login-modal .modal-body {
+    padding: 30px;
+}
+
+.rewardpopup-content i {
+    opacity: 0.6;
+    font-size: 42px;
+    color: #F5A623;
+    letter-spacing: 0;
+    line-height: 24px;
+}
+
+.info_terms_popup_main i.material-icons {
+    color: #F5A623 !important;
+    font-size: 42px !important;
+    opacity: 1 !important;
+}
+
+.share-eventon span {
+    color: #333333;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    display: block;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.social-circle {
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    border: 1px solid #333333;
+    opacity: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.share-eventon .social-circle {
+    float: left;
+    opacity: 1;
+}
+
+.share-eventon .fa.fa-facebook-f {
+    color: #4267B2;
+}
+
+.share-eventon .fa-snapchat-ghost {
+    color: #F8EC1F;
+}
+
+.share-eventon .fa-whatsapp {
+    color: #29A81A;
+}
+
+.share-eventon .med-social-icons {
+    display: table;
+    margin: 0 auto;
+}
+
+.share-event-other .bannerBtnGroup button {
+    margin-right: 20px;
+}
+
+.share-event-other span {
+    display: block;
+    color: #333333;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    margin: 30px auto;
+}
+
+.rewardpopup-content i {
+    font-size: 42px;
+    color: #F5A623;
+}
+
+.rewardpopup-content h2 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #333333;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: -0.38px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.rewardpopup-content:not(.duplicate-event) span {
+    color: #666666;
+    font-size: 16px;
+    letter-spacing: -0.26px;
+    line-height: 24px;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    display: table;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.rewardpopup-content .md-button {
+    height: 48px;
+    width: 270px;
+    border-radius: 4px;
+    background-color: #A02541;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+}
+
+.rewardpopup-content .md-button.save-exit {
+    color: #ffffff !important;
+}
+
+.rewardpopup-content .md-button.delete-event-btn{
+    background: #fff !important;
+    color: #a02541 !important;
+}
+
+.rewardtermspopup .login-modal {
+    width: 96%;
+    max-width: 700px;
+}
+
+.popup-perent {
+    padding-right: 0 !important;
+}
+
+.popup-perent .modal-dialog {
+    margin: 20px auto;
+}
+
+.popup-perent .modal-content {
+    border-radius: 4px;
+}
+
+.rewardpopup-content .md-button:hover {
+    background-color: #A02541;
+    background: #69182b !important;
+}
+
+.tc_list_perent .rebecca-head {
+    margin-top: 0px;
+}
+
+@media screen and (max-width: 1366px) {
+    .pa-tabs md-tab-item {
+        font-size: 16px !important;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .rewards-analytics-content-child {
+        width: 90%;
+        float: left;
+        padding-left: 0;
+        margin-top: 20px;
+    }
+    .rewards-analytics .moremenu-upgrade {
+        margin-top: 20px;
+    }
+    .rewards-analytics-venu {
+        display: inline-block;
+    }
+    .rewards-analytics-venu-list {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .rewards-analytics-img {
+        width: 100%;
+    }
+    .rewards-analytics-content {
+        display: inline-block;
+        width: 100%;
+    }
+    .rewards-analytics-venu-list i {
+        padding-bottom: 38px;
+        margin-right: 6px;
+    }
+    .share-eventon {
+        margin-top: 10px;
+    }
+}

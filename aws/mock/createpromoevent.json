@@ -1,0 +1,139 @@
+{
+    "resource": "/events/promo",
+    "path": "/events/promo",
+    "httpMethod": "POST",
+    "headers": {
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+        "CloudFront-Forwarded-Proto": "https",
+        "CloudFront-Is-Desktop-Viewer": "false",
+        "CloudFront-Is-Mobile-Viewer": "true",
+        "CloudFront-Is-SmartTV-Viewer": "false",
+        "CloudFront-Is-Tablet-Viewer": "false",
+        "CloudFront-Viewer-Country": "IN",
+        "content-type": "application/json",
+        "Host": "dp4s4dpr3h.execute-api.eu-west-1.amazonaws.com",
+        "origin": "http://localhost:8888",
+        "Referer": "http://localhost:8888/",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "cross-site",
+        "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36",
+        "Via": "2.0 e2e41676065fc012285fc9dc0e8d58ff.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Id": "TXRjHhD9fkZh5KgcFKTs0VnxYy69CIL6BqFNK0flgWH6QVAQatlPhQ==",
+        "X-Amzn-Trace-Id": "Root=1-5ded983b-060e7b08771ab4b63d70487b",
+        "x-api-key": "0UJgayUdNUaQNGkpUXyLh8RC8lc1PxKi1paCTLf2",
+        "X-Forwarded-For": "122.177.129.180, 64.252.163.72",
+        "X-Forwarded-Port": "443",
+        "X-Forwarded-Proto": "https"
+    },
+    "multiValueHeaders": {
+        "Accept": [
+            "application/json, text/plain, */*"
+        ],
+        "Accept-Encoding": [
+            "gzip, deflate, br"
+        ],
+        "Accept-Language": [
+            "en-GB,en-US;q=0.9,en;q=0.8"
+        ],
+        "CloudFront-Forwarded-Proto": [
+            "https"
+        ],
+        "CloudFront-Is-Desktop-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-Mobile-Viewer": [
+            "true"
+        ],
+        "CloudFront-Is-SmartTV-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-Tablet-Viewer": [
+            "false"
+        ],
+        "CloudFront-Viewer-Country": [
+            "IN"
+        ],
+        "content-type": [
+            "application/json"
+        ],
+        "Host": [
+            "dp4s4dpr3h.execute-api.eu-west-1.amazonaws.com"
+        ],
+        "origin": [
+            "http://localhost:8888"
+        ],
+        "Referer": [
+            "http://localhost:8888/"
+        ],
+        "sec-fetch-mode": [
+            "cors"
+        ],
+        "sec-fetch-site": [
+            "cross-site"
+        ],
+        "User-Agent": [
+            "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36"
+        ],
+        "Via": [
+            "2.0 e2e41676065fc012285fc9dc0e8d58ff.cloudfront.net (CloudFront)"
+        ],
+        "X-Amz-Cf-Id": [
+            "TXRjHhD9fkZh5KgcFKTs0VnxYy69CIL6BqFNK0flgWH6QVAQatlPhQ=="
+        ],
+        "X-Amzn-Trace-Id": [
+            "Root=1-5ded983b-060e7b08771ab4b63d70487b"
+        ],
+        "x-api-key": [
+            "0UJgayUdNUaQNGkpUXyLh8RC8lc1PxKi1paCTLf2"
+        ],
+        "X-Forwarded-For": [
+            "122.177.129.180, 64.252.163.72"
+        ],
+        "X-Forwarded-Port": [
+            "443"
+        ],
+        "X-Forwarded-Proto": [
+            "https"
+        ]
+    },
+    "queryStringParameters": null,
+    "multiValueQueryStringParameters": null,
+    "pathParameters": null,
+    "stageVariables": null,
+    "requestContext": {
+        "resourceId": "quxd5e",
+        "resourcePath": "/events/promo",
+        "httpMethod": "POST",
+        "extendedRequestId": "EaS5XHYuDoEFu8Q=",
+        "requestTime": "09/Dec/2019:00:41:31 +0000",
+        "path": "/test/events/promo",
+        "accountId": "576180419135",
+        "protocol": "HTTP/1.1",
+        "stage": "test",
+        "domainPrefix": "dp4s4dpr3h",
+        "requestTimeEpoch": 1575852091844,
+        "requestId": "3cbc45c6-f13d-43f6-943b-ca76e8808232",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "cognitoIdentityId": null,
+            "apiKey": "0UJgayUdNUaQNGkpUXyLh8RC8lc1PxKi1paCTLf2",
+            "principalOrgId": null,
+            "cognitoAuthenticationType": null,
+            "userArn": null,
+            "apiKeyId": "gbszzqxm24",
+            "userAgent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36",
+            "accountId": null,
+            "caller": null,
+            "sourceIp": "122.177.129.180",
+            "accessKey": null,
+            "cognitoAuthenticationProvider": null,
+            "user": null
+        },
+        "domainName": "dp4s4dpr3h.execute-api.eu-west-1.amazonaws.com",
+        "apiId": "dp4s4dpr3h"
+    },
+    "body": "{\"id\":\"5ded983da0eb47699b304bea\",\"event_name\":\"testwithguests2\",\"description\":\"dasdasdasd\",\"event_type\":\"private\",\"address\":{\"city\":\"Noida\",\"state\":\"Uttar Pradesh\",\"country\":\"India\"},\"start_date_time\":\"2019-12-11T00:40:39.740Z\",\"end_date_time\":\"2019-12-11T00:40:39.740Z\",\"longitude\":77.39102649999995,\"latitude\":28.5355161,\"timezone\":\"Asia/Calcutta\",\"sponsored_event\":false,\"start_date_time_ms\":1576024839740,\"end_date_time_ms\":1576024839740,\"share_counter\":0,\"event_admin\":[],\"email\":null,\"phone\":null,\"website\":null,\"isdraft\":true,\"isPHQ\":false,\"ticketType\":null,\"admissionTicketType\":null,\"ticketsCheckedIn\":0,\"session\":{\"application_id\":67927,\"created_at\":\"2019-12-09T00:13:12Z\",\"id\":1239807422,\"nonce\":6842,\"token\":\"a7b119102d035d0588037f5bb5d6bfee6f010957\",\"ts\":1575850392,\"updated_at\":\"2019-12-09T00:13:12Z\",\"user_id\":100453910,\"_id\":\"1239807422\"},\"venue_is\":\"To be announced\",\"country_code\":\"IN\",\"user\":{\"id\":100453910,\"full_name\":\"tester1 sunita\",\"email\":\"sgautam+tt@codeblock.co.in\",\"login\":\"tester1\",\"phone\":null,\"website\":null,\"created_at\":\"2019-11-22T07:32:18Z\",\"updated_at\":\"2019-12-09T00:13:12Z\",\"last_request_at\":\"2019-12-09T00:13:13Z\",\"external_user_id\":null,\"facebook_id\":null,\"twitter_id\":null,\"blob_id\":9811132,\"custom_data\":{\"city\":\"London\",\"city_lat\":51.5073509,\"city_long\":-0.12775829999998223,\"about_you\":\"dhjdhjsdhskjdhsajkdhasdj ddhjdjhjsdhjds dhgdjhgdajgdasjhg dgadhjd\",\"paypalEmail\":null},\"age_over16\":false,\"allow_statistics_analysis\":false,\"allow_sales_activities\":false,\"parents_contacts\":\"\",\"user_tags\":null,\"imgUrl\":\"https://api.quickblox.com/blobs/ad7e522d69b54715b43e3e8052453de600?token=a7b119102d035d0588037f5bb5d6bfee6f010957\",\"gateway\":{\"_id\":\"5dd7a7d1a0eb477c3929ee44\",\"_parent_id\":null,\"created_at\":1574414289,\"current_plan_id\":null,\"gateway_id\":\"cus_GE0H27eqR69L1q\",\"last4\":\"4242\",\"updated_at\":1575850209,\"user_id\":100453910}},\"paypalEmail\":null,\"tickets\":[],\"guests\":[{\"email\":\"tbansal+guests2@codeblock.co.in\",\"type\":\"email\"}]}",
+    "isBase64Encoded": false
+}

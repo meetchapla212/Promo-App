@@ -1,0 +1,131 @@
+{
+    "resource": "/user/{id}/billinghistory",
+    "path": "/user/cus_EefZvsOZxo3geM/billinghistory",
+    "httpMethod": "GET",
+    "headers": {
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+        "CloudFront-Forwarded-Proto": "https",
+        "CloudFront-Is-Desktop-Viewer": "true",
+        "CloudFront-Is-Mobile-Viewer": "false",
+        "CloudFront-Is-SmartTV-Viewer": "false",
+        "CloudFront-Is-Tablet-Viewer": "false",
+        "CloudFront-Viewer-Country": "IN",
+        "Host": "dp4s4dpr3h.execute-api.eu-west-1.amazonaws.com",
+        "origin": "http://localhost:8888",
+        "Referer": "http://localhost:8888/",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "cross-site",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
+        "Via": "2.0 f141d417e05d51417091355a78802372.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Id": "lwMqLd0x5E-RlrmNvAjCFG5j2xHF-vGADVcjCgBoLEMFIzLZN5XHuA==",
+        "X-Amzn-Trace-Id": "Root=1-5dd3e298-92a7d2173463b9be45ed6bb7",
+        "X-Forwarded-For": "122.177.39.5, 70.132.23.142",
+        "X-Forwarded-Port": "443",
+        "X-Forwarded-Proto": "https"
+    },
+    "multiValueHeaders": {
+        "Accept": [
+            "application/json, text/plain, */*"
+        ],
+        "Accept-Encoding": [
+            "gzip, deflate, br"
+        ],
+        "Accept-Language": [
+            "en-GB,en-US;q=0.9,en;q=0.8"
+        ],
+        "CloudFront-Forwarded-Proto": [
+            "https"
+        ],
+        "CloudFront-Is-Desktop-Viewer": [
+            "true"
+        ],
+        "CloudFront-Is-Mobile-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-SmartTV-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-Tablet-Viewer": [
+            "false"
+        ],
+        "CloudFront-Viewer-Country": [
+            "IN"
+        ],
+        "Host": [
+            "dp4s4dpr3h.execute-api.eu-west-1.amazonaws.com"
+        ],
+        "origin": [
+            "http://localhost:8888"
+        ],
+        "Referer": [
+            "http://localhost:8888/"
+        ],
+        "sec-fetch-mode": [
+            "cors"
+        ],
+        "sec-fetch-site": [
+            "cross-site"
+        ],
+        "User-Agent": [
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36"
+        ],
+        "Via": [
+            "2.0 f141d417e05d51417091355a78802372.cloudfront.net (CloudFront)"
+        ],
+        "X-Amz-Cf-Id": [
+            "lwMqLd0x5E-RlrmNvAjCFG5j2xHF-vGADVcjCgBoLEMFIzLZN5XHuA=="
+        ],
+        "X-Amzn-Trace-Id": [
+            "Root=1-5dd3e298-92a7d2173463b9be45ed6bb7"
+        ],
+        "X-Forwarded-For": [
+            "122.177.39.5, 70.132.23.142"
+        ],
+        "X-Forwarded-Port": [
+            "443"
+        ],
+        "X-Forwarded-Proto": [
+            "https"
+        ]
+    },
+    "queryStringParameters": null,
+    "multiValueQueryStringParameters": null,
+    "pathParameters": {
+        "id": "cus_EefZvsOZxo3geM"
+    },
+    "stageVariables": null,
+    "requestContext": {
+        "resourceId": "euwkbg",
+        "resourcePath": "/user/{id}/billinghistory",
+        "httpMethod": "GET",
+        "extendedRequestId": "DaBX6HmzjoEFxwQ=",
+        "requestTime": "19/Nov/2019:12:39:52 +0000",
+        "path": "/test/user/cus_EefZvsOZxo3geM/billinghistory",
+        "accountId": "576180419135",
+        "protocol": "HTTP/1.1",
+        "stage": "test",
+        "domainPrefix": "dp4s4dpr3h",
+        "requestTimeEpoch": 1574167192982,
+        "requestId": "b3f5f4a7-fd2f-4d83-9d27-d8e94c3eae2b",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "accountId": null,
+            "cognitoIdentityId": null,
+            "caller": null,
+            "sourceIp": "122.177.39.5",
+            "principalOrgId": null,
+            "accessKey": null,
+            "cognitoAuthenticationType": null,
+            "cognitoAuthenticationProvider": null,
+            "userArn": null,
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
+            "user": null
+        },
+        "domainName": "dp4s4dpr3h.execute-api.eu-west-1.amazonaws.com",
+        "apiId": "dp4s4dpr3h"
+    },
+    "body": null,
+    "isBase64Encoded": false
+}

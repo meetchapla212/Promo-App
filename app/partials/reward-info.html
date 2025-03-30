@@ -1,0 +1,254 @@
+<div class="reward-step-main-parent" ng-show="showHide.template == 'partials/reward-info.html'">
+    <div class="col-lg-2 col-md-2 col-sm-0 col-xs-0"></div>
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 pb-100">
+        <form name="createRewardForms.create_reward_form_1" id="create_reward_form_1">
+            <section class="basic_info_1" ng-show="currentInfoSection.includes('create_reward_form_1')">
+                <md-card class="card-color margin">
+                    <md-card-header class="col-md-12 pa-bg-F9 align-items-center create-header-style pa-border-EEEEEE tt-margin-bottom-0">
+                        <md-card-header-text>
+                            <span class="md-title"><span class="pa-bold-font pa-font-20 pa-color-333333">General Information</span><span class="pa-font-16 ml-10">(Required)</span></span>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <md-card-content class="pa-no-padding" layout-gt-sm="row" layout-padding style="background: #ffffff">
+                        <div class="event-form create-w-100 pa-mt-30-imp">
+                            <md-input-container class="w-100 pa-mt-30-imp event_cat_first" id="selectEvent" flex-gt-sm>
+                                <label class="pa-color-333333">Select Event <span class="pa-required">*</span>  </label>
+                                <a href="javascript:void(0)" class="customtooltip event_tool"><i class="material-icons">help_outline</i> <span class="customtooltiptext">Event cannot be edited after going live.</span></a>
+                                <div class="form-control ht-48 categorydropdown" ng-if="action == 'Create' " isteven-multi-select selection-mode="single" input-model="userEventDD" output-model="addReward.event_id" button-label="iconImg name" item-label="iconImg name" tick-property="selected"
+                                    helper-elements="none" translation="dropdowns.eventsLang" tooltip-trigger="'none'" uib-tooltip="Event is required." on-item-click="funcClick(addReward.event_id)" required name="event_id">
+                                </div>
+                                <input type="text" ng-if="action !== 'Create' && eventRDetails.event_id" disabled="true" name="Event Name" ng-model="addReward.event_id" readonly value="{{eventRDetails.event_name}}" class="form-control card-color disable-select-event" placeholder="Event Name">
+                                <div class="input-error" ng-messages="createRewardForms.create_reward_form_1.event_id.$error">
+                                    <div ng-message="required">This field is required.</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="w-100 pa-mt-30-imp pa-mb-0 pa-no-margin" id="promotionTitle" flex-gt-sm>
+                                <label class="pa-color-333333">Title <span class="pa-required">*</span></label>
+                                <input type="text" name="title" md-maxlength="70" maxlength="70" ng-minlength="10" ng-model="addReward.title" md-no-asterisk class="form-control card-color" placeholder="e.g. Masquerade Ball: Charity Fundraiser" required>
+                                <div ng-messages="createRewardForms.create_reward_form_1.title.$error" class="input-error">
+                                    <div ng-message="required">This field is required.</div>
+                                    <div ng-message="md-maxlength">Promotion name must be less than 50 characters long.
+                                    </div>
+                                    <div ng-message="minlength">Promotion name must be greater than 10 characters.
+                                    </div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="w-100 pa-mt-30-imp pa-mb-0 pa-no-margin" id="promotionDesc" flex-gt-sm>
+                                <label class="pa-color-333333">Description <span class="pa-required">*</span></label>
+                                <textarea required name="description" md-maxlength="120" maxlength="120" ng-minlength="10" ng-model="addReward.description" placeholder="Add your Promotion description here. Tell people what it's all about."></textarea>
+                                <div ng-messages="createRewardForms.create_reward_form_1.description.$error" class="input-error">
+                                    <div ng-message="required">This field is required.</div>
+                                    <div ng-message="md-maxlength">Promotion description must be less than 120 characters long.
+                                    </div>
+                                    <div ng-message="minlength">Promotion description must be greater than 10 characters.
+                                    </div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="w-100 pa-mt-30-imp pa-mb-0 pa-no-margin" id="rewardDetails" flex-gt-sm>
+                                <label class="pa-color-333333">What is the Reward? <span class="pa-required">*</span></label>
+                                <input type="text" maxlength="70" name="reward_item" md-maxlength="70" ng-minlength="10" ng-model="addReward.reward_item" md-no-asterisk class="form-control card-color" placeholder="e.g. 5 Free Drinks Vouchers" required>
+                                <div ng-messages="createRewardForms.create_reward_form_1.reward_item.$error" class="input-error">
+                                    <div ng-message="required">This field is required.</div>
+                                    <div ng-message="md-maxlength">Reward must be less than 70 characters long.
+                                    </div>
+                                    <div ng-message="minlength">Reward must be greater than 10 characters.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </section>
+            <section class="create_event_form_2" ng-show="currentInfoSection.includes('create_reward_form_1')">
+                <md-card class="margin">
+                    <md-card-header class="col-md-12 pa-color-grey align-items-center pa-border-EEEEEE tt-margin-bottom-0">
+                        <md-card-header-text>
+                            <span class="md-title .pa-font-13"><span class="mr-5 pa-color-333333 pa-font-bold">Image</span><span class="pa-font-16 ml-10 card-color">(Required)</span></span>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <md-card-content class="col-lg-12 pa-bg-FFFFFF pa-no-padding-imp" layout-padding>
+
+                        <div class='event-form image-selcted-rew pa-padding-30-imp pb-15'>
+                            <div class="pa-font-16 pb-15 card-color pa-mt-20 pa-mt-0">
+                                This is the first image attendees will see at the top of your listing. Please use a high quality Image. <span class="pa-required">*</span>
+                            </div>
+                            <div id="ce-file-upload" name="eventImage" class="pa-background-E pa-border-4 border-3px pa-position-relative pa-cursor-pointer reward-img-upload image-upload-view" ngf-drop ngf-select ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-accept="'image/*'"
+                                ng-model="addReward.image" ngf-min-width="350" ngf-min-height="200" ngf-change="handleFileSelect($file,$event,$invalidFiles)" ng-show="!showHide.imageSelected && !addReward.image">
+                                <div class="absolute">
+                                    <div class="insert-photo-icon pa-display-block">
+                                        <md-icon class="material-icons" role="img" aria-label="insert_photo">insert_photo</md-icon>
+                                    </div>
+                                    <div class="pa-text-center pa-color-333333 pa-font-16 pa-mt-4">Drag & drop or click to add main event image.</div>
+                                    <div class="pa-text-center pa-color-999999 pa-font-14 font-italic lh-22 mt-10">JPEG or PNG, Not larger than 10MB.</div>
+                                </div>
+                            </div>
+
+                            <md-card-avatar ng-if="!showHide.imageSelected && addReward.image" class="image-upload-view reward-after-crop">
+                                <img class="md-user-avatar img-responsive pa-width-100p" ng-show="createRewardForms.create_reward_form_1.image.$valid && addReward.image" ngf-thumbnail="!addReward.image.$error && addReward.image">
+                            </md-card-avatar>
+
+                            <md-card-icon-actions ng-if="!showHide.imageSelected && addReward.image" class="creat-event-action if-reward">
+                                <md-icon class="material-icons pa-cursor-pointer" role="img" aria-label="edit" ng-click="editImage('ce-file-upload')">edit</md-icon>
+                                <md-icon class="material-icons cancelled-clor pa-cursor-pointer" role="img" aria-label="delete" ng-click="deleteImage()">delete</md-icon>
+                            </md-card-icon-actions>
+
+                            <md-input-container class="w-100 pa-mb-0 pa-no-margin event-description-error" flex-gt-sm md-is-error="createRewardForms.create_reward_form_1.eventImage.$invalid">
+                                <div ng-messages="createRewardForms.create_reward_form_1.eventImage.$error" class="input-error">
+                                    <div ng-message="required">Event Image is required</div>
+                                    <div ng-message="maxSize">Event Image cannot be greater than 10MB</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </section>
+
+            <script type="text/ng-template" id="cropImage.html">
+                <md-dialog aria-label="Crop Image" class="pa-crop-dialog">
+                    <md-toolbar class="pa-bg-FFFFFF">
+                        <div class="md-toolbar-tools">
+                            <div class="pa-font-24 pa-color-333333 pa-bold-font text-center" flex>Crop Image</div>
+                            <md-button class="md-icon-button" ng-click="closeDialog('close')">
+                                <md-icon aria-label="Close dialog">close</md-icon>
+                            </md-button>
+                        </div>
+                    </md-toolbar>
+
+                    <md-dialog-content class="pa-bg-FFFFFF border-top-E4E4E4">
+                        <div class="md-dialog-content pa-background-E pa-border-4 border-crop" style="width:1200px;height:400px;">
+                            <ui-cropper class="pa-pos-fixed" image="imageForCropping" result-image="croppedImage" area-type="rectangle" aspect-ratio="2.1" result-image-size="800" result-image-quality="100" area-min-size="100" area-init-size="200"></ui-cropper>
+                        </div>
+                    </md-dialog-content>
+
+                    <md-dialog-actions class="pa-pt-25" layout="row">
+                        <div flex="30">
+                            <md-button class="pa-float-right" ng-click="closeDialog('close')">
+                                <md-icon class="pa-font-16 pa-color-pink pa-vertical-align-sub">arrow_back_ios</md-icon>
+                                <span class="pa-font-16 pa-color-pink pa-bold-font">Back</span>
+                            </md-button>
+                        </div>
+
+                        <span flex="45"></span>
+                        <span flex>
+                            <md-button class="pa-pink-button ht-48 pa-bold-font pa-pl-pr-30" id="saveCropImage" ng-click="closeDialog('save')">
+                                Save & Continue
+                            </md-button>
+                        </span>
+                    </md-dialog-actions>
+                </md-dialog>
+            </script>
+
+
+            <section class="basic_info_3 md-radio-button-rew" style="margin-bottom: 50px;">
+                <md-card class="card-color margin">
+                    <md-card-header class="col-md-12 pa-bg-F9 align-items-center create-header-style pa-border-EEEEEE tt-margin-bottom-0">
+                        <md-card-header-text>
+                            <span class="md-title"><span class="pa-bold-font pa-font-20 pa-color-333333">Date and Time</span><span class="pa-font-16 ml-10">(Required)</span></span>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <md-card-content class="pa-no-padding" layout-gt-sm="row" id="selectDateOption" layout-padding style="background: #ffffff">
+                        <div class="event-form create-w-100 pa-mt-30-imp event_tym_zone">
+                            <div class="reward-sub-time-head ">Select Promotion time frame type: <span class="pa-required">*</span></div>
+                            <md-radio-group class="reward-time" ng-model="addReward.reward_time" name="reward_time">
+                                <md-radio-button value="auto" [checked]='true' ng-click="showCraeteReward('Y')" class="md-checked"><b> Auto Select Promotion Time Frame</b> <br> <span>Your Promotion will be applicable until the event starts.</span></md-radio-button>
+                                <md-radio-button value="customize" ng-disabled="addReward.event_id.length > 0 || action === 'edit' ? false : true" ng-click="showCraeteReward('N')"><b> Customize Promotion Time Frame</b> <br> <span>Run promotion for a specific, customized time frame. Please adjust this as per your event's start and end times.</span></md-radio-button>
+                            </md-radio-group>
+                            <div class="col-md-12" ng-if="!createRewardForms.create_reward_form_1.reward_time.$pristine">
+                                <div ng-messages="createRewardForms.create_reward_form_1.reward_time.$error">
+                                    <div ng-message="required">This field is required</div>
+                                </div>
+                            </div>
+                            <div ng-show="IsVisible && addReward.reward_time == 'customize'">
+                                <div class="form-group pa-mt-40 pa-no-margin showschedule event-date-postion">
+                                    <div class="row ce-sa">
+                                        <div class="col-lg-6 col-md-6 mb-991">
+                                            <md-input-container class="create-w-100 md-icon-float md-icon-left pa-no-margin" flex-gt-sm md-is-error="createRewardForms.create_reward_form_1.startDate.$invalid">
+                                                <label class="pa-color-333333">Promotion Start Date  <span class="pa-required">*</span></label>
+                                                <md-icon>date_range</md-icon>
+                                                <input md-no-asterisk name="startDate" readonly date-range-picker class="form-control date-picker input-height card-color md-input-with-icon" type="text" ng-required="true" ng-model="addReward.start.date" max="eventSelectedData" min="dropdowns.startDateRangePicker.minDate"
+                                                    options="dropdowns.startDateRangePicker.options" />
+                                                <div ng-messages="createRewardForms.create_reward_form_1.startDate.$error">
+                                                    <div ng-message="required">This field is required.</div>
+                                                    <div ng-message="minDate">Start date cannot take place after end date.</div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <md-input-container class="create-w-100 md-icon-float md-icon-left pa-no-margin" flex-gt-sm md-is-error="createRewardForms.create_reward_form_1.startTime.$invalid">
+                                                <label class="pa-color-333333">Promotion Start Time  <span class="pa-required">*</span></label>
+                                                <md-icon>query_builder</md-icon>
+                                                <md-select ng-change="validateTime(addReward.start.date,addReward.start.time,addReward.end.date,addReward.end.time,'create_reward_form_1','startDate')" md-container-class="event-form-select md-icon-float md-icon-right" name="startTime" class="form-control ht-48 md-select-with-icon"
+                                                    ng-model="addReward.start.time">
+                                                    <md-option ng-repeat="item in dropdowns.times.options" ng-value="item.value">
+                                                        {{item.value}}
+                                                    </md-option>
+                                                </md-select>
+                                                <div ng-messages="createRewardForms.create_reward_form_1.startTime.$error">
+                                                    <div ng-message="required">This field is required.</div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ce-sa">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 pa-position-relative mb-991">
+                                            <md-input-container class="create-w-100 pa-no-margin md-icon-float md-icon-left" flex-gt-sm>
+                                                <label class="pa-color-333333">Promotion End  <span class="pa-required">*</span></label>
+                                                <md-icon>date_range</md-icon>
+
+                                                <input md-no-asterisk name="endDate" readonly date-range-picker class="form-control date-picker ht-48 card-color md-input-with-icon" type="text" ng-required="true" ng-model="addReward.end.date" min="addReward.start.date || dropdowns.endDateRangePicker.minDate"
+                                                    options="dropdowns.endDateRangePicker.options" max="eventSelectedData" />
+                                                <div ng-messages="createRewardForms.create_reward_form_1.endDate.$error">
+                                                    <div ng-message="required">This field is required.</div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 pa-position-relative">
+                                            <md-input-container class="create-w-100 md-icon-float md-icon-left pa-no-margin" flex-gt-sm>
+                                                <label class="pa-color-333333">Promotion End Time  <span class="pa-required">*</span></label>
+                                                <md-icon>query_builder</md-icon>
+                                                <md-select ng-change="validateTime(addReward.start.date,addReward.start.time,addReward.end.date,addReward.end.time,'create_reward_form_1','endDate')" name="endTime" md-container-class="event-form-select md-icon-float md-icon-right" class="form-control ht-48 md-select-with-icon"
+                                                    ng-model="addReward.end.time">
+                                                    <md-option ng-repeat="item in dropdowns.times.options" ng-disabled="(timeEndIndex >= $index ? '' : 'disabled')" ng-value="item.value">
+                                                        {{item.value}}
+                                                    </md-option>
+                                                </md-select>
+                                                <div ng-messages="createRewardForms.create_reward_form_1.endTime.$error">
+                                                    <div ng-message="required">This field is required.</div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group pa-mt-30-imp">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <md-input-container flex-gt-sm class="create-w-100 md-icon-float md-icon-left pa-no-margin" flex-gt-smflex-gt-smflex-gt-sm>
+                                                <label for="eventCategory" class="pa-color-333333">Event Time Zone  <span class="pa-required">*</span></label>
+                                                <md-icon>query_builder</md-icon>
+                                                <md-select md-container-class="event-form-select md-icon-float md-icon-right ht-48" name="time_zone" class="form-control ht-48 md-select-with-icon" ng-model="addReward.time_zone" ng-disabled="true">
+                                                    <md-option ng-repeat="item in dropdowns.timezones.options" ng-value="item.key">
+                                                        {{item.value}}
+                                                    </md-option>
+                                                </md-select>
+                                                <span class="caret"></span>
+                                                <div ng-messages="createRewardForms.create_reward_form_1.time_zone.$error">
+                                                    <div ng-message="required">This field is required.</div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </section>
+        </form>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-0 col-xs-0"></div>
+</div>

@@ -1,0 +1,45 @@
+<div flex layout="column" layout-align="start stretch" class="bg-F6F6F6 verfiy_otp">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div flex layout-fill class="interested_mob_wrap account-wrapper mobile-perent">
+        <div class="mobile-header display-flex-mob desktop-hide">
+            <span class="back-btn-mobile">
+                <a ng-click="goToPage('/login')" class="pa-cursor-pointer"><i class="material-icons">arrow_back</i></a>
+            </span>
+        </div>
+        <div class="container-wtd-1170 mobile-insta-login">
+            <h2 class="add-mob-title desktop-hide">Verify {{otp_verification_data.signup_type == '1' ? 'Email' : 'Number'}}</h2>
+            <figure ng-click="goToPage('/')" class="login_lg mobile-hide"><img src="/img/logo-the-promo-app-red.png" alt="promoapp" class="img-responsive"></figure>
+            <div class="mobile-hide verify_em_ph_title">Verify {{otp_verification_data.signup_type === '1' ? 'Email' : 'Phone Number'}} to Continue Sign Up Process</div>
+            <p ng-if="otp_verification_data.signup_type === '1'" class="pa-font-15 pa-color-666666 pa-mb-20 otp-text">One Time Password sent to {{otp_verification_data.email}}</p>
+            <p ng-if="otp_verification_data.signup_type === '2'" class="pa-font-15 pa-color-666666 pa-mb-20 otp-text">One Time Password sent to +{{otp_verification_data.country_code}}-{{otp_verification_data.mobile_number}}</p>
+            <form name="OTPVerifyForm" ng-submit="verifySignUpOTP(otp, OTPVerifyForm)" id="OTP_verify_form">
+                <md-input-container class="form-group otp-inp-container full-field pa-mt-30-imp flex-gt-sm md-input-has-value mobile-hide pa-mb-30 pa-mb-12 input-code">
+                    <label>One Time Password <sup class="pa-required">*</sup></label>
+                    <div class="pass-show" ng-click="hideShowPassword()">{{inputType === 'password' ? 'Show' : 'Hide'}}</div>
+                    <div class="otp_bx pa-mt-0">
+                        <input type="{{inputType}}" ng-model="otp_1" name="otp_1" maxlength="1" id="otp_1" ng-paste="optProcessSignupPast($event)" ng-change="optProcessSignup()" class="form-control login-control phn-inp ob-color-input tt-font-16 pa-border-cccccc otpProcessClass"
+                            ng-required="OTPVerifyForm.otp_1.$invalid" />
+                        <input type="{{inputType}}" ng-model="otp_2" name="otp_2" maxlength="1" id="otp_2" ng-change="optProcessSignup()" class="form-control login-control phn-inp ob-color-input tt-font-16 pa-border-cccccc otpProcessClass" ng-required="OTPVerifyForm.otp_2.$invalid"
+                        />
+                        <input type="{{inputType}}" ng-model="otp_3" name="otp_3" maxlength="1" id="otp_3" ng-change="optProcessSignup()" class="form-control login-control phn-inp ob-color-input tt-font-16 pa-border-cccccc otpProcessClass" ng-required="OTPVerifyForm.otp_3.$invalid"
+                        />
+                        <input type="{{inputType}}" ng-model="otp_4" name="otp_4" maxlength="1" id="otp_4" ng-change="optProcessSignup()" class="form-control login-control phn-inp ob-color-input tt-font-16 pa-border-cccccc otpProcessClass" ng-required="OTPVerifyForm.otp_4.$invalid"
+                        />
+                        <input type="{{inputType}}" ng-model="otp_5" name="otp_5" maxlength="1" id="otp_5" ng-change="optProcessSignup()" class="form-control login-control phn-inp ob-color-input tt-font-16 pa-border-cccccc otpProcessClass" ng-required="OTPVerifyForm.otp_5.$invalid"
+                        />
+                        <input type="{{inputType}}" ng-model="otp_6" name="otp_6" maxlength="1" id="otp_6" ng-change="optProcessSignup()" class="form-control login-control phn-inp ob-color-input tt-font-16 pa-border-cccccc otpProcessClass" ng-required="OTPVerifyForm.otp_6.$invalid"
+                        />
+                    </div>
+                    <div ng-messages="OTPVerifyForm.otp_1.$error || OTPVerifyForm.otp_2.$error || OTPVerifyForm.otp_3.$error || OTPVerifyForm.otp_4.$error || OTPVerifyForm.otp_5.$error || OTPVerifyForm.otp_6.$error" class="input-error">
+                        <div ng-message="required">This field is required.</div>
+                    </div>
+                </md-input-container>
+                <p class="pa-font-12 pa-color-666666 pa-mb-20 text-right"><span class="resendOTP_CL" ng-class="{'disabled': counter != 0}" ng-click="resendOTP(true)">Resend One Time Password</span>{{counter | counter | date:'mm:ss'}}</p>
+                <div class="col-md-12 pa-mb-30 pa-mt-45 pa-pl-pr-0 text-right forgot-btn">
+                    <button ng-disabled="!OTPVerifyForm.$valid" type="submit" class="btn btn-login ob-padding-0 h-48 ob-line-ht-48 pa-font-bold pa-font-16">Done</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</div>

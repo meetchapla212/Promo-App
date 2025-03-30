@@ -1,0 +1,258 @@
+.profile-main-div {
+    padding: 10px 15px;
+    margin: 0px 20px 20px 20px;
+    box-shadow: 0 0 1px 1px #cccccc;
+}
+
+.content-description {
+    line-height: inherit;
+    word-break: break-all;
+}
+
+.follower-div {
+    margin: 15px 8px;
+    word-break: break-word;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
+}
+
+.follower-p {
+    padding-top: 20px;
+}
+
+.db-border {
+    border-right: 2px solid #000000;
+}
+
+.events-div {
+    margin: 20px 0;
+    min-height: 160px;
+}
+
+.event-custom {
+    padding: 10px 25px;
+}
+
+.bar-code-div i {
+    font-size: 100px;
+}
+
+.bar-code-div {
+    padding: 18px 0;
+}
+
+.tt-border-bottom-cccccc {
+    border-bottom: 1px solid #cccccc;
+}
+
+.tt-padding-10 {
+    padding: 10px;
+}
+
+.tt-content-detail {
+    overflow: hidden;
+    min-height: 58px;
+}
+
+.tt-padding-50 {
+    padding: 50px;
+}
+
+.tt-image-adjust {
+    height: 165px;
+}
+
+.tt-ticket-none {
+    height: 160px;
+}
+
+.tt-mobile-scroll-view {
+    overflow-y: scroll;
+}
+
+.tt-follow-button {
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+    border: none;
+}
+
+.zone-list {
+    list-style: none;
+    display: flex;
+    padding-left: 0;
+    align-items: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.zone-list .zone-list-item {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 33.33%;
+    margin-bottom: 20px;
+}
+
+.zone-list .zone-list-item:last-child {
+    padding-right: 0;
+}
+
+.zone-list .zone-list-item .zone-item-image {
+    background-color: #E4E4E4;
+    border: 1px solid #E4E4E4;
+    width: 60px;
+    height: 60px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 14px;
+}
+
+.zone-list .zone-list-item .zone-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.zone-list .zone-list-item .zone-item-image>i {
+    font-size: 32px;
+    color: #666666;
+}
+
+.zone-list .zone-list-item .zone-item-info .zone-name {
+    color: #333333;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 19px;
+}
+
+.zone-list .zone-list-item .zone-item-info .zone-action a {
+    color: #9C2C2C;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 8px;
+    display: inline-block;
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 1024px) {
+    .profile-main-div {
+        margin-top: 20px;
+    }
+    .tt-media-center-align {
+        text-align: center;
+    }
+    .tt-media-color-3B373C {
+        color: #3B373C;
+    }
+    .tt-media-font-18 {
+        font-size: 18px;
+    }
+    .tt-media-font-16 {
+        font-size: 16px;
+    }
+    .tt-media-font-14 {
+        font-size: 14px;
+    }
+    .tt-media-position-edit {
+        position: absolute;
+        top: -195px;
+        right: -15px;
+    }
+    .tt-media-background-EEEEEE {
+        background: #EEEEEE !important;
+    }
+    .tt-media-background-white {
+        background: #ffffff;
+    }
+    .tt-media-left-align {
+        text-align: left;
+    }
+    .tt-media-ml-10 {
+        margin-left: 10px;
+    }
+    .content-description {
+        text-align: center;
+    }
+    .tt-media-padding-20 {
+        padding: 20px !important;
+    }
+    .tt-media-new-user {
+        padding: 20px 20px 20px 35px !important;
+    }
+    .tt-dasboard-content-width {
+        width: 1024px;
+    }
+    .profile-main-div {
+        padding: 0px;
+        box-shadow: unset;
+    }
+    .tt-media-appear {
+        display: none;
+    }
+    .tt-color-818081 {
+        color: #818081;
+    }
+    .tt-calendar-icon-width {
+        width: 28px;
+        margin-left: 6px;
+    }
+    .tt-media-font-weight {
+        font-weight: bold;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .tt-media-d-none {
+        display: none;
+    }
+}
+
+.tt-padding-top {
+    padding-top: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    .tt-border-box {
+        border: 1px solid #CCCCCC;
+    }
+    .my-profile-img {
+        border: none;
+    }
+    .tt-reduce-width {
+        width: 21% !important;
+    }
+    .tt-media-reduce {
+        padding: 20px 0;
+    }
+    .my-profile-block {
+        display: block;
+    }
+    .zone-list .zone-list-item {
+        flex: 0 0 100%;
+        border-bottom: 1px solid #ececec;
+        padding-bottom: 30px;
+    }
+    .zone-list .zone-list-item:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+    }
+    .zone-list .zone-list-item .zone-item-info .zone-action a {
+        padding: 7px 15px;
+        font-size: 15px;
+        border: solid 1px #CBCBCB;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        display: inline-block;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+}
+
+.setting-text {
+    height: 70px !important;
+    --line-height: 280%;
+    line-height: var(--line-height);
+}

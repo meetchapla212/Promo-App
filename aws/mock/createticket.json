@@ -1,0 +1,139 @@
+{
+    "resource": "/events/tickets",
+    "path": "/events/tickets",
+    "httpMethod": "POST",
+    "headers": {
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+        "CloudFront-Forwarded-Proto": "https",
+        "CloudFront-Is-Desktop-Viewer": "true",
+        "CloudFront-Is-Mobile-Viewer": "false",
+        "CloudFront-Is-SmartTV-Viewer": "false",
+        "CloudFront-Is-Tablet-Viewer": "false",
+        "CloudFront-Viewer-Country": "IN",
+        "content-type": "application/json",
+        "Host": "dp4s4dpr3h.execute-api.eu-west-1.amazonaws.com",
+        "origin": "http://localhost:8888",
+        "Referer": "http://localhost:8888/",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "cross-site",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
+        "Via": "2.0 60cfc875c178fa4f43c5dd6f3c724756.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Id": "HVxOGC3nE-0IDjVIVAVwtj-InHSu_Crlo03PVWyZpp9w4veOBd4V4Q==",
+        "X-Amzn-Trace-Id": "Root=1-5dcccdc4-5af61966e5291b1481426556",
+        "x-api-key": "0UJgayUdNUaQNGkpUXyLh8RC8lc1PxKi1paCTLf2",
+        "X-Forwarded-For": "122.177.56.236, 64.252.164.159",
+        "X-Forwarded-Port": "443",
+        "X-Forwarded-Proto": "https"
+    },
+    "multiValueHeaders": {
+        "Accept": [
+            "application/json, text/plain, */*"
+        ],
+        "Accept-Encoding": [
+            "gzip, deflate, br"
+        ],
+        "Accept-Language": [
+            "en-GB,en-US;q=0.9,en;q=0.8"
+        ],
+        "CloudFront-Forwarded-Proto": [
+            "https"
+        ],
+        "CloudFront-Is-Desktop-Viewer": [
+            "true"
+        ],
+        "CloudFront-Is-Mobile-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-SmartTV-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-Tablet-Viewer": [
+            "false"
+        ],
+        "CloudFront-Viewer-Country": [
+            "IN"
+        ],
+        "content-type": [
+            "application/json"
+        ],
+        "Host": [
+            "dp4s4dpr3h.execute-api.eu-west-1.amazonaws.com"
+        ],
+        "origin": [
+            "http://localhost:8888"
+        ],
+        "Referer": [
+            "http://localhost:8888/"
+        ],
+        "sec-fetch-mode": [
+            "cors"
+        ],
+        "sec-fetch-site": [
+            "cross-site"
+        ],
+        "User-Agent": [
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36"
+        ],
+        "Via": [
+            "2.0 60cfc875c178fa4f43c5dd6f3c724756.cloudfront.net (CloudFront)"
+        ],
+        "X-Amz-Cf-Id": [
+            "HVxOGC3nE-0IDjVIVAVwtj-InHSu_Crlo03PVWyZpp9w4veOBd4V4Q=="
+        ],
+        "X-Amzn-Trace-Id": [
+            "Root=1-5dcccdc4-5af61966e5291b1481426556"
+        ],
+        "x-api-key": [
+            "0UJgayUdNUaQNGkpUXyLh8RC8lc1PxKi1paCTLf2"
+        ],
+        "X-Forwarded-For": [
+            "122.177.56.236, 64.252.164.159"
+        ],
+        "X-Forwarded-Port": [
+            "443"
+        ],
+        "X-Forwarded-Proto": [
+            "https"
+        ]
+    },
+    "queryStringParameters": null,
+    "multiValueQueryStringParameters": null,
+    "pathParameters": null,
+    "stageVariables": null,
+    "requestContext": {
+        "resourceId": "lrwtng",
+        "resourcePath": "/events/tickets",
+        "httpMethod": "POST",
+        "extendedRequestId": "DIUWyEREDoEFuEA=",
+        "requestTime": "14/Nov/2019:03:45:08 +0000",
+        "path": "/test/events/tickets",
+        "accountId": "576180419135",
+        "protocol": "HTTP/1.1",
+        "stage": "test",
+        "domainPrefix": "dp4s4dpr3h",
+        "requestTimeEpoch": 1573703108977,
+        "requestId": "7bc9cacb-1202-4bd8-b567-c9719376968d",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "cognitoIdentityId": null,
+            "apiKey": "0UJgayUdNUaQNGkpUXyLh8RC8lc1PxKi1paCTLf2",
+            "principalOrgId": null,
+            "cognitoAuthenticationType": null,
+            "userArn": null,
+            "apiKeyId": "gbszzqxm24",
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
+            "accountId": null,
+            "caller": null,
+            "sourceIp": "122.177.56.236",
+            "accessKey": null,
+            "cognitoAuthenticationProvider": null,
+            "user": null
+        },
+        "domainName": "dp4s4dpr3h.execute-api.eu-west-1.amazonaws.com",
+        "apiId": "dp4s4dpr3h"
+    },
+    "body": "{\"event_id\":\"5dc90f20a28f9a5478cbb187\",\"attendee\":94248668,\"tickets\":[{\"type\":\"gdgdgdgd\",\"quantity\":1,\"price\":20}],\"total_amount\":20}",
+    "isBase64Encoded": false
+}

@@ -1,0 +1,369 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE mobile-perent_section" ng-if="!isMobile.matches">
+    <div flex class="container-wtd-1170 mobile-hide">
+        <div class="search-people-head header-pro-withbtn" ng-if="!userProfileView">
+            <h1 class="pull-left">My Profile </h1>
+            <div class="edit-profile-sm-btn pull-right" ng-if="!userProfileView">
+                <a ng-if="!user.mobile_number" ng-href="/change-mobile-number" class="pa-color-pink tt-mr-10">Add Mobile Number</a>
+                <a ng-if="user.mobile_number" ng-href="/change-mobile-number" class="pa-color-pink">Change Mobile Number</a>
+                <a ng-href="/changepassword" class="pa-color-pink">Change Password</a>
+            </div>
+        </div>
+
+        <div class="text-head" ng-if="userProfileView">
+            <a href="/searchuser?#people" ng-if="!dashboardRoute && !zoneProfileRoute" class="back-to-btn"><i class="material-icons">navigate_before</i> Back to people search page</a>
+            <a ng-href="{{dashboardRouteUrl}}" ng-if="dashboardRoute" class="back-to-btn"><i class="material-icons">navigate_before</i> Back to Zone Dashboard</a>
+            <a ng-href="{{zoneProfileRouteUrl}}" ng-if="zoneProfileRoute" class="back-to-btn"><i class="material-icons">navigate_before</i> Back to Zone Profile</a>
+        </div>
+
+        <div class="organizer-profile mobile-with-desk">
+            <div class="profile-details">
+                <div class="profile-box-section">
+                    <div class="my-profile-img">
+                        <span class="profile-img" ng-if="isShow">
+                            <img class="profile-img" ng-if="user.imgUrl" ng-src="{{user.imgUrl}}" />
+                            <img class="profile-img" ng-if="!user.imgUrl" src="../img/defaultProfilePic.png" />
+                        </span>
+                        <span class="profile-img" ng-if="!isShow">
+                            <img class="profile-img" ng-if="user.profile_pic !== null" ng-src="{{user.profile_pic}}" />
+                            <img class="profile-img" ng-if="user.profile_pic === null" src="../img/defaultProfilePic.png" />
+                        </span>
+                    </div>
+                    <div class="my-profile-info">
+                        <div class="my-profile-info-pe mr-top-50-mobile">
+                            <span class="profile-name">
+                                <h4 class="pa-truncate" ng-if="user.first_name">{{user.first_name +" "+ user.last_name}}</h4>
+                            </span>
+                            <span class="profile-name" ng-if="!user.first_name">
+                                <h3 class="pa-truncate">{{user.username || user.full_name}}</h3>
+                            </span>
+                            <div class="my-profile-other-details">
+                                <span ng-if="!user.mobile_number && (!dashboardRoute && !zoneProfileRoute)" class="profile-email"><i class="material-icons">mail</i>{{user.email}}</span>
+                                <span ng-if="user.mobile_number && (!dashboardRoute && !zoneProfileRoute)" class="profile-email"><i class="material-icons">phone</i>{{user.mobile_number}}</span>
+                                <span class="profile-local" ng-class="{'pa-ml-0': dashboardRoute || zoneProfileRoute}">
+                                    <md-icon class="pa-color-666666" ng-if="user.city">location_on
+                                    </md-icon>{{user.city}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="edit-profile-sm-btn" ng-if="!userProfileView">
+                            <a ng-href="/settings" class="pa-color-pink">Edit Profile</a>
+                        </div>
+                    </div>
+
+                    <div class="my-profile-description">
+                        <span ng-if="!showMore">{{user.about_you | limitTo: limitDesc}}</span>
+                        <span ng-if="showMore">{{user.about_you}}</span>
+                        <a ng-show="!showMore && user.about_you.length > limitDesc" ng-click="showMore=!showMore">View More</a>
+                        <a ng-show="showMore && user.about_you.length > limitDesc" ng-click="showMore=!showMore">View Less</a>
+                        <div class="following-msg" ng-if="userProfileView && !loading">
+                            <md-button ng-show="user.user_id != loggedInUser.user_id" class="pa-pink-button" style="display: inline-flex;" pa-follow-button="{followByUser: {{ loggedInUser.user_id }} , toFollowUser: {{ user.user_id }}}" reload-on="checkFollow" ng-click="doFollowUserInDirective(user,loggedInUser)">
+                                <i id="followTextIcon" class="material-icons pa-color-FFFFFF-imp"></i>
+                                <span class="pa-font-bold pa-color-FFFFFF-imp" id="followText">Follow</span>
+                            </md-button>
+                            <a ng-show="user.user_id != loggedInUser.user_id" target="_blank" ng-href="/chat.html?userId={{user.quickblox_id}}" class="border-btn"><i class="material-icons">chat</i>Message</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-follwers">
+                    <span class="follwers-sec" ng-click="goToFollower()">
+                        <h3 pa-follower-by-id="{{ user.user_id }}" reload-on="checkFollow"></h3>
+                        Followers
+                    </span>
+                    <span class="following-sec" ng-click="goToFollower(1)">
+                        <h3 pa-following-by-id="{{ user.user_id }}" reload-on="checkFollow"></h3>
+                        Following
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="organizer-profile mr-top-20 ">
+            <md-content>
+                <md-tabs class="pa-tabs" md-dynamic-height md-border-bottom>
+                    <md-tab label="Events I am Interested In" class="pa-padding-20 pa-font-18">
+                        <md-content class="upcoming-past-tab-tabs-content">
+                            <div class="event-interested mr-top-20">
+                                <div class="upcoming-event-box" ng-repeat="event in allInterestedInEvents | start: (currentPageGoing - 1) * numPerPage | limitTo: numPerPage">
+                                    <div class="upcoming-event-box-img pa-cursor-pointer">
+                                        <a ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}">
+                                            <img pa-event-img url="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" class="object-cover" alt="Event-1">
+                                            <span event-ticket-price event="event" class="free-event" ng-class="{'eo-free':!(event.ticketType === 'paid')}"></span>
+                                        </a>
+                                    </div>
+                                    <div class="upcoming-event-content-box">
+                                        <a class="pa-text-decoration" ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}">
+                                            <h3 class="pa-truncate pa-cursor-pointer">{{event.event_name}}</h3>
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <md-icon class="pa-color-666666">location_on</md-icon>
+                                                <span>{{event.city +", "+ event.address_state +", "+ event.country}}</span>
+                                            </li>
+                                            <li>
+                                                <md-icon class="pa-color-666666">date_range</md-icon>
+                                                <span>{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}</span>
+                                            </li>
+                                            <li>
+                                                <md-icon class="pa-color-666666">access_time</md-icon>
+                                                <span>{{event.start_date_time | toMoment | momentFormatter:"hh:mm a"}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="custom-pagination">
+                                    <ul ng-show="allInterestedInEvents.length > maxSize" class="pa-center-div" uib-pagination previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" items-per-page="numPerPage" total-items="allInterestedInEvents.length" ng-model="currentPageGoing"
+                                        max-size="maxSize">
+                                    </ul>
+                                </div>
+                                <div ng-if="allInterestedInEvents.length == 0" class="no-data-case-profile">
+                                    Events you show interest in will appear here.
+                                </div>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="Events I have Shared" class="pa-padding-20 pa-font-18">
+                        <md-content class="upcoming-past-tab-tabs-content">
+                            <div class="share-events-get-rewards">
+                                <div class="share-events-get-list mr-top-20">
+                                    <div class="upcoming-event-box" ng-repeat="event in SharedEvents | start: (currentPageGoing - 1) * numPerPage | limitTo: numPerPage">
+                                        <div class="upcoming-event-box-img pa-cursor-pointer">
+                                            <a ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}">
+                                                <img pa-event-img url="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" class="object-cover" alt="Event-1">
+                                                <span event-ticket-price event="event" class="free-event" ng-class="{'eo-free':!(event.ticketType === 'paid')}"></span>
+                                            </a>
+                                        </div>
+                                        <div class="upcoming-event-content-box">
+                                            <a class="pa-text-decoration" ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}">
+                                                <h3 class="pa-truncate pa-cursor-pointer">{{event.event_name}}</h3>
+                                            </a>
+                                            <ul>
+                                                <li>
+                                                    <md-icon class="pa-color-666666">location_on</md-icon>
+                                                    <span>{{event.city +", "+ event.state +", "+ event.country}}</span>
+                                                </li>
+                                                <li>
+                                                    <md-icon class="pa-color-666666">date_range</md-icon>
+                                                    <span>{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}</span>
+                                                </li>
+                                                <li>
+                                                    <md-icon class="pa-color-666666">access_time</md-icon>
+                                                    <span>{{event.start_date_time | toMoment | momentFormatter:"hh:mm a"}}</span>
+                                                </li>
+                                            </ul>
+                                            <div class="manageRewardsLivebtn" ng-if="event.is_rewardShared  && user.user_id == loggedInUser.user_id">
+                                                <a href="/view_analytics_attendee/{{event.reward_id}}"><i class="material-icons">assessment</i> <span>View Analytics</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-show="SharedEvents.length > maxSize" class="custom-pagination">
+                                        <ul class="pa-center-div" uib-pagination previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" items-per-page="numPerPage" total-items="SharedEvents.length" ng-model="currentPageGoing" max-size="maxSize">
+                                        </ul>
+                                    </div>
+                                    <div ng-show="SharedEvents.length == 0" class="no-data-case-profile">
+                                        Events you share will appear here.
+                                    </div>
+                                </div>
+                                <div class="share-events-get-rewards-card mr-top-20">
+                                    <img src="img/reward.svg">
+                                    <span class="gift-card-share-head">Share Events and Stand a Chance to Win Exciting Promotions!</span>
+                                    <a href="/" class="pa-add-event pa-font-14 md-button md-ink-ripple">Browse Events</a>
+                                    <p><b>Note:</b> Promotions are only applicable on certain events if the organizer has chosen to implement a promotion system</p>
+                                </div>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="Zone Member Of" ng-if="user.is_zone_member" class="pa-padding-20 pa-font-18 ">
+                        <md-content class="upcoming-past-tab-tabs-content">
+                            <ul class="zone-list" ng-if="zoneListData.length > 0">
+                                <li class="zone-list-item" ng-repeat="list in zoneListData">
+                                    <div class="zone-item-image">
+                                        <i class="material-icons" ng-if="list.logo == ''">account_circle</i>
+                                        <img ng-src="{{list.logo}}" ng-if="list.logo != ''" alt="Promoapp" />
+                                    </div>
+                                    <div class="zone-item-info">
+                                        <div class="zone-name">{{list.name}}</div>
+                                        <div class="zone-action"><a ng-click="removeZoneConfirmation(list.zone_id, 'list')">Leave Zone</a></div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div ng-if="zoneListData.length == 0" class="no-data-case-profile">
+                                Zone memeber will appear here.
+                            </div>
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </md-content>
+        </div>
+    </div>
+    
+</div>
+
+<!-- Mobile view -->
+<div flex layout="column" layout-align="start stretch" class="pa-background-white desktop-hide" ng-if="isMobile.matches">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div flex layout-fill class="profile_mob_wrap mobile-perent">
+        <div class="new_mheader">
+            <button type="button" ng-click="goToPage('/notifications')" class="trp_btn"><md-icon>notifications</md-icon></button>
+            <button type="button" ng-click="goToPage('/menu')" class="trp_btn"><md-icon>menu</md-icon></button>
+        </div>
+        <!-- Profile Details -->
+        <div class="profile_up_del new_pp_bg tt-padding-20">
+            <div class="pp_del_up">
+                <figure class="pp_img">
+                    <img ng-if="user.imgUrl" ng-src="{{user.imgUrl}}" alt="{{user.username || user.full_name}}">
+                    <img ng-if="!user.imgUrl" src="../img/defaultProfilePic.png" alt="{{user.username || user.full_name}}">
+                </figure>
+                <div class="pp_del_rt pa-color-FFFFFF">
+                    <h3 class="pa-font-17" ng-if="user.first_name">{{user.first_name +" "+ user.last_name}}</h3>
+                    <h3 class="pa-font-17" ng-if="!user.first_name">{{user.username || user.full_name}}</h3>
+                    <p class="pa-font-15" ng-if="user.email">{{user.email}}</p>
+                    <p class="pa-font-15" ng-if="user.mobile_number">{{user.mobile_number}}</p>
+                    <p class="pa-font-15">{{user.city}}</p>
+                </div>
+            </div>
+            <p class="pa-font-15 pa-color-FFFFFF">{{user.about_you}}</p>
+            <a ng-href="/settings" class="pa-font-15 pa-color-FFFFFF pa-text-decoration-underline">Edit Profile</a>
+            <a ng-if="!user.email" ng-href="/change-email-address" class="pa-font-15 pa-color-FFFFFF pa-text-decoration-underline pa-ml-15">Add Email Address</a>
+            <a ng-if="!user.mobile_number" ng-href="/change-mobile-number" class="pa-font-15 pa-color-FFFFFF pa-text-decoration-underline pa-ml-15">Add Mobile Number</a>
+        </div>
+        <!-- Profile Details End -->
+        <!-- Followers list -->
+        <div class="followers_list three">
+            <a ng-click="goToPage('/tickets')">
+                <span class="num pa-font-17"> {{userTicketsEvents.length}}  </span>
+                <span class="tt pa-font-15">My Tickets</span>
+            </a>
+            <a ng-click="goToFollower()">
+                <span class="num pa-font-17" pa-follower-by-id="{{ user.user_id }}" reload-on="checkFollow"></span>
+                <span class="tt pa-font-15">Followers</span>
+            </a>
+            <a ng-click="goToFollower(1)">
+                <span class="num pa-font-17" pa-following-by-id="{{ user.user_id }}" reload-on="checkFollow"></span>
+                <span class="tt pa-font-15">Following</span>
+            </a>
+        </div>
+        <!-- Followers list End -->
+        <!--  Events -->
+        <div class="nn_events_list tt-padding-20">
+            <div class="tabs_mob_upc">
+                <a ng-click="currentTab = true; getEventsData(1);" ng-class="{'active': currentTab} ">Interested Events</a>
+                <a ng-click="currentTab = false; getEventsData(3);" ng-class="{'active': !currentTab}">Shared Events</a>
+            </div>
+            <!-- Post List -->
+            <div class="mb_post_list bottom_fxbar" ng-if="currentTab">
+                <div class="mb_post_bx" ng-repeat="event in interestedeventsList | start: (currentPageGoing - 1) * numPerPage | limitTo: numPerPage">
+                    <a ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}" class="pa-display-inline-block w-100 pa-height-100p">
+                        <div class="img_bx">
+                            <figure><img pa-event-img url="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" alt="{{event.event_name}}"></figure>
+                            <span class="post_lb" event-ticket-price event="event" class="free-event" ng-class="{'eo-free':!(event.ticketType === 'paid')}"></span>
+                        </div>
+                        <div class="post_details_bx">
+                            <span class="dt">{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, hh:mm A"}} UTC</span>
+                            <p>{{event.event_name}}</p>
+                            <span class="ad">{{event.city +", "+ event.state +", "+ event.country}}</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="custom-pagination">
+                    <ul ng-show="interestedeventsList.length > 10" class="pa-center-div" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" uib-pagination items-per-page="numPerPage" total-items="interestedeventsList.length" ng-model="currentPagePast"
+                        max-size="maxMobileSize"></ul>
+                </div>
+                <div ng-show="interestedeventsList.length == 0" class="no-data-case-profile">
+                    Events you show interest in will appear here.
+                </div>
+            </div>
+            <div class="mb_post_list bottom_fxbar" ng-if="!currentTab">
+                <div class="mb_post_bx" ng-repeat="event in SharedEvents | start: (currentPageGoing - 1) * numPerPage | limitTo: numPerPage">
+                    <a ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}" class="pa-display-inline-block w-100 pa-height-100p">
+                        <div class="img_bx">
+                            <figure><img pa-event-img url="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" alt="{{event.event_name}}"></figure>
+                            <span class="post_lb" event-ticket-price event="event" class="free-event" ng-class="{'eo-free':!(event.ticketType === 'paid')}"></span>
+                        </div>
+                        <div class="post_details_bx">
+                            <span class="dt">{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, hh:mm A"}} UTC</span>
+                            <p>{{event.event_name}}</p>
+                            <span class="ad">{{event.city +", "+ event.state +", "+ event.country}}</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="custom-pagination">
+                    <ul ng-show="SharedEvents.length > 10" class="pa-center-div" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" uib-pagination items-per-page="numPerPage" total-items="SharedEvents.length" ng-model="currentPagePast" max-size="maxMobileSize"></ul>
+                </div>
+                <div ng-show="SharedEvents.length == 0" class="no-data-case-profile">
+                    Events you share will appear here.
+                </div>
+            </div>
+            <!-- Post List End -->
+        </div>
+        <!--  Events End  -->
+        
+    </div>
+
+    <div class="profile_mob_wrap mobile-perent toggleSidebar" id="sidebarToggle" role="dialog" ng-class="{'show': toggleInfo}">
+        <div class="mobile-header d-hide desktop-hide mconnection_header">
+            <span class="back-btn-mobile">
+                <a ng-click="toggleInfo = false" data-dismiss="modal"><i class="material-icons">arrow_back</i></a>
+            </span>
+            <h2 class="pd-right-32">My Account</h2>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="new_mobile_menu" ng-class="{'pb-100': deviceiPhone}">
+            <div class="my-profile-mob-other-link">
+                <h3>MORE</h3>
+                <a ng-href="/manageevent">
+                    <span>Events I have created</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+                <a href="/zoneList" ng-if="user.is_zone_member">
+                    <span>Zone/s that I belong to</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+                <a ng-href="/recommend_events">
+                    <span>Recommended Events</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+                <a ng-href="/chat.html">
+                    <span>Messages</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+                <a href="/changepassword">
+                    <span>Change Password</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+                <a ng-if="user.mobile_number" ng-href="/change-mobile-number">
+                    <span>Change Mobile Number</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+            </div>
+            <div class="my-profile-mob-other-link">
+                <h3>SUPPORT</h3>
+                <a href="https://promo.helpdocs.com/">
+                    <span>Help</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+            </div>
+
+            <div class="my-profile-mob-other-link">
+                <h3>ABOUT</h3>
+                <a><span>Version</span><span class="pull-right">2.01</span></a>
+                <a href="/about_us"><span>About Us</span><span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span></a>
+            </div>
+
+            <div class="my-profile-mob-other-link">
+                <h3>LEGAL</h3>
+                <a href="/terms_of_use">
+                    <span>Terms Of Use</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+                <a href="/cookies_policy">
+                    <span>Cookie Policy</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+            </div>
+            <div>
+                <div class="mobile-full-btn-ft logout-btn-mob">
+                    <a ng-click="logout()" class="bg-white-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

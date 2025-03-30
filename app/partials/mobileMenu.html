@@ -1,0 +1,70 @@
+<div flex layout="column" layout-align="start stretch" class="pa-background-white">
+    <div class="profile_mob_wrap mobile-perent">
+        <div class="mobile-header d-hide desktop-hide mconnection_header">
+            <span class="back-btn-mobile">
+                    <a ng-click="goToPage('/myprofile')" data-dismiss="modal"><i class="material-icons">arrow_back</i></a>
+                </span>
+            <h2 class="pd-right-32">My Account</h2>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="new_mobile_menu" ng-class="{'pb-100': deviceiPhone}">
+            <div class="my-profile-mob-other-link">
+                <h3>MORE</h3>
+                <a ng-href="/manageevent">
+                    <span>Events I have created</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+                <a href="/zoneList" ng-if="user.is_zone_member">
+                    <span>Zone/s that I belong to</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+                <a ng-href="/recommend_events">
+                    <span>Recommended Events</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+                <a ng-href="/chat.html" target="_blank">
+                    <span>Messages</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+                <a href="/changepassword">
+                    <span>Change Password</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+                <a ng-if="user.mobile_number" ng-href="/change-mobile-number">
+                    <span>Change Mobile Number</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+            </div>
+            <div class="my-profile-mob-other-link">
+                <h3>SUPPORT</h3>
+                <a href="https://promo.helpdocs.com/">
+                    <span>Help</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+            </div>
+
+            <div class="my-profile-mob-other-link">
+                <h3>ABOUT</h3>
+                <a><span>Version</span><span class="pull-right">2.01</span></a>
+                <a href="/about_us"><span>About Us</span><span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span></a>
+            </div>
+
+            <div class="my-profile-mob-other-link">
+                <h3>LEGAL</h3>
+                <a href="/terms_of_use">
+                    <span>Terms Of Use</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+                <a href="/cookies_policy">
+                    <span>Cookie Policy</span>
+                    <span class="right-profile-link-mob"><i class="material-icons">navigate_next</i></span>
+                </a>
+            </div>
+            <div>
+                <div class="mobile-full-btn-ft logout-btn-mob">
+                    <a ng-click="logout()" class="bg-white-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

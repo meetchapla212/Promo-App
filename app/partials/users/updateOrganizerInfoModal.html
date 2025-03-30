@@ -1,0 +1,59 @@
+<div class="modal-paypal pa-border-4 pa-f6f6f6-border pa-modal-font pa-pb-20 custom-model-content">
+    <div class="modal-header bg-F9F9F9 pa-center-div pa-align-items-center pa-pt-12 pb-10">
+        <span class="modal-title pa-width-100p-imp pa-no-padding pa-font-bold" id="modal-title">Update Organiser's Info</span>
+        <a ng-click="close();">
+            <span class="modal-close-button"><i class="material-icons">close</i></span>
+        </a>
+    </div>
+    <div class="modal-body">
+        <div class="organiser-info">
+            <p class="organiser-info-text">We will use this information to send users helpful emails and alerts related to the ticket details associated with their purchase from the embedded ticket widget.</p>
+            <form name="organiserProfile.organiser_info_form" class="event-form pa-no-padding" id="organiser_profile">
+                <div class="form-area">
+                    <div class="website-logo form-group">
+                        <label class="custom-label-form">Website Logo <span class="text-danger">*</span></label>
+                        <div class="image-upload-area">
+                            <div id="ce-file-upload" name="organiserLogo" class="org-img-upload" ngf-drop ngf-select ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-accept="'image/*'" ng-model="organiser.image" ngf-min-width="300" ngf-min-height="300" ng-show="!showHide.imageSelected && !organiser.image"
+                                ngf-change="handleFileSelect($file,$event,$invalidFiles)">
+                                <div class="absolute">
+                                    <div class="insert-photo-icon pa-display-block">
+                                        <md-icon class="material-icons" role="img" aria-label="cloud_upload">cloud_upload</md-icon>
+                                    </div>
+                                    <div class="pa-text-center pa-color-333333 pa-font-16 pa-mt-4">Drag & Drop or click to add image</div>
+                                </div>
+                            </div>
+
+                            <md-card-avatar ng-show="!showHide.imageSelected && organiser.image" class="reward-after-crop">
+                                <img class="md-user-avatar img-responsive pa-width-100p" ng-show="organiser.image" ngf-thumbnail="!organiser.image.$error && organiser.image">
+                            </md-card-avatar>
+
+                            <md-card-icon-actions ng-show="!showHide.imageSelected && organiser.image" class="creat-event-action if-reward">
+                                <md-icon class="material-icons pa-cursor-pointer" role="img" aria-label="edit" ng-click="editImage('ce-file-upload')">edit</md-icon>
+                                <md-icon class="material-icons pa-cursor-pointer cancelled-clor" role="img" aria-label="delete" ng-click="deleteImage()">delete</md-icon>
+                            </md-card-icon-actions>
+                        </div>
+                    </div>
+                    <div class="website-name">
+                        <md-input-container class="create-w-100 md-icon-float md-icon-left pa-mt-30-imp">
+                            <label class="custom-label-form">Website Name <span class="text-danger">*</span></label>
+                            <input md-no-asterisk name="websiteName" required type="text" ng-model="organiser.websiteName" class="pa-bootstrap-container form-control pa-border md-input-with-icon" placeholder="e.g. Thepromoapp">
+                        </md-input-container>
+                    </div>
+                    <div class="website-url">
+                        <md-input-container class="create-w-100 md-icon-float md-icon-left pa-mt-30-imp pa-mb-0">
+                            <label class="custom-label-form">Website URL <span class="text-danger">*</span></label>
+                            <input md-no-asterisk name="websiteUrl" required type="url" ng-model="organiser.websiteURL" class="pa-bootstrap-container form-control pa-border md-input-with-icon" placeholder="e.g. http://www.thepromoapp.com" ng-pattern="/^(https?:\/\/)?(www\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\.)+[\w]{2,}(\/\S*)?$/">
+                        </md-input-container>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="widget_footer">
+        <!-- Cance Action-->
+        <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit" ng-click="close();" type="button">Cancel</button>
+
+        <!-- Continue Steps-->
+        <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue" ng-disabled="updateDisableFlag" ng-click="updateInfo();close();" type="button">Update</button>
+    </div>
+</div>

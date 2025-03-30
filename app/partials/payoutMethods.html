@@ -1,0 +1,162 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE" ng-controller="PayoutController">
+    
+    <div flex layout-fill class="pa-bg-EEEEEE">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+        <div class="container-wtd-1170">
+            <md-button class="pa-mt-16 pa-mt-med-35" style="margin-left: -8px;" ng-click="goToPage('/my_payout')">
+                <md-icon class="pa-color-pink ">keyboard_arrow_left</md-icon>
+                <span class="tt-font-16 pa-font-bold pa-color-pink pa-vertical-align">Back to My Payouts</span>
+            </md-button>
+            <!-- hide this section in mobile -->
+            <div class="organizer-profile mobile-hide pa-mb-15" ng-if="user.payouts_enabled < 1">
+                <div class="row pa-bold-font pa-modal-font tt-row-margin tt-top tt-ticket-heading">
+                    <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12 tt-mevent  tt-mqwidth-100 tt-mqcenter-flex pa-no-padding">
+                        <div>
+                            Payout Methods
+                        </div>
+                    </div>
+                </div>
+                <div class="rebecca-event my-followers my-ticket" ng-if="user.is_verified < 1 && user.stripe_account_id === ''">
+                    <div class="upcoming-past-event">
+                        <div class="upcoming-past-tab-tabs-content" style="margin-top:0px !important;">
+                            <div class="billing-event-table  payout_methodtable">
+                                <!-- Table -->
+                                <div class="payout-no-data-case">
+                                    <span> <b>You haven't added any payout methods. To receive payouts for your events, please add one here.</b></span>
+                                    <span class="payment-subhead ">To add a payout method, you will need to connect with a payment gateway. Once this process is complete, you'll be redirected to the next step which is the option to add a payout method.</span>
+                                    <md-input-container class="width-50 pa-mt-30-imp country_drop_add payout_country_drop_add" flex-gt-sm>
+                                        <label class="pa-color-333333">Country <span class="pa-required">*</span></label>
+                                        <select md-container-class="event-form-select ht-48 md-icon-float md-icon-right" name="country" class="pa-border-CBCBCB ht-48" ng-model="stripe_selected_country">
+                                            <option ng-repeat="item in dropdowns.stripe_country.options" ng-value="item.key">
+                                                {{item.value}}
+                                            </option>
+                                        </select>
+                                        <span class="caret"></span>
+                                    </md-input-container>
+                                    <a ng-click="stripeAccountCreate(stripe_selected_country);" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit  md-button md-ink-ripple" style="margin-left: 0px; margin-bottom: 20px !important;">Connect With Payment Gateway</a>
+
+                                    <div class="info-strip admission_info_strip pa-mb-15"><i class="material-icons">info</i><span class="pa-no-margin-imp">The payout method can be used for accounts based in the USA or UK only. The time it takes to process a payout depends on your location. Payouts in the USA will take up to 2 calendar days to process. Payouts in the UK will require up to 7 calendar days to process.</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rebecca-event my-followers my-ticket" ng-if="userBankList.length > 0 && user.stripe_account_id !== '' && stripe_verification_status == 'pending'">
+                    <div class="upcoming-past-event">
+                        <div class="upcoming-past-tab-tabs-content" style="margin-top:0px !important;">
+                            <div class="billing-event-table  payout_methodtable">
+                                <!-- Table -->
+                                <div class="payout-no-data-case">
+                                    <span><b>You haven't added any payout methods. To receive payouts for your events, please add one here.</b></span>
+                                    <span class="payment-subhead ">Account Verification is Pending Verifying your account. This should take just a few minutes.</span>
+
+                                    <a ng-if="stripe_verification_status != 'pending'" ng-click="stripeAccountCreate();" class="primary-btn md-button" style="margin-left: 0px; margin-bottom: 20px !important;">Change Information</a>
+
+                                    <a ng-click="checkStripeStatus();" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit  md-button md-ink-ripple" style="margin-left: 0px; margin-bottom: 20px !important;">Check Approval Status</a>
+
+                                    <div class="info-strip admission_info_strip pa-mb-15"><i class="material-icons">info</i><span class="pa-no-margin-imp">The payout method can be used for accounts based in the USA or UK only. The time it takes to process a payout depends on your location. Payouts in the USA will take up to 2 calendar days to process. Payouts in the UK will require up to 7 calendar days to process.</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rebecca-event my-followers my-ticket" ng-if="userBankList.length == 0 && user.stripe_account_id !== ''">
+                    <div class="upcoming-past-event">
+                        <div class="upcoming-past-tab-tabs-content" style="margin-top:0px !important;">
+                            <div class="billing-event-table  payout_methodtable">
+                                <!-- Table -->
+                                <div class="payout-no-data-case">
+                                    <span><b>You haven't added any payout methods. To receive payouts for your events, please add one here.</b></span>
+                                    <span class="payment-subhead ">Thank you for connecting your payment gateway. Now's a good time to add your payout method.</span>
+                                    <button ng-click="openBankInfo()" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit  md-button md-ink-ripple" style="margin-left: 0px; margin-bottom: 20px !important;">Add Payout Method</button>
+                                    <div class="info-strip admission_info_strip pa-mb-15"><i class="material-icons">info</i><span class="pa-no-margin-imp">The payout method can be used for accounts based in the USA or UK only. The time it takes to process a payout depends on your location. Payouts in the USA will take up to 2 calendar days to process. Payouts in the UK will require up to 7 calendar days to process.</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rebecca-event my-followers my-ticket" ng-if="userBankList.length > 0 && user.stripe_account_id !== '' && stripe_verification_status == 'reject'">
+                    <div class="upcoming-past-event">
+                        <div class="upcoming-past-tab-tabs-content" style="margin-top:0px !important;">
+                            <div class="billing-event-table  payout_methodtable">
+                                <div class="payout-no-data-case-without-line">
+
+                                    <span><b>You can check and update your information here.</b></span>
+
+                                    <a ng-if="stripe_verification_status != 'pending'" ng-click="stripeAccountCreate();" class="primary-btn md-button" style="margin-left: 0px; margin-bottom: 20px !important;">Change Stripe Information</a>
+
+                                    <a ng-click="checkStripeStatus();" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit  md-button md-ink-ripple" style="margin-left: 0px; margin-bottom: 20px !important;">Check Approval Status</a>
+
+                                    <div class="info-strip admission_info_strip pa-mb-15"><i class="material-icons">info</i><span class="pa-no-margin-imp">The payout method can be used for accounts based in the USA or UK only. The time it takes to process a payout depends on your location. Payouts in the USA will take up to 2 calendar days to process. Payouts in the UK will require up to 7 calendar days to process.</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="organizer-profile mobile-hide pa-mb-15" ng-if="user.is_verified == 1 &&  user.charges_enabled == 1 && userBankList.length >= 1 ">
+
+                <div class="row pa-bold-font pa-modal-font tt-row-margin tt-top tt-ticket-heading">
+                    <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12 tt-mevent  tt-mqwidth-100 tt-mqcenter-flex pa-no-padding">
+                        <div>
+                            Payout Methods
+                        </div>
+                    </div>
+                    <div class="col-sm-6 text-right" style="padding-right: 0;">
+                        <button ng-click="openBankInfo()" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit  md-button md-ink-ripple add_pay_meth_btn" style="margin-right: 0;">Add Payout Method</button>
+                    </div>
+                </div>
+                <div class="rebecca-event my-followers my-ticket">
+                    <div class="upcoming-past-event">
+                        <div class="upcoming-past-tab-tabs-content" style="margin-top:0px !important;">
+                            <div class="billing-event-table  payout_methodtable">
+                                <!-- Table -->
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 310px;">Account / Details</th>
+                                            <th>Added On</th>
+                                            <th>Modified On</th>
+                                            <th></th>
+                                            <th style="text-align: right;" width="150px">Action</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody ng-repeat="bank in userBankList">
+                                        <tr>
+                                            <td>
+                                                <b class="pa-col">{{bank.bank_name}} XXXXX{{bank.last4}}</b>
+                                            </td>
+                                            <td>
+                                                {{ bank.date_created | toMoment | momentFormatter:"DD/MM/YYYY"}}
+                                            </td>
+                                            <td>
+                                                <p ng-if="bank.date_modified == '' ">N/A</p>
+                                                {{ bank.date_modified | toMoment | momentFormatter:"DD/MM/YYYY"}}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span ng-if="!bank.is_default" ng-click="confirmMakeDefault(bank.stripe_bank_id)" class="primary-fill with-border-add">Make Default</span>
+                                                <span ng-if="bank.is_default && bank.total_events == 0" class="primary-fill">Default</span>
+                                                <span ng-if="bank.is_default && bank.total_events >=1" class="primary-fill">In use with {{bank.total_events}} events</span>
+                                            </td>
+                                            <td style="text-align: right;">
+                                                <a ng-if="bank.total_events == 0 && !bank.is_default" ng-click="openEditBankInfo($index)" class="action-lock-ico edit-ico"><i class="material-icons">create</i></a>
+                                                <a ng-if="bank.total_events == 0 && !bank.is_default" ng-click="confirmMakeDelete(bank.stripe_bank_id)" class="action-lock-ico delete-ico cancelled-clor"><i class="material-icons">delete</i></a>
+                                                <span ng-if="bank.total_events >= 1 && bank.is_default" class="action-no-text">No action can be taken on default account</span>
+                                                <span ng-if="bank.total_events >= 1 && !bank.is_default" class="action-no-text">No action can be taken on ongoing event account</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

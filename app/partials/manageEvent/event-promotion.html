@@ -1,0 +1,84 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE fixed-layout-vh">
+    
+    <div flex layout-fill class="pa-bg-EEEEEE fixed-layout-vh">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+        <div class="layout_panel_mwrap">
+            <div class="pa-bg-FFFFFF layout_left_panel">
+                <div ng-include="'partials/sidebar.html'" ng-if="sidebarBlock"></div>
+            </div>
+            <div class="layout_right_panel fixed-layout-vh-auto">
+                <div class="flex_justify pa-mb-30">
+                    <div class="report_header">
+                        <h2 class="pa-font-24 pa-mt-0 pa-bold-font">Event Promotion</h2>
+                        <p class="pa-color-3333338 pa-font-14 pa-no-bt-margin-imp">Help to grow event through sharing and can find winners of promotion.</p>
+                    </div>
+                </div>
+                <!-- start-first-screen -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="reward-Info reward-manage-event pa-mt-0" ng-if="rewardExit">
+                            <div class="reward-Info-head">
+                                <div class="event-share">
+                                    <h3><a ng-href="/view_rewards_analytics/{{event.reward_details.reward_id}}" target="_blank">{{event.reward_details.title}} <i class="material-icons">open_in_new</i></a></h3>
+                                    <span>Valid Until: {{ event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} {{ event.start_date_time | toMoment | momentSubtract: "120" | momentFormatter:"hh:00 A" }}</span>
+                                    <div class="share-rewards-panel event-promo_del">
+                                        <div class="img-sec with-mid-img">
+                                            <img data-ng-src="{{ event.reward_details.image }}" alt="{{ event.reward_details.title }}">
+                                        </div>
+                                        <div class="content-side">
+                                            <div class="social-circle pa-cursor-pointer" ng-if="user.user_id" ng-click="socialShare('facebook', true)">
+                                                <i class="fa fa-facebook-f pa-font-24 pa-cursor-pointer"></i>
+                                            </div>
+                                            <div ng-if="user.user_id" class="social-circle pa-cursor-pointer pa-ml-15 snapchat-share-button" data-share-url="{{getSocialShareURL()}}" ng-click="socialShare('snapchat', true)">
+                                                <i class="fa fa-snapchat-ghost pa-font-24 snapchat-right-top pa-cursor-pointer"></i>
+                                            </div>
+                                            <div ng-if="user.user_id" class="social-circle pa-cursor-pointer pa-ml-15" ng-click="socialShare('whatsapp', true)">
+                                                <i class="fa fa-whatsapp pa-font-24 whatsapp-right-top pa-cursor-pointer"></i>
+                                            </div>
+                                            <div ng-if="user.user_id" class="social-circle pa-cursor-pointer pa-ml-15" ng-click="emailShare('email',true)">
+                                                <i class="material-icons mail-left-right pa-font-24 pa-color-pink">mail</i>
+                                            </div>
+                                            <div ng-if="user.user_id" class="social-circle pa-cursor-pointer pa-ml-15" data-dismiss="modal" social-share-link="{{otherUrl}}" ng-click="socialShare('other', true)">
+                                                <i class="material-icons mail-left-right pa-font-24 pa-color-pink pa-cursor-pointer">insert_link</i>
+                                            </div>
+                                            <div class="event-share-imgdecrption">
+                                                <p>{{ event.reward_details.description }}</p>
+                                                <a class="pa-color-pink pa-font-14 pa-bold-font pa-display-inline-flex" data-toggle="modal" data-target="#RewardTerms">View Promotion Terms & Conditions</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="manageevent-fth-sec check-attendees reward-action" ng-if="!rewardExit">
+                            <button ng-click="addPromotionRoute(event.event_id)" ng-if="addPromotionDisabled && (event.status == 'active' || event.status == 'cancel') && !event.is_draft" class="tt-scan-attendees tt-font-22 pa-background-pink tt-btn-100 tt-mqfont-18 pa-border-4">
+                                <a class="tt-qr-center"><span class="material-icons">add_circle_outline</span> Add Promotion</a>
+                            </button>
+                            <button ng-if="!addPromotionDisabled" uib-tooltip="Promotion can be created for an event before 48 hours of the event start time and Promotion ends before 2 hours of event starting." class="tt-scan-attendees tt-font-22 pa-background-pink tt-btn-100 tt-mqfont-18 pa-border-4 disabled">
+                                <a class="tt-qr-center"><span class="material-icons">add_circle_outline</span> Add Promotion</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- end-first-screen -->
+                <div class="modal fade popup-perent rewardtermspopup rewardtermspopup-mob-popup info_terms_popup_main info_terms_popup_main_mobile" id="RewardTerms" tabindex="-1" role="dialog" aria-labelledby="RewardTermsMob" aria-hidden="true">
+                    <div class="modal-dialog login-modal">
+                        <!-- Modal content-->
+                        <div class="modal-body pa-text-center pa-background-white">
+                            <md-icon data-dismiss="modal" class="pa-float-right pa-cursor-pointer" style="position: absolute;top: 10px;right: 10px;">close</md-icon>
+                            <div class="rewardpopup-content">
+                                <i class="material-icons">info</i>
+                                <h2>Reward Terms & Conditions</h2>
+                                <span>{{event.reward_details.terms_condition}}</span>
+                                <md-button data-dismiss="modal">Ok, I understand.</md-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- hide this section in mobile End Here -->
+
+    
+</div>

@@ -1,0 +1,185 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE" ng-controller="PayoutController">
+    
+    <div flex layout-fill class="pa-bg-EEEEEE">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+        <div class="container-wtd-1170 pa-">
+            <div class="row pa-bold-font pa-modal-font tt-row-margin tt-top tt-ticket-heading pa-mt-20">
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12 tt-mevent  tt-mqwidth-100 tt-mqcenter-flex pa-no-padding">
+                    <div>
+                        My Payouts
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12 text-right">
+                    <span class="tt-font-16 pa-color-pink cursor-pointer tt-view-hyt" ng-click="goToPage('/payout_methods')">Payout Methods</span>
+                </div>
+            </div>
+
+            <!-- hide this section in mobile -->
+            <div class="organizer-profile mobile-hide pa-mb-15">
+                <div class="rebecca-event my-followers my-ticket">
+                    <div class="date-picker-filter">
+                        <span class="datepicker-icon"><i class="material-icons">date_range</i></span>
+                        <input md-no-asterisk name="endDate" date-range-picker readonly class="date-picker form-control" type="text" ng-required="true" ng-model="webDateRangePicker.selectedDate" picker="webDateRangePicker.picker" options="webDateRangePicker.options" autocomplete="off"
+                        />
+                    </div>
+                    <div class="upcoming-past-event">
+                        <md-tabs md-dynamic-height md-border-bottom class="pa-tabs">
+                            <md-tab label="Events In Progress" class="pa-padding-20">
+                                <div class="upcoming-past-tab-tabs-content" style="margin-top:0px !important;">
+                                    <div class="billing-event-table payout_table">
+                                        <!-- Table -->
+                                        <table class="table" ng-if="activePays.length > 0 ">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 270px;">Event</th>
+                                                    <th>Tickets</th>
+                                                    <th>Total Earning</th>
+                                                    <th>Total Fee Paid</th>
+                                                    <th>Total Payout</th>
+                                                    <th>Payout Expected On</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr ng-repeat="activepays in activePays | start: ((pagination.currentPage - 1) * pagination.numPerPage) | limitTo: pagination.numPerPage">
+                                                    <td class="pr-3">
+                                                        <a class="cursor-pointer pa-text-decoration" ng-href="/eventdetails/{{activepays.event_name | purger}}/{{activepays.event_id}}"><strong>{{activepays.event_name}}</strong></a> Starts on {{activepays.event_Start_date
+                                                        | toMoment | momentFormatter:"Do MMMM YYYY"}}
+                                                    </td>
+                                                    <td>
+                                                        <span class="green"><strong>{{activepays.total_sale}}</strong></span> / {{activepays.total_tickets}}
+                                                    </td>
+                                                    <td>
+                                                        ${{activepays.total_earn | number : 2}}
+                                                    </td>
+                                                    <td>
+                                                        ${{activepays.total_fee | number : 2}}
+                                                    </td>
+                                                    <td>
+                                                        ${{activepays.total_payout | number : 2}}
+                                                    </td>
+                                                    <td>
+                                                        {{activepays.event_end_date | toMoment | momentFormatter:"DD/MM/YYYY"}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="text-center custom-pagination" ng-if="activePays.length > 10">
+                                            <ul uib-pagination items-per-page="pagination.numPerPage" total-items="activePays.length" ng-model="pagination.currentPage" max-size="pagination.maxSize" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false"></ul>
+                                        </div>
+                                        <div class="upcoming-past-tab-tabs-content tc_list_perent" ng-if="activePays.length === 0 ">
+                                            <div class="rebecca-head">No events in progress to show.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </md-tab>
+                            <md-tab label="Pending Payments" class="pa-padding-20">
+                                <div class="upcoming-past-tab-tabs-content" style="margin-top:0px !important;">
+                                    <div class="billing-event-table payout_table">
+                                        <!-- Table -->
+                                        <table class="table" ng-if="pendingPays.length > 0 ">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 270px;">Event</th>
+                                                    <th>Tickets</th>
+                                                    <th>Total Earning</th>
+                                                    <th>Total Fee Paid</th>
+                                                    <th>Total Payout</th>
+                                                    <th>Payout Expected On</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr ng-repeat="pendingpays in pendingPays | start: ((pagination.currentPage - 1) * pagination.numPerPage) | limitTo: pagination.numPerPage">
+                                                    <td class="pr-3">
+                                                        <a class="cursor-pointer pa-text-decoration" ng-href="/eventdetails/{{pendingpays.event_name | purger}}/{{pendingpays.event_id}}"><strong>{{pendingpays.event_name}}</strong></a> Ended on {{pendingpays.event_end_date
+                                                        | toMoment | momentFormatter:"Do MMMM YYYY"}}
+                                                    </td>
+                                                    <td>
+                                                        <span class="green"><strong>{{pendingpays.total_sale}}</strong></span> / {{pendingpays.total_tickets}}
+                                                    </td>
+                                                    <td>
+                                                        ${{pendingpays.total_earn | number : 2}}
+                                                    </td>
+                                                    <td>
+                                                        ${{pendingpays.total_fee | number : 2}}
+                                                    </td>
+                                                    <td>
+                                                        ${{pendingpays.total_payout | number : 2}}
+                                                    </td>
+                                                    <td>
+                                                        {{pendingpays.event_end_date | toMoment | momentFormatter:"DD/MM/YYYY"}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="text-center custom-pagination" ng-if="pendingPays.length > 10">
+                                            <ul uib-pagination items-per-page="pagination.numPerPage" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" total-items="pendingPays.length" ng-model="pagination.currentPage" max-size="pagination.maxSize"></ul>
+                                        </div>
+                                        <div class="upcoming-past-tab-tabs-content tc_list_perent" ng-if="pendingPays.length === 0 ">
+                                            <div class="rebecca-head">No events in pending to show.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </md-tab>
+                            <md-tab label="Paid Out" class="pa-padding-20">
+                                <div class="upcoming-past-tab-tabs-content" style="margin-top:0px !important;">
+                                    <div class="billing-event-table payout_table">
+                                        <!-- Table -->
+                                        <table class="table" ng-if="completePays.length > 0">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 270px;">Event</th>
+                                                    <th>Tickets</th>
+                                                    <th>Total Earning</th>
+                                                    <th>Total Fee Paid</th>
+                                                    <th>Total Payout</th>
+                                                    <th>Paid Out On</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr ng-repeat="completepays in completePays | start: ((pagination.currentPage - 1) * pagination.numPerPage) | limitTo: pagination.numPerPage">
+                                                    <td class="pr-3">
+                                                        <a class="cursor-pointer pa-text-decoration" ng-href="/eventdetails/{{completepays.event_name | purger}}/{{completepays.event_id}}"><strong>{{completepays.event_name}}</strong></a> Ended on {{completepays.event_end_date
+                                                        | toMoment | momentFormatter:"Do MMMM YYYY"}}
+                                                    </td>
+                                                    <td>
+                                                        <span class="green"><strong>{{completepays.total_sale}}</strong></span> / {{completepays.total_tickets}}
+                                                    </td>
+                                                    <td>
+                                                        ${{completepays.total_earn | number : 2}}
+                                                    </td>
+                                                    <td>
+                                                        ${{completepays.total_fee | number : 2}}
+                                                    </td>
+                                                    <td>
+                                                        ${{completepays.total_payout | number : 2}}
+                                                    </td>
+                                                    <td>
+                                                        {{completepays.event_end_date | toMoment | momentFormatter:"DD/MM/YYYY"}}
+                                                    </td>
+                                                    <td>
+                                                        <span class="pa-capitalize" ng-class="{'text-green' : completepays.status === 'success', 'text-red' : completepays.status === 'failed'}">{{completepays.status}}</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="text-center custom-pagination" ng-if="completePays.length > 10">
+                                            <ul uib-pagination items-per-page="pagination.numPerPage" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" total-items="completePays.length" ng-model="pagination.currentPage" max-size="pagination.maxSize"></ul>
+                                        </div>
+                                        <div class="upcoming-past-tab-tabs-content tc_list_perent" ng-if="completePays.length === 0">
+                                            <div class="rebecca-head">No events in paid to show.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </md-tab>
+                        </md-tabs>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- hide this section in mobile End Here -->
+</div>

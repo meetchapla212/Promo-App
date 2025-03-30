@@ -1,0 +1,223 @@
+<div flex layout="column" layout-align="start stretch" class="js-create-event mobile-hide createRewardsfooter">
+    <div id="fullView">
+        <div class="bg-F9F9F9 js-top-header" layout-align="start stretch" id="top-header">
+            
+            <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+
+            <div layout='row' class="border-top-E4E4E4 subheader-height" ng-if="!createRewardsSuccess">
+                <div flex='20' layout='row' layout-align='center center' class="pt-0 flex-unset">
+                    <md-button ng-href="/" class="pa-color-pink ob-arrow">
+                        <md-icon class="pa-color-pink ">keyboard_arrow_left</md-icon>
+                        <span class="tt-font-16 pa-font-bold pa-color-pink pa-vertical-align">Back To Home</span>
+                    </md-button>
+                </div>
+                <div flex="80" layout='column' layout-align='center center' class="pa-font-24 pa-bold-font pt-0 js-create-new-event pa-capitalize">
+                    {{action == 'Create'?'Create Social Event Promotion':(action + ' Social Event Promotion')}}
+                </div>
+            </div>
+        </div>
+        <div ng-if="!createRewardsSuccess" layout="column" class="bg-F9F9F9 js-sub-sec progress-header" layout-align="start stretch">
+
+            <div class="col-md-12 col-lg-12 col-sm-12 col-12 wrapper pa-pl-0 pa-pr-0" id="create-event-header">
+                <div class="step-section">
+                    <div>
+                        <div class="row">
+                            <ul class="step-type reward-step ">
+                                <li ng-class="stepOneStart?'active':'completed'">
+                                    <a ng-click="goToStep(1)" ng-class="{'current':stepOneStart}">
+                                        <span class="bgimg-arrow bgimg-right"><img src="img/s1-2.svg"></span>
+                                        <div class="step-inner-bx">
+                                            <span class="step-icon">
+                                            <i class="material-icons" ng-if="stepOneEnd">check_circle</i>
+                                            <i class="material-icons" ng-if="!stepOneEnd">subject</i>
+                                        </span>
+
+                                            <span class="step-content">
+                                            <h3>STEP 1</h3>
+                                            <b>Basic Information</b>
+                                        </span>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li ng-class="{'completed':stepTwoEnd, 'active':stepOneEnd}">
+                                    <a ng-click="goToStep(2)" ng-class="{'current':currentInfoSection.includes('create_reward_detail_1')}">
+                                        <span class="bgimg-arrow bgimg-left">
+                                        <img ng-if="stepOneEnd" src="img/s1-1.svg">
+                                        <img ng-if="!stepOneEnd" src="img/s2-1.svg">
+                                    </span>
+                                        <span class="bgimg-arrow bgimg-right">
+                                        <img ng-if="stepOneEnd" src="img/s1-2.svg">
+                                        <img ng-if="!stepOneEnd" src="img/s2-2.svg">
+                                    </span>
+                                        <div class="step-inner-bx">
+                                            <span class="step-icon">
+                                            <i ng-if="!stepTwoEnd" class="material-icons">stars</i>
+                                            <i ng-if="stepTwoEnd" class="material-icons">check_circle</i>
+                                        </span>
+                                            <span class="step-content">
+                                            <h3>STEP 2</h3>
+                                            <b>Winners & Eligibility</b>
+                                        </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li ng-class="{'active':isStepComplete(3)}">
+                                    <a ng-click="goToStep(3)" ng-class="{'current':currentInfoSection.includes('create_event_guest_1')}">
+                                        <span class="bgimg-arrow bgimg-left">
+                                        <img ng-if="stepTwoEnd" src="img/s1-1.svg">
+                                        <img ng-if="!stepTwoEnd" src="img/s2-1.svg">
+                                    </span>
+                                        <div class="step-inner-bx">
+                                            <span class="step-icon">
+                                            <i class="material-icons" ng-if="!isStepComplete(3)">share</i>
+                                            <i class="material-icons" ng-if="isStepComplete(3)">check_circle</i>
+                                        </span>
+                                            <span class="step-content">
+                                            <h3>STEP 3</h3>
+                                            <b>Review & Share</b>
+                                        </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-12 col-sm-12 col-12 pa-pl-0 pa-pr-0">
+                <md-progress-linear md-mode="determinate" class="progressbar" value="{{progress}}"></md-progress-linear>
+            </div>
+        </div>
+
+        <md-content class="pa-background-f9f9f9 hideScrollbar" flex ng-show="!createRewardsSuccess">
+            <div ng-include="'partials/reward-info.html'"></div>
+            <div ng-include="'partials/reward-event-details.html'"></div>
+            <div ng-include="'partials/reward-guest-page.html'"></div>
+        </md-content>
+
+        <md-content class="pa-background-f9f9f9" flex ng-if="createRewardsSuccess">
+            <div ng-include="'partials/reward-success.html'"></div>
+        </md-content>
+
+        <!--footer section start-->
+        <footer ng-if="!createRewardsSuccess" class="create-event-footer pa-background-white">
+            <div class="section-wrapper">
+                <div class="row pa-bg-FFFFFF">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 pa-cursor-pointer">
+                                <md-button ng-click='back()' ng-show="showBackBtn()" ng-if="!showHide.imageSelected">
+                                    <md-icon class="pa-font-16 pa-color-pink pa-vertical-align-sub">arrow_back_ios</md-icon>
+                                    <span class="pa-font-16 pa-color-pink pa-bold-font">Back</span>
+                                </md-button>
+                            </div>
+
+                            <div class="col-lg-8 col-md-8 col-xs-8 col-sm-8 text-right">
+                                <md-button ng-if="cancelBtn" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit" ng-click="cancle()">Cancel</md-button>
+
+                                <md-button ng-if="currentInfoSection.length > 1 && currentInfoSection.length <= 2" ng-disabled="disableContinue()" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit" ng-click="saveExit()">{{ saveAndExitBtn}}</md-button>
+
+                                <md-button ng-if="currentInfoSection.length > 2" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit" ng-click="saveExit()">{{ saveAndExitBtn}}</md-button>
+
+                                <md-button ng-if="!showHide.imageSelected" ng-click='continue()' id="continueButton" class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue" ng-disabled="disableContinue() || showHide.savingDraft">
+                                    {{showHide.savingDraft? 'Saving..': saveButtonText}}</md-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- Mobile view -->
+<div flex layout="column" layout-align="start stretch" class="pa-background-white desktop-hide">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div ng-if="!loading" class="mobile-perent  mobile-perent-view-profile" ng-class="{'view-profile-of-another-user':user.user_id != loggedInUser.user_id}">
+        <div class="profile-header-mob">
+            <div class="container-wtd-1170">
+                <span class="back-btn-mobile">
+                    <a class="pa-cursor-pointer" back-to-history><i class="material-icons">arrow_back_ios</i></a>
+                    <a ng-if="user.user_id == loggedInUser.user_id" ng-href="/settings"
+                        class="link-edit-profile-head-mob pa-cursor-pointer">Edit Profile</a>
+                    <a ng-if="user.user_id != loggedInUser.user_id" target="_blank" ng-href="/chat.html?userId={{user.user_id}}"
+                        class="link-edit-profile-head-mob">Message</a>
+                </span>
+            </div>
+        </div>
+        <div class="profile-img-mobile-inner">
+            <img class="profile-img" ng-if="user.profile_pic !== null" ng-src="{{user.profile_pic}}" />
+            <img class="profile-img" ng-if="user.profile_pic === null" src="../img/defaultProfilePic.png" />
+            <b>{{user.username}}</b>
+            <span ng-if="user.user_id != loggedInUser.user_id && user.city">From {{user.city}}</span>
+        </div>
+
+        <div class="count-follow-mob-profile" ng-if="user.user_id != loggedInUser.user_id">
+            <div class="container-wtd-1170">
+                <span>
+                    <a ng-click="goToFollower()">
+                        <b pa-follower="{{ user.user_id }}" reload-on="checkFollow"></b>
+                        Followers
+                    </a>
+                    <a ng-click="goToFollower(1)">
+                        <b pa-following="{{ user.user_id }}" reload-on="checkFollow"></b>
+                        Following
+                    </a>
+                </span>
+            </div>
+        </div>
+
+        <div class="info-about-another-user-mob" ng-if="user.user_id != loggedInUser.user_id && user.custom_data.about_you">
+            <div class="container-wtd-1170">
+                {{user.about_you}}
+            </div>
+        </div>
+
+        <div class="about-profile-mob" ng-if="user.user_id == loggedInUser.user_id">
+            <div class="container-wtd-1170">
+                <div class="about-e-mob">
+                    <span>Email Address</span> {{user.email}}
+                </div>
+
+                <div class="about-e-mob mr-top-20">
+                    <span>Location </span> {{user.city}}
+                </div>
+
+                <div class="about-e-mob mr-top-20">
+                    <span>Description</span>
+                    <p>
+                        {{user.about_you}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="other-interested-profile-mob" ng-if="user.user_id != loggedInUser.user_id">
+            <div class="other-interested-profile-head-mob">Event's {{user.username||user.email}}'s Interested In</div>
+            <div class="container-wtd-1170" ng-if="allGoingEvents.length > 0">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-xs-12 col-sm-6" id="event_box_{{event.event_id}}" ng-repeat="event in allGoingEvents | start: (currentPageGoing - 1) * numPerPage | limitTo: numPerPage">
+                        <event-overview event="event" read-only="true" hide-description="true"></event-overview>
+                    </div>
+
+                </div>
+                <div class="custom-pagination">
+                    <ul ng-if="allGoingEvents.length > maxSize" class="pa-center-div" uib-pagination previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" items-per-page="numPerPage" total-items="allGoingEvents.length" ng-model="currentPageGoing"
+                        max-size="maxSize">
+                    </ul>
+                </div>
+            </div>
+
+            <div class="no-eveent-date-mob" ng-if="allGoingEvents.length == 0">No events to show.</div>
+        </div>
+        <div class="pa-sticky-footer" ng-if="user.user_id != loggedInUser.user_id">
+            <div class="mobile-full-btn-ft pa-center-div">
+                <md-button ng-show="user.user_id != loggedInUser.user_id" class="pa-pink-button bg-theme-btn" pa-follow-button="{followByUser: {{ loggedInUser.user_id }} , toFollowUser: {{ user.user_id }}}" reload-on="checkFollow" ng-click="doFollowUserInDirective(user,loggedInUser)">
+                    <i id="followTextIcon" style="display:none" class="material-icons pa-color-FFFFFF-imp"></i>
+                    <span class="pa-font-bold pa-color-FFFFFF-imp" id="followText"></span>
+                </md-button>
+            </div>
+        </div>
+    </div>
+</div>

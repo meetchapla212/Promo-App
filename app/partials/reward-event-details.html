@@ -1,0 +1,101 @@
+<div class="create_detail pa-mb-80" ng-show="showHide.template == 'partials/reward-event-details.html'">
+    <!-- start-first-screen -->
+    <div class="row promotion_second_step" ng-show="currentInfoSection.includes('create_reward_detail_1')">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+
+            <div class="create_event_detail wtd-100">
+                <md-card class="card-color margin EligibilityCard">
+                    <md-card-header class="col-md-12 pa-bg-F9 align-items-center create-header-style pa-border-EEEEEE tt-margin-bottom-0">
+                        <md-card-header-text>
+                            <span class="md-title"><span class="pa-bold-font pa-font-20 pa-color-333333">Winners & Eligibility</span><span class="pa-font-16 ml-10">(Required)</span></span>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <md-card-content class="pa-no-padding" layout-gt-sm="row" style="background: #ffffff">
+                        <form class="event-form create-w-100 pa-mt-30-imp" name="createRewardForms.create_reward_detail_1">
+                            <div id="winnerSection">
+                                <div class="reward-sub-time-head">Will you be choosing "Random winners" or will you be promoting the "First Promoters" respondents? <a href="javascript:void(0)" class="customtooltip"><i class="material-icons">help_outline</i> <span class="customtooltiptext">How would you like to decide on eligibility for this promotion? You can promotion people randomly or promotion the first batch of people that respond.</span></a>                                    <span class="pa-required">*</span></div>
+                                <md-radio-group class="reward-time" ng-model="addReward.winner_type" name="winner_type">
+                                    <md-radio-button value="first_few" [checked]='true' class="md-checked">First Promoters</md-radio-button>
+                                    <md-radio-button value="random"> Random Winners </md-radio-button>
+                                </md-radio-group>
+                                <div ng-messages="createRewardForms.create_reward_detail_1.winner_type.$error">
+                                    <div ng-message="required">This field is required.</div>
+                                </div>
+                            </div>
+                            <div class="form-group pa-mt-30" id="winPromotion">
+                                <label class="reward-sub-time-head">How many people should win the promotion? <a href="javascript:void(0)" class="customtooltip"><i class="material-icons">help_outline</i> <span class="customtooltiptext">Please choose the exact number of people you would like to promotion.</span></a> <span class="pa-required">*</span></label>
+                                <md-input-container class="md-icon-float md-icon-left pa-no-margin">
+                                    <md-select md-container-class="event-form-select md-icon-float md-icon-right ht-48" name="no_of_people" ng-model="addReward.no_of_people" class="form-control ht-48 md-select-with-icon" required>
+                                        <md-option ng-value="{{ $index+1 }}" ng-repeat="i in getNumber(number) track by $index" ng-selected="$index == 0 ? 'selected': ''">{{ $index+1 }}</md-option>
+                                    </md-select>
+                                    <span class="caret"></span>
+                                    <div ng-messages="createRewardForms.create_reward_detail_1.no_of_people.$error">
+                                        <div ng-message="required">This field is required.</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group pa-mt-30" id="shareLinkPromotion">
+                                <label class="reward-sub-time-head">How many clicks should be generated from a user’s shared link? <a href="javascript:void(0)" class="customtooltip"><i class="material-icons">help_outline</i> <span class="customtooltiptext">How many clicks should each event link generate before the sharer becomes eligible for your promotion?</span></a></label>
+                                <md-input-container class="md-icon-float md-icon-left pa-no-margin">
+                                    <md-select md-container-class="event-form-select md-icon-float md-icon-right ht-48" name="no_of_click" ng-model="addReward.no_of_click" class="form-control ht-48 md-select-with-icon" placeholder="please select value">
+                                        <md-option ng-value="{{ $index+1 }}" ng-repeat="i in getNumber(number) track by $index" ng-selected="$index == 0 ? 'selected': ''">{{ $index+1 }}</md-option>
+                                    </md-select>
+                                    <span class="caret"></span>
+                                    <div ng-messages="createRewardForms.create_reward_detail_1.no_of_click.$error">
+                                        <div ng-message="required">This field is required.</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+
+                            <div class="form-group pa-mt-30" id="receivePromotion">
+                                <label class="reward-sub-time-head">How will the user receive the promotion? <span class="pa-required">*</span></label>
+                                <md-radio-group class="reward-time" ng-model="addReward.reward_type" name="reward_type">
+                                    <div class="radio-with-toltip">
+                                        <md-radio-button value="by_email" class="md-checked"> <span class="receive-reward">Send promotion through email (if the promotion can be given online)</span></md-radio-button>
+                                        <a href="javascript:void(0)" class="customtooltip"><i class="material-icons">help_outline</i> <span class="customtooltiptext">Can the prize be sent via email? (e.g. a gift voucher)</span></a>
+                                    </div>
+
+                                    <div class="radio-with-toltip">
+                                        <md-radio-button value="at_venue" class="md-checked"><span class="receive-reward"> Give promotion at event venue</span></md-radio-button>
+                                        <a href="javascript:void(0)" class="customtooltip"><i class="material-icons">help_outline</i> <span class="customtooltiptext">Can the promotion only be given at the venue? (e.g. upgraded seats or a free meal)</span></a>
+                                    </div>
+
+                                    <div class="radio-with-toltip">
+                                        <md-radio-button value="deliver" class="md-checked"><span class="receive-reward"> Ask for the winner's delivery address and deliver the promotion</span></md-radio-button>
+                                        <a href="javascript:void(0)" class="customtooltip"><i class="material-icons">help_outline</i> <span class="customtooltiptext">Is it best to deliver the promotion directly to the winner's home address? (e.g. a bunch of flowers or a goodie basket)</span></a>
+                                    </div>
+
+                                </md-radio-group>
+                                <div ng-messages="createRewardForms.create_reward_detail_1.reward_type.$error">
+                                    <div ng-message="required">This field is required.</div>
+                                </div>
+                            </div>
+                        </form>
+                    </md-card-content>
+                </md-card>
+                <md-card class="card-color margin EligibilityCard">
+                    <md-card-header class="col-md-12 pa-bg-F9 align-items-center create-header-style pa-border-EEEEEE tt-margin-bottom-0">
+                        <md-card-header-text>
+                            <span class="md-title"><span class="pa-bold-font pa-font-20 pa-color-333333">Terms & Conditions</span><span class="pa-font-16 ml-10">(Required)</span></span>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <md-card-content class="pa-no-padding" layout-gt-sm="row" id="termsSection" style="background: #ffffff">
+                        <form class="event-form create-w-100 pa-mt-30-imp" name="createRewardForms.create_reward_detail_1">
+                            <md-input-container class="md-block pa-mt-30-imp pa-mb-0 pa-no-margin" flex-gt-sm>
+                                <label class="labelreward2">Mention clear terms & conditions to help users <span class="pa-required">*</span></label>
+                                <textarea name="terms_condition" ng-model="addReward.terms_condition" placeholder="Write your text here." required></textarea>
+                                <div ng-messages="createRewardForms.create_reward_detail_1.terms_condition.$error">
+                                    <div ng-message="required">This field is required.</div>
+                                </div>
+                            </md-input-container>
+                        </form>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+    <!-- end-first-screen -->
+</div>

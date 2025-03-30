@@ -1,0 +1,90 @@
+<div class="modal-body pa-pb-0-imp" ng-class="{'box-shadow-none-imp': !successful}">
+    <button class="button button-close-modal location-search-mobile" ng-click="close();">
+       <i class="material-icons pa-position-relative pa-top-3">close</i>
+   </button>
+    <!--Attendee Not Verified Modal Starts-->
+    <div ng-if="!successful" class="pa-modal-font">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 pa-text-center">
+                <i class="fa fa-exclamation-circle tt-info-icon"></i>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row pa-mt-20">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 pa-text-center">
+                <p class="tt-table-bot tt-font-22 pa-modal-font pa-bold-font tt-media-font-18">Already Checked-In at {{error.data.checkedinAt}}</p>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row pa-mt-20 tt-mb-50">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 pa-text-center tt-media-pr-0">
+                <button class="tt-scan-qr-btn pa-background-pink tt-font-16 pa-pink-border tt-media-font-14 tt-media-font-weight pa-modal-font pa-color-FFFFFF" ng-click="close();">Scan QR Code</button>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+    <!--Attendee Not Verified Modal Ends-->
+
+    <!--Attendee Verified Modal Starts-->
+    <div ng-if="successful" class=" pa-modal-font">
+        <div class="row pa-mt-20">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 pa-text-center">
+                <div class="tt-thumb-icon"><i class="fa fa-thumbs-up tt-thumb-icon-size pa-color-FFFFFF"></i></div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row pa-mt-20">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 pa-text-center">
+                <p class="tt-table-bot tt-font-22 pa-modal-font pa-bold-font tt-media-font-18 ">Attendee Verified Successfully</p>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <!-- <div class="row tt-mb-20">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 pa-text-center">
+                <p class="tt-table-bot tt-font-15 pa-modal-font pa-font-bold tt-media-font-16">{{ticketsCheckedIn}}/{{ticketsSold}} purchased tickets checked in </p>
+            </div>
+            <div class="col-md-2"></div>
+        </div> -->
+        <div class="row tt-pd-30 pa-background-FAFAFA" style="margin-left: 0;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 pa-text-center">
+                <p ng-if="userOfTicketLastCheckedIn && userOfTicketLastCheckedIn.attendee_details" class="tt-table-bot tt-font-19 pa-modal-font pa-bold-font tt-media-font-18">{{userOfTicketLastCheckedIn.attendee_details.first_name}}&nbsp;{{userOfTicketLastCheckedIn.attendee_details.last_name}}</p>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row tt-pdb-50 pa-background-FAFAFA" style="margin-left: 0;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 pa-text-center">
+                <p ng-if="userOfTicketLastCheckedIn && userOfTicketLastCheckedIn.attendee_details && userOfTicketLastCheckedIn.attendee_details.email" class="tt-table-bot tt-font-15 pa-modal-font pa-font-bold tt-media-font-14">{{userOfTicketLastCheckedIn.attendee_details.email}}</p>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row pa-background-FAFAFA" style="margin-left: 0;">
+            <div ng-if="userOfTicketLastCheckedIn.tickets_details" class="col-md-3 col-xs-5 col-sm-4">
+                <p class="pa-787777 pa-modal-font pa-font-14 tt-color-818081 tt-media-font-14">Ticket Type</p>
+                <p class="pa-color-5B5B5B pa-modal-font pa-font-16 pa-font-bold tt-media-font-18 pa-word-break">{{userOfTicketLastCheckedIn.tickets_details[0].ticket_name}}</p>
+            </div>
+            <div class="col-md-3 col-xs-3 col-sm-4">
+                <p class="pa-787777 pa-modal-font pa-font-14 tt-color-818081 tt-media-font-14">Quantity</p>
+                <p class="pa-color-5B5B5B pa-modal-font pa-font-16 pa-font-bold tt-media-font-18">1</p>
+            </div>
+            <div ng-if="userOfTicketLastCheckedIn.tickets_details" class="col-md-3 col-xs-4 col-sm-4">
+                <p class="pa-787777 pa-modal-font pa-font-14 tt-color-818081 tt-media-font-14">Price Paid</p>
+                <p class="pa-color-5B5B5B pa-modal-font pa-font-16 pa-font-bold tt-media-font-18">$ {{userOfTicketLastCheckedIn.tickets_details[0].price}}</p>
+            </div>
+            <div ng-if="userOfTicketLastCheckedIn.tickets_details" class="col-md-3 col-xs-12 col-sm-12">
+                <p class="pa-787777 pa-modal-font pa-font-14 tt-color-818081 tt-media-font-14">Purchased On</p>
+                <p class="pa-color-5B5B5B pa-modal-font pa-font-16 pa-font-bold tt-media-font-18" style="margin-bottom: 24px;">{{userOfTicketLastCheckedIn.tickets_details[0].checkedin_at * 1 | toMoment | momentFormatter:"MMMM D, YYYY - hh:mm a"}}</p>
+            </div>
+
+        </div>
+    </div>
+    <!--Attendee Verified Modal Ends-->
+
+</div>

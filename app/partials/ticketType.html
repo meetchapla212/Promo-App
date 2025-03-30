@@ -1,0 +1,435 @@
+<div ng-controller="ticketTypeController">
+    <div flex layout-fill ng-if="windowWidth > 1023" class="mobile-hide pa-bg-EEEEEE ">
+        
+        <!--body section-->
+        <div flex class="pa-bg-EEEEEE mobile-hide">
+            <div class="container-wtd-1170 text-center">
+                <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+                <div class="tc_selection_main pa-display-inline-block">
+                    <div class="text-head">
+                        <a ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}" class="back-to-btn text-left"><i
+                                class="material-icons">navigate_before</i> Back to Event</a>
+                    </div>
+                    <div class="tc_selection_wrap text-left">
+                        <div class="tc_selection_left_section">
+                            <div class="custom_section_check_seat with_timer_check" ng-if="event.is_attendee_pick == 1">
+                                <div class="form-group">
+                                    <label class="check-promo">
+                                        <input class="checkhour" type="checkbox" ng-change="openMap()"
+                                            ng-model="show_stage" />
+                                        <span class="check-ui"></span>
+                                        <span class="chec-category">I want to pick my seats on the seat map.</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="seats_map_list_wrap" ng-show="!show_stage" ng-if="!multiTicketShow">
+                                <div class="seats_map_list " ng-repeat="ticket in event.tickets" ng-if="(!ticket.status) || (ticket.status=='active')">
+                                    <div class="seats_map_sec ">
+                                        <span ng-if="ticket._tier_id > 0" style="background-color: {{ticket.tire_color}}"></span>
+                                        <p>{{ ticket.name }} <b style="color: #238347;" ng-if="ticket.remQuantity > 5">{{ticket.remQuantity}} available </b> <b style="color: #D07922;" ng-if="ticket.remQuantity <= 5 && ticket.remQuantity >= 0">{{ticket.remQuantity}}
+                                                available </b></p>
+                                    </div>
+
+                                    <div ng-if="ticket.ticket_type != 'donation'" class="seats_map_sec_price ">${{ ticket.price }} <span ng-if="ticket.is_absorb == 0 && event.event_type != 'free'"> + ${{
+                                            ticket.service_fee }} Fee </span> <span ng-if="(ticket.is_absorb == 1 && event.event_type == 'free') || (ticket.is_absorb == 0 && event.event_type == 'free')">
+                                            + $0.00 Fee </span></div>
+
+                                    <div ng-if="ticket.showSalesStart" class="seats_map_qty sale_start">
+                                        Ticket sales start at {{ ticket.saleStartDate.date | toMoment | momentFormatter:"ddd, MMM DD, YYYY" }} at {{ticket.saleStartDate.time | toMoment:"hh:mm a" | momentFormatter:"hh:mm a"}}.
+                                    </div>
+                                    <div ng-if="ticket.showSalesEnd" class="seats_map_qty sale_end">
+                                        Ticket sale has ended.
+                                    </div>
+
+                                    <div ng-if="ticket.ticket_type != 'donation'">
+                                        <div class="seats_map_qty" ng-if="!ticket.hideAddButton && !ticket.showSalesStart && !ticket.showSalesEnd && ticket.remQuantity">
+                                            <label>Qty</label>
+                                            <select ng-if="ticket.remQuantity>0 && !ticket.showSalesStart && !ticket.showSalesEnd" ng-model="ticket.reserved" ng-change="setTotalSaleAmount();handleTicketId(ticket)">
+                                                <option ng-value="0">0</option>
+                                                <option ng-repeat="t in ticket.options" ng-value="{{t}}">{{t}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="seats_map_qty sale_end" ng-if="!ticket.remQuantity">
+                                            All tickets has been sold
+                                        </div>
+                                    </div>
+                                    <div ng-if="ticket.ticket_type == 'donation' && !ticket.showSalesStart  && !ticket.showSalesStart && !ticket.showSalesEnd" class="seats_map_qty seats_map_sec_price seats_map_input">
+                                        <label>$</label>
+                                        <input type="text" only-number="" name="ticke_price" maxlength="6" ng-model="ticket.price" ng-value="ticket.price" class='donation_input' ng-change="changeDonationValue(ticket);">
+                                        <a href="javascript:void(0)" uib-tooltip="Please enter your donation amount. You can only purchase one ticket at a time." tooltip-placement="left" class="customtooltip new-tooltip donation_icon"><i
+                                                class="material-icons">help_outline</i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="seats_map_list_wrap" ng-show="!show_stage" ng-if="multiTicketShow">
+                                <div class="seats_map_list " ng-repeat="ticket in multiTicketArr" ng-if="(!ticket.status) || (ticket.status=='active')">
+                                    <div class="multi_sec_drop">
+                                        <div class="seats_map_list">
+                                            <div class="seats_map_sec">
+                                                <h4 class="multi_sec_head">{{ticket.name}} </h4>
+                                                <div class="dot_group">
+                                                    <span ng-repeat="tire in ticket.tire " style="background-color: {{ tire.tire_color }}; left: {{tire.left}}px"></span>
+                                                </div>
+                                                <p><b style="color: #238347;" ng-if="ticket.remQuantity > 5">{{ticket.remQuantity}} available
+                                                    </b> <b style="color: #D07922;" ng-if="ticket.remQuantity <= 5 && ticket.remQuantity >= 0">{{ticket.remQuantity}}
+                                                        available </b></p>
+                                                <a href="javascript:void(0);" class="material-icons" ng-click="clicked = !clicked">keyboard_arrow_down</a>
+                                            </div>
+                                            <div class="seats_map_qty" ng-if="!ticket.ticket_select">
+                                                <label>Qty</label>
+                                                <select disabled="true">
+                                                    <option value="0">0</option>
+                                                </select>
+                                            </div>
+                                            <div class="seats_map_qty" ng-if="ticket.ticket_select">
+                                                <label>Qty</label>
+                                                <select ng-if="ticket.ticket_select.remQuantity == 0 && !ticket.ticket_select.showSalesStart && !ticket.ticket_select.showSalesEnd" ng-model="ticket.ticket_select.reserved" ng-change="setTotalSaleAmount();handleTicketId(ticket.ticket_select)">
+                                                    <option ng-value="0">0</option>
+                                                </select>
+                                                <select ng-if="ticket.ticket_select.remQuantity>0 && !ticket.ticket_select.showSalesStart && !ticket.ticket_select.showSalesEnd" ng-model="ticket.ticket_select.reserved" ng-change="setTotalSaleAmount();handleTicketId(ticket.ticket_select)">
+                                                    <option ng-value="0">0</option>
+                                                    <option
+                                                        ng-repeat="t in ticket.ticket_select.options | limitTo: ticket.remQuantity"
+                                                        ng-value="{{t}}">{{t}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="list_multi" ng-class="{'active_list_multi': clicked}">
+                                            <div class="multi_sec_selection">
+                                                <div class="multi_selection">
+                                                    <div class="dot_group">
+                                                        <span ng-repeat="tire in ticket.tire " style="background-color: {{ tire.tire_color }}; left: {{tire.left}}px"></span>
+                                                    </div>
+                                                    <div class="multi_selection_price">
+                                                        <b>Best Available</b>
+                                                        <p>${{ ticket.price[0] }}—${{ ticket.price[ ticket.price.length -1] }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="multi_sec_selection" ng-repeat="t in ticket.ticket " ng-class="{'disabled': (t.showSalesStart==true || t.showSalesEnd==true)}" ng-click="(!(t.showSalesStart==true || t.showSalesEnd==true))?ticket.ticket_select=t:''">
+                                                <div class="multi_selection">
+                                                    <span style="background-color: {{t.tire_color}}"></span>
+                                                    <div class="multi_selection_price">
+                                                        <b>{{t.name}}</b>
+                                                        <p>${{ t.price }} <span ng-if="t.is_absorb == 0"> + ${{
+                                                                t.service_fee }} Fee </span> <span ng-if="t.is_absorb == 1"> + $0.00 Fee </span></p>
+                                                    </div>
+                                                </div>
+                                                <div ng-if="t.showSalesStart" class="seats_map_qty sale_start">
+                                                    Ticket sales start at {{ t.saleStartDate.date | toMoment | momentFormatter:"ddd, MMM DD, YYYY" }} at {{t.saleStartDate.time | toMoment:"hh:mm a" | momentFormatter:"hh:mm a"}}.
+                                                </div>
+                                                <div ng-if="t.showSalesEnd" class="seats_map_qty sale_end">
+                                                    Ticket sale has ended.
+                                                </div>
+                                                <span class="multi_selection multi_selection_active material-icons" ng-if="ticket.ticket_select.ticket_id == t.ticket_id"> check</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stage_section" ng-show="show_stage">
+                                <div class="zoom_in_out tc-zoom-wrap">
+                                    <button class="tc-plus-wrap"><i class="material-icons">add</i></button>
+                                    <button class="tc-minus-wrap"><i class="material-icons">remove</i></button>
+                                </div>
+                                <div id="tc_tcwrapper_selected_seat" class="tc_seating_map tc_seating_map_{{event.layout_details.layout_id}}" data-seating-chart-id="{{event.layout_details.layout_id}}">
+                                    <div class="tc-wrapper"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tc_selection_right_section">
+                            <div class="tc_head_img_sec">
+                                <span class="tc_head_img"><img ng-src="{{event.event_image}}" /></span>
+                                <span class="tc_head_img_content">{{ event.event_name}} <b> {{event.start_date_time |
+                                        toMoment | momentFormatter:"ddd, MMM D, YYYY hh:mm a"}}</b></span>
+                            </div>
+                            <div class="order_summary">
+                                <div class="order_summary_strip">
+                                    <span class="order_summary_head">Order Summary</span>
+                                    <button ng-if="event.is_attendee_pick != 1" class="order_sum_link" ng-click="openTicketPreview()">Preview</button>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Tickets</th>
+                                            <th>Unit Price</th>
+                                            <th>Total Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-if="price_calculation.length > 0" ng-repeat="ticke_Details in price_calculation">
+                                            <td><span ng-if="ticke_Details._tier_id > 0" style="background-color:{{ticke_Details.tire_color}}"></span> {{ ticke_Details.qty }} x {{ticke_Details.name }}</td>
+                                            <td>${{ticke_Details.unit_price }}</td>
+                                            <td>${{ticke_Details.total_price }}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="top_order_summary_space">
+                                            <td>Sub Total</td>
+                                            <td></td>
+                                            <td>${{sub_total}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fees</td>
+                                            <td></td>
+                                            <td>${{total_fee}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Total</b></td>
+                                            <td></td>
+                                            <td><b>${{total_amt}}</b></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+
+                            </div>
+                            <div class="checkout_btn">
+                                <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue" type="button" ng-disabled="checkoutDetails.quantity === 0 || (price_calculation[0].unit_price == 0 && price_calculation[0].ticket_type == 'donation')" ng-click="proceed(false)">Checkout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var tc_seatings_tooltips_front = {
+                "pan_wrapper": "Left click and drag to pan (or use arrow keys). Use mouse wheel to zoom",
+                "selectable": "Click to remove or add it to the cart."
+            };
+
+            var tc_common_vars = {
+                "ajaxUrl": "",
+                "front_zoom_level": "0.8",
+                "seat_translation": "Seat"
+            };
+
+            var tc_controls_vars = {
+                "ajaxUrl": "",
+                "front_zoom_level": "0.8",
+                "seat_translation": "Seat"
+            };
+        </script>
+    </div>
+    
+    <!-- Mobile view -->
+    <div flex class="desktop-hide mobile-org-ticket pa-background-white" ng-if="windowWidth <= 1023">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content" ng-class="{'checkout-loader':contentViewer}"></div>
+        <div class="mobile-header d-hide desktop-hide">
+            <div class="mobile-header-title" ng-if="routeToken === ''">
+                <span class="back-btn-mobile">
+                    <a href="/eventdetails/{{urlEventName}}/{{eventID}}"><i
+                            class="material-icons">arrow_back_ios</i></a>
+                </span>
+                <h2 class="pd-right-32">{{event.event_name}}</h2>
+            </div>
+            <div class="custom_section_check_seat" ng-if="event.is_attendee_pick == 1">
+                <div class="form-group">
+                    <label class="check-promo">
+                        <input class="checkhour" ng-change="openMap()" ng-model="show_stage" type="checkbox">
+                        <span class="check-ui"></span>
+                        <span class="chec-category">I want to pick my seats on the seat map.</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="tc_selection_left_section" ng-class="{'no-map': event.is_attendee_pick != 1, 'no-header': routeToken != ''}">
+            <div class="seats_map_list_wrap" ng-show="!show_stage" ng-if="!multiTicketShow">
+                <div class="seats_map_list" ng-repeat="ticket in event.tickets" ng-if="(!ticket.status) || (ticket.status=='active')">
+                    <div class="seats_map_sec" ng-class="{'donation': isDonation}">
+                        <span ng-if="ticket._tier_id > 0" style="background-color: {{ticket.tire_color}}"></span>
+                        <p>
+                            {{ ticket.name }}
+                            <b style="color: #238347;" ng-if="ticket.remQuantity > 5">{{ticket.remQuantity}} available
+                            </b>
+                            <b style="color: #D07922;" ng-if="ticket.remQuantity <= 5 && ticket.remQuantity >= 0">{{ticket.remQuantity}}
+                                available </b>
+                        </p>
+                    </div>
+                    <div class="seats_map_sec_price text-center" ng-if="ticket.ticket_type != 'donation'">${{ ticket.price }} <br /><span ng-if="ticket.is_absorb == 0"> + <br /> ${{ ticket.service_fee }}
+                            Fee </span> <span ng-if="ticket.is_absorb == 1"> + <br /> $0.00 Fee </span></div>
+                    <div class="seats_map_qty sale_start" ng-if="ticket.showSalesStart">
+                        Sales start at {{ ticket.saleStartDate.date | toMoment | momentFormatter:"ddd, MMM DD, YYYY" }} at {{ticket.saleStartDate.time | toMoment:"hh:mm a" | momentFormatter:"hh:mm a"}}
+                    </div>
+                    <div class="seats_map_qty sale_end" ng-if="ticket.showSalesEnd">
+                        Ticket sale has ended
+                    </div>
+
+                    <div class="seats_map_qty" ng-if="!ticket.hideAddButton && !ticket.showSalesStart && !ticket.showSalesEnd && ticket.ticket_type != 'donation' && ticket.remQuantity" ng-class="{'donation': isDonation}">
+                        <label>Qty</label>
+                        <select ng-if="ticket.remQuantity>0 && !ticket.showSalesStart && !ticket.showSalesEnd" ng-model="ticket.reserved" ng-change="setTotalSaleAmount();handleTicketId(ticket)">
+                            <option ng-repeat="t in ticket.options" ng-value="{{t}}">{{t}}</option>
+                        </select>
+                    </div>
+                    <div class="seats_map_qty sale_end" ng-if="!ticket.remQuantity">
+                        All tickets has been sold
+                    </div>
+                    <div ng-if="ticket.ticket_type == 'donation' && !ticket.showSalesStart  && !ticket.showSalesStart && !ticket.showSalesEnd" class="seats_map_qty seats_map_sec_price seats_map_input donation_block">
+                        <label>$</label>
+                        <input type="text" only-number="" name="ticke_price" maxlength="6" ng-model="ticket.price" ng-value="ticket.price" class='donation_input' ng-change="ticket.service_fee = getDonationFee(ticket.price);setTotalSaleAmount();handleTicketId(ticket);ticket.reserved=1">
+                        <a href="javascript:void(0)" uib-tooltip="Please enter your donation amount. You can only purchase one ticket at a time." tooltip-placement="left" class="customtooltip new-tooltip donation_icon"><i
+                                class="material-icons">help_outline</i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="seats_map_list_wrap" ng-show="!show_stage" ng-if="multiTicketShow">
+                <div class="seats_map_list " ng-repeat="ticket in multiTicketArr" ng-if="(!ticket.status) || (ticket.status=='active')">
+                    <div class="multi_sec_drop">
+                        <div class="seats_map_list">
+                            <div class="seats_map_sec">
+                                <h4 class="multi_sec_head">{{ticket.name}}</h4>
+                                <div class="dot_group">
+                                    <span ng-repeat="tire in ticket.tire " style="background-color: {{ tire.tire_color }}; left: {{tire.left}}px"></span>
+                                </div>
+                                <p><b style="color: #238347;" ng-if="ticket.remQuantity > 5">{{ticket.remQuantity}}
+                                        available </b> <b style="color: #D07922;" ng-if="ticket.remQuantity <= 5 && ticket.remQuantity >= 0">{{ticket.remQuantity}}
+                                        available </b></p>
+                                <a href="javascript:void(0);" class="material-icons" ng-click="clicked = !clicked">keyboard_arrow_down</a>
+                            </div>
+                            <div class="seats_map_qty" ng-if="!ticket.ticket_select">
+                                <label>Qty</label>
+                                <select disabled="true">
+                                </select>
+                            </div>
+                            <div class="seats_map_qty" ng-if="ticket.ticket_select">
+                                <label>Qty</label>
+                                <select ng-if="ticket.ticket_select.remQuantity>0 && !ticket.ticket_select.showSalesStart && !ticket.ticket_select.showSalesEnd" ng-model="ticket.ticket_select.reserved" ng-change="setTotalSaleAmount();handleTicketId(ticket.ticket_select)">
+                                    <option ng-value="0">0</option>
+                                    <option ng-repeat="t in ticket.ticket_select.options" ng-value="{{t}}">{{t}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="list_multi" ng-class="{'active_list_multi': clicked}">
+                            <div class="multi_sec_selection">
+                                <div class="multi_selection">
+                                    <div class="dot_group">
+                                        <span ng-repeat="tire in ticket.tire " style="background-color: {{ tire.tire_color }}; left: {{tire.left}}px"></span>
+                                    </div>
+                                    <div class="multi_selection_price">
+                                        <b>Best Available</b>
+                                        <p>${{ ticket.price[0] }}—${{ ticket.price[ ticket.price.length -1] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="multi_sec_selection" ng-repeat="t in ticket.ticket " ng-class="{'disabled': (t.showSalesStart==true || t.showSalesEnd==true)}" ng-click="ticket.ticket_select=t">
+                                <div class="multi_selection">
+                                    <span style="background-color: {{t.tire_color}}"></span>
+                                    <div class="multi_selection_price">
+                                        <b>{{t.name}}</b>
+                                        <p>${{ t.price }} <span ng-if="t.is_absorb == 0"> + ${{ t.service_fee }} Fee
+                                            </span> <span ng-if="t.is_absorb == 1"> + $0.00 Fee </span></p>
+                                    </div>
+                                </div>
+                                <div ng-if="t.showSalesStart" class="seats_map_qty sale_start">
+                                    Ticket sales start at {{ t.saleStartDate.date | toMoment | momentFormatter:"ddd, MMM DD, YYYY" }} at {{t.saleStartDate.time | toMoment:"hh:mm a" | momentFormatter:"hh:mm a"}}.
+                                </div>
+                                <div ng-if="t.showSalesEnd" class="seats_map_qty sale_end">
+                                    Ticket sale has ended.
+                                </div>
+                                <span class="multi_selection multi_selection_active material-icons" ng-if="ticket.ticket_select.ticket_id == t.ticket_id"> check</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="stage_section" ng-show="show_stage">
+                <div class="zoom_in_out tc-zoom-wrap">
+                    <button class="tc-plus-wrap"><i class="material-icons">add</i></button>
+                    <button class="tc-minus-wrap"><i class="material-icons">remove</i></button>
+                </div>
+                <div id="tc_tcwrapper_selected_seat" class="tc_seating_map tc_seating_map_{{event.layout_details.layout_id}}" data-seating-chart-id="{{event.layout_details.layout_id}}">
+                    <div class="tc-wrapper"></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" data-backdrop="false" id="orderSummary" role="dialog">
+            <div class="modal-dialog popup-perent rewardtermspopup  custom-model-content">
+                <div class="modal-header pa-background-white">
+                    <md-icon class="pa-float-right" ng-click="sendToNativeToggle()" class="close" data-dismiss="modal" aria-label="Close">close</md-icon>
+                </div>
+                <div class="modal-body pa-text-center pa-background-white">
+                    <div class="form-poup-congratulations">
+                        <div class="order_summary">
+                            <span class="order_summary_head">Order Summary</span>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tickets</th>
+                                        <th>Unit Price</th>
+                                        <th>Total Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-if="price_calculation.length > 0" ng-repeat="ticke_Details in price_calculation">
+                                        <td><span ng-if="ticke_Details._tier_id > 0" style="background-color: {{ticke_Details.tire_color}}"></span> {{ ticke_Details.qty }} x {{ticke_Details.name }}</td>
+                                        <td>${{ticke_Details.unit_price }}</td>
+                                        <td>${{ticke_Details.total_price }}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="top_order_summary_space">
+                                        <td>Sub Total</td>
+                                        <td></td>
+                                        <td>${{sub_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fees</td>
+                                        <td></td>
+                                        <td>${{total_fee}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Total</b></td>
+                                        <td></td>
+                                        <td><b>${{total_amt}}</b></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="checkout_btn_ft_mob">
+            <div class="checkout_cart_sec">
+                <div class="checkout_cart_sec_count">
+                    <a ng-disabled="checkoutDetails.quantity === 0" ng-click="sendToNativeToggle()" data-toggle="modal" data-target="#orderSummary">
+                        <span class="checkout_cart_num"><i class="material-icons">shopping_cart</i>
+                            <p ng-if="checkoutDetails.quantity">{{checkoutDetails.quantity}}</p>
+                        </span>
+                        <span class="checkout_cart_amount" ng-if="checkoutDetails.quantity > 0">${{checkoutDetails.price
+                            | number: 2}} <i class="material-icons">keyboard_arrow_down</i></span>
+                    </a>
+                </div>
+                <div class="checkout_cart_btn">
+                    <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" ng-class="(checkoutDetails.quantity !== 0)?'bg-theme-btn':'gray-btn'" ng-disabled="checkoutDetails.quantity === 0" ng-click="proceed()">Checkout</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            var tc_seatings_tooltips_front = {
+                "pan_wrapper": "Left click and drag to pan (or use arrow keys). Use mouse wheel to zoom",
+                "selectable": "Click to remove or add it to the cart."
+            };
+
+            var tc_common_vars = {
+                "ajaxUrl": "",
+                "front_zoom_level": "0.4",
+                "seat_translation": "Seat"
+            };
+
+            var tc_controls_vars = {
+                "ajaxUrl": "",
+                "front_zoom_level": "0.4",
+                "seat_translation": "Seat"
+            };
+        </script>
+    </div>
+</div>

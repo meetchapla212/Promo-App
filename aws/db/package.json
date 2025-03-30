@@ -1,0 +1,11 @@
+{
+  "name": "promo-db",
+  "version": "1.0.0",
+  "description": "promo-db",
+  "author": "Tannu",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.151.0",
+    "serverless-dynamodb-ttl": "^0.1.1"
+  }
+}

@@ -1,0 +1,944 @@
+<div flex layout="column" ng-if="eventViewVisible" ng-cloak class="pa-background-E mobile-hide">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div class="container layout-align-start-stretch flex pa-modal-font pa-background-E" ng-cloak>
+        <md-button ng-href="{{backTo.url}}" ng-if="!detailTabNew" class="pa-mt-16 pa-mt-med-35">
+            <md-icon class="pa-color-pink ">keyboard_arrow_left</md-icon>
+            <span class="tt-font-16 pa-font-bold pa-color-pink pa-vertical-align">Back to {{backTo.title}}</span>
+        </md-button>
+        <md-button ng-click="closeDetailTab()" ng-if="detailTabNew" class="pa-mt-16 pa-mt-med-35">
+            <md-icon class="pa-color-pink ">keyboard_arrow_left</md-icon>
+            <span class="tt-font-16 pa-font-bold pa-color-pink pa-vertical-align">Back to {{backTo.title}}</span>
+        </md-button>
+        <div class="tt-padding-20 pa-med-padding-none clearfix pa-pt-12">
+            <div class="col-12 col-md-12 col-sm-12 col-xs-12 pa-border-EEEEEE pa-padding-30 pa-med-padding-none Nulla-maximus-div pa-background-white">
+
+                <div class="row">
+                    <div class="col-md-8 pa-pl-0 pa-pr-0 pa-med-pr-none hidden-xl hidden-md hidden-lg pa-bg-black">
+                        <div class="banner-tag-div banner-img-style">
+                            <img ng-src="{{event.event_image}}" alt="{{event.event_name}}" class="image-concert-width">
+                            <div class="green-tag-free pa-bold-font pa-modal-font pa-font-14" ng-if="event._user_id === user.user_id">My Event</div>
+                            <div class="green-tag-free pa-bold-font pa-modal-font pa-font-14" ng-if="event.claimed_by === user.user_id">Claimed</div>
+                            <div class="green-tag-free pa-bold-font pa-modal-font pa-font-14 Sponsored-text" ng-if="event.claimed_by !== user.user_id && event.highlighted">Sponsored</div>
+                        </div>
+                    </div>
+                    <div class="col-md-9 pa-med-pad-20 ">
+                        <p class="pa-color-333333 pa-modal-font pa-font-28 pa-bold-font pa-med-font-20 event-title-margin">
+                            {{event.event_name}}
+                        </p>
+                    </div>
+                    <div class="col-md-3 hidden-xs hidden-sm">
+                        <md-button ng-href="/eventOverview?ev={{event.event_id}}" class="md-raised pa-border-CBCBCB manage-events-btn pa-color-pink pa-bold-font tt-font-16 pa-background-white pa-float-right" ng-if="functionality.manageEvents && event.ticket_type && event._user_id == user.user_id && (event.ticket_type === 'paid'|| (event.admissionticket_type && event.ticket_type === 'free'))">
+                            <span>Manage Event</span>
+                        </md-button>
+                    </div>
+
+                    <div class="col-md-3 hidden-xs hidden-sm">
+                        <md-button ng-href="/basicDetails?ev={{event.event_id}}" class="md-raised pa-border-CBCBCB manage-events-btn pa-color-pink pa-bold-font tt-font-16 pa-background-white pa-float-right" ng-if="(!event.admissionticket_type && event.ticket_type === 'free' && event._user_id == user.user_id)">
+                            <span>Edit Event</span>
+                        </md-button>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-12">
+                        <div class="pa-color-333333 pa-modal-font pa-font-18 pa-capitalize pa-med-font-16">
+                            <span class="pa-mr-5">
+                                <img ng-show="event.event_name"
+                                    ng-src="{{event.highlighted ? 'img/'+ getCatName(event.category,categoriesMap).id +'_highlight.svg' : getCatName(event.category,categoriesMap).icon}}"
+                                    class="pa-w-26 pa-icon-event" alt="category"></span> {{ getCatName(event.category,categoriesMap).name }}
+                        </div>
+                    </div>
+                    <div class="col-md-12 hidden-xl hidden-lg hidden-md ">
+                        <md-button ng-href="/eventOverview?ev={{event.event_id}}" class="md-raised pa-border-CBCBCB manage-events-btn pa-color-pink pa-bold-font tt-font-16 pa-background-white" ng-if="functionality.manageEvents && event.ticket_type && (event.ticket_type === 'paid'|| (event.admissionticket_type && event.ticket_type === 'free'))">
+                            <span>Manage Event</span>
+                        </md-button>
+                    </div>
+                </div>
+                <div class="row pa-mt-15 pa-ml-0 content-border event-info-bg pa-row-eq-height pa-row-eq-height-none">
+                    <div class="col-md-8 pa-pl-0 pa-pr-0 pa-med-pr-none hidden-xs hidden-sm pa-bg-black" layout="row" layout-align="center center">
+                        <div class="banner-tag-div" style="width: 100%">
+                            <div ng-class="{{event.event_image == '' ? image-load : '' }}">
+                                <img ng-if="event._user_id != 0" ng-src="{{event.event_image}}" alt="{{event.event_name}}" class="image-concert-width">
+                                <div ng-if="event._user_id == 0" back-img="{{event.event_image ? event.event_image : '../img/unnamed.png' }}" class="image-concert-width scraped_image"></div>
+                            </div>
+                            <div class="green-tag-free pa-bold-font pa-modal-font pa-font-14" ng-if="event._user_id === user.user_id && loggedInUser">My Event</div>
+                            <div class="green-tag-free pa-bold-font pa-modal-font pa-font-14" ng-if="event.claimed_by === user.user_id && loggedInUser">Claimed</div>
+                            <div class="green-tag-free pa-bold-font pa-modal-font pa-font-14 Sponsored-text" ng-if="event._user_id !== user.user_id && event.claimed_by !== user.user_id && event.highlighted">
+                                Sponsored</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" layout="column" layout-align="stretch start">
+                        <div class="content-date-detail tt-padding-20 pa-med-padding-none">
+                            <div layout="column" layout-align="space-between start">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="events-name-list pa-color-333333 pa-font-13"> <span><i
+                                                    class="material-icons icon-alignment pa-color-333333 pa-font-24">event_available</i></span>EVENT STARTS
+                                        </div>
+                                        <div ng-if="event.start_date_time" class="date-detail-para pa-color-333333 pa-bold-font tt-font-16">
+                                            {{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} at {{ event.start_date_time | toMoment | momentFormatter:"hh:mm A"}}
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 pa-mt-20">
+                                        <div class="events-name-list pa-color-333333 pa-font-13"> <span><i
+                                                    class="material-icons icon-alignment pa-color-333333 pa-font-24">event_available</i></span>EVENT ENDS
+                                        </div>
+                                        <div ng-if="event.end_date_time" class="date-detail-para pa-color-333333 pa-bold-font tt-font-16">
+                                            {{event.end_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} at {{event.end_date_time | toMoment | momentFormatter:"hh:mm A"}}</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 pa-mt-20">
+                                        <div class="events-name-list pa-color-333333 pa-font-13"> <span><i
+                                                    class="material-icons icon-alignment pa-color-333333 pa-font-24">location_on</i></span>LOCATION
+                                        </div>
+                                        <div class="date-detail-para pa-color-333333 pa-bold-font tt-font-16">
+                                            {{event.address}}</div>
+                                        <a target="_blank" href="https://maps.google.com/maps?hl=en&q={{ event.latitude }},{{ event.longitude }}" class="date-detail-para pa-color-pink tt-font-16 pa-mb-100 pa-cursor-pointer" ng-if="event.address" event="event">View Location on Map</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="event.ticket_type != 'public'" ng-class="{'yellow-banner-style': yellowBanner && event.ticket_type === 'paid'}" class="green-banner-tag pa-font-white free-ticket">
+                                <span class="pa-bold-font pa-font-20 pa-center-div pa-align-items-center pa-height-100p" ng-if="event.ticket_type === 'free'">FREE</span>
+                                <span class="pa-bold-font pa-font-20 pa-center-div pa-align-items-center pa-height-100p" ng-if="event.ticket_type === 'paid'" event="event" event-ticket-price></span>
+                            </div>
+                            <div ng-if="event.ticket_type == 'public'" class="green-banner-tag pa-font-white no-ticket-sold">
+                                <span class="event-create-tag-font pa-font-15 pa-bold-font">
+                                    <!-- if event is not claimed and event is scraped user id will be 0-->
+                                    {{(!event.claimed_by && event._user_id==0)?'Tickets cannot be purchased on unclaimed
+                                    events':'No Tickets Sold on Promo App'}}
+                                </span>
+                            </div>
+                            <div class="event_detail_new" ng-if="event.ticket_type == 'public' && !event.claimed_by">
+                                Information regarding ticket costs is missing from this event. <span class="pa-color-A02541 link pa-cursor-pointer" uib-tooltip="This event has not been claimed by an event organizer, so some information may be missing. Promo is unable to provide information on the cost of attending a third party event."
+                                    tooltip-placement="top">Learn More</span>
+                            </div>
+                        </div>
+                        <div class="tt-med-center">
+                            <view-ticket event="event" ticket="event.ticket" size="'large'"></view-ticket>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="middle-sharing-div row">
+                    <div class="col-sm-8 col-md-6 hidden-lg hidden-md hidden-xl " style="margin-bottom: 20px;">
+                        <button class="Buy-Ticket-btn pa-color-FFFFFF tt-font-16 pa-bold-font pa-background-pink buy-now-btn-med" buy-ticket-or-view-event="" event="event" ng-if="status.active == 'active' ">Buy
+                            Ticket</button>
+                        <span class="pa-text-center pa-font-bold pa-font-18" ng-if="event.closed">This Event is
+                            Closed</span>`
+                    </div>
+                    <div  class="col-md-2 pa-pl-0 pa-pr-0 visible-lg visible-md">
+                        <button ng-if="event.status == 'active' && !event.is_draft" ng-click="userEventAttending('May be')" class="interested-button"> <i class="material-icons"> {{eventAttending === 'May be' ? 'favorite' : 'favorite_border'}}</i> Interested in Event</button>
+                        <button ng-if="event.is_draft" class="interested-button"> <i class="material-icons"> {{eventAttending === 'May be' ? 'favorite' : 'favorite_border'}}</i> Interested in Event</button>
+                    </div>
+
+                    <div ng-if="event.status == 'active' && !event.is_draft" class="col-sm-8 pa-pl-0 visible-sm visible-xs">
+                        <button ng-click="userEventAttending('May be')" class="interested-button"> <i class="material-icons"> {{eventAttending === 'May be' ? 'favorite' : 'favorite_border'}}</i> Interested in Event</button>
+                    </div>
+
+                    <div ng-if="event.is_draft" class="col-sm-8 pa-pl-0 visible-sm visible-xs">
+                        <button class="interested-button"><i class="material-icons"> {{eventAttending === 'May be' ? 'favorite' : 'favorite_border'}}</i> Interested in Event</button>
+                    </div>
+
+                    <div ng-if="!rewardExit" class="col-md-6 med-social-icons visible-lg visible-md pa-pl-30 shareevent_mob">
+
+                        <div class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer" ng-click="socialShare('facebook',false)">
+                            <i class="fa fa-facebook-f pa-font-18 pa-color-333333"></i>
+                        </div>
+                        <div class=" col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-20 snapchat-share-button" data-share-url="{{getSocialShareURL()}}" ng-click="socialShare('snapchat',false)">
+                            <i class="fa fa-snapchat-ghost pa-font-20 whatsapp-right-top pa-color-333333"></i>
+                        </div>
+                        <div class=" col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-20" ng-click="socialShare('whatsapp',false)">
+                            <i class="fa fa-whatsapp pa-font-20 whatsapp-right-top pa-color-333333"></i>
+                        </div>
+                        <div class="col-md-2 social-circle pa-cursor-pointer pa-ml-20" ng-click="emailShare('email',false)">
+                            <i class="material-icons mail-left-right pa-font-20 pa-color-pink">mail</i>
+                        </div>
+                        <div data-dismiss="modal" social-share-link="{{otherUrl}}" class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-20 " ng-click="socialShare('other',false)">
+                            <i class="material-icons pa-font-20 mail-left-right pa-color-pink">insert_link</i>
+                        </div>
+
+                    </div>
+                    <!--  </div> -->
+                    <div class="col-md-4 hidden-xs hidden-sm pull-right">
+                        <div ng-if="isTicketSaleStart && !isTicketSaleEnd">
+                            <button class="Buy-Ticket-btn pa-color-FFFFFF tt-font-16 pa-bold-font pa-background-pink" buy-ticket-or-view-event="" event="event" ng-if="!event.closed &&  event.status != 'inactive' && allRemaingTicket !== 0 && event.tickets_list.length > 0" ng-disabled="event.is_draft"></button>
+                        </div>
+                        <div ng-if="!isTicketSaleStart">
+                            <button class="Buy-Ticket-btn sales_tc pa-color-FFFFFF tt-font-16 pa-bold-font  no-ticket-sold" ng-if="!event.closed &&  event.status != 'inactive' && allRemaingTicket !== 0 && event.tickets_list.length > 0">Sales
+                                start {{soonTicketStartDate}}</button>
+                        </div>
+                        <span class="pa-text-center pa-font-bold pa-font-18 pa-787777 pa-row-eq-height pa-align-items-center pa-pt-12" ng-if="!event.closed && allRemaingTicket === 0 && event.tickets_list.length > 0 && event.status !== 'inactive'">All
+                            Tickets Sold Out</span>
+                        <span class="pa-text-center pa-display-block pa-font-bold pa-font-18 pa-787777 pa-row-eq-height pa-align-items-center pa-pt-12" ng-if="event.closed || (isTicketSaleEnd && isTicketSaleStart)">This Event has been closed.</span>
+                        <!-- <span class="pa-text-center pa-font-bold pa-font-18 pa-center-div pa-787777 pa-row-eq-height pa-align-items-center pa-pt-12" ng-if="isTicketSaleEnd && isTicketSaleStart">Ticket sale has ended</span> -->
+
+                    </div>
+                </div>
+                <div class="middle-sharing-div-opacity"></div>
+                <div class="event-detail-number">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="pa-color-666666 tt-font-16 content-event-para-width pa-break-word" ta-bind ng-model="event.description" ng-class="{ 'show-more': functionality.showMore, 'event-descrition-sm': event.description.length > 340} ">
+                            </div>
+                            <a ng-if="!functionality.showMore && event.description.length > 340" class="mt-10 pa-color-pink pa-font-14 pa-bold-font pa-display-inline-block" ng-click="functionality.showMore = !functionality.showMore">View More</a>
+                            <a ng-if="functionality.showMore && event.description.length > 340" class="mt-10 pa-color-pink pa-font-14 pa-bold-font pa-display-inline-block" ng-click="functionality.showMore = !functionality.showMore">View Less</a>
+
+                            <!-- ----------------reward-Info--------------------- -->
+
+                            <div ng-if="rewardExit">
+
+                                <div class="reward-Info">
+                                    <div class="reward-Info-head">
+                                        <div class="event-share">
+                                            <h3>{{ event.reward_details.title }}</h3>
+                                            <span>Valid Until:
+                                                {{ event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"
+                                                }}
+                                                {{ event.start_date_time | toMoment | momentSubtract: "120" |
+                                                momentFormatter:"hh:00 A" }}</span>
+                                            <div class="share-rewards-panel">
+                                                <div class="img-sec with-mid-img">
+                                                    <img data-ng-src="{{ event.reward_details.image }}" alt="{{ event.reward_details.title }}">
+                                                </div>
+                                                <div class="content-side">
+                                                    <div class="social-circle pa-cursor-pointer" ng-if="user.user_id" ng-click="socialShare('facebook', true)">
+                                                        <i class="fa fa-facebook-f pa-font-24 pa-cursor-pointer"></i>
+                                                    </div>
+                                                    <div check-login event="event" class="social-circle pa-cursor-pointer" ng-if="!user.user_id">
+                                                        <i class="fa fa-facebook-f pa-font-24 pa-cursor-pointer"></i>
+                                                    </div>
+
+                                                    <div check-login event="event" class="social-circle pa-cursor-pointer pa-ml-15" ng-if="!user.user_id">
+                                                        <i class="fa fa-snapchat-ghost pa-font-24 snapchat-right-top pa-cursor-pointer"></i>
+                                                    </div>
+                                                    <div ng-if="user.user_id" class="social-circle pa-cursor-pointer pa-ml-15 snapchat-share-button" data-share-url="{{getSocialShareURL()}}" ng-click="socialShare('snapchat', true)">
+                                                        <i class="fa fa-snapchat-ghost pa-font-24 snapchat-right-top pa-cursor-pointer"></i>
+                                                    </div>
+
+                                                    <div ng-if="user.user_id" class="social-circle pa-cursor-pointer pa-ml-15" ng-click="socialShare('whatsapp', true)">
+                                                        <i class="fa fa-whatsapp pa-font-24 whatsapp-right-top pa-cursor-pointer"></i>
+                                                    </div>
+                                                    <div check-login event="event" ng-if="!user.user_id" class="social-circle pa-cursor-pointer pa-ml-15">
+                                                        <i class="fa fa-whatsapp pa-font-24 whatsapp-right-top pa-cursor-pointer"></i>
+                                                    </div>
+
+                                                    <div ng-if="user.user_id" class="social-circle pa-cursor-pointer pa-ml-15" ng-click="emailShare('email',true)">
+                                                        <i class="material-icons mail-left-right pa-font-24 pa-color-pink">mail</i>
+                                                    </div>
+                                                    <div check-login event="event" ng-if="!user.user_id" class="social-circle pa-cursor-pointer pa-ml-15">
+                                                        <i class="material-icons mail-left-right pa-font-24 pa-color-pink pa-cursor-pointer">mail</i>
+                                                    </div>
+
+                                                    <div check-login event="event" class="social-circle pa-cursor-pointer pa-ml-15" ng-if="!user.user_id">
+                                                        <i class="material-icons mail-left-right pa-font-24 pa-color-pink pa-cursor-pointer">insert_link</i>
+                                                    </div>
+                                                    <div ng-if="user.user_id" class="social-circle pa-cursor-pointer pa-ml-15" data-dismiss="modal" social-share-link="{{otherUrl}}" ng-click="socialShare('other', true)">
+                                                        <i class="material-icons mail-left-right pa-font-24 pa-color-pink pa-cursor-pointer">insert_link</i>
+                                                    </div>
+
+                                                    <div class="event-share-imgdecrption">
+                                                        <p>{{ event.reward_details.description }}</p>
+                                                        <a class="mt-10 pa-color-pink pa-font-14 pa-bold-font pa-display-block" data-toggle="modal" data-target="#RewardTerms">View
+                                                            Promotion Terms & Conditions</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade popup-perent rewardtermspopup info_terms_popup_main" id="RewardTerms" tabindex="-1" role="dialog" aria-labelledby="RewardTerms" aria-hidden="true">
+                                <div class="modal-dialog login-modal">
+                                    <!-- Modal content-->
+                                    <div class="modal-body pa-text-center pa-background-white">
+                                        <div class="rewardpopup-content">
+                                            <i class="material-icons">info</i>
+                                            <h2>Reward Terms & Conditions</h2>
+                                            <span>{{ event.reward_details.terms_condition }}</span>
+                                            <md-button data-dismiss="modal">Ok, I understand.</md-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <div ng-class="{'with-email-info-box':event.email || event._user_id}" ng-hide="event._user_id == user.user_id" class="event-detail-one-tag" ng-if="event.organizer_details && event._user_id != 0">
+                                <div class="Rebecca-Willson-div">
+                                    <div class="pa-display-inline-flex pa-align-items-center">
+                                        <img ng-src="{{event.organizer_details.profile_pic || '../img/defaultProfilePic.png' }}" alt="{{event.organizer_details.username}}" class="img-circle wh-42 account-icon pa-mt-0" />
+
+                                        <a ng-if="loggedInUser" class="pa-display-inline-block" ng-href="/eventorganiser/{{event.event_id}}/{{event.organizer_details.user_id}}">
+                                            <span ng-if="event.organizer_details.first_name" class="pa-font-18 pa-med-font-16 pa-bold-font">{{event.organizer_details.first_name+'
+                                                '+event.organizer_details.last_name }}</span>
+                                            <span ng-if="!event.organizer_details.first_name" class="pa-font-18 pa-med-font-16 pa-bold-font">{{event.organizer_details.username}}</span>
+                                        </a>
+                                        <a ng-if="!loggedInUser" class="pa-display-inline-block" check-login event="event">
+                                            <span ng-if="event.organizer_details.first_name" class="pa-font-18 pa-med-font-16 pa-bold-font">{{event.organizer_details.first_name+'
+                                                '+event.organizer_details.last_name }}</span>
+                                            <span ng-if="!event.organizer_details.first_name" class="pa-font-18 pa-med-font-16 pa-bold-font">{{event.organizer_details.username}}</span>
+                                        </a>
+                                    </div>
+                                    <div class="pa-color-666666 pa-font-16 pa-ml-lorem pa-mb-20">Organizer<span ng-if="zoneDashboardURL != '' && user.user_id">,</span> <a ng-href="{{zoneDashboardURL}}" target="_blank" class="pa-cursor-pointer tt-font-16 pa-color-pink pa-display-inline-flex pa-width-100p" ng-if="zoneDashboardURL != '' && user.user_id">{{event.zone_details.name}}</a>
+                                    </div>
+                                    <div ng-class="{'border-detail-pa-gray':(event.websiteUrl || event.email)}" class="pa-mt-20">
+                                        <input ng-if="user.user_id" type="button" class="md-raised follow-pa-btn pa-border-4 pa-bg-FFFFFF pa-ml-lorem pa-border-CBCBCB pa-color-pink pa-font-14 pa-bold-font" pa-follow-button="{followByUser: {{ user.user_id }} , toFollowUser: {{ event._user_id }} }"
+                                            ng-click="doFollowUserInDirective(event.organizer_details,user)" />
+                                        <input check-login event="event" type="button" ng-if="!user.user_id" class="md-raised follow-pa-btn pa-border-4 pa-bg-FFFFFF pa-ml-lorem pa-border-CBCBCB pa-color-pink pa-font-14 pa-bold-font follow" value="Follow">
+                                    </div>
+                                    <a ng-href="{{event.websiteurl}}" target="_blank" class="pa-cursor-pointer tt-font-16 pa-color-pink pa-pt-20 pa-display-inline-flex pa-width-100p" ng-if="event.websiteurl">
+                                        <div><i class="material-icons icon-alignment pa-color-333333 pa-font-24 events-name-list" style="margin-right:7px;">web</i></div>
+                                        <div class="pa-break-all pa-width-100p">{{event.websiteurl}}</div>
+                                    </a>
+                                    <a ng-href="mailto:{{event.email}}" target="_top" class="pa-cursor-pointer tt-font-16 pa-color-pink pa-mt-15 pa-display-inline-flex pa-width-100p" ng-if="event.email">
+                                        <div><i class="material-icons icon-alignment pa-color-333333 pa-font-24 events-name-list">mail</i>
+                                        </div>
+                                        <div class="pa-break-all pa-width-100p">{{event.email}}</div>
+                                    </a>
+                                    <a ng-href="tel:{{event.phone}}" target="_top" class="pa-cursor-pointer tt-font-16 pa-color-pink pa-mt-15 pa-display-inline-flex pa-width-100p" ng-if="event.phone">
+                                        <div><i class="material-icons icon-alignment pa-color-333333 pa-font-24 events-name-list">phone</i>
+                                        </div>
+                                        <div class="pa-break-all pa-width-100p">{{event.phone}}</div>
+                                    </a>
+                                    <div ng-if="user.user_id" class="pa-cursor-pointer tt-font-16 pa-color-pink pa-mt-15 pa-display-inline-flex pa-width-100p">
+                                        <a class="pa-color-A02541 pa-display-inline-block" target="_blank" ng-href="/chat.html?userId={{event.organizer_details.quickblox_id}}">
+                                            <i class="material-icons icon-alignment pa-color-333333 pa-font-24 events-name-list">chat</i>Chat with Organizer
+                                        </a>
+                                    </div>
+                                    <div check-login event="event" ng-if="!user.user_id" class="pa-cursor-pointer tt-font-16 pa-color-pink pa-mt-15 pa-display-inline-flex pa-width-100p">
+                                        <a class="pa-color-A02541 pa-display-inline-block">
+                                            <i class="material-icons icon-alignment pa-color-333333 pa-font-24 events-name-list">chat</i>Chat with Organizer
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- if event is not claimed and event is scraped user id will be 0-->
+                            <div class="event-detail-one-tag event-belong-div" ng-if="(!event.claimed_by && event._user_id == 0)">
+                                <div ng-if="user">
+                                    <div class="pa-color-333333 pa-font-20 pa-bold-font">
+                                        Does this event belong to you?
+                                    </div>
+                                    <div>
+                                        <button class="claim-this-event-btn pa-color-pink pa-background-white pa-mt-20 pa-font-16 pa-bold-font" data-toggle="modal" data-target="#confirmClaim">Claim
+                                            This Event </button>
+                                    </div>
+                                </div>
+                                <div ng-if="!user">
+                                    <div class="pa-color-333333 pa-font-20 pa-bold-font">
+                                        Does this event belong to you?
+                                    </div>
+                                    <div>
+                                        <button check-login event="event" class="claim-this-event-btn pa-color-pink pa-background-white pa-mt-20 pa-font-16 pa-bold-font">Claim
+                                            This Event </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade popup-perent rewardtermspopup claim-confirmation-popup no_extra_cost" id="confirmClaim" tabindex="-1" role="dialog" aria-labelledby="RewardTerms" aria-hidden="true">
+                    <div class="modal-dialog login-modal">
+                        <div class="modal-header bg-F6F6F6">
+                            <span class="modal-title pa-color-333333 pa-font-17 pa-bold-font">Claim Event</span>
+                            <md-icon class="pa-float-right pa-color-333333 material-icons" role="button" tabindex="0" aria-label="close" data-dismiss="modal">close</md-icon>
+                        </div>
+                        <!-- Modal content-->
+                        <div class="modal-body pa-text-center pa-background-white">
+                            <div class="rewardpopup-content">
+                                <span class="claim-event-text">You can claim this event at <b
+                                        class="claim-event-free">NO extra cost</b></span>
+                                <span class="claim-charged"><b>You will not be charged any amount when claiming this
+                                        event.</b></span>
+                                <button class="pa-pl-pr-30 pa-pink-button ht-48 pa-no-margin md-button md-ink-ripple" data-dismiss="modal" type="button" ng-click="claimEvent(event)"> Claim Event
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div check-login event="event">
+
+                    <span class="comments-div pa-color-333333 pa-font-32 pa-bold-font pa-med-font-20 pa-display-inline-block">
+                        Comments <span
+                            class="pa-display-inline-block pa-color-333333 pa-font-16 pa-vertical-align pa-text-center pa-ml-10 comment-count">{{comments.length}}</span>
+                    </span>
+                    <div>
+                        <textarea placeholder="Type your comment here." class="w-600 form-control pa-border pa-color-333333 pa-mt-0 autosize pa-button-font-size" ng-disabled="!loggedInUser" ng-model="newComment.comment" id="commentId" style="min-height: 48px;"></textarea>
+                    </div>
+                    <div class="post-margin">
+                        <md-button class="new-Post-Comment-btn pa-border-4 pa-color-FFFFFF pa-font-16 pa-bold-font" ng-disabled="!newComment.comment || commentButtonText != 'Post Comment'" ng-click='doComments();'>
+                            {{commentButtonText}}</md-button>
+                    </div>
+                </div>
+
+                <div class="pa-med-margin-40">
+                    <div class="w-600 delete-med-icon" ng-repeat="cmt in comments  | limitTo : totalComments" ng-class="$index > 0?'pa-mt-16':''">
+                        <md-button ng-href="/userprofile/{{cmt.user_id}}" class="md-fab md-mini md-hue-3 z-index-1 wh-42 pa-no-padding">
+                            <img ng-src="{{ (cmt.profile_pic || '../img/defaultProfilePic.png') }}" alt="{{cmt.username}}" class="img-circle wh-42" />
+                        </md-button>
+                        <a ng-show="cmt.user_id!=loggedInUser.user_id" ng-href="/userprofile/{{cmt.user_id}}" class="pa-text-decoration pa-display-inline-block">
+                            <span ng-if="cmt.first_name" class="pa-color-333333 pa-font-16 pa-bold-font cmt-user">
+                                {{ cmt.first_name+' '+ cmt.last_name }}
+                            </span>
+                            <span ng-if="!cmt.first_name" class="pa-color-333333 pa-font-16 pa-bold-font cmt-user">
+                                {{ cmt.username }}
+                            </span>
+                        </a>
+                        <a ng-show="cmt.user_id==loggedInUser.user_id" back-to-history class="pa-text-decoration pa-display-inline-block">
+                            <span ng-if="cmt.first_name" class="pa-color-333333 pa-font-16 pa-bold-font cmt-user">
+                                {{ cmt.first_name+' '+ cmt.last_name }}
+                            </span>
+                            <span ng-if="!cmt.first_name" class="pa-color-333333 pa-font-16 pa-bold-font cmt-user">
+                                {{ cmt.username }}
+                            </span>
+                        </a>
+                        <span class="dot custom-dot pa-ml-10"></span>
+                        <span class="pa-color-333333 pa-font-13 pa-ml-10">{{timeCalculationForAgo(cmt.date_created_ms)}}</span>
+                        <span class="pa-float-right" ng-show="loggedInUser.user_id==cmt.user_id" ng-click="delete_cmt(cmt.comment_id)">
+                            <i class="material-icons cancelled-clor pa-cursor-pointer pa-mt-12">delete</i></span>
+                        <div class="pa-color-666666 pa-font-16 pa-ml-lorem">{{ cmt.comment }}</div>
+                    </div>
+                    <div class="pa-color-pink pa-font-14 pa-bold-font pa-mt-30" ng-if="comments.length > 3">
+                        <p ng-show="eventDetailSec" ng-click="viewAllComment()">View All Comments</p>
+                        <p ng-show="!eventDetailSec" ng-click="viewLessComment()">Hide Comments</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="tt-padding-20" ng-if="!functionality.hideRelatedEvents">
+            <div class="row pa-related-event-style ">
+                <div class="pa-font-bold pa-color-333333 pa-font-32 pa-med-font-20">Related Events
+                    <span class="slider-nav-e-web" ng-if="ev.length > 0">
+                        <a ng-click="handleSlider('prev','myCarousel-web')" class="left-e-mob active-arrow"><i
+                                class="material-icons">keyboard_arrow_left</i></a>
+                        <a ng-click="handleSlider('next','myCarousel-web')" class="right-e-mob active-arrow"><i
+                                class="material-icons">navigate_next</i></a>
+                    </span>
+                </div>
+
+                <span ng-if="ev.length==0">
+                    <h4 style="text-align: center;">No Related Events Found</h4>
+                </span>
+
+                <div id="myCarousel-web" class="carousel slide media-carousel hidden-sm hidden-xs" data-ride="carousel" style="width:100%" ng-if="ev.length > 0">
+                    <div class="carousel-inner">
+                        <div ng-repeat="n in numberOfItems() track by $index" class="item row pa-bootstrap-row" ng-class="{active:$index==0}">
+                            <div class="col-xs-12 col-12 col-sm-6 col-md-3 related-events-slider" ng-repeat="x in ev | limitTo:4 :($index * 4)">
+                                <event-overview event="x" read-only="true"></event-overview>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Mobile view -->
+<div flex layout="column" ng-if="eventViewVisible" ng-cloak class="pa-background-E desktop-hide">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div class="mobile-ticket-details" ng-if="!loading && !functionality.ordersuccess && !functionality.showMore && !functionality.viewAllComments">
+        <div class="view-event-for-organiser">
+            <div class="e-cover-img-mobile">
+                <img ng-if="event._user_id != 0" ng-src="{{event.event_image}}" alt="{{event.event_name}}" class="image-concert-width">
+                <img ng-if="event._user_id == 0" ng-src="{{event.event_image ? event.event_image : '../img/unnamed.png' }}" class="image-concert-width"></div>
+        </div>
+        <div class="mob-fxd-heading" set-class-when-at-top="sticky" ng-class="{'with-edit-link-event-details':(event._user_id === user.user_id), 'without-edit-link-event-details':!(event._user_id === user.user_id)}">
+            <a class="pa-display-inline-block backbtn" ng-href="{{backTo.url}}"><i
+                        class="material-icons">arrow_back_ios</i></a>
+            <h2 class="">{{event.event_name}}</h2>
+            <span class="share-link" ng-if="event._user_id === user.user_id" ng-hide="event.status == 'inactive'">
+                    <a edit-event-modal="" class="pa-display-inline-block" event="event" action="'Edit'">Edit</a>
+                </span>
+        </div>
+        <div class="container-wtd-1170 hide-mobile">
+            <div class="ticket-mobile-title view-event-for-organiser-header">
+                <h2>{{event.title}}</h2>
+                <span class="chec-category"><img
+                            ng-src="{{event.highlighted ? 'img/'+ event.category + '_highlight.svg' : categoriesMap[event.category].icon}}"
+                            alt="{{event.title}}">
+                        {{categoriesMap[event.category].name}}</span>
+            </div>
+        </div>
+
+        <div class="event-organiser-mobile">
+            <div class="container-wtd-1170">
+                <div class="mobile-ticket-other-details ticket-time-date-details-mobile">
+                    <div class="event-inner-mob-list">
+                        <span class="event_available"><i class="material-icons">event_available</i></span>
+                        <span class="event_start">EVENT STARTS
+                                <b>{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}
+                                    at {{ event.start_date_time | toMoment | momentFormatter:"hh:mm A"}}</b>
+                            </span>
+                    </div>
+
+                    <div class="event-inner-mob-list">
+                        <span class="event_available"><i class="material-icons">event_available</i></span>
+                        <span class="event_start">EVENT ENDS
+                                <b>{{event.end_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}
+                                    at {{event.end_date_time | toMoment | momentFormatter:"hh:mm A"}}</b>
+                            </span>
+                    </div>
+
+                    <div class="event-inner-mob-list">
+                        <span class="event_available"><i class="material-icons">location_on</i></span>
+                        <span class="event_start">LOCATION
+                                <b>{{event.address}}</b>
+                            </span>
+                    </div>
+                    <a target="_blank" href="https://maps.google.com/maps?hl=en&q={{ event.latitude }},{{ event.longitude }}" class="pa-color-pink view-location-on-map" ng-if="event.address" event="event">View Location
+                            on Map</a>
+                </div>
+            </div>
+            <div class="price-starts-mob bg-green free-ticket yellow-banner-style" ng-if="event.ticket_type != 'public'">
+                <span ng-if="event.ticket_type === 'paid'"><b event="event" event-ticket-price></b></span>
+                <span ng-if="event.ticket_type === 'free'"><b>FREE</b></span>
+            </div>
+
+            <div class="price-starts-mob bg-yellow" ng-if="event.ticket_type == 'public' && event._user_id > 0">
+                <span>{{(!event.claimed_by && event._user_id == 0)?'Tickets cannot be purchased on unclaimed
+                        events':'No Tickets Sold on Promo App'}}</span>
+            </div>
+            <div class="event_detail_new_mobile" ng-if="event.ticket_type == 'public' && !event.claimed_by">
+                Information regarding ticket costs is missing from this event.
+                <span class="pa-color-A02541 link pa-cursor-pointer" data-toggle="modal" data-target="#learnMore">Learn More</span>
+            </div>
+
+            <div class="share-event-mob">
+                <div class="container-wtd-1170">
+                    <div class="share-event-mob-btn-group">
+                        <div class="text-center">
+                            <button ng-click="userEventAttending('May be')" class="interested-button"> <i class="material-icons"> {{eventAttending === 'May be' ? 'favorite' : 'favorite_border'}}</i> Interested in Event</button>
+                        </div>
+                        <a class="pa-display-inline-block" data-toggle="modal" ng-if="!rewardExit" data-target="#shareevent">Share Event</a>
+                    </div>
+
+                    <div class="about-event-mob" ng-if="event.description">
+                        <div class="pa-color-666666 tt-font-16 content-event-para-width pa-break-word" ta-bind ng-model="event.description" ng-class="{ 'show-more': functionality.showMore, 'event-descrition-sm': event.description.length > 200} ">
+                        </div>
+
+                        <a ng-if="!functionality.showMore && event.description.length > 200" class="mt-10 content-event-para-width pa-color-pink pa-font-14 pa-bold-font pa-display-inline-block" ng-click="functionality.showMore = !functionality.showMore">View More</a>
+                    </div>
+                    <div class="reward-Info mobile-reward-Info" ng-if="event.reward_details.title">
+                        <div class="reward-Info-head">
+                            <div class="event-share">
+                                <h3>{{ event.reward_details.title }}</h3>
+                                <span>Valid Until:
+                                        {{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}
+                                        {{ event.start_date_time | toMoment | momentSubtract: "120" |
+                                        momentFormatter:"hh:00 A"}}</span>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <img data-ng-src="{{ event.reward_details.image }}" alt="{{ event.reward_details.title }}">
+                                    </div>
+                                    <div class="col-md-12 med-social-icons">
+                                        <div class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer" ng-if="user.user_id" ng-click="socialShare('facebook', true)">
+                                            <i class="fa fa-facebook-f pa-font-24 pa-cursor-pointer"></i>
+                                        </div>
+                                        <div check-login event="event" class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer" ng-if="!user.user_id">
+                                            <i class="fa fa-facebook-f pa-font-24 pa-cursor-pointer"></i>
+                                        </div>
+
+                                        <div check-login event="event" class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-15" ng-if="!user.user_id">
+                                            <i class="fa fa-snapchat-ghost pa-font-24 snapchat-right-top pa-cursor-pointer"></i>
+                                        </div>
+                                        <div ng-if="user.user_id" class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-15 snapchat-share-button" data-share-url="{{getSocialShareURL()}}" ng-click="socialShare('snapchat', true)">
+                                            <i class="fa fa-snapchat-ghost pa-font-24 snapchat-right-top pa-cursor-pointer"></i>
+                                        </div>
+
+                                        <div ng-if="user.user_id" class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-15" ng-click="socialShare('whatsapp', true)">
+                                            <i class="fa fa-whatsapp pa-font-24 whatsapp-right-top pa-cursor-pointer"></i>
+                                        </div>
+                                        <div check-login event="event" ng-if="!user.user_id" class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-15">
+                                            <i class="fa fa-whatsapp pa-font-24 whatsapp-right-top pa-cursor-pointer"></i>
+                                        </div>
+
+                                        <div ng-if="user.user_id" class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-15" ng-click="emailShare('email',true)">
+                                            <i class="material-icons mail-left-right pa-font-24 pa-color-pink">mail</i>
+                                        </div>
+                                        <div check-login event="event" ng-if="!user.user_id" class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-15">
+                                            <i class="material-icons mail-left-right pa-font-24 pa-color-pink pa-cursor-pointer">mail</i>
+                                        </div>
+
+                                        <div check-login event="event" class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-15" ng-if="!user.user_id">
+                                            <i class="material-icons mail-left-right pa-font-24 pa-color-pink pa-cursor-pointer">insert_link</i>
+                                        </div>
+                                        <div ng-if="user.user_id" class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-15" data-dismiss="modal" social-share-link="{{otherUrl}}" ng-click="socialShare('other', true)">
+                                            <i class="material-icons mail-left-right pa-font-24 pa-color-pink pa-cursor-pointer">insert_link</i>
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12 event-share-imgdecrption">
+                                            <p>{{ event.reward_details.description }}</p>
+                                            <a class="mt-10 pa-color-pink pa-font-14 pa-bold-font pa-display-block" data-toggle="modal" data-target="#RewardTermsMob">View Promotion
+                                                    Terms & Conditions</a>
+                                        </div>
+                                        <div class="modal fade popup-perent rewardtermspopup rewardtermspopup-mob-popup info_terms_popup_main" id="RewardTerms1" tabindex="-1" role="dialog" aria-labelledby="RewardTerms1" aria-hidden="true">
+                                            <div class="modal-dialog login-modal">
+                                                <!-- Modal content-->
+                                                <div class="modal-body pa-text-center pa-background-white">
+                                                    <div class="rewardpopup-content">
+                                                        <i class="material-icons">info</i>
+                                                        <h2>Reward Terms & Conditions</h2>
+                                                        <span>{{ event.reward_details.terms_condition }}</span>
+                                                        <md-button data-dismiss="modal">Ok, I understand.
+                                                        </md-button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade popup-perent rewardtermspopup rewardtermspopup-mob-popup info_terms_popup_main info_terms_popup_main_mobile" id="RewardTermsMob" tabindex="-1" role="dialog" aria-labelledby="RewardTermsMob" aria-hidden="true">
+                            <div class="modal-dialog login-modal">
+                                <!-- Modal content-->
+                                <div class="modal-body pa-text-center pa-background-white">
+                                    <md-icon data-dismiss="modal" class="pa-float-right" style="position: absolute;top: 10px;right: 10px;">close</md-icon>
+                                    <div class="rewardpopup-content">
+                                        <i class="material-icons">info</i>
+                                        <h2>Reward Terms & Conditions</h2>
+                                        <span>{{ event.reward_details.terms_condition }}</span>
+                                        <md-button data-dismiss="modal">Ok, I understand.</md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="show-event-followers-mob">
+                <div class="container-wtd-1170">
+                    <div class="show-event-profile-mob br-btm-E4E4E4" ng-if="event.organizer_details && event._user_id != 0">
+                        <span class="profile-img-event-mob pa-opacity-full">
+                                <img pa-user-img="{{event.organizer_details.user_id}}"
+                                    class="img-circle wh-42 account-icon" alt="{{event.organizer_details.username}}" />
+                            </span>
+                        <div class="profile-name-follow-mob pa-mt-0">
+                            <div class="profile-name-postion-mobile">
+                                <a ng-if="user.user_id" class="pa-cursor-pointer pa-display-inline-block" ng-href="/eventorganiser/{{event.event_id}}/{{event.organizer_details.user_id}}">
+                                    <b ng-if="!event.organizer_details.first_name">{{event.organizer_details.username}}</b>
+                                    <b ng-if="event.organizer_details.first_name">{{event.organizer_details.first_name+'
+                                            '+event.organizer_details.last_name }}</b>
+                                </a>
+                                <a class="pa-cursor-pointer pa-display-inline-block" ng-href="" check-login event="event" ng-if="!user.user_id">
+                                    <b ng-if="!event.organizer_details.first_name">{{event.organizer_details.username}}</b>
+                                    <b ng-if="event.organizer_details.first_name">{{event.organizer_details.first_name+'
+                                            '+event.organizer_details.last_name }}</b>
+                                </a>Organizer<span ng-if="zoneDashboardURL != '' && user.user_id">,</span>
+                                <a ng-href="{{zoneDashboardURL}}" target="_blank" class="pa-cursor-pointer tt-font-16 pa-color-pink pa-display-inline-flex" ng-if="zoneDashboardURL != '' && user.user_id">{{event.zone_details.name}}</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- if event is not claimed and event is scraped user id will be 0-->
+                    <div class="show-event-profile-mob pa-pb-0" ng-if="!event.claimed_by && event._user_id==0">
+                        <div class="profile-name-follow-mob ">
+                            <span class="profile-name-postion-mobile"><b>Does this event belong to you?</b></span>
+                            <span class="pa-color-666666 tt-font-16">You can claim event from web app</span>
+                        </div>
+                    </div>
+                    <div class="other-info-about-info-mob" ng-if="event.organizer_details && event._user_id != 0">
+                        <div class="event-inner-mob-list" ng-if="event.websiteurl">
+                            <span class="event_available"><i class="material-icons">web</i></span>
+                            <span class="event_start" check-login event="event" ng-if="!user.user_id"><a>
+                                        {{event.websiteurl}}</a></span>
+                            <span class="event_start" ng-if="user.user_id"><a href="{{event.websiteurl}}">
+                                        {{event.websiteurl}}</a></span>
+                        </div>
+
+                        <div class="event-inner-mob-list" ng-if="event.organizer_details && event.organizer_details.user_id != promoAdminId">
+                            <span class="event_available"><i class="material-icons">chat</i></span>
+                            <span class="event_start" check-login event="event" ng-if="!user.user_id"><a> Chat with
+                                        Organizer</a></span>
+                            <span class="event_start" ng-if="user.user_id"><a
+                                        ng-href="/chat.html?userId={{event._user_id}}"> Chat with Organizer</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comments-event-mob">
+                <div class="container-wtd-1170" check-login event="event">
+                    <div class="invite-follow-op">
+                        <div class="form-group full-field">
+                            <label>Comments ({{comments.length}})</label>
+                            <textarea ng-model="newComment.comment" class="form-control line-ht-14 pa-placeholder pa-color-333333" ng-disabled="!loggedInUser" placeholder="Type your comment here."></textarea>
+                        </div>
+                        <div class="add-btn-mob">
+                            <md-button class="pa-pink-button pa-no-margin" ng-disabled="!newComment.comment || commentButtonText != 'Post Comment'" ng-click='doComments();'>
+                                {{commentButtonText}}</md-button>
+                        </div>
+                    </div>
+
+                    <div layout="row" class="comments-user-mobile" ng-repeat="cmt in comments  | limitTo : totalComments">
+                        <div class="comment-user-icon">
+                            <img ng-src="{{ (cmt.profile_pic || '../img/defaultProfilePic.png') }}" alt="{{cmt.username}}" class="img-circle wh-42" />
+                        </div>
+                        <div class="comment-content-mobile pa-break-word">
+                            <span class="comment-name-mobile">
+                                    <b ng-if="!cmt.first_name">{{ cmt.username }}</b>
+                                    <b ng-if="cmt.first_name">{{ cmt.first_name+' '+ cmt.last_name }}</b>
+                                    <i></i>{{timeCalculationForAgo(cmt.date_created_ms)}}</span>
+                            <br />
+                            <span class="comment-name-mobile">{{ cmt.comment }}</span>
+                        </div>
+                        <div class="pa-float-right" ng-show="loggedInUser.user_id==cmt.user_id" ng-click="delete_cmt(cmt.comment_id)">
+                            <i class="material-icons cancelled-clor pa-cursor-pointer pa-mt10">delete</i>
+                        </div>
+                    </div>
+
+                    <a ng-if="comments.length > 3 && totalComments != comments.length" ng-click="viewAllComment()" class="link-mob">View All Comments</a>
+
+                </div>
+            </div>
+
+            <div class="event-slider-mobile">
+                <div class="container">
+                    <div class="slider-head-e-mob">
+                        <h2 class="wtd-100">More events like this</h2>
+                        <p ng-if="ev.length == 0" class="pa-mt-20">No Related Events Found</p>
+                        <span class="slider-nav-e-mob" ng-if="ev.length > 0">
+                                <a ng-click="handleSlider('prev','myCarousel')" class="left-e-mob active-arrow"><i
+                                        class="material-icons">keyboard_arrow_left</i></a>
+                                <a ng-click="handleSlider('next','myCarousel')" class="right-e-mob active-arrow"><i
+                                        class="material-icons">navigate_next</i></a>
+                            </span>
+                    </div>
+                    <div id="myCarousel" class="carousel slide media-carousel" data-ride="carousel" style="width:100%" ng-if="ev.length > 0">
+                        <div class="carousel-inner">
+                            <div ng-repeat="x in ev track by $index | limitTo:6" class="item" ng-class="{active:$index==0}">
+                                <div class="col-md-12 related-events-slider" style="padding: 5px;">
+                                    <event-overview event="x" read-only="true"></event-overview>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pa-sticky-footer" style="z-index: 99;">
+                <div class="mobile-full-btn-ft">
+                    <div ng-if="isTicketSaleStart && !isTicketSaleEnd && event.status == 'active'">
+                        <a class="bg-theme-btn" buy-ticket-or-view-event="" event="event">Buy Ticket</a>
+                    </div>
+                    <div ng-if="!isTicketSaleStart && event.event_type != 'public' && event.tickets_list.length > 0">
+                        <span class="pending-text">Ticket Sale Start {{soonTicketStartDate}}</span>
+                    </div>
+                    <div ng-if="event.tickets_list.length == 0 && event.event_type == 'free' && event.status == 'active'">
+                        <span class="pending-text pa-color-38B968">This event is FREE</span>
+                    </div>
+                    <span class="closed-ev-text" ng-if="isTicketSaleEnd && isTicketSaleStart && event.status != 'active'">This event is closed.</span>
+                    <span class="closed-ev-text" ng-if="isTicketSaleEnd && isTicketSaleStart && event.status == 'active'">Ticket sale has ended</span>
+                    <span class="closed-ev-text" ng-if="!event.closed && allRemaingTicket === 0 && event.tickets_list.length > 0 && event.status !== 'inactive'">All
+                            Tickets Sold Out</span>
+                    <span class="pending-text" ng-if="event.event_type == 'public' && event.status == 'active'">
+                            {{(!event.claimed_by && event._user_id==0)?'Tickets cannot be purchased on unclaimed
+                            events':'No Tickets Sold on Promo App'}}
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout-fill class="mobile-ticket-details orderomplete" ng-show="functionality.ordersuccess">
+    <a ng-click="functionality.ordersuccess = false;" class="asking-qu-mob"><i class="material-icons">close</i></a>
+    <div class="order-complete-mob">
+        <i class="material-icons">check_circle</i>
+        <h3>Order Complete</h3>
+        <span>See you at the event!</span>
+        <a ng-href="/tickets" class="bg-theme-btn order-complete-btn-mob">View Your Ticket</a>
+    </div>
+</div>
+
+<div layout-fill class="mobile-ticket-details orderomplete" ng-show="functionality.viewAllComments">
+    <div class="mobile-header br-bt-show">
+        <span class="back-btn-mobile">
+                <a ng-click="viewLessComment()"><i class="material-icons">arrow_back_ios</i></a>
+            </span>
+        <h2 class="pd-right-32">Comments</h2>
+    </div>
+    <div class="comments-event-mob pa-no-margin">
+        <div class="container-wtd-1170">
+            <div class="invite-follow-op">
+                <div class="form-group full-field">
+                    <textarea ng-model="newComment.comment" class="form-control line-ht-14 pa-placeholder pa-color-333333" placeholder="Type your comment here."></textarea>
+                </div>
+                <div class="add-btn-mob">
+                    <md-button class="pa-pink-button pa-no-margin" ng-disabled="!newComment.comment || commentButtonText != 'Post Comment'" ng-click='doComments();'>
+                        {{commentButtonText}}</md-button>
+                </div>
+            </div>
+
+            <div layout="row" class="comments-user-mobile" ng-repeat="cmt in comments">
+                <div class="comment-user-icon">
+                    <img pa-user-img="{{cmt.user_id}}" alt="{{cmt.username}}" class="img-circle wh-40" />
+                </div>
+                <div class="comment-content-mobile pa-break-word">
+                    <span class="comment-name-mobile"><b>{{ cmt.first_name+" "+cmt.last_name }}</b>
+                            <i></i>{{timeCalculationForAgo(cmt.date_created_ms)}} </span>
+                    <br />
+                    <span class="comment-name-mobile">{{ cmt.comment }}</span>
+                </div>
+                <div class="pa-float-right" ng-show="loggedInUser.user_id==cmt.user_id" ng-click="delete_cmt(cmt.comment_id)">
+                    <i class="material-icons cancelled-clor pa-cursor-pointer pa-mt10">delete</i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout-fill class="mobile-ticket-details orderomplete" ng-show="functionality.showMore">
+    <div class="mobile-header br-bt-show">
+        <span class="back-btn-mobile">
+                <a ng-click="functionality.showMore=!functionality.showMore"><i
+                        class="material-icons">arrow_back_ios</i></a>
+            </span>
+        <h2 class="pd-right-32">Event Detail</h2>
+    </div>
+    <div class="event-detail-mobile">
+        <div class="pa-color-333333 tt-font-16 content-event-para-width pa-break-word" ta-bind ng-model="event.description">
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade popup-perent" id="cancelevent" tabindex="-1" role="dialog" aria-labelledby="cancelevent" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="popup-body">
+                <div class="claimed-pop">
+                    <b>Claim Event</b> You can claim event from web app.
+                </div>
+            </div>
+            <div class="draft-cancel-btn">
+                <a data-dismiss="modal" class="theme-bg-btn  mr-bt-30">I Understand</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade popup-perent" id="editevent" tabindex="-1" role="dialog" aria-labelledby="editevent" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="popup-body">
+                <div class="claimed-pop">
+                    <b>Edit Event</b> You can only edit the event on your desktop
+                </div>
+            </div>
+            <div class="draft-cancel-btn">
+                <a data-dismiss="modal" class="theme-bg-btn  mr-bt-30">Got it</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade pa-create-event-modal shareevent_mob" id="shareevent" tabindex="-1" role="dialog" aria-labelledby="shareevent" aria-hidden="true">
+    <div class="modal-dialog custom-model-content pa-no-margin">
+        <div class="modal-header">
+            <span class="modal-title pa-color-333333 pa-font-17 pa-bold-font" id="modal-title">Share Event</span>
+            <md-icon data-dismiss="modal" class="pa-float-right pa-color-333333 material-icons" role="button" tabindex="0" aria-label="close">close</md-icon>
+        </div>
+        <div class="modal-body">
+            <div class="popup-body pa-pt-12 pb-15">
+                <div layout="row" layout-align="center center">
+                    <div class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer" ng-click="socialShare('facebook',false)">
+                        <i class="fa fa-facebook-f pa-font-18 pa-color-333333"></i>
+                    </div>
+                    <div class=" col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-20 snapchat-share-button" data-share-url="{{getSocialShareURL()}}" ng-click="socialShare('snapchat',false)">
+                        <i class="fa fa-snapchat-ghost pa-font-20 whatsapp-right-top pa-color-333333"></i>
+                    </div>
+                    <div class=" col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-20" ng-click="socialShare('whatsapp',false)">
+                        <i class="fa fa-whatsapp pa-font-20 whatsapp-right-top pa-color-333333"></i>
+                    </div>
+                    <div class="col-md-2 social-circle pa-cursor-pointer pa-ml-20" ng-click="emailShare('email',false)">
+                        <i class="material-icons mail-left-right pa-font-20  pa-color-pink">mail</i>
+                    </div>
+                    <div data-dismiss="modal" social-share-link="{{otherUrl}}" class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-20 " ng-click="socialShare('other',false)">
+                        <i class="material-icons pa-font-20 mail-left-right  pa-color-pink">insert_link</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="learnMore" tabindex="-1" role="dialog" aria-labelledby="learnMore" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="popup-body">
+                <span data-dismiss="modal" class="modal-close-button close-button">
+                        <i class="material-icons">close</i>
+                    </span>
+                <div class="claimed-pop tt-padding-20">
+                    This event has not been claimed by an event organizer, so some information may be missing. Promo is unable to provide information on the cost of attending a third party event.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div flex layout="column" class="pa-background-E" ng-if="eventViewAuth">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div class="container-fluid wtd-100 flex pa-modal-font pa-background-E">
+        <div class="row pa-bootstrap-row">
+            <div ng-if="event" class="auth-comman-screen">
+                <img ng-src="{{event.event_image}}" alt="{{event.event_name}}" class="event-image-screen" />
+                <div class="event-image-overlay"></div>
+                <div class="auth-area-section pa-text-center " ng-if="event.privateEventMessage != 'PASSWORD_REQUIRED'">
+                    <h3>
+                        This is a Private invited only event by <span class="auth-org-user" ng-if="event.organizer_details.first_name != ''"> {{event.organizer_details.first_name}} {{event.organizer_details.last_name}}</span>. <br> To access, you'd require
+                        the invitation from the organizer.
+                    </h3>
+                    <a class="pa-back-btn" href="/">Back to Home</a>
+                </div>
+                <div class="auth-area-section" ng-if="event.privateEventMessage == 'PASSWORD_REQUIRED'">
+                    <h3>
+                        <p>
+                            This is a Private event by <span class="auth-org-user" ng-if="event.organizer_details.first_name != ''"> {{event.organizer_details.first_name}} {{event.organizer_details.last_name}}</span>.
+                            <br ng-if="event.privateEventMessage == 'LOGIN_REQUIRED'">
+                            <span ng-if="event.privateEventMessage == 'LOGIN_REQUIRED'">We are sorry, login is required.</span>
+                        </p>
+                    </h3>
+
+                    <div class="row pa-bootstrap-row">
+                        <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+                            <form name="eventLogin" ng-submit="getEventDataPrivate(event.event_id, userPassword)" class="form-ticket  event-organiser-detail mobile-insta-login pa-no-padding-imp" id="eventLoginForm">
+                                <md-input-container ng-class="{'md-input-has-value': password != ''}" class="form-group full-field flex-gt-sm md-input-has-value md-input-invalid">
+                                    <label class="md-no-float md-container-ignore pa-display-block pa-mt-0">Enter Password to View Event</label>
+                                    <div class="pa-display-flex pa-width-100p pa-align-items-center">
+                                        <input type="password" id="passwordField" name="password" autocomplete="off" placeholder="Enter Password Here" ng-model="userPassword" ng-keyup="hidePasswordMessage(userPassword)" class="form-control login-control ob-color-input tt-font-16 pa-mt-20" required
+                                        />
+                                    </div>
+                                    <div ng-messages="eventLogin.password.$error" class="input-error">
+                                        <div ng-message="required">This field is required.</div>
+                                    </div>
+                                    <div class="input-error">
+                                        <div class="md-input-message-animation ng-scope">{{passwordWrongText}}</div>
+                                    </div>
+                                </md-input-container>
+                                <div class="col-md-12 pa-pl-pr-0 text-right"><button type="submit" class="btn btn-login ob-padding-0 h-48 ob-line-ht-48 pa-font-bold pa-font-16">View Event</button></div>
+                            </form>
+                            <div>
+                                <a href="/">
+                                    <md-icon class="cursor-pointer material-icons" role="img" aria-label="keyboard_arrow_left">
+                                        keyboard_arrow_left</md-icon> Back To Home</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<ldjson ng-if="eventViewVisible" info="eData"></ldjson>

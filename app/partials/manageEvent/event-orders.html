@@ -1,0 +1,159 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE fixed-layout-vh">
+    
+    <div flex layout-fill class="pa-bg-EEEEEE fixed-layout-vh">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content "></div>
+        <div class="layout_panel_mwrap">
+            <div ng-include="'partials/sidebar.html'"></div>
+            <div class="layout_right_panel fixed-layout-vh-auto">
+                <div class="flex_justify pa-mb-30">
+                    <div class="report_header">
+                        <h2 class="pa-font-24 pa-mt-0 pa-bold-font">Ticket Orders ({{ticketLists.length}})</h2>
+                        <p class="pa-color-3333338 pa-font-14 pa-no-bt-margin-imp">This panel allows you to manage the settings for the ticket<br /> purchaser. View, edit and delete orders. </p>
+                    </div>
+                </div>
+                <!-- Event Order -->
+                <!-- web view start -->
+                <div class="visible-lg visible-md event_order_details_lst">
+                    <div class="tt-row-margin attendees-row">
+                        <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12 tt-left-right attendees-child">
+                            <div class="row tt-row-margin tt-triangle-flex">
+                                <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12 pa-no-padding-imp tt-triangle-flex flex_bx_mwrp pa-align-items-center">
+                                    <div class="mgevent_search_bx">
+                                        <div class="input-group">
+                                            <input type="text" ng-model="ticketListSearch" placeholder="Search Order by Attendee Detail" class="form-control search-hover-focus" />
+                                            <button type="button" class="search-btn"><i
+                                                    class="material-icons">search</i></button>
+                                            <i ng-show="ticketListSearch" ng-click="ticketListSearch = ''" class="material-icons pa-remove-icon-search" role="button" tabindex="0" aria-hidden="false">close</i>
+                                        </div>
+                                    </div>
+
+                                    <div class="pa-align-items-center pa-justify-between pa-display-flex">
+                                        <div class="dropdown tt-font-14 tt-show-btn tt-flex-space tt-around-right pa-border-4">
+                                            <div class="dropdown-toggle pa-width-100 flex_bx_mwrp pa-align-items-center pa-cursor-pointer" data-toggle="dropdown">{{typeText}}
+                                                <i class="material-icons pa-vertical-align" aria-hidden="true">keyboard_arrow_down</i>
+                                            </div>
+                                            <ul class="dropdown-menu pa-font-14 pa-width-100">
+                                                <li ng-repeat="type in ticketTypes" ng-click="selectTicketTypeFilter(type)"><a>{{type.ticket_name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="dropdown tt-font-14 tt-show-btn tt-flex-space tt-around-right pa-border-4">
+                                            <div class="dropdown-toggle pa-width-100 flex_bx_mwrp pa-align-items-center pa-cursor-pointer" data-toggle="dropdown">{{statusText}}
+                                                <i class="material-icons pa-vertical-align" aria-hidden="true">keyboard_arrow_down</i>
+                                            </div>
+                                            <ul class="dropdown-menu pa-font-14 pa-width-100">
+                                                <li ng-click="selectTicketStatusFilter('all')"><a>All</a></li>
+                                                <li ng-click="selectTicketStatusFilter('paid')"><a>Paid</a></li>
+                                                <li ng-click="selectTicketStatusFilter('free')"><a>Free</a></li>
+                                                <li ng-click="selectTicketStatusFilter('cancel')"><a>Cancelled</a></li>
+                                                <li ng-click="selectTicketStatusFilter('refunded')"><a>Refunded</a></li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="dropdown tt-font-14 tt-show-btn tt-flex-space tt-around-right pa-border-4">
+                                            <div class="dropdown-toggle pa-width-100 flex_bx_mwrp pa-align-items-center pa-cursor-pointer" data-toggle="dropdown">{{checkInText}}
+                                                <i class="material-icons pa-vertical-align" aria-hidden="true">keyboard_arrow_down</i>
+                                            </div>
+                                            <ul class="dropdown-menu pa-font-14 pa-width-100">
+                                                <li ng-click="selectTicketCheckInFilter('all')"><a>All</a></li>
+                                                <li ng-click="selectTicketCheckInFilter('check_in')"><a>Check In
+                                                        Completed</a></li>
+                                                <li ng-click="selectTicketCheckInFilter('pending')"><a>Check In
+                                                        Pending</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row tt-row-margin row pa-mt-20-imp Tc_order_table">
+                                <table class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                                    <thead>
+                                        <tr class="tt-table-head tt-tr">
+                                            <th>Order #</th>
+                                            <th>Attendee Details</th>
+                                            <th>Sales</th>
+                                            <th>Order Status</th>
+                                            <th>Ordered On</th>
+                                            <th>Check In</th>
+                                            <th class="pa-text-align-right">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="ticket in ticketLists | filter: ticketListSearch | start: ((pagination.currentPage - 1) * pagination.numPerPage) | limitTo: pagination.numPerPage" class="tt-table-row tt-tr">
+                                            <td>#{{ticket.id}}</td>
+                                            <td>
+                                                <b ng-if="ticket.user_info.first_name" class="tt-font-16">{{ticket.user_info.first_name+'
+                                                    '+ticket.user_info.last_name}}</b>
+                                                <b ng-if="!ticket.user_info.first_name" class="tt-font-16">{{ticket.user_info.username}}</b>
+                                                <span ng-if="ticket.user_info.email != ''">{{ticket.user_info.email}}</span>
+                                                <span ng-if="ticket.user_info.email == ''">{{ticket.user_info.mobile_number}}</span>
+                                            </td>
+                                            <td>
+                                                <div ng-repeat="details in ticket.ticket_details"><span ng-if="user.stripe_country == 'US'">$</span><span ng-if="user.stripe_country == 'UK'">£</span>{{details.total_price}}
+                                                    <span ng-if="user.stripe_country == 'US'">USD</span><span ng-if="user.stripe_country == 'UK'">GBP</span></div>
+                                            </td>
+                                            <td>
+                                                <span class="pa-capitalize paid-colr" ng-if="ticket.ticket_details_status == 'paid'">{{ticket.ticket_details_status}}</span>
+                                                <span class="pa-capitalize paid-colr" ng-if="ticket.ticket_details_status == 'free'">{{ticket.ticket_details_status}}</span>
+                                                <span class="pa-capitalize cancelled-clor" ng-if="ticket.ticket_details_status == 'cancelled'">{{ticket.ticket_details_status}}</span>
+                                                <span class="pa-capitalize pending-clor" ng-if="ticket.ticket_details_status == 'pending'">{{ticket.ticket_details_status}}</span>
+                                                <span class="pa-capitalize cancelled-clor" ng-if="ticket.ticket_details_status == 'refunded'">{{ticket.ticket_details_status}}</span>
+                                            </td>
+                                            <td>{{ticket.date_created | toMoment | momentFormatter:"MM/DD/YYYY" }},
+                                                <br />{{ticket.date_created | toMoment | momentFormatter:"hh:mma" }} UTC
+                                            </td>
+                                            <td ng-if="(ticket.ticket_details_status === 'paid' || ticket.ticket_details_status === 'free') && event.status != 'inactive'" class="scan_noti_tip">
+                                                <a ng-click="goToScanQrPage()" class="pa-color-pink pa-bold-font pa-vertical-align">Scan to Check
+                                                    In</a>
+                                                <div ng-if="ticket.checkedIn_count > 0" class="checked_in_text">
+                                                    {{ticket.checkedIn_count}} Tickets Checked In</div>
+                                            </td>
+                                            <td ng-if="ticket.ticket_details_status === 'refunded' || ticket.ticket_details_status === 'cancel' || event.status == 'inactive'">
+                                                N/A
+                                            </td>
+                                            <td>
+                                                <div class="dropdown-area">
+                                                    <i class="material-icons act_or_dt" id="tb_viewdel" data-toggle="dropdown">more_horiz</i>
+                                                    <div class="morevert-menu dropdown-menu" aria-labelledby="tb_viewdel">
+                                                        <ul>
+                                                            <li><a ng-click="attendeeDetailModal(ticket)">View Order</a>
+                                                            </li>
+                                                            <li><a target="_blank" ng-href="/chat.html?userId={{ticket.user_info.quickblox_id}}">Message Attendee</a></li>
+                                                            <li><a ng-disabled="ticket.checkedIn_count >= 0 && (ticket.ticket_details_status == 'refunded' || ticket.ticket_details_status == 'cancel' || !addPromotionDisabled) || event.status == 'inactive'"
+                                                                    ng-click="refundTicket(ticket)">Cancel & Refund</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="tt-tr" ng-if="ticketLists.length">
+                                            <td colspan="8" class="text-center">
+                                                <div class="custom-pagination">
+                                                    <ul ng-if="ticketLists.length > pagination.maxSize" uib-pagination previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" items-per-page="pagination.numPerPage" total-items="ticketLists.length" ng-model="pagination.currentPage"
+                                                        max-size="pagination.maxSize">
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="row pa-center-div pa-pt-20 pa-pb-20 pa-width-100p-imp " ng-if="ticketLists.length === 0">
+                                    <strong>No Items To Be Displayed</strong></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- web view end -->
+
+
+            </div>
+        </div>
+    </div>
+    <!-- hide this section in mobile End Here -->
+
+    <div class="custom-footer" ng-hide="true" ng-include="'partials/footer.html'" ng-controller="footerController">
+    </div>
+</div>

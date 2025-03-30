@@ -1,0 +1,105 @@
+<div class="sidebar_panel" ng-controller="sidebarController">
+    <div layout='row' class="h-51 pa-bb-CBCBCB">
+        <div flex='100' layout='row' layout-align='center center' class="pt-0 flex-unset">
+            <md-button ng-href="/manageevent" class="pa-color-pink ob-arrow">
+                <md-icon class="pa-color-pink ">keyboard_arrow_left</md-icon>
+                <span class="tt-font-14 pa-color-pink pa-vertical-align pa-font-bold">Back to Manage My Events</span>
+            </md-button>
+        </div>
+    </div>
+    <div layout='row' class="event_update_s pa-bb-CBCBCB flex-wrap  tt-padding-25">
+        <p class="tt-font-16 pa-bold-font pa-color-333333 pa-capitalize">{{eventInfo.event_name}}</p>
+        <p class="tt-font-14 pa-no-bt-margin-imp pa-color-3333338">{{eventInfo.start_date_time | toMoment | momentFormatter:"hh:mm A"}}, {{eventInfo.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}</p>
+        <p class="tt-font-14 pa-no-bt-margin-imp pa-bold-font wtd-100 mt-10">
+            <span ng-if="eventInfo.status == 'active' && !eventInfo.is_draft" class="pa-color-38B968">Live</span>
+            <span ng-if="eventInfo.is_draft" class="pa-color-EDAB04">Draft</span>
+            <span ng-if="eventInfo.status == 'inactive' && !eventInfo.is_draft" class="pa-color-3333338">Expired</span>
+        </p>
+    </div>
+    <div layout='row' class="pa-bb-CBCBCB flex-wrap  tt-padding-25">
+        <p class="tt-font-12 pa-bold-font pa-color-3333338">EVENT MANAGER</p>
+        <ul class="sd_navigation">
+            <li>
+                <a ng-class="isSelectedPage('/eventOverview') ? 'active': ''" href="/eventOverview?ev={{eventID}}"><i><md-icon>pie_chart</md-icon></i> Overview</a>
+            </li>
+            <li>
+                <a ng-class="isSelectedPage('/eventOrder') ? 'active': ''" href="/eventOrder?ev={{eventID}}"><i><md-icon>format_list_bulleted</md-icon></i> Ticket Orders</a>
+            </li>
+            <li>
+                <a ng-class="isSelectedPage('/eventCheckins') ? 'active': ''" href="/eventCheckins?ev={{eventID}}"><i><md-icon>qr_code</md-icon></i> Check-In</a>
+            </li>
+            <li>
+                <a ng-class="isSelectedPage('/eventPayout') ? 'active': ''" href="/eventPayout?ev={{eventID}}"><i><md-icon>attach_money</md-icon></i> Payout</a>
+            </li>
+            <li>
+                <a ng-class="isSelectedPage('/eventReport') ? 'active': ''" href="/eventReport?ev={{eventID}}"><i><md-icon>signal_cellular_alt</md-icon></i> Reports</a>
+            </li>
+        </ul>
+    </div>
+    <div layout='row' class="pa-bb-CBCBCB flex-wrap tt-padding-25">
+        <p class="tt-font-12 pa-bold-font pa-color-3333338">EVENT EDITOR</p>
+        <ul class="sd_navigation">
+            <li>
+                <a ng-class="isSelectedPage('/basicDetails') ? 'active': ''" href="/basicDetails?ev={{eventID}}"><i><md-icon>subject</md-icon></i> Basic Info</a>
+            </li>
+            <li>
+                <a ng-class="isSelectedPage('/eventDetails') ? 'active': ''" href="/eventDetails?ev={{eventID}}"><i><md-icon>description</md-icon></i> Details</a>
+            </li>
+            <li>
+                <a ng-class="isSelectedPage('/adminssionsEvent') ? 'active': ''" href="/adminssionsEvent?ev={{eventID}}"><i><md-icon>local_activity</md-icon></i> Tickets / Admission</a>
+            </li>
+            <li>
+                <a ng-class="isSelectedPage('/publishEvent') ? 'active': ''" href="/publishEvent?ev={{eventID}}"><i><md-icon>thumb_up</md-icon></i> Publish Event</a>
+            </li>
+        </ul>
+    </div>
+    <div layout='row' class="pa-bb-CBCBCB flex-wrap  tt-padding-25">
+        <p class="tt-font-12 pa-bold-font pa-color-3333338">OTHER FUNCTIONS</p>
+        <ul class="sd_navigation">
+            <li>
+                <a ng-class="isSelectedPage('/inviteGuestEvent') ? 'active': ''" href="/inviteGuestEvent?ev={{eventID}}"><i><md-icon>recent_actors</md-icon></i> Invite Guests</a>
+            </li>
+            <li>
+                <a ng-class="isSelectedPage('/administratorEvent') ? 'active': ''" href="/administratorEvent?ev={{eventID}}"><i><md-icon>person_add</md-icon></i> Event Administrator</a>
+            </li>
+            <li>
+                <a ng-class="isSelectedPage('/eventPrivacy') ? 'active': ''" href="/eventPrivacy?ev={{eventID}}"><i><md-icon>shield</md-icon></i> Event Privacy</a>
+            </li>
+            <li>
+                <a ng-if="eventInfo.is_publish_ready" ng-class="isSelectedPage('/highlightEvent') ? 'active': ''" href="/highlightEvent?ev={{eventID}}"><i><md-icon>star</md-icon></i> Highlight Event</a>
+                <a ng-if="!eventInfo.is_publish_ready" ng-disabled="true" uib-tooltip="Before the highlighting the event, please complete the required information."><i><md-icon>star</md-icon></i> Highlight Event</a>
+            </li>
+            <li>
+                <a ng-class="isSelectedPage('/promotionEvent') ? 'active': ''" href="/promotionEvent?ev={{eventID}}"><i><md-icon>share</md-icon></i> Promotion</a>
+            </li>
+            <li>
+                <a ng-if="!eventInfo.is_draft && eventInfo.status == 'active' && eventInfo.privacy_type === 1 " ng-class="isSelectedPage('/widgetEvent') ? 'active': ''" href="/widgetEvent?ev={{eventID}}&{{eventUrl}}"><i><md-icon>code</md-icon></i> Embed Widget</a>
+                <a ng-if="(eventInfo.is_draft || eventInfo.status == 'inactive') && eventInfo.privacy_type === 1 " uib-tooltip="You can create embed widget for live public events only." ng-disabled="true"><i><md-icon>code</md-icon></i> Embed Widget</a>
+                <a ng-if="(eventInfo.is_draft || eventInfo.status == 'inactive') && eventInfo.privacy_type === 2 " uib-tooltip="You can create embed widget for live public events only." ng-disabled="true"><i><md-icon>code</md-icon></i> Embed Widget</a>
+                <a ng-if="(!eventInfo.is_draft && eventInfo.status == 'active') && eventInfo.privacy_type === 2 " uib-tooltip="You can create embed widget for live public events only." ng-disabled="true"><i><md-icon>code</md-icon></i> Embed Widget</a>
+            </li>
+        </ul>
+    </div>
+    <div layout='row' class="pa-bb-CBCBCB flex-wrap  tt-padding-25">
+        <p class="tt-font-12 pa-bold-font pa-color-3333338">OTHER ACTIONS</p>
+        <ul class="sd_navigation">
+            <li>
+                <a ng-href="/eventdetails/{{eventInfo.event_name | purger}}/{{eventID}}" target="_blank" class="pa-cursor-pointer pa-text-decoration"><i><md-icon>open_in_new</md-icon></i> View Event</a>
+            </li>
+            <li>
+                <a ng-click="duplicateEventAction(eventInfo)" class="pa-cursor-pointer"><i><md-icon>content_copy</md-icon></i> Duplicate Event</a>
+            </li>
+            <li>
+                <a ng-if="eventInfo.is_draft && eventInfo.is_publish_ready" ng-click="publishTicketEventConfirmation('active',eventInfo.event_id,eventInfo.event_type)"><i><md-icon>check</md-icon></i> Publish Event</a>
+                <a ng-if="eventInfo.is_draft && eventInfo.status == 'active' && !eventInfo.is_publish_ready" uib-tooltip="To publish this event, please complete the required information." ng-disabled="true"><i><md-icon>check</md-icon></i> Publish Event</a>
+                <a ng-if="!eventInfo.is_draft && eventInfo.status == 'active'" ng-click="startStopEvent('stop',eventInfo.event_id,eventInfo.event_type)"><i><md-icon>close</md-icon></i> Unpublish Event</a>
+                <a ng-if="eventInfo.is_draft && eventInfo.status == 'inactive'" uib-tooltip="You can't unpublish the event. The event must be live or Active." ng-disabled="(!isSelectedPage('/basicDetails') || !isSelectedPage('/eventDetails') || !isSelectedPage('/adminssionsEvent') || !isSelectedPage('/inviteGuestEvent') || !isSelectedPage('/administratorEvent') || !isSelectedPage('/highlightEvent'))"><i><md-icon>close</md-icon></i> Unpublish Event</a>
+                <a ng-if="!eventInfo.is_draft && eventInfo.status == 'inactive'" uib-tooltip="Now, event has been expired. You just can see the information." ng-disabled="(!isSelectedPage('/basicDetails') || !isSelectedPage('/eventDetails') || !isSelectedPage('/adminssionsEvent') || !isSelectedPage('/inviteGuestEvent') || !isSelectedPage('/administratorEvent') || !isSelectedPage('/highlightEvent'))"><i><md-icon>close</md-icon></i> Unpublish Event</a>
+            </li>
+        </ul>
+    </div>
+    <div ng-if="(isSelectedPage('/basicDetails') || isSelectedPage('/eventDetails') || isSelectedPage('/adminssionsEvent') || isSelectedPage('/inviteGuestEvent') || isSelectedPage('/administratorEvent')) && (eventInfo.status == 'active' || eventInfo.is_draft)"
+        class="pa-bg-EEEEEE save-btn-grp tt-padding-25 save-button-sticky">
+        <a ng-click="saveExit()" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 pa-border-4 sv-changes">Save Changes</a>
+    </div>
+</div>

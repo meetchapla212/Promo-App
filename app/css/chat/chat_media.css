@@ -1,0 +1,24 @@
+@media screen and (max-width: 388px) {
+    .dialog_form.m-dialog_form_create.j-create_dialog_form {
+        display: inline-block;
+        width: 100%;
+        padding-top: 7px;
+    }
+   .j-create_dialog_form .dialog_name{
+        width: 50% !important;
+    }
+}
+
+
+
+@media screen and (max-width: 385px) {
+    .j-create_dialog_form .dialog_name{
+        width: 50% !important;
+    }
+    .j-create_dialog_form .dialog_name::placeholder {
+        font-size: 13px;
+    }
+    .btn.m-create_dialog_btn.j-create_dialog_btn{
+        float: right !important;
+    }
+}

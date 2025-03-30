@@ -1,0 +1,204 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE mobile-hide">
+    
+    <div flex class="container-wtd-1170">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+        <div class="text-head">
+            <a ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}" class="back-to-btn pa-width-auto"><i class="material-icons">navigate_before</i> Back to Event Detail</a>
+        </div>
+        <div class="organizer-profile" ng-if="!loading">
+            <div class="profile-box">
+                <span class="profile-img"><img class="profile-img" ng-src="{{user.profile_pic == null ? '/img/myprofile.png' : user.profile_pic}}" alt="{{user.username}}" /></span>
+                <span class="profile-name">
+                    <h3 class="pa-capitalize">{{user.first_name}} {{user.last_name}}</h3>
+                    Organizer
+                </span>
+                <span class="profile-description" ng-if="!showMore">
+                    {{user.about_you | limitTo: limitDesc}}{{user.about_you.length > limitDesc ? '...' : ''}}
+                </span>
+                <span class="profile-description" ng-if="showMore">{{user.about_you}}</span>
+
+                <span class="profile-more">
+                    <a ng-show="!showMore && user.about_you.length > limitDesc" ng-click="showMore=!showMore">View More</a>
+                </span>
+                <span class="profile-follow-btn" ng-if="!loading">
+                    <md-button ng-show="user.user_id != loggedInUser.user_id" class="pa-pink-button" style="display: inline-flex;" pa-follow-button="{followByUser: {{ loggedInUser.user_id }} , toFollowUser: {{ user.user_id }}}" reload-on="checkFollow" ng-click="doFollowUserInDirective(user,loggedInUser)">
+                        <i id="followTextIcon" class="material-icons pa-color-FFFFFF-imp"></i>
+                        <span class="pa-font-bold pa-color-FFFFFF-imp" id="followText">Follow</span>
+                </md-button>
+                </span>
+            </div>
+        </div>
+
+        <div class="organizer-profile mr-top-20">
+            <div class="rebecca-event">
+                <div class="rebecca-head pa-capitalize">{{user.first_name}}'s Events</div>
+                <div class="upcoming-past-event">
+
+                    <md-tabs md-dynamic-height md-border-bottom class="pa-tabs">
+                        <md-tab label="Upcoming ({{upcomingEvents.length}})" class="pa-padding-20">
+                            <div class="upcoming-past-tab-tabs-content" id="tab1C">
+                                <div ng-if="upcomingEvents.length === 0" class="no-data">No upcoming events to show</div>
+                                <div class="upcoming-event-box" ng-repeat="event in upcomingEvents | start: (currentPageUpcoming - 1) * numPerPage | limitTo: numPerPage">
+                                    <div class=" upcoming-event-box-img pa-cursor-pointer">
+                                        <a class="pa-text-decoration" ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}">
+                                            <img class="object-cover" ng-src="{{ event.event_image || '../img/unnamed.png'}}" on-error="../img/unnamed.png" alt="{{event.event_name}}" />
+                                            <span event-ticket-price event="event" ng-class="{'eo-free':!(event.ticket_type === 'paid')}" class="free-event">free</span>
+                                        </a>
+                                    </div>
+                                    <div class="upcoming-event-content-box">
+                                        <a class="pa-text-decoration" ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}">
+                                            <h3 class="pa-truncate pa-cursor-pointer">{{event.event_name}}</h3>
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <md-icon class="pa-color-666666">location_on</md-icon> <span>{{event.city}} {{event.state}} {{event.country}}</span>
+                                            </li>
+                                            <li>
+                                                <md-icon class="pa-color-666666">date_range</md-icon> <span>{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}</span>
+                                            </li>
+                                            <li>
+                                                <md-icon class="pa-color-666666">access_time</md-icon> <span>{{event.start_date_time | toMoment | momentFormatter:"hh:mm a"}}</span>
+                                            </li>
+                                            <li ng-if="event._zone_id != 0">
+                                                <md-icon class="pa-color-666666">explore</md-icon> <span>{{event.zone_name}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="custom-pagination">
+                                <ul ng-show="upcomingEvents.length > maxSize" class="pa-center-div" uib-pagination previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" items-per-page="numPerPage" total-items="upcomingEvents.length" ng-model="currentPageUpcoming"
+                                    max-size="maxSize">
+                                </ul>
+                            </div>
+                        </md-tab>
+
+                        <md-tab label="Past ({{pastEvents.length}})" class="pa-padding-20">
+                            <div class="upcoming-past-tab-tabs-content" id="tab1C">
+                                <div ng-if="pastEvents.length === 0" class="no-data">No past events to show</div>
+                                <div class="upcoming-event-box" ng-repeat="event in pastEvents | start: (currentPagePast - 1) * numPerPage | limitTo: numPerPage">
+                                    <div class=" upcoming-event-box-img pa-cursor-pointer">
+                                        <a class="pa-text-decoration" ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}">
+                                            <img class="object-cover" ng-src="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" alt="{{event.event_name}}" />
+                                            <span event-ticket-price event="event" ng-class="{'eo-free':!(event.ticket_type === 'paid')}" class="free-event">free</span>
+                                        </a>
+                                    </div>
+                                    <div class="upcoming-event-content-box">
+                                        <a class="pa-text-decoration" ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}">
+                                            <h3 class="pa-truncate pa-cursor-pointer">{{event.event_name}}</h3>
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <md-icon class="pa-color-666666">location_on</md-icon> <span>{{event.city}} {{event.state}} {{event.country}}</span>
+                                            </li>
+                                            <li>
+                                                <md-icon class="pa-color-666666">date_range</md-icon> <span>{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}</span>
+                                            </li>
+                                            <li>
+                                                <md-icon class="pa-color-666666">access_time</md-icon> <span>{{event.start_date_time | toMoment | momentFormatter:"hh:mm a"}}</span>
+                                            </li>
+                                            <li ng-if="event._zone_id != 0">
+                                                <md-icon class="pa-color-666666">explore</md-icon> <span>{{event.zone_name}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="custom-pagination">
+                                <ul ng-show="pastEvents.length > maxSize" class="pa-center-div" uib-pagination previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" items-per-page="numPerPage" total-items="pastEvents.length" ng-model="currentPagePast" max-size="maxSize">
+                                </ul>
+                            </div>
+                        </md-tab>
+                    </md-tabs>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<!-- Mobile view -->
+<div flex layout="column" layout-align="start stretch" class="pa-background-white desktop-hide">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div flex layout-fill class="profile_mob_wrap mobile-perent desktop-hide ">
+        <!-- Profile Details -->
+        <div class="profile_up_del organiser_pp_bg tt-padding-20">
+            <div class="mobile-header-profile desktop-hide">
+                <a back-to-history class="pa-cursor-pointer"><i class="material-icons">arrow_back</i></a>
+            </div>
+            <div class="pp_del_up" ng-if="!loading" ng-style="!user.about_you && {'border-bottom': '0'}">
+                <figure class="pp_img"><img pa-user-img="{{user.user_id}}" alt="{{user.username}}"></figure>
+                <div class="pp_del_rt pa-color-FFFFFF">
+                    <h3 ng-if="user.first_name" class="pa-font-17">{{user.first_name+" "+user.last_name}}</h3>
+                    <h3 ng-if="!user.first_name" class="pa-font-17">{{user.username}}</h3>
+                    <p class="pa-font-15 pa-opacity8"><span class="dt_org">Organizer</span> {{user.city}}</p>
+                </div>
+            </div>
+            <p class="pa-font-15 pa-color-FFFFFF pa-opacity8 pa-mb-0">{{user.about_you | limitTo: limitDesc}}{{user.about_you.length > limitDesc ? '...' : ''}}</p>
+        </div>
+        <!-- Profile Details End -->
+        <!--  Events -->
+        <div class="nn_events_list tt-padding-20" ng-if="!loading">
+            <div class="events_drop text-center">
+                <span ng-if="user.first_name" class="hd">{{user.first_name+" "+user.last_name}}'s Events</span>
+                <span ng-if="!user.first_name" class="hd">{{user.username}}'s Events</span>
+            </div>
+            <div class="tabs_mob_upc">
+                <a ng-click="currentTab = true" ng-class="{'active': currentTab}">Upcoming</a>
+                <a ng-click="currentTab = false" ng-class="{'active': !currentTab}">Past</a>
+            </div>
+            <!-- Post List -->
+            <div class="mb_post_list bottom_fxbar" ng-if="currentTab">
+                <div class="mb_post_bx" ng-repeat="event in upcomingEvents | start: (currentPageGoing - 1) * numPerPage | limitTo: numPerPage">
+                    <a ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}" class="pa-display-inline-block w-100 pa-height-100p">
+                        <div class="img_bx">
+                            <figure><img pa-event-img url="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" alt="{{event.event_name}}"></figure>
+                            <span class="post_lb" event-ticket-price event="event" class="free-event" ng-class="{'eo-free':!(event.ticketType === 'paid')}"></span>
+                        </div>
+                        <div class="post_details_bx">
+                            <span class="dt">{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, hh:mm A"}} UTC</span>
+                            <p>{{event.event_name}}</p>
+                            <span class="ad">{{event.city +", "+ event.state +", "+ event.country}}</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="custom-pagination">
+                    <ul ng-show="upcomingEvents.length > 10" class="pa-center-div" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" uib-pagination items-per-page="numPerPage" total-items="upcomingEvents.length" ng-model="currentPagePast"
+                        max-size="maxMobileSize"></ul>
+                </div>
+                <div ng-show="upcomingEvents.length == 0" class="no-data-case-profile">
+                    No Events To Be Displayed
+                </div>
+            </div>
+            <div class="mb_post_list bottom_fxbar" ng-if="!currentTab">
+                <div class="mb_post_bx" ng-repeat="event in pastEvents | start: (currentPageGoing - 1) * numPerPage | limitTo: numPerPage">
+                    <a ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}" class="pa-display-inline-block w-100 pa-height-100p">
+                        <div class="img_bx">
+                            <figure><img pa-event-img url="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" alt="{{event.event_name}}"></figure>
+                            <span class="post_lb" event-ticket-price event="event" class="free-event" ng-class="{'eo-free':!(event.ticketType === 'paid')}"></span>
+                        </div>
+                        <div class="post_details_bx">
+                            <span class="dt">{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, hh:mm A"}} UTC</span>
+                            <p>{{event.event_name}}</p>
+                            <span class="ad">{{event.city +", "+ event.state +", "+ event.country}}</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="custom-pagination">
+                    <ul ng-show="pastEvents.length > 10" class="pa-center-div" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" uib-pagination items-per-page="numPerPage" total-items="pastEvents.length" ng-model="currentPagePast" max-size="maxMobileSize"></ul>
+                </div>
+                <div ng-show="pastEvents.length == 0" class="no-data-case-profile">
+                    No Events To Be Displayed
+                </div>
+            </div>
+            <!-- Post List End -->
+        </div>
+        <!--  Events End  -->
+        <div class="btn_fx_sec mobile-full-btn-ft" ng-show="user.user_id != loggedInUser.user_id">
+            <button type="button" class="pa-pink-button bg-theme-btn md-button md-ink-ripple following pa-no-margin" pa-follow-button="{followByUser: {{ loggedInUser.user_id }} , toFollowUser: {{ user.user_id }}}" reload-on="checkFollow" ng-click="doFollowUserInDirective(user,loggedInUser)">
+                <span class="pa-font-bold" id="followText">Follow</span>
+            </button>
+        </div>
+    </div>
+</div>

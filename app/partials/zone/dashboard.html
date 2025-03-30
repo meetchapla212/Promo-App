@@ -1,0 +1,261 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE">
+    
+    <div flex class="container-wtd-1170 mobile-hide">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+        <a class="pa-mt-16 pa-mt-med-35 md-button zone_dashboard_arrow" href="/myzone">
+            <md-icon class="pa-color-pink ng-scope material-icons" role="img" aria-label="keyboard_arrow_left">keyboard_arrow_left</md-icon>
+            <span class="tt-font-16 pa-font-bold pa-color-pink pa-vertical-align">Back to My Zone</span>
+        </a>
+        <a class="pa-mt-16 pa-mt-med-35 md-button pull-right" ng-if="zoneUrl != ''" ng-click="copyLink()" ng-click-copy="{{zoneUrl}}">
+            <span class="tt-font-16 pa-font-bold pa-color-pink pa-vertical-align ">Copy Zone Registration URL</span>
+        </a>
+        <a class="pa-mt-16 pa-mt-med-35 md-button pull-right" ng-if="curretZoneName != ''" ng-click="removeZoneConfirmation(0, 'dashboard')">
+            <span class="tt-font-16 pa-font-bold pa-color-pink pa-vertical-align">Leave {{curretZoneName}}</span>
+            <span class="tt-font-16 pa-font-bold pa-color-pink pa-vertical-align pa-ml-20">|</span>
+        </a>
+        <div class="zone_dashboard_head">
+            <h2>Zone Dashboard</h2>
+            <div class="filter_zone" ng-if="zoneList.length > 0">
+                <label>Filter By Zone:</label>
+                <!-- <span class="material-icons">keyboard_arrow_down</span> -->
+                <select class="arrow_down" ng-model="selectedItem" ng-change="zoneListSelected(selectedItem)">
+                    <option value="{{list.zone_id}}" ng-repeat="list in zoneList">{{list.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="zone_boxed_parent row pa-ml-0">
+            <div class="col">
+                <h2>{{zoneEvents.length}}</h2>
+                <span>Zone Event<span ng-if="zoneEvents.length > 1">s</span></span>
+            </div>
+            <div class="col pa-ml-20">
+                <h2>{{zoneMembers.length}}</h2>
+                <span>Zone Member<span ng-if="zoneMembers.length > 1">s</span></span>
+            </div>
+            <div class="col pa-ml-20 pa-mr-20">
+                <h2>{{zoneOwners.length}}</h2>
+                <span>Zone Owner<span ng-if="zoneOwners.length > 1">s</span></span>
+            </div>
+            <div class="col">
+                <h2>{{zoneEventOrganizer.length}}</h2>
+                <span>Zone Organizer<span ng-if="zoneEventOrganizer.length > 1">s</span></span>
+            </div>
+        </div>
+        <div class="organizer-profile mobile-hide pa-mb-15 zone_dashboard_tab">
+            <div class="rebecca-event my-followers my-ticket">
+                <div class="upcoming-past-event">
+                    <md-tabs md-dynamic-height md-border-bottom class="pa-tabs">
+                        <md-tab label="Zone Event/s" class="pa-padding-20">
+                            <a href="/createevent?eventZone={{zoneID}}" class="create_event_btn">Create Event</a>
+                            <div class="upcoming-past-tab-tabs-content tc_list_perent" id="tab1C">
+                                <div class="row" ng-if="zoneEvents.length === 0">
+                                    <h4 class="no-data-found">No Zone Events to display!</h4>
+                                </div>
+                                <div class="upcoming-event-box_dash_board row" ng-if="zoneEvents.length > 0">
+                                    <div class="upBox" ng-repeat="event in zoneEvents">
+                                        <div class="upcoming-event-box">
+                                            <div class="upcoming-event-box-img pa-cursor-pointer" event-detail-new-tab event="event">
+                                                <img class="object-cover" ng-src="{{event.event_image == '' ? 'img/no-user.png': event.event_image}}">
+                                            </div>
+                                            <div class="upcoming-event-content-box">
+                                                <h3 class="pa-cursor-pointer" event-detail-new-tab event="event">{{event.event_name}}</h3>
+                                                <ul>
+                                                    <li event-detail-new-tab event="event">
+                                                        <md-icon class="pa-color-666666 material-icons" role="img" aria-label="location_on">location_on</md-icon><span>{{event.city}}, {{event.address_state}}, {{event.country}}</span>
+                                                    </li>
+                                                    <li event-detail-new-tab event="event">
+                                                        <md-icon class="pa-color-666666 material-icons" role="img" aria-label="date_range">explore</md-icon><span>{{event.zone_name}}</span>
+                                                    </li>
+                                                    <li event-detail-new-tab event="event">
+                                                        <md-icon class="pa-color-666666 material-icons" role="img" aria-label="access_time">event</md-icon><span>{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-tab>
+
+                        <md-tab label="Zone Member/s" class="pa-padding-20">
+                            <a ng-click="inviteUserModal('member')" class="create_event_btn">Invite Members</a>
+                            <div class="upcoming-past-tab-tabs-content tc_list_perent" id="tab1C">
+                                <div class="row" ng-if="zoneMembers.length === 0">
+                                    <h4 class="no-data-found">No Zone Members to display!</h4>
+                                </div>
+                                <div class="zone_dashboard_table" ng-if="zoneMembers.length > 0">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th class="pa-text-align-left">Name</th>
+                                                <th class="emial_dash">Email</th>
+                                                <th>Date of Joining</th>
+                                                <th>Active/Deactive</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="members in zoneMembers | start: ((pagination.currentPage - 1) * pagination.numPerPage) | limitTo: pagination.numPerPage">
+                                                <td>
+                                                    <span>
+                                                        <img ng-src="{{members.profile_pic == null ? 'img/no-user.png' : members.profile_pic}}">
+                                                    </span>
+                                                </td>
+                                                <td class="dash_name">
+                                                    <b>{{members.first_name == null ? members.username : members.first_name}} {{members.last_name}}</b>
+                                                </td>
+                                                <td>
+                                                    <span>{{members.email}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{members.date_created | toMoment | momentFormatter:"Do, MMM, YYYY, hh:mm A"}}</span>
+                                                </td>
+                                                <td>
+                                                    <toggle-switch ng-if="members.request_status != '3' && members.request_status != '2'" ng-init="switchMembersToggle = members.is_block" ng-model="switchMembersToggle" ng-change="activeDeactiveMember(members.user_id, switchMembersToggle)" class="pa-toggle"
+                                                        on-label="Active" off-label="Deactive"></toggle-switch>
+                                                    <span ng-if="members.request_status === '3' || members.request_status === '2'">N/A</span>
+                                                </td>
+                                                <td>
+                                                    <span class="pa-text-uppercase label pa-label pa-label-success" ng-if="members.request_status === '1'">Active</span>
+                                                    <span class="pa-text-uppercase label pa-label pa-label-danger" ng-if="members.request_status === '2'">Rejected</span>
+                                                    <span class="pa-text-uppercase label pa-label pa-label-warning" ng-if="members.request_status === '3'">Pending</span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                       <a href="/userprofile/{{members.user_id}}?zId={{zoneID}}" uib-tooltip="View Member Info" tooltip-placement="top" class="material-icons">remove_red_eye</a>
+                                                       <a ng-click="removeUserConfirmation(members.user_id, 'member')" uib-tooltip="Remove from Zone" tooltip-placement="top" class="material-icons cancelled-clor">delete</a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-center custom-pagination" ng-if="zoneMembers.length > 10">
+                                        <ul uib-pagination items-per-page="pagination.numPerPage" total-items="zoneMembers.length" ng-model="pagination.currentPage" max-size="pagination.maxSize" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-tab>
+
+                        <md-tab label="Zone Owner/s" class="pa-padding-20">
+                            <a ng-click="inviteUserModal('owner')" class="create_event_btn">Invite Owners</a>
+                            <div class="upcoming-past-tab-tabs-content tc_list_perent" id="tab1C">
+                                <div class="row" ng-if="zoneOwners.length === 0">
+                                    <h4 class="no-data-found">No Zone Owners to display!</h4>
+                                </div>
+                                <div class="zone_dashboard_table" ng-if="zoneOwners.length > 0">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th class="pa-text-align-left">Name</th>
+                                                <th class="emial_dash">Email</th>
+                                                <th>Date of Joining</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="owners in zoneOwners | start: ((pagination.currentPage - 1) * pagination.numPerPage) | limitTo: pagination.numPerPage">
+                                                <td>
+                                                    <span>
+                                                        <img ng-src="{{owners.profile_pic == null ? 'img/no-user.png' : owners.profile_pic}}">
+                                                    </span>
+                                                </td>
+                                                <td class="dash_name">
+                                                    <b>{{owners.first_name == null ? owners.username : owners.first_name}} {{owners.last_name}}</b>
+                                                </td>
+                                                <td>
+                                                    <span>{{owners.email}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{owners.date_created | toMoment | momentFormatter:"Do, MMM, YYYY, hh:mm A"}}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="pa-text-uppercase label pa-label pa-label-success" ng-if="owners.request_status === '1'">Active</span>
+                                                    <span class="pa-text-uppercase label pa-label pa-label-danger" ng-if="owners.request_status === '2'">Rejected</span>
+                                                    <span class="pa-text-uppercase label pa-label pa-label-warning" ng-if="owners.request_status === '3'">Pending</span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        <a href="/userprofile/{{owners.user_id}}?zId={{zoneID}}" uib-tooltip="View The Owner Info" tooltip-placement="top" class="material-icons">remove_red_eye</a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-center custom-pagination" ng-if="zoneOwners.length > 10">
+                                        <ul uib-pagination items-per-page="pagination.numPerPage" total-items="zoneOwners.length" ng-model="pagination.currentPage" max-size="pagination.maxSize" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-tab>
+
+                        <md-tab label="Zone Organizer/s" class="pa-padding-20">
+                            <a ng-click="inviteUserModal('organizer')" class="create_event_btn">Invite Organizers</a>
+                            <div class="upcoming-past-tab-tabs-content tc_list_perent" id="tab1C">
+                                <div class="row" ng-if="zoneEventOrganizer.length === 0">
+                                    <h4 class="no-data-found">No Zone Event Organizer to display!</h4>
+                                </div>
+                                <div class="zone_dashboard_table" ng-if="zoneEventOrganizer.length > 0">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th class="pa-text-align-left">Name</th>
+                                                <th class="emial_dash">Email</th>
+                                                <th>Date of Joining</th>
+                                                <th>Active/Deactive</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="organizer in zoneEventOrganizer | start: ((pagination.currentPage - 1) * pagination.numPerPage) | limitTo: pagination.numPerPage">
+                                                <td>
+                                                    <span>
+                                                        <img ng-src="{{organizer.profile_pic == null ? 'img/no-user.png' : organizer.profile_pic}}">
+                                                    </span>
+                                                </td>
+                                                <td class="dash_name">
+                                                    <b>{{organizer.first_name == null ? organizer.username : organizer.first_name}} {{organizer.last_name}}</b>
+                                                </td>
+                                                <td>
+                                                    <span>{{organizer.email}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{organizer.date_created | toMoment | momentFormatter:"Do, MMM, YYYY, hh:mm A"}}</span>
+                                                </td>
+                                                <td>
+                                                    <toggle-switch ng-if="organizer.request_status != '3' && organizer.request_status != '2'" ng-init="switchOrganizerToggle = organizer.is_block" ng-model="switchOrganizerToggle" ng-change="activeDeactiveOrganizer(organizer.user_id, switchOrganizerToggle)"
+                                                        class="pa-toggle" on-label="Active" off-label="Deactive"></toggle-switch>
+                                                    <span ng-if="organizer.request_status === '3' || organizer.request_status === '2'">N/A</span>
+                                                </td>
+                                                <td>
+                                                    <span class="pa-text-uppercase label pa-label pa-label-success" ng-if="organizer.request_status === '1'">Active</span>
+                                                    <span class="pa-text-uppercase label pa-label pa-label-danger" ng-if="organizer.request_status === '2'">Rejected</span>
+                                                    <span class="pa-text-uppercase label pa-label pa-label-warning" ng-if="organizer.request_status === '3'">Pending</span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        <a href="/userprofile/{{organizer.user_id}}?zId={{zoneID}}" uib-tooltip="View The Organizer Info" tooltip-placement="top" class="material-icons">remove_red_eye</a>
+                                                        <a ng-click="removeUserConfirmation(organizer.user_id, 'organizer')" uib-tooltip="Remove from Zone" tooltip-placement="top" class="material-icons">delete</a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-center custom-pagination" ng-if="zoneEventOrganizer.length > 10">
+                                        <ul uib-pagination items-per-page="pagination.numPerPage" total-items="zoneEventOrganizer.length" ng-model="pagination.currentPage" max-size="pagination.maxSize" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-tab>
+                    </md-tabs>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

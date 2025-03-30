@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Promo App Chat</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="img/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="css/site.css" />
+    <link rel="stylesheet" href="css/chat/style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/paCommon.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/chat/chat_media.css">
+
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" />
+    <link href="bower_components/angular-material/angular-material.min.css" rel="stylesheet">
+    <script src="bower_components/angular/angular.js"></script>
+
+
+    <script src="https://unpkg.com/navigo@4.3.6/lib/navigo.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js" defer></script>
+    <script src="bower_components/quickblox/quickblox.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/chat/cookie.js"></script>
+
+    <!-- <script src="bower_components/jquery/dist/jquery.js"></script> -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+
+    <link href="bower_components/angular-material/angular-material.min.css" rel="stylesheet">
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+</head>
+
+<body style="background-image: none">
+
+    <header class="chat-header hidden-xs visible-sm visible-md visible-lg">
+        <div class="row logo-in-res custom-log-in-res chat-header-style" style="padding: 5px 10px;">
+            <div class="logo col-xs-6 col-sm-3 col-md-6 col-lg-7 promo-logo chat-promo-logo">
+                <a onClick="GoToAnotherPage('')"> <img src="/img/logo-the-promo-app-red.png" class="img-responsive header-logo"></a>
+            </div>
+            <div class="col-lg-5 col-md-6 col-xs-12 col-sm-9 pull-right responsive-header-content chat-responsive-header-content ">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center header-text-on-hover no-padding hidden-xs responsive-header-content-div">
+                    <a onclick="GoToAnotherPage('')" style="color: white;"><!--<img class="icon-header" src="../img/events.png">-->
+                    <p class="active logged-header-text ">Browse Events</p>
+                </a>
+                </div>
+                <div class="col-xs-3 col-sm-3  col-md-4 col-lg-4 text-center header-text-on-hover no-padding hidden-xs responsive-header-content-div">
+                    <a onclick="GoToAnotherPage('search')" style="color: white;"><!--<img class="icon-header" src="../img/settings.png">-->
+                    <p class="logged-header-text ">Search</p>
+                </a>
+                </div>
+                <div class="col-xs-7 col-sm-6 col-md-5 col-lg-5 custom-login-icon chat-custom-login-icon">
+                    <div class="custom-chat-block">
+                        <a onclick="GoToAnotherPage('notifications')" style="color: white;display: inline-block;"><!--<img class="icon-header" src="../img/notifications.png">-->
+                            <i class="material-icons pa-vertical-align pa-color-333333 pa-opacity8" style="height: auto;">notifications_none</i>
+                        </a>
+                        <div class="pa-header-padding pa-header-padding-right margin-rt-0">
+                            <md-button class="md-fab md-mini md-hue-3 header-profile-img pa-no-padding" data-toggle="dropdown">
+                                <img id="profile_img" class="img-responsive custom-profile-img header-profile-img custom-img-chat col-xs-3 no-padding no-padding user_image post-header-img" style="cursor:pointer" alt="defaultPic" ng-click="GoToProfile();">
+                                <span class="logged-header-text logged-user custom-logged-user" id="user-name" style="display:none;"></span>
+                                <i class="material-icons pa-custome-down-arrow pa-color-333333 pa-opacity8">keyboard_arrow_down</i>
+                            </md-button>
+                            <!--<md-icon class="pa-custome-down-arrow pa-color-333333 pa-opacity8">keyboard_arrow_down</md-icon>-->
+                            <ul class="dropdown-menu pa-login-dropdown chat-dropdown">
+                                <li class="pa-dropdown-item pa-pl-12 layout-row">
+                                    <md-button class="md-fab md-mini md-hue-3 header-profile-img pa-no-padding tt-mr-10" data-toggle="dropdown">
+                                        <img id="profile_img_menu" class="img-circle header-profile-img" />
+                                    </md-button>
+                                    <span class="pa-vertical-align-sub pa-font-bold pa-font-16 layout-column"> 
+                                    <span id="user-name-menu"></span>
+                                    <span id="user-city-menu" class="pa-font-14 pa-color-666666 pa-font-wt-500"></span>
+                                    </span>
+                                </li>
+                                <li class="pa-dropdown-item">
+                                    <a onclick="GoToAnotherPage('myprofile')">
+                                        <i class="material-icons pa-img-height pa-vertical-align pa-color-pink">account_circle</i>
+                                        <span class="pa-vertical-align-sub"> My Profile</span>
+                                    </a>
+                                </li>
+                                <li class="pa-dropdown-item">
+                                    <a onclick="GoToAnotherPage('tickets')">
+                                        <i class="material-icons pa-img-height pa-vertical-align pa-color-pink icon-roted">confirmation_number</i>
+                                        <span class="pa-vertical-align-sub">My Tickets</span>
+                                    </a>
+                                </li>
+                                <li class="pa-dropdown-item">
+                                    <a onclick="GoToAnotherPage('manageevent')">
+                                        <i class="material-icons pa-img-height pa-vertical-align pa-color-pink">event</i>
+                                        <span class="pa-vertical-align-sub">Manage Event</span>
+                                    </a>
+                                </li>
+                                <li class="pa-dropdown-item">
+                                    <a onclick="GoToAnotherPage('manage_rewards_live')">
+                                        <i class="material-icons pa-img-height pa-vertical-align pa-color-pink">favorite</i>
+                                        <span class="pa-vertical-align-sub">Manage Promotions</span>
+                                    </a>
+                                </li>
+                                <li class="pa-dropdown-item">
+                                    <a onclick="GoToAnotherPage('recommend_events')">
+                                        <i class="material-icons pa-img-height pa-vertical-align pa-color-pink">star_border</i>
+                                        <span class="pa-vertical-align-sub">Recommend Events</span>
+                                    </a>
+                                </li>
+                                <li class="pa-dropdown-item">
+                                    <a onclick="GoToAnotherPage('my_payout')">
+                                        <i class="material-icons pa-img-height pa-vertical-align pa-color-pink">attach_money</i>
+                                        <span class="pa-vertical-align-sub">My Payout</span>
+                                    </a>
+                                </li>
+                                <li class="pa-dropdown-item">
+                                    <a href="/chat.html">
+                                        <i class="material-icons pa-img-height pa-vertical-align pa-color-pink">message</i>
+                                        <span class="pa-vertical-align-sub">My Messages</span></a>
+                                </li>
+                                <li class="pa-dropdown-item">
+                                    <a href="https://promo.helpdocs.com" target="_blank">
+                                        <i class="material-icons pa-img-height pa-vertical-align pa-color-pink">help_outline</i>
+                                        <span class="pa-vertical-align-sub">Help</span>
+                                    </a>
+                                </li>
+                                <li class="pa-dropdown-item pa-logout"><a onclick="Logout()">Logout</a></li>
+                            </ul>
+                            <a onclick="GoToAnotherPage('search')" class="visible-xs"><img src="img/new-search.png" value="SEARCH" class="pull-right btn-round-lg pre-signup-hover promo-logo post-login-header-buttons post-login-chat-header-btns" id="search"></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="responsive-line" style="display:none;">
+        <hr class="no-margin" style="opacity:0.5" />
+    </header>
+
+    <header class="chat-header hidden-sm visible-xs ">
+        <div class="row logo-in-res custom-log-in-res chat-header-style" style="padding: 10px;">
+            <div class="logo col-xs-6 col-sm-3 col-md-6 col-lg-7 promo-logo chat-promo-logo">
+                <a onClick="GoToAnotherPage('')"> <img src="/img/logo-the-promo-app-red.png" class="img-responsive header-logo"></a>
+            </div>
+
+        </div>
+        <hr class="responsive-line" style="display:none;">
+        <hr class="no-margin" style="opacity:0.1" />
+    </header>
+
+
+    <style>
+        .container {
+            padding: 0;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+    </style>
+
+    <div id="page"></div>
+
+    <!-- Underscore templates  -->
+    <script type="text/template" id="tpl_login">
+        <div class="login__wrapper">
+            <div class="login__container">
+                <div class="login__inner">
+                    <div class="login__top">
+                        <a href="https://quickblox.com/" class="login__logo">
+                            <img src="./img/qb-logo.svg" alt="QuickBlox">
+                        </a>
+                        <h1>Quickblox Chat Sample</h1>
+                        <h3>Please enter your username and user group. Users within the same group will be able to communicate, create chats with each other
+                        </h3>
+                    </div>
+
+                    <form name="loginForm" class="login__form">
+                        <div class="login_form__row">
+                            <label for="userName">User name</label>
+                            <input type="text" id="userName" name="userName" />
+                        </div>
+                        <div class="login_form__row">
+                            <label for="userGroup">User group</label>
+                            <input type="text" id="userGroup" name="userGroup" />
+                        </div>
+                        <div class="login__button_wrap">
+                            <button type="submit" name="login_submit" class="btn m-login__button j-login__button" disabled>
+                            login
+                        </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="login__footer">
+                    <div class="footer__logo_wrap">
+                        <a href="https://quickblox.com/" class="footer__logo">
+                            <img src="./img/qblogo-grey.svg" alt="QuickBlox">
+                        </a>
+                        <p>by QuickBlox</p>
+                    </div>
+                    <span class="footer__version">v. <%= version %></span>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl_dashboardContainer">
+        <div class="custom-dashboard-container">
+            <div class="chat-head">
+                Messages
+            </div>
+            <div class="dashboard custom-dashboard">
+                <div class="sidebar j-sidebar active">
+                    <div class="sidebar__inner">
+                        <div class="sidebar__header">
+                            <a href="/myprofile" class="dashboard__logo">
+                                <% if (user.profile_url) { %>
+                                    <img src="<%= user.profile_url %>" style="height: 46px;width: 46px;" />
+                                    <% } else {%>
+                                        <i class="material-icons">account_circle</i>
+                                        <% } %>
+                            </a>
+                            <div class="dashboard__status_wrap">
+                                <h2 class="dashboard__title">
+                                    <%- user.name %>
+                                </h2>
+                                <p class="dashboard__status j-dashboard_status">
+                                    Logged in
+                                </p>
+                            </div>
+                        </div>
+                        <div class="sidebar__content">
+                            <ul class="sidebar__tabs">
+                                <li class="sidebar__tab" style="display: none;">
+                                    <a href="#" class="sidebar__tab_link j-sidebar__tab_link <% tabName === " chat " ? print('active') : '' %>" data-type="chat">chats</a>
+                                </li>
+
+                                <li class="sidebar__tab m-sidebar__tab_new">
+                                    <a href="#/dialog/create" class="sidebar__tab_link j-sidebar__create_dialog m-sidebar__tab_link_new" data-type="create">
+                                        New Group
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="search_bar_for_chat">
+                                <div class="form-group">
+                                    <span class="material-icons">search</span>
+                                    <input type="email" class="form-control" id="searchOnChange" onkeyup="searchData()" placeholder="Search People">
+                                </div>
+                            </div>
+                            <ul class="sidebar__dilog_list j-sidebar__dilog_list" id="j-sidebar-dilog-list">
+                            </ul>
+                            <div class="no-data" id="j-no-data" style="display: none;">
+                                <h4>No Record Found</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content j-content">
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl_welcome">
+        <div class="content__title j-content__title j-welcome">
+            Welcome to Promoapp chat!
+        </div>
+        <div class="notifications j-notifications hidden"></div>
+        <div class="content__inner j-content__inner">
+            <div class="welcome__message">
+                <h3>No Messages!</h3>
+                <p>Start messaging your followers and people who you are following.</p>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl_userConversations">
+        <li class="dialog__item j-dialog__item" id="<%= dialog._id %>" data-name="<%- dialog.name %>">
+            <a class="dialog__item_link" href="#/dialog/<%= dialog._id %>">
+                <span class="dialog__avatar m-user__img_<%= dialog.color %> m-type_<%= dialog.type === 2 ? 'group' : 'chat' %>">
+                    <% if(dialog.type === 2) { %>
+                        <i class="material-icons">supervisor_account</i>
+                    <% } else if(dialog.profile_url){
+                        %>
+                        <img src="<%= dialog.profile_url%>" style="height: 46px;width: 46px;"/>
+                        <%
+                    } else{
+                        %>
+                        <i id="dialog_<%=dialog.jidOrUserId%>_mi" class="material-icons">account_circle</i>
+                        <%
+                    }%>
+                </span>
+                <span class="dialog__info">
+                    <span class="dialog__name"><%- dialog.name %></span>
+                    <span class="dialog__last_message j-dialog__last_message <%= dialog.attachment ? 'attachment' : ''%>"><%- dialog.last_message%></span>
+                </span>
+                <span class="dialog_additional_info">
+                    <span class="dialog__last_message_date j-dialog__last_message_date">
+                        <%= dialog.last_message_date_sent %>
+                    </span>
+                    <span class="dialog_unread_counter j-dialog_unread_counter <% !dialog.unread_messages_count ? print('hidden') : '' %>">
+                        <% dialog.unread_messages_count ? print(dialog.unread_messages_count) : '' %>
+                    </span>
+                </span>
+            </a>
+        </li>
+    </script>
+
+    <script type="text/template" id="tpl_conversationContainer">
+        <div class="content__title j-content__title j-dialog">
+            <button class="open_sidebar j-open_sidebar"></button>
+            <span class="dialog__avatar j-dialog-user-icon m-user__img_<%= color %> m-type_<% type !== 2 ? print('chat') : print('group') %>">
+                <i class="material-icons supervisor">supervisor_account</i>
+                <i id="dialog_<%= jidOrUserId %>_mi" class="material-icons account">account_circle</i>
+            </span>
+            <h1 class="dialog__title j-dialog__title">
+                <%- title %>
+            </h1>
+            <div class="action_links">
+                <a href="#/dialog/<%- _id %>/edit" class="add_to_dialog j-add_to_dialog <% type !== 2 ? print('hidden') : ''%>">
+                    <i class="material-icons">person_add</i>
+                </a>
+                <a href="#" class="cancelled-clor quit_fom_dialog_link j-quit_fom_dialog_link <% type === 1 ? print('hidden') : ''%>" data-dialog="<%- _id %>">
+                    <i class="material-icons">delete</i>
+                </a>
+            </div>
+        </div>
+        <div class="notifications j-notifications hidden"></div>
+        <div class="content__inner j-content__inner">
+            <div class=" messages j-messages"></div>
+            <form name="send_message" class="send_message" autocomplete="off">
+                <textarea name="message_feald" class="message_feald" id="message_feald" autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Type a message" autofocus></textarea>
+                <div class="message__actions">
+                    <div class="attachments_preview j-attachments_preview"></div>
+                    <label for="attach_btn" class="attach_btn" style="float:left;">
+                        <i class="material-icons">attachment</i>
+                        <input type="file" id="attach_btn" name="attach_file" class="attach_input chat-attach-input" accept="image/*"/>
+                    </label>
+                    <button type="submit" class="send_btn"><i class="material-icons">send</i></button>
+                </div>
+            </form>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl_UpdateDialogContainer">
+        <div class="content__title j-content__title update_dialog__header j-update_dialog">
+            <a href="#/dialog/<%- _id %>" class="back_to_dialog j-back_to_dialog">
+                <i class="material-icons">arrow_back</i>
+            </a>
+            <form action="#" name="update_chat_name" class="update_chat_name_form">
+                <input type="text" name="update_chat__title" class="update_chat__title_input j-update_chat__title_input" value="<%- title %>" disabled>
+                <button type="button" class="update_chat__title_button j-update_chat__title_button">
+                    <i class="material-icons m-user_icon">create</i>
+                </button>
+            </form>
+        </div>
+        <div class="notifications j-notifications hidden"></div>
+        <div class="content__inner j-content__inner">
+            <p class="update__chat__description">Update Members:&nbsp;<span class="update__chat_counter j-update__chat_counter">0</span></p>
+            <div class="update_chat__user_list j-update_chat__user_list"></div>
+            <form action="" name="update_dialog" class="dialog_form m_dialog_form_update j-update_dialog_form">
+                <button type="button" class="btn m-update_dialog_btn_cancel j-update_dialog_btn_cancel" name="update_dialog_cancel">cancel
+                </button>
+                <button class="btn m-update_dialog_btn j-update_dialog_btn" type="submit" name="update_dialog_submit" disabled>Save Group
+                </button>
+            </form>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl_editChatUser">
+        <div class="user__item <% selected ? print('selected') : ''%>" id="<%= id %>">
+            <i class="material-icons user_deselect">cancel</i>
+            <span class="user__avatar m-user__img_<%= color %>">
+                <i class="material-icons m-user_icon">account_circle</i>
+            </span>
+            <div class="user__details">
+                <p class="user__name">
+                    <%= name %>
+                </p>
+                <% if (last_request_at) { %>
+                    <p class="user__last_seen">
+                        <%= last_request_at %>
+                    </p>
+                    <% } %>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl_message">
+        <div class="message__wrap <%= user.name === sender.name ? 'align_right' : 'align_left' %>" id="<%= message.id %>" data-status="<%= message.status %>">
+            <span class="message__avatar m-user__img_<%= sender ? sender.color : 'not_loaded' %>">
+                <% if (sender.profile_url) { %>
+                    <img src="<%= sender.profile_url %>" style="height: 46px;width: 46px;"/>
+                <% } else {%>
+                    <i class="material-icons">account_circle</i>
+                <% } %>
+            </span>
+            <div class="message__content">
+                <div class="message__sender_and_status">
+                    <p class="message__sender_name">
+                        <%- sender ? sender.name : 'unknown user (' + message.sender_id + ')'
+                    %>
+                    </p>
+                    <p class="message__status j-message__status">
+                        <%= message.status %>
+                    </p>
+                </div>
+                <div class="message__text_and_date">
+                    <div class="message__text_wrap">
+                        <% if (message.message) { %>
+                            <p class="message__text">
+                                <%= message.message %>
+                            </p>
+                            <% } %>
+                                <% if (message.attachments.length) { %>
+                                    <div class="message__attachments_wtap">
+                                        <% _.each(message.attachments, function(attachment){ %>
+                                            <img src="<%= attachment.src %>" alt="attachment" class="message_attachment">
+                                            <% }); %>
+                                    </div>
+                                    <% } %>
+                    </div>
+                    <div class="message__timestamp">
+                        <%= message.date_sent %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl_notificationMessage">
+        <div class="message__wrap" id="<%= id %>">
+            <p class="m-notification_message">
+                <%= text %>
+            </p>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl_newGroupChat">
+        <div class="content__title j-content__title j-create_dialog" style="display: none;">
+            <button class="back_to_dialog j-back_to_dialog">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            <h1 class="group_chat__title" style="margin-top: 0;">New Group Chat</h1>
+        </div>
+        <div class="content__title j-content__title j-create_dialog">
+            <div class="message_chat_head">
+                <span class="chat_group_icon">
+                    <i class="material-icons">group</i>
+                </span>
+                <div class="group_chat__title">Create New Group</div>
+
+                <a href="#" class="delete_group cancelled-clor"><i class="material-icons">delete</i></a>
+            </div>
+        </div>
+
+        <div class="notifications j-notifications hidden"></div>
+        <div class="content__inner j-content__inner">
+            <p class="group__chat__description">Select Participants</p>
+            <div class="group_chat__user_list j-group_chat__user_list">
+            </div>
+            <form action="" name="create_dialog" class="dialog_form m-dialog_form_create j-create_dialog_form">
+                <input class="dialog_name" onkeyup="buttonDisabled()" name="dialog_name" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Add conversation name" disabled>
+                <button class="btn m-create_dialog_btn j-create_dialog_btn" type="submit" name="create_dialog_submit" disabled>create Group</button>
+            </form>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl_newGroupChatUser">
+        <div class="user__item <% user.selected ? print('disabled selected') : ''%>" id="<%= user.id %>">
+            <i class="material-icons user_deselect">cancel</i>
+            <span class="user__avatar m-user__img_<%= user.color %>">
+                <% if (user.profile_url) { %>
+                    <img src="<%= user.profile_url %>" style="height: 46px;width: 46px;"/>
+                <% } else {%>
+                    <i class="material-icons">account_circle</i>
+                <% } %>
+            </span>
+            <div class="user__details">
+                <p class="user__name">
+                    <%- user.name %>
+                </p>
+                <% if (user.last_request_at) { %>
+                    <p class="user__last_seen">
+                        <%= user.last_request_at %>
+                    </p>
+                    <% } %>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl_message__typing">
+        <div class="message__wrap m-typing j-istyping" id="is__typing">
+            <% _.each(users, function(user){ %>
+                <span class="message__avatar <%- typeof user === 'number' ? 'm-typing_unknown m-typing_' + user : 'm-user__img_' + user.color %>">
+                    <i class="material-icons">account_circle</i>
+                </span>
+                <% }); %>
+                    <% if (users.length){ %>
+                        <div id="fountainG">
+                            <div id="fountainG_1" class="fountainG"></div>
+                            <div id="fountainG_2" class="fountainG"></div>
+                            <div id="fountainG_3" class="fountainG"></div>
+                        </div>
+                        <% } %>
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl_attachmentPreview">
+        <div class="attachment_preview__wrap m-loading" id="<%= id %>">
+            <img class="attachment_preview__item" src="<%= src %>">
+        </div>
+    </script>
+
+    <script type="text/template" id="tpl_attachmentLoadError">
+        <p class="attachment__error">Can't load attachment...</p>
+    </script>
+
+    <script type="text/template" id="tpl_lost_connection">
+        <div class="titile">Waiting for network.</div>
+        <div class="spinner"><img src="img/loader2.gif" alt="wating"></div>
+    </script>
+
+    <script type="text/template" id="tpl_loading">
+        <div class="loading__wrapper chat-loader">
+            <div class="loading_inner">
+                <div class="gradient-spinner"></div>
+            </div>
+        </div>
+    </script>
+
+
+
+
+    <script src="js/chat/QBconfig.js" defer></script>
+    <script src="js/chat/user.js" defer></script>
+    <script src="js/chat/dialog.js" defer></script>
+    <script src="js/chat/message.js" defer></script>
+    <script src="js/chat/listeners.js" defer></script>
+    <script src="js/chat/helpers.js" defer></script>
+    <script src="js/chat/app.js" defer></script>
+    <script src="js/chat/login.js" defer></script>
+    <script src="js/chat/route.js" defer></script>
+
+
+    <script>
+        var loc = window.location.href;
+        var winPath = loc.substring(0, loc.indexOf("chat"));
+
+        function GoToAnotherPage(str) {
+            window.location = winPath + str;
+
+        }
+
+        function Logout() {
+            logInPath = winPath + "/login";
+            document.cookie = "user=;expires=-1";
+            window.location = logInPath;
+        }
+
+        function searchData() {
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('searchOnChange');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("j-sidebar-dilog-list");
+            no_data = document.getElementById("j-no-data");
+            li = ul.getElementsByTagName('li');
+            let liCount = li.length;
+            let displayNoneCount = 0;
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByClassName("dialog__name")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                    displayNoneCount = displayNoneCount + 1;
+                }
+                if (liCount == displayNoneCount) {
+                    no_data.style.display = "";
+                    ul.style.display = "none";
+                } else {
+                    no_data.style.display = "none";
+                    ul.style.display = "";
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

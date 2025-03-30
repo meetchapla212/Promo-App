@@ -1,0 +1,437 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE fixed-layout-vh">
+    
+    <div flex layout-fill class="pa-bg-EEEEEE fixed-layout-vh">
+        <div class="layout_panel_mwrap">
+            <div class="pa-bg-FFFFFF layout_left_panel">
+                <div ng-include="'partials/sidebar.html'" ng-if="sidebarBlock"></div>
+            </div>
+            <div class="layout_right_panel fixed-layout-vh-auto">
+                <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content "></div>
+                <div class="flex_justify pa-mb-30">
+                    <div class="report_header">
+                        <h2 class="pa-font-24 pa-mt-0 pa-bold-font">Event Ticket & Admission</h2>
+                        <p class="pa-color-3333338 pa-font-14 pa-no-bt-margin-imp">Update event seating or tickets details.</p>
+                        <flash-message-template ng-show="flashMessage"></flash-message-template>
+                    </div>
+                </div>
+                <div class="row pa-bootstrap-row">
+                    <div class="col-lg-8">
+                        <md-card class="card-color margin pa-mt-0">
+                            <md-card-header class="col-md-12 pa-bg-F9 align-items-center create-header-style pa-border-EEEEEE tt-margin-bottom-0">
+                                <md-card-header-text>
+                                    <span class="md-title pa-font-16"><span class="mr-5 pa-color-333333 pa-font-bold">Seating</span><span class="pa-font-14 card-color">(Required)</span></span>
+                                </md-card-header-text>
+                            </md-card-header>
+                            <md-card-content class="pa-no-padding pa-background-white" layout-gt-sm="row" layout-padding>
+                                <form class="event-form create-w-100 pa-mt-20" name="createEventForms.create_event_seat_layout">
+                                    <div class="seating_sub_title">You can design a seat map using our venue map designer and set price tiers for each section. or create tickets with price tiers if the venue already has a seat map.</div>
+                                    <div class="">
+                                        <span class="pa-color-333333 pa-font-14 pa-font-600">Seating Layout:</span>
+                                    </div>
+                                    <div class="row ste_section_lab pa-ml-0">
+                                        <div class="custom_check_seat">
+                                            <div class="tt-paid-free-box" ng-class="{'pa-green-border' : displayEvent.seat_layout == 'design'}">
+                                                <div class="checkbox pa-bold-font pa-color-333333 pa-font-16">
+                                                    <label class="tt-checkbox-custom">
+                                                <input type="radio" name="seatlayoutradio" id="seatDesign" ng-model="displayEvent.seat_layout" ng-change="flashMessage = true;attendeesAllow(true);saveDataLocal();" ng-value="'design'" required />
+                                                <span class="tt-paid-check"></span>
+                                                <span class="paid-free-style">Design Seating Layout</span>
+                                            </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="custom_check_seat">
+                                            <div class="tt-paid-free-box" ng-class="{'pa-green-border' : displayEvent.seat_layout == 'tickets' && editEvent.sold_count != null}">
+                                                <div class="checkbox pa-bold-font pa-color-333333 pa-font-16">
+                                                    <label class="tt-checkbox-custom">
+                                                <input type="radio" name="seatlayoutradio" ng-model="displayEvent.seat_layout" ng-change="flashMessage = true;attendeesAllow(false);createTicketModal();saveDataLocal();" ng-value="'tickets'" required />
+                                                <span class="tt-paid-check"></span>
+                                                <span class="paid-free-style">Create Tickets</span>
+                                            </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="custom_section_check_seat" ng-if="pickSeatsDisabled || displayEvent.seat_layout === 'design'">
+                                        <div class="form-group">
+                                            <label class="check-promo">
+                                        <input class="checkhour" ng-model="displayEvent.pickSeats" type="checkbox" ng-checked="displayEvent.pickSeats" ng-change="flashMessage = true;saveDataLocal();">
+                                        <span class="check-ui"></span>
+                                        <span class="chec-category">Allow attendees to pick their seats. <br/><b> If unchecked, attendees will be alloted the best seats by the system.</b></span>
+                                    </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-12" ng-if="!createEventForms.create_event_form_admissions_1.freepaidradio.$pristine">
+                                        <div ng-messages="createEventForms.create_event_form_admissions_1.freepaidradio.$error">
+                                            <div ng-message="required">This field is required</div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </md-card-content>
+                        </md-card>
+                        <md-card class="margin" ng-show="currentInfoSection.includes('create_event_form_admissions_1')">
+                            <md-card-header class="col-md-12 pa-bg-F9 create-header-style align-items-center pa-border-EEEEEE tt-margin-bottom-0">
+                                <md-card-header-text>
+                                    <span class="md-title pa-font-16"><span class="mr-5 pa-color-333333 pa-font-bold">Admission</span><span class="pa-font-14 card-color">(Required)</span></span>
+                                </md-card-header-text>
+                            </md-card-header>
+
+                            <md-card-content class="pa-no-padding pa-background-white event_type_section" layout="column" layout-padding>
+                                <div class="pa-no-padding">
+                                    <form class="event-form create-w-100 pa-mt-30" name="createEventForms.create_event_form_admissions_1">
+                                        <div class="">
+                                            <span class="pa-color-333333 pa-font-14 pa-font-600">Event Type: </span><span class="pa-required">*</span>
+                                        </div>
+                                        <div class="row pt-10">
+                                            <div class="col-md-8 col-sm-12">
+                                                <div class="tt-paid-free-box width-132 pa-display-inline-block" ng-class="{'pa-green-border':displayEvent.event_type == 'free', 'disabled-btn': action == 'Edit'}">
+                                                    <div class="checkbox pa-bold-font pa-color-333333 pa-font-16">
+                                                        <label class="tt-checkbox-custom">
+                                                            <input type="radio" name="freepaidradio" ng-model="displayEvent.event_type" ng-change="flashMessage = true;checkTicketCreate();saveDataLocal();" ng-value="'free'" required ng-disabled="isEventTicketSold || displayEvent.ticketsArr.length > 0">
+                                                            <span class="tt-paid-check"></span>
+                                                            <span class="paid-free-style">Free</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="tt-paid-free-box width-132 pa-display-inline-block pa-ml-20" ng-class="{'pa-green-border': displayEvent.event_type == 'paid', 'disabled-btn': action == 'Edit'}">
+                                                    <div class="checkbox pa-bold-font pa-color-333333 pa-font-16">
+                                                        <label class="tt-checkbox-custom">
+                                                            <input type="radio" name="freepaidradio" ng-model="displayEvent.event_type" ng-change="flashMessage = true;checkTicketCreate();saveDataLocal();" ng-value="'paid'" required ng-disabled="isEventTicketSold || displayEvent.ticketsArr.length > 0">
+                                                            <span class="tt-paid-check"></span>
+                                                            <span class="paid-free-style">Paid</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-12"></div>
+                                            <div class="col-md-12" ng-if="!createEventForms.create_event_form_admissions_1.freepaidradio.$pristine">
+                                                <div ng-messages="createEventForms.create_event_form_admissions_1.freepaidradio.$error">
+                                                    <div ng-message="required">This field is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pa-mt-16" ng-if="displayEvent.event_type && displayEvent.event_type === 'free' && displayEvent.seat_layout !== 'design'">
+                                            <div class="custom_section_check_seat">
+                                                <div class="form-group">
+                                                    <label class="check-promo pa-vertical-align">
+                                                <input class="checkhour" ng-model="displayEvent.admission_event_type" type="checkbox" ng-change="flashMessage = true;saveDataLocal();">
+                                                <span class="check-ui"></span>
+                                                <span class="chec-category">Create free admission tickets.</span>
+                                            </label>
+                                                    <i class="material-icons cursor-pointer pa-color-333333 pa-display-inline-block pa-vertical-align" tooltip-placement="right" uib-tooltip="When you select the free admission ticket option, you'll be giving guests free access to your event. You will need to click 'Create Ticket' to set up this ticket type before you can proceed to set up the rest of your event.">help_outline</i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pa-pt-30 create-w-100" ng-if="displayEvent.event_type && displayEvent.event_type === 'paid'">
+                                            <div class="add-new-payment-method payout-box-pay box_add_payout" ng-if="user.is_verified < 1 && user.stripe_account_id === ''">
+                                                <div class="payments-methodHead">
+                                                    To create paid tickets for this event, you'll need to add a payout method.
+                                                </div>
+                                                <span class="payment-subhead pa-mt-25">To add a payout method, you will need to connect with a payment gateway. Once this process is complete, you'll be redirected to the next step which is the option to add a payout method.</span>
+
+                                                <md-input-container class="width-50 pa-mt-30-imp country_drop_add" flex-gt-sm>
+                                                    <label class="pa-color-333333">Country <span class="pa-required">*</span></label>
+                                                    <select md-container-class="event-form-select ht-48 md-icon-float md-icon-right" name="country" class="pa-border-CBCBCB ht-48" ng-model="stripe_selected_country">
+                                                <option ng-repeat="item in dropdowns.stripe_country.options" ng-value="item.key">
+                                                      {{item.value}}
+                                                </option>
+                                            </select>
+                                                    <span class="caret"></span>
+                                                </md-input-container>
+
+                                                <a ng-click="stripeAccountCreate(true,displayEvent.event_id,stripe_selected_country);" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit  md-button md-ink-ripple" style="margin-left: 0px; margin-bottom: 20px !important; line-height: 27px; margin-top: 15px; width: 40%;">Connect With Payment Gateway</a>
+
+                                                <div class="info-strip admission_info_strip"><i class="material-icons">info</i><span>To add a payout method, you will need to connect with a payment gateway. Once this process is complete, you'll be redirected to the next step which is the option to add a payout method.</span></div>
+                                            </div>
+
+                                            <div class="add-new-payment-method payout-box-pay box_add_payout" ng-if="userBankList.length > 0 && user.stripe_account_id !== '' && stripe_verification_status != 'approve'">
+                                                <div class="payments-methodHead">
+                                                    To create paid tickets for this event, you'll need to add a payout method.
+                                                </div>
+                                                <span class="payment-subhead pa-mt-25">Account Verification is Pending Verifying your account. This should take just a few minutes.</a></span>
+
+                                                <a ng-if="stripe_verification_status != 'pending'" ng-click="stripeAccountCreate(true,displayEvent.event_id);" class="primary-btn md-button" style="margin-left: 0px; margin-top: 15px;">Change Information</a>
+
+                                                <a ng-click="checkStripeStatus(displayEvent.event_id);" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit  md-button md-ink-ripple" style="margin-left: 0px; margin-bottom: 20px !important; line-height: 27px; margin-top: 15px; width: 40%;">Check Approval Status</a>
+
+                                                <div class="info-strip admission_info_strip"><i class="material-icons">info</i><span>To create paid tickets for this event, you'll need to add a payout method.</span></div>
+                                            </div>
+
+                                            <div class="add-new-payment-method payout-box-pay box_add_payout" ng-if="userBankList.length == 0 && user.stripe_account_id !== ''">
+                                                <div class="payments-methodHead">
+                                                    To create paid tickets for this event, you'll need to add a payout method.
+                                                </div>
+                                                <span class="payment-subhead pa-mt-25">Thank you for setting up the payment gateway. You can now add your payout method.</span>
+
+                                                <button ng-click="openBankInfo()" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit  md-button md-ink-ripple" style="margin-left: 0px; margin-bottom: 20px !important; line-height: 27px; margin-top: 15px;">Add Payout Method</button>
+
+                                                <div class="info-strip admission_info_strip"><i class="material-icons">info</i><span>The payout method can be used for accounts based in the USA or UK only. The time it takes to process a payout depends on your location. Payouts in the USA will take up to 2 calendar days to process. Payouts in the UK will require up to 7 calendar days to process. </span></div>
+                                            </div>
+
+                                            <div class="add-new-payment-method payout-box-pay" ng-if="user.is_verified == 1 && user.charges_enabled == 1 && userBankList.length >= 1">
+                                                <div class="">
+                                                    <div class="pa-color-666666 pa-font-16 pa-pt-12">
+                                                        Your payout method for this event is :
+                                                    </div>
+                                                    <span class="pa-font-18 pa-color-333333 pa-bold-font">XXXXXXXX{{defalutBank.last4}}</span>
+                                                    <p ng-if="!defalutBank.total_events" ng-click="openChangePayoutModel()">Change Payout Method </p>
+                                                    <p ng-if="defalutBank.total_events" class="panding"><i class="material-icons">info</i> This payout method is already in use with other live events hence, cannot be changed.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="pa-no-padding pa-pt-20-imp" ng-class="{'tc_create_sec': !seatMapCreated && displayEvent.ticketsArr && displayEvent.ticketsArr.length > 0 && showHide.editTicketIndex != 0}" ng-if="displayEvent.event_type === 'free' || userBankList.length >= 1">
+                                    <div class="create-w-100" ng-if="displayEvent.event_type && (displayEvent.event_type === 'free' && (displayEvent.admission_event_type == 1 || displayEvent.admission_event_type == true)) || (displayEvent.event_type === 'paid')">
+                                        <div ng-show="!seatMapCreated && displayEvent.ticketsArr && displayEvent.ticketsArr.length > 0 && showHide.editTicketIndex != 0">
+                                            <div class="event-form create-w-100 pb-5 pa-pt-30" ng-repeat="tickets in displayEvent.ticketsArr track by $index">
+                                                <div class="pa-color-333333 pa-font-16 pa-font-600">Ticket Type {{$index + 1}} </div>
+                                                <div class="ticket-border pt-10 pa-border-4 mt-10">
+                                                    <div class="ticket_top clearfix p-17p">
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pa-pl-0">
+                                                            <div class="pa-color-333333 pa-font-18 pa-font-bold lh-22">{{tickets.ticket_name}}</div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
+                                                            <div class="pa-text-center pa-float-right" ng-if="tickets.allow_to_action">
+                                                                <div class="pa-display-inline-block mr-29 pa-cursor-pointer" ng-click="(displayEvent.event_type === 'free') ? editFreeTicket($index) : editPaidTicket($index)">
+                                                                    <md-icon class="material-icons tt-mr-10">edit</md-icon>
+                                                                    <span class="pa-font-15 lh-18 pa-color-pink">Edit</span>
+                                                                </div>
+                                                                <div class="pa-display-inline-block pa-cursor-pointer" ng-click="deleteTicketConfirmation($index)">
+                                                                    <md-icon class="material-icons cancelled-clor tt-mr-10">delete</md-icon>
+                                                                    <span class="pa-font-15 lh-18 cancelled-clor">Delete</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="pa-text-center pa-float-right" ng-if="!tickets.allow_to_action">
+                                                                <div class="pa-display-inline-flex pa-align-items-center mr-29 button-disabled" uib-tooltip="You can't edit ticket if any ticket gets sold out." tooltip-placement="top">
+                                                                    <md-icon class="material-icons tt-mr-10">edit</md-icon>
+                                                                    <span class="pa-font-15 lh-18 pa-color-pink">Edit</span>
+                                                                </div>
+                                                                <div class="pa-display-inline-flex pa-align-items-center button-disabled" uib-tooltip="You can't delete ticket if any ticket gets sold out." tooltip-placement="top">
+                                                                    <md-icon class="material-icons cancelled-clor tt-mr-10">delete</md-icon>
+                                                                    <span class="pa-font-15 lh-18 cancelled-clor">Delete</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ticket_mid clearfix">
+                                                        <div class="col-lg-12 clo-md-12 col-sm-12 pa-background-E h-30p">
+                                                            <div class="">
+                                                                <md-icon class="material-icons tt-font-16 add-tick">brightness_1</md-icon>
+                                                                <span class="pa-color-333333 lh-30">Sale ends on {{ tickets.saleEndDate.date | toMoment | momentFormatter:"dddd, MMM D, YYYY" }} at {{tickets.saleEndDate.time}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ticket_bottom clearfix tt-padding-20">
+                                                        <div class="col-lg-6">
+                                                            <div class="row">
+                                                                <div class="col-lg-6 pd-none">
+                                                                    <div class="pa-font-13 lh-16 mb-5">PRICING</div>
+                                                                    <div class="color-3FB86B tt-font-16 pa-font-bold">{{ (tickets.price > 0)? '$'+tickets.price:'Free' }}</div>
+                                                                </div>
+                                                                <div class="col-lg-6 pd-none">
+                                                                    <div class="pa-font-13 lh-16 mb-5">QUANTITY</div>
+                                                                    <div class="pa-color-333333 tt-font-16 pa-font-bold">{{tickets.quantity}}</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 pd-none"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="event-form">
+                                                <button ng-if="displayEvent.event_type === 'free' && displayEvent.status == 'active'" class="btn pa-border-CBCBCB pa-color-pink pa-background-white h-48 width-28 pa-bold-font pa-font-16 add-another" ng-click="resetForm();freeEventTickets('add');">Add Another Ticket</button>
+                                                <button ng-if="displayEvent.event_type === 'paid' && displayEvent.status == 'active'" class="btn pa-border-CBCBCB pa-color-pink pa-background-white h-48 width-28 pa-bold-font pa-font-16 add-another" ng-click="resetForm();paidEventTickets();">Add Another Ticket</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </md-card-content>
+                        </md-card>
+
+                        <div ng-if="!seatMapCreated">
+                            <div class="pa-no-padding" ng-if="displayEvent.seat_layout === 'tickets'">
+                                <div class="create-w-100" ng-if="displayEvent.ticketsArr.length == 0 && displayEvent.event_type === 'free' && displayEvent.admission_event_type ">
+                                    <div class="create_new_tickets_event">
+                                        <span>Create tickets for your event.</span>
+                                        <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" type="button" ng-click="resetForm();freeEventTickets('add');">Create Ticket</button>
+                                    </div>
+                                </div>
+                                <div class="create-w-100" ng-if="user.charges_enabled == 1 && user.payouts_enabled == 1 && displayEvent.ticketsArr.length == 0 && displayEvent.event_type === 'paid'">
+                                    <div class="create_new_tickets_event">
+                                        <span>Create tickets for your event.</span>
+                                        <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" type="button" ng-click="resetForm();paidEventTickets();">Create Ticket</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="create_new_tickets_event" ng-if="displayEvent.seat_layout === 'design' && existingSeatPlan.length === 0">
+                                <span>Create a venue map to get started.</span>
+                                <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" type="button" ng-click="openVenueWelcomeModal()">Design Venue Map</button>
+                            </div>
+                            <md-card class="card-color margin" ng-if="displayEvent.seat_layout === 'design' && existingSeatPlanFound">
+                                <md-card-header class="col-md-12 pa-bg-F9 align-items-center create-header-style pa-border-EEEEEE tt-margin-bottom-0">
+                                    <md-card-header-text>
+                                        <span class="md-title pa-font-16"><span class="mr-5 pa-color-333333 pa-font-bold">Venue Maps</span><span class="pa-font-14 card-color">(Required)</span></span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <md-card-content class="pa-no-padding" layout-gt-sm="row" layout-padding style="background: #ffffff">
+                                    <div class="venue_maps_section">
+                                        <div class="venue_maps_child">
+                                            <div class="venue_maphead">
+                                                <span>These are the venue maps associated with your address. Select a map to build tickets from.</span>
+                                            </div>
+                                            <div class="venue_map_content" ng-click="venueMaps(existingSeatPlan);">
+                                                <img ng-src="{{existingSeatPlan.layout_thumbnail_url}}" alt='promoapp'>
+                                                <h3 class="pa-capitalize pa-text-center">{{existingSeatPlan.venue_map_name}}</h3>
+                                                <span class="pa-text-center">{{existingSeatPlan.total_seating_capacity}} Capacity</span>
+                                            </div>
+                                        </div>
+                                        <div class="create_new_tickets_event pa-mt-25">
+                                            <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" type="button" ng-click="openVenueWelcomeModal()">Design Venue Map</button>
+                                        </div>
+                                    </div>
+                                </md-card-content>
+                            </md-card>
+                        </div>
+
+                        <md-card class="margin" ng-if="seatMapCreated">
+                            <md-card-header class="col-md-12 pa-bg-F9 create-header-style align-items-center pa-border-EEEEEE tt-margin-bottom-0">
+                                <md-card-header-text>
+                                    <span class="md-title pa-font-16"><span class="mr-5 pa-color-333333 pa-font-bold">Tickets</span><span class="pa-font-14 card-color">({{totalTireCapcity}})</span></span>
+                                </md-card-header-text>
+                            </md-card-header>
+                            <md-card-content class="pa-no-padding pa-background-white" layout="column" layout-padding>
+                                <div class="tickets_row">
+                                    <div class="row" style="margin-right: -15px;">
+                                        <div class="col-md-5">
+                                            <md-input-container class="md-block pa-mb-0 drop_arrow cursor_p" flex-gt-sm="" sty="">
+                                                <i class="material-icons">arrow_drop_down</i>
+                                                <select class="form-control input-height card-color" ng-model="sort_type" ng-change="createTicketArr();">
+                                            <option value="tire">Sort by: Tier</option>
+                                            <option value="ticket_type">Sort by: Ticket Type</option>
+                                        </select>
+                                            </md-input-container>
+                                        </div>
+
+                                        <div class="col-md-7 pa-text-right">
+                                            <button ng-click="goToVenue('edit')" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 pa-border-4 save-exit md-button" type="button">{{displayEvent.layout_details.is_draft ? 'Complete Seating Layout' : 'Edit Seating Layout'}}</button>
+                                            <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-14 continue md-button" ng-disabled="displayEvent.layout_details.is_draft" ng-click="eventTireTicket()">Add Ticket Type</button>
+                                        </div>
+                                    </div>
+                                    <div class="create-w-100" ng-if="displayEvent.layout_details.tiers && displayEvent.ticketsArr.length == 0">
+                                        <div class="event-form create-w-100 pb-5" ng-repeat="tier in displayEvent.layout_details.tiers track by $index">
+                                            <div class="tiers_title_head pa-pt-20">
+                                                <span ng-style="{background: tier.color}"></span> {{tier.name}} - {{tier.reserved_seats.length}}/{{tier.seating_capacity}} tickets sold
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="create-w-100" ng-if="displayEvent.layout_details.tiers && displayEvent.ticketsArr.length > 0">
+                                        <div ng-if="sort_type == 'tire'" class="event-form create-w-100 pb-5" ng-repeat="tier in displayEvent.layout_details.tiers track by $index">
+                                            <div class="tiers_title_head pa-pt-20">
+                                                <span ng-style="{background: tier.color}"></span> {{tier.name}} - {{tier.tickets[$index].quantity - tier.tickets[$index].remaining_qty}}/{{tier.seating_capacity}} tickets sold
+                                            </div>
+                                            <div ng-if="displayEvent.ticketsArr.length > 0 && tier.tier_id == ticket._tier_id" ng-repeat="ticket in displayEvent.ticketsArr track by $index">
+                                                <div class="ticket-border pt-10 pa-border-4 mt-10">
+                                                    <div class="ticket_top clearfix p-17p">
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pa-pl-0">
+                                                            <div class="pa-color-333333 pa-font-18 pa-font-bold lh-22 ng-binding">{{ticket.ticket_name}}</div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
+                                                            <div class="pa-text-center pa-float-right">
+                                                                <div class="pa-display-inline-block mr-29 pa-cursor-pointer ng-scope" ng-click="editEventTireTicket(ticket.local_tire_ticket_id,ticket.ticket_id)" role="button" tabindex="0" ng-if="ticket.allow_to_action">
+                                                                    <md-icon class="material-icons tt-mr-10" role="img" aria-label="edit">edit
+                                                                    </md-icon><span class="pa-font-15 lh-18 pa-color-pink">Edit </span>
+                                                                </div>
+                                                                <div class="pa-display-inline-block pa-cursor-pointer ng-scope" ng-click="deleteTicketConfirmation($index)" role="button" tabindex="0" ng-if="ticket.allow_to_action">
+                                                                    <md-icon class="material-icons tt-mr-10 cancelled-clor" role="img" aria-label="delete">delete
+                                                                    </md-icon><span class="pa-font-15 lh-18 cancelled-clor">Delete</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ticket_mid clearfix">
+                                                        <div class="col-lg-12 clo-md-12 col-sm-12 pa-background-E h-30p">
+                                                            <div class="">
+                                                                <md-icon class="material-icons tt-font-16 add-tick">brightness_1</md-icon>
+                                                                <span class="pa-color-333333 lh-30">Sale ends on {{ ticket.saleEndDate.date | toMoment | momentFormatter:"dddd, MMM D, YYYY" }} at {{ticket.saleEndDate.time }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ticket_bottom clearfix tt-padding-20">
+                                                        <div class="col-lg-6">
+                                                            <div class="row">
+                                                                <div class="col-lg-6 pd-none">
+                                                                    <div class="pa-font-13 lh-16 mb-5">PRICING</div>
+                                                                    <div class="color-3FB86B tt-font-16 pa-font-bold">{{ (ticket.price > 0)?'$'+ticket.price:'Free' }}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 pd-none"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div ng-if="sort_type == 'ticket_type'" class="event-form create-w-100 pb-5" ng-repeat="ticket in ticketArrayWithTire track by $index">
+                                            <div class="tiers_title_head pa-pt-20">
+                                                {{ticket.name}} - {{ticket.quantity - ticket.remaining_qty}}/{{ticket.quantity}} tickets sold
+                                            </div>
+                                            <div ng-if="ticket.ticket && ticket.ticket.length > 0 && tier.tier_id == ticket._tier_id" ng-repeat="t in ticket.ticket  track by $index">
+                                                <div class="ticket-border pt-10 pa-border-4 mt-10">
+                                                    <div class="ticket_top clearfix p-17p">
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pa-pl-0">
+                                                            <div class="pa-color-333333 pa-font-18 pa-font-bold lh-22 ng-binding">
+                                                                <span ng-style="{background: t.tire_info.color}"></span> {{t.tire_info.name}}</div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
+                                                            <div class="pa-text-center pa-float-right">
+                                                                <div class="pa-display-inline-block mr-29 pa-cursor-pointer ng-scope" ng-click="editEventTireTicket(t.local_tire_ticket_id,t.ticket_id)" role="button" tabindex="0" ng-if="t.allow_to_action">
+                                                                    <md-icon class="material-icons tt-mr-10" role="img" aria-label="edit">edit
+                                                                    </md-icon><span class="pa-font-15 lh-18 pa-color-pink">Edit </span>
+                                                                </div>
+                                                                <div class="pa-display-inline-block pa-cursor-pointer ng-scope" ng-click="deleteTicketConfirmation($index)" role="button" tabindex="0" ng-if="t.allow_to_action">
+                                                                    <md-icon class="material-icons tt-mr-10 cancelled-clor" role="img" aria-label="delete">delete
+                                                                    </md-icon><span class="pa-font-15 lh-18 cancelled-clor">Delete</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ticket_mid clearfix">
+                                                        <div class="col-lg-12 clo-md-12 col-sm-12 pa-background-E h-30p">
+                                                            <div class="">
+                                                                <md-icon class="material-icons tt-font-16 add-tick">brightness_1</md-icon>
+                                                                <span class="pa-color-333333 lh-30">Sale ends on {{ t.saleEndDate.date | toMoment | momentFormatter:"dddd, MMM D, YYYY" }} at {{t.saleEndDate.time }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ticket_bottom clearfix tt-padding-20">
+                                                        <div class="col-lg-6">
+                                                            <div class="row">
+                                                                <div class="col-lg-6 pd-none">
+                                                                    <div class="pa-font-13 lh-16 mb-5">PRICING</div>
+                                                                    <div class="color-3FB86B tt-font-16 pa-font-bold">{{ (t.price > 0)?'$'+t.price:'Free' }}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 pd-none"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </md-card-content>
+                        </md-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- hide this section in mobile End Here -->
+
+    
+</div>

@@ -1,0 +1,862 @@
+{
+  "dev": {
+    "config": {
+      "QB_APP_ID": 63188,
+      "QB_AUTH_KEY": "sjj3LrCFvQRUauO",
+      "QB_AUTH_SECRET": "UBSV3ZbsenbnyK-",
+      "QB_API_ENDPOINT": "https://api.quickblox.com",
+      "QB_CHAT_ENDPOINT": "chat.quickblox.com",
+      "QB_TURN_SERVER": "turnserver.quickblox.com",
+      "QB_S3Bucket": "qbprod",
+      "NO_OF_EVENTS_PER_PAGE": 12,
+      "NO_OF_NOTFS_PER_PAGE": 10,
+      "PHQ_BASE_URL": "https://api.predicthq.com/v1",
+      "AWS_BASE_URL": "https://gvt671bgdc.execute-api.eu-west-1.amazonaws.com/dev",
+      "BACKEND_API_ENDPOINT": "https://1lh01c5qed.execute-api.eu-west-1.amazonaws.com/test",
+      "BACKEND_API_KEY": "0UJgayUdNUaQNGkpUXyLh8RC8lc1PxKi1paCTLf2",
+      "API_KEY": "31MOD5bR6Y5OoC8uPyXIc4LbCEn3AMmpilA3wL00",
+      "PHQ_KEY": "QkS36BT4mfKRCrahrK1P1nyI7vYgp1",
+      "GOOGLE_CLIENT_ID": "581463513917-2rvt0mfk3rl3fbi9fmjch0ft174v7929.apps.googleusercontent.com",
+      "FACEBOOK_APP_ID": "549182012115010",
+      "MAX_NO_OF_PAGES_FROM_PHQ": 10,
+      "PROMO_ADMIN_ID": 37732523,
+      "SOCIAL_PROOF_BASE_URL": "https://randomuser.me/api",
+      "STRIPE_KEY": "pk_live_jidJWkh9hFJONOBhkxo5v74f",
+      "STRIPE_PUBLISH_KEY": "pk_live_jidJWkh9hFJONOBhkxo5v74f",
+      "STRIPE_CLIENT_ID": "ca_GyTVsRKzP11T6CiahPESRvhGcRO64X3E",
+      "TICKET_PROCESSING_FEE": 0,
+      "VIDEO_URL": "https://www.youtube.com/watch?v=wBUSbFbljNQ",
+      "ACCESS_KEY": "fda3bfb026015bac2cc74d57fbb96112",
+      "PAYPAL_BASE_URL": "https://www.paypal.com",
+      "PLANS": [
+        {
+          "id": "basic",
+          "title": "Basic",
+          "subtitle": "Highlight all the events you want for a month.",
+          "description": [
+            {
+              "title": "10 Active Ticketed Events",
+              "allowed": true
+            },
+            {
+              "title": "Unlimited Event Creation",
+              "allowed": true
+            },
+            {
+              "title": "Unlimited Claims + Highlights",
+              "allowed": false
+            }
+          ],
+          "currency": "$",
+          "amount": 9.99,
+          "frequency": "Per month",
+          "highlight": true,
+          "edit": true,
+          "isPromo": false,
+          "isPhq": true,
+          "ticketedevents": 10,
+          "image": "happy.svg"
+        },
+        {
+          "id": "unlimited",
+          "title": "Unlimited",
+          "subtitle": "Highlight all the events you want for a month.",
+          "description": [
+            {
+              "title": "Unlimited Active Ticketed Events",
+              "allowed": true
+            },
+            {
+              "title": "Unlimited Event Creation",
+              "allowed": true
+            },
+            {
+              "title": "Unlimited Claims + Highlights",
+              "allowed": true
+            }
+          ],
+          "currency": "$",
+          "amount": 99.99,
+          "frequency": "Per month",
+          "highlight": true,
+          "edit": true,
+          "isPromo": false,
+          "isPhq": true,
+          "ticketedevents": -99999,
+          "image": "happy-f.svg"
+        },
+        {
+          "id": "edit",
+          "title": "I want to claim this event",
+          "subtitle": "Claim this event at the cost of",
+          "description": [
+            "Claim",
+            "Edit the event image",
+            "Add a phone number, website and email"
+          ],
+          "currency": "$",
+          "amount": 2.99,
+          "highlight": false,
+          "edit": true,
+          "isPromo": false,
+          "isPhq": true
+        },
+        {
+          "id": "highlight_and_edit",
+          "title": "Highlight and claim this event",
+          "subtitle": "Claim this event and make it more visible at the cost of",
+          "description": [
+            "Claim + Highlight"
+          ],
+          "currency": "$",
+          "amount": 4.99,
+          "highlight": true,
+          "edit": true,
+          "isPromo": false,
+          "isPhq": true
+        },
+        {
+          "id": "highlight",
+          "title": "I want to highlight my event",
+          "subtitle": "Sponsor your event and make it more visible at the cost of",
+          "description": [
+            "Highlight pins on the map",
+            "Highlights in the event page",
+            "Add event to the top page"
+          ],
+          "currency": "$",
+          "amount": 2.99,
+          "highlight": true,
+          "edit": true,
+          "isPromo": true,
+          "isPhq": false
+        }
+      ],
+      "JWT_SECRET": "616161",
+      "CATEGORIES": {
+        "concerts": {
+          "id": "concerts",
+          "name": "Concerts",
+          "icon": "img/concerts.svg",
+          "iconImg": "<img src=../img/concerts.svg />",
+          "marker": "img/concerts_white.png",
+          "unselectedIcon": "img/01.1.png",
+          "selected": true
+        },
+        "festivals": {
+          "id": "festivals",
+          "name": "Festivals",
+          "icon": "img/festivals.svg",
+          "iconImg": "<img src=../img/festivals.svg />",
+          "marker": "img/festivals_white.png",
+          "unselectedIcon": "img/05.1festivals.svg",
+          "selected": true
+        },
+        "performing-arts": {
+          "id": "programing-arts",
+          "name": "Performing Arts",
+          "icon": "img/programing-arts.svg",
+          "iconImg": "<img src=../img/programing-arts.svg />",
+          "marker": "img/performing-arts_white.png",
+          "unselectedIcon": "img/02.1prg-arts.png",
+          "selected": true
+        },
+        "community": {
+          "id": "community",
+          "name": "Community",
+          "icon": "img/community.svg",
+          "iconImg": "<img src=../img/community.svg />",
+          "marker": "img/community_white.png",
+          "unselectedIcon": "img/04.1community.png",
+          "selected": true
+        },
+        "sports": {
+          "id": "sports",
+          "name": "Sports",
+          "icon": "img/sports.svg",
+          "iconImg": "<img src=../img/sports.svg />",
+          "marker": "img/sports_white.png",
+          "unselectedIcon": "img/03.1sports.svg",
+          "selected": true
+        },
+        "politics": {
+          "id": "politics",
+          "name": "Politics",
+          "icon": "img/politics.svg",
+          "iconImg": "<img src=../img/politics.svg />",
+          "marker": "img/politics_white.png",
+          "unselectedIcon": "img/politics-dark.png",
+          "class": "rally-img-style",
+          "selected": true
+        },
+        "university-college": {
+          "id": "university-college",
+          "name": "University",
+          "icon": "img/college.png",
+          "iconImg": "<img src=../img/college.png />",
+          "marker": "img/college.png",
+          "unselectedIcon": "img/college.png",
+          "selected": true
+        },
+        "eats-drinks": {
+          "id": "eats-drinks",
+          "name": "Eats & Drinks",
+          "icon": "img/eats-drinks.png",
+          "iconImg": "<img src=../img/eats-drinks.png />",
+          "marker": "img/eats-drinks.png",
+          "unselectedIcon": "img/eats-drinks.png",
+          "selected": true
+        }
+      },
+      "SEARCH_CITIES": [
+        {
+          "name": "Miami",
+          "lat": 25.7616798,
+          "long": -80.19179020000001,
+          "address": "Miami, FL, USA",
+          "country": "United States",
+          "country_short_code": "US",
+          "state": "Florida"
+        },
+        {
+          "name": "Los Angeles",
+          "lat": 34.0522342,
+          "long": -118.2436849,
+          "address": "Los Angeles, CA, USA",
+          "country": "United States",
+          "country_short_code": "US",
+          "state": "California"
+        },
+        {
+          "name": "New York",
+          "lat": 40.7127753,
+          "long": -74.0059728,
+          "address": "New York, NY, USA",
+          "country": "United States",
+          "country_short_code": "US",
+          "state": "New York"
+        },
+        {
+          "name": "London",
+          "lat": 51.5073509,
+          "long": -0.12775829999998223,
+          "address": "London, UK",
+          "country": "United Kingdom",
+          "country_short_code": "GB",
+          "state": "England"
+        },
+        {
+          "name": "Berlin",
+          "lat": 52.52000659999999,
+          "long": 13.404953999999975,
+          "address": "Berlin, Germany",
+          "country": "Germany",
+          "country_short_code": "DE",
+          "state": "Berlin"
+        },
+        {
+          "name": "Hong Kong",
+          "lat": 22.2783151,
+          "long": 114.17469499999993,
+          "address": "Hong Kong",
+          "country": "Hong Kong",
+          "country_short_code": "HK",
+          "state": "Hong Kong"
+        }
+      ],
+      "GLOBAL_TIMES": [
+        { "param": "00:00", "key": "12:00am", "value": "12:00 am" },{ "param": "00:15", "key": "12:15am", "value": "12:15 am" },{ "param": "00:30", "key": "12:30am", "value": "12:30 am" },{ "param": "00:45", "key": "12:45am", "value": "12:45 am" } ,{ "param": "01:00", "key": "1:00am", "value": "1:00 am" },{ "param": "01:15", "key": "1:15am", "value": "1:15 am" },{ "param": "01:30", "key": "1:30am", "value": "1:30 am" },{ "param": "01:45", "key": "1:45am", "value": "1:45 am" }, { "param": "02:00", "key": "2:00am", "value": "2:00 am" },{ "param": "02:15", "key": "2:15am", "value": "2:15 am" },{ "param": "02:30", "key": "2:30am", "value": "2:30 am" },{ "param": "02:45", "key": "2:45am", "value": "2:45 am" }, { "param": "03:00", "key": "3:00am", "value": "3:00 am" },{ "param": "03:15", "key": "3:15am", "value": "3:15 am" },{ "param": "03:30", "key": "3:30am", "value": "3:30 am" },{ "param": "03:45", "key": "3:45am", "value": "3:45 am" }, { "param": "04:00", "key": "4:00am", "value": "4:00 am" },{ "param": "04:15", "key": "4:15am", "value": "4:15 am" },{ "param": "04:30", "key": "4:30am", "value": "4:30 am" },{ "param": "04:45", "key": "4:45am", "value": "4:45 am" }, { "param": "05:00", "key": "5:00am", "value": "5:00 am" },{ "param": "05:15", "key": "5:15am", "value": "5:15 am" },{ "param": "05:30", "key": "5:30am", "value": "5:30 am" },{ "param": "05:45", "key": "5:45am", "value": "5:45 am" }, { "param": "06:00", "key": "6:00am", "value": "6:00 am" },{ "param": "06:15", "key": "6:15am", "value": "6:15 am" },{ "param": "06:30", "key": "6:30am", "value": "6:30 am" },{ "param": "06:45", "key": "6:45am", "value": "6:45 am" }, { "param": "07:00", "key": "7:00am", "value": "7:00 am" },{ "param": "07:15", "key": "7:15am", "value": "7:15 am" },{ "param": "07:30", "key": "7:30am", "value": "7:30 am" },{ "param": "07:45", "key": "7:45am", "value": "7:45 am" }, { "param": "08:00", "key": "8:00am", "value": "8:00 am" },{ "param": "08:15", "key": "8:15am", "value": "8:15 am" },{ "param": "08:30", "key": "8:30am", "value": "8:30 am" },{ "param": "08:45", "key": "8:45am", "value": "8:45 am" }, { "param": "09:00", "key": "9:00am", "value": "9:00 am" },{ "param": "09:15", "key": "9:15am", "value": "9:15 am" },{ "param": "09:30", "key": "9:30am", "value": "9:30 am" },{ "param": "09:45", "key": "9:45am", "value": "9:45 am" }, { "param": "10:00", "key": "10:00am", "value": "10:00 am" },{ "param": "10:15", "key": "10:15am", "value": "10:15 am" },{ "param": "10:30", "key": "10:30am", "value": "10:30 am" },{ "param": "10:45", "key": "10:45am", "value": "10:45 am" }, { "param": "11:00", "key": "11:00am", "value": "11:00 am" },{ "param": "11:15", "key": "11:15am", "value": "11:15 am" },{ "param": "11:30", "key": "11:30am", "value": "11:30 am" },{ "param": "11:45", "key": "11:45am", "value": "11:45 am" }, { "param": "12:00", "key": "12:00pm", "value": "12:00 pm" },{ "param": "12:15", "key": "12:15pm", "value": "12:15 pm" },{ "param": "12:30", "key": "12:30pm", "value": "12:30 pm" },{ "param": "12:45", "key": "12:45pm", "value": "12:45 pm" }, { "param": "13:00", "key": "1:00pm", "value": "1:00 pm" },{ "param": "13:15", "key": "1:15pm", "value": "1:15 pm" },{ "param": "13:30", "key": "1:30pm", "value": "1:30 pm" },{ "param": "13:45", "key": "1:45pm", "value": "1:45 pm" },  { "param": "14:00", "key": "2:00pm", "value": "2:00 pm" },{ "param": "14:15", "key": "2:15pm", "value": "2:15 pm" },{ "param": "14:30", "key": "2:30pm", "value": "2:30 pm" },{ "param": "14:45", "key": "2:45pm", "value": "2:45 pm" },  { "param": "15:00", "key": "3:00pm", "value": "3:00 pm" },{ "param": "15:15", "key": "3:15pm", "value": "3:15 pm" },{ "param": "15:30", "key": "3:30pm", "value": "3:30 pm" },{ "param": "15:45", "key": "3:45pm", "value": "3:45 pm" },  { "param": "16:00", "key": "4:00pm", "value": "4:00 pm" },{ "param": "16:15", "key": "4:15pm", "value": "4:15 pm" },{ "param": "16:30", "key": "4:30pm", "value": "4:30 pm" },{ "param": "16:45", "key": "4:45pm", "value": "4:45 pm" }, { "param": "17:00", "key": "5:00pm", "value": "5:00 pm" }, { "param": "17:15", "key": "5:15pm", "value": "5:15 pm" },{ "param": "17:30", "key": "5:30pm", "value": "5:30 pm" },{ "param": "17:45", "key": "5:45pm", "value": "5:45 pm" }, { "param": "18:00", "key": "6:00pm", "value": "6:00 pm" },{ "param": "18:15", "key": "6:15pm", "value": "6:15 pm" },{ "param": "18:30", "key": "6:30pm", "value": "6:30 pm" },{ "param": "18:45", "key": "6:45pm", "value": "6:45 pm" },  { "param": "19:00", "key": "7:00pm", "value": "7:00 pm" },{ "param": "19:15", "key": "7:15pm", "value": "7:15 pm" },{ "param": "19:30", "key": "7:30pm", "value": "7:30 pm" },{ "param": "19:45", "key": "7:45pm", "value": "7:45 pm" },  { "param": "20:00", "key": "8:00pm", "value": "8:00 pm" },{ "param": "20:15", "key": "8:15pm", "value": "8:15 pm" },{ "param": "20:30", "key": "8:30pm", "value": "8:30 pm" },{ "param": "20:45", "key": "8:45pm", "value": "8:45 pm" },  { "param": "21:00", "key": "9:00pm", "value": "9:00 pm" },{ "param": "21:15", "key": "9:15pm", "value": "9:15 pm" },{ "param": "21:30", "key": "9:30pm", "value": "9:30 pm" },{ "param": "21:45", "key": "9:45pm", "value": "9:45 pm" },  { "param": "22:00", "key": "10:00pm", "value": "10:00 pm" },{ "param": "22:15", "key": "10:15pm", "value": "10:15 pm" },{ "param": "22:30", "key": "10:30pm", "value": "10:30 pm" },{ "param": "22:45", "key": "10:45pm", "value": "10:45 pm" },  { "param": "23:00", "key": "11:00pm", "value": "11:00 pm" },{ "param": "23:15", "key": "11:15pm", "value": "11:15 pm" },{ "param": "23:30", "key": "11:30pm", "value": "11:30 pm" },{ "param": "23:45", "key": "11:45pm", "value": "11:45 pm" }
+      ],
+      "ANDROID_APP_URL": "https://play.google.com/store/apps/details?id=com.thepromoapp.promo",
+      "IOS_APP_URL": "https://apps.apple.com/us/app/promo-see-whats-going-on-around/id1075964954"
+    }
+  },
+  "test": {
+    "config": {
+      "QB_APP_ID": 80373,
+      "QB_AUTH_KEY": "PgaOxNj8wRvutt6",
+      "QB_AUTH_SECRET": "YVqO9hsKJEdUtcb",
+      "VIDEO_URL": "https://www.youtube.com/watch?v=wBUSbFbljNQ",
+      "QB_API_ENDPOINT": "https://api.quickblox.com",
+      "QB_CHAT_ENDPOINT": "chat.quickblox.com",
+      "QB_TURN_SERVER": "turnserver.quickblox.com",
+      "QB_S3Bucket": "qbprod",
+      "NO_OF_EVENTS_PER_PAGE": 12,
+      "NO_OF_NOTFS_PER_PAGE": 10,
+      "PHQ_BASE_URL": "https://api.predicthq.com/v1",
+      "AWS_BASE_URL": "https://1lh01c5qed.execute-api.eu-west-1.amazonaws.com/test/",
+      "BACKEND_API_ENDPOINT": "https://1lh01c5qed.execute-api.eu-west-1.amazonaws.com/test",
+      "BACKEND_API_KEY": "0UJgayUdNUaQNGkpUXyLh8RC8lc1PxKi1paCTLf2",
+      "API_KEY": "0UJgayUdNUaQNGkpUXyLh8RC8lc1PxKi1paCTLf2",
+      "PHQ_KEY": "QkS36BT4mfKRCrahrK1P1nyI7vYgp1",
+      "GOOGLE_CLIENT_ID": "581463513917-2rvt0mfk3rl3fbi9fmjch0ft174v7929.apps.googleusercontent.com",
+      "FACEBOOK_APP_ID": "315481722284091",
+      "MAX_NO_OF_PAGES_FROM_PHQ": 10,
+      "PROMO_ADMIN_ID": 41654286,
+      "SOCIAL_PROOF_BASE_URL": "https://randomuser.me/api",
+      "STRIPE_KEY": "pk_test_M8csRILSh4WzcDgCokvjgA3p",
+      "STRIPE_PUBLISH_KEY": "pk_test_M8csRILSh4WzcDgCokvjgA3p",
+      "STRIPE_CLIENT_ID": "ca_GyTVsRKzP11T6CiahPESRvhGcRO64X3E",
+      "TICKET_PROCESSING_FEE": 0,
+      "ACCESS_KEY": "fda3bfb026015bac2cc74d57fbb96112",
+      "PAYPAL_BASE_URL": "https://www.sandbox.paypal.com",
+      "ANDROID_APP_URL": "https://play.google.com/store/apps/details?id=com.thepromoapp.promo",
+      "IOS_APP_URL": "https://apps.apple.com/us/app/promo-see-whats-going-on-around/id1075964954",
+      "AWS_BUCKET": "promoappuserdata",
+      "AWS_ACCESS_KEY": "AKIAYMJYHPI75PERVWLL",
+      "AWS_SECRET_KEY": "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",
+      "AWS_REGION": "eu-west-1",
+      "AWS_IMG_SHOW_URL": "https://promoappuserdata.s3-eu-west-1.amazonaws.com",
+      "EVENT_IMG_UPLOAD_FOLDER": "event-images",
+      "SEAT_MAP_UPLOAD_FOLDER": "seatmap-file-images",
+      "ORG_LOGO_UPLOAD_FOLDER": "org_logo-file-images",
+      "REWARD_IMG_UPLOAD_FOLDER": "reward-image",
+      "USER_IMG_UPLOAD_FOLDER": "user-images",
+      "PLANS": [
+        {
+          "id": "basic",
+          "title": "Basic",
+          "subtitle": "Highlight all the events you want for a month.",
+          "description": [
+            {
+              "title": "10 Active Ticketed Events",
+              "allowed": true
+            },
+            {
+              "title": "Unlimited Event Creation",
+              "allowed": true
+            },
+            {
+              "title": "Unlimited Claims + Highlights",
+              "allowed": false
+            }
+          ],
+          "currency": "$",
+          "amount": 9.99,
+          "frequency": "Per month",
+          "highlight": true,
+          "edit": true,
+          "isPromo": false,
+          "isPhq": true,
+          "ticketedevents": 10,
+          "image": "happy.svg"
+        },
+        {
+          "id": "unlimited",
+          "title": "Unlimited",
+          "subtitle": "Highlight all the events you want for a month.",
+          "description": [
+            {
+              "title": "Unlimited Active Ticketed Events",
+              "allowed": true
+            },
+            {
+              "title": "Unlimited Event Creation",
+              "allowed": true
+            },
+            {
+              "title": "Unlimited Claims + Highlights",
+              "allowed": true
+            }
+          ],
+          "currency": "$",
+          "amount": 99.99,
+          "frequency": "Per month",
+          "highlight": true,
+          "edit": true,
+          "isPromo": false,
+          "isPhq": true,
+          "ticketedevents": -99999,
+          "image": "happy-f.svg"
+        },
+        {
+          "id": "edit",
+          "title": "I want to claim this event",
+          "subtitle": "Claim this event at the cost of",
+          "description": [
+            "Claim",
+            "Edit the event image",
+            "Add a phone number, website and email"
+          ],
+          "currency": "$",
+          "amount": 2.99,
+          "highlight": false,
+          "edit": true,
+          "isPromo": false,
+          "isPhq": true
+        },
+        {
+          "id": "highlight_and_edit",
+          "title": "Highlight and claim this event",
+          "subtitle": "Claim this event and make it more visible at the cost of",
+          "description": [
+            "Claim + Highlight"
+          ],
+          "currency": "$",
+          "amount": 4.99,
+          "highlight": true,
+          "edit": true,
+          "isPromo": false,
+          "isPhq": true
+        },
+        {
+          "id": "highlight",
+          "title": "I want to highlight my event",
+          "subtitle": "Highlight",
+          "description": [
+            "Highlight pins on the map",
+            "Highlights in the event page",
+            "Add event to the top page"
+          ],
+          "currency": "$",
+          "amount": 2.99,
+          "highlight": true,
+          "edit": true,
+          "isPromo": true,
+          "isPhq": false
+        }
+      ],
+      "JWT_SECRET": "616161",
+      "CATEGORIES": {
+        "concerts": {
+          "id": "concerts",
+          "name": "Concerts",
+          "icon": "img/concerts.svg",
+          "iconImg": "<img src=../img/concerts.svg />",
+          "marker": "img/concerts_white.png",
+          "unselectedIcon": "img/01.1.png",
+          "selected": true
+        },
+        "festivals": {
+          "id": "festivals",
+          "name": "Festivals",
+          "icon": "img/festivals.svg",
+          "iconImg": "<img src=../img/festivals.svg />",
+          "marker": "img/festivals_white.png",
+          "unselectedIcon": "img/05.1festivals.svg",
+          "selected": true
+        },
+        "performing-arts": {
+          "id": "programing-arts",
+          "name": "Performing Arts",
+          "icon": "img/programing-arts.svg",
+          "iconImg": "<img src=../img/programing-arts.svg />",
+          "marker": "img/performing-arts_white.png",
+          "unselectedIcon": "img/02.1prg-arts.png",
+          "selected": true
+        },
+        "community": {
+          "id": "community",
+          "name": "Community",
+          "icon": "img/community.svg",
+          "iconImg": "<img src=../img/community.svg />",
+          "marker": "img/community_white.png",
+          "unselectedIcon": "img/04.1community.png",
+          "selected": true
+        },
+        "sports": {
+          "id": "sports",
+          "name": "Sports",
+          "icon": "img/sports.svg",
+          "iconImg": "<img src=../img/sports.svg />",
+          "marker": "img/sports_white.png",
+          "unselectedIcon": "img/03.1sports.svg",
+          "selected": true
+        },
+        "politics": {
+          "id": "politics",
+          "name": "Politics",
+          "icon": "img/politics.svg",
+          "iconImg": "<img src=../img/politics.svg />",
+          "marker": "img/politics_white.png",
+          "unselectedIcon": "img/politics-dark.png",
+          "class": "rally-img-style",
+          "selected": true
+        },
+        "university-college": {
+          "id": "university-college",
+          "name": "University",
+          "icon": "img/college.png",
+          "iconImg": "<img src=../img/college.png />",
+          "marker": "img/college.png",
+          "unselectedIcon": "img/college.png",
+          "selected": true
+        },
+        "eats-drinks": {
+          "id": "eats-drinks",
+          "name": "Eats & Drinks",
+          "icon": "img/eats-drinks.png",
+          "iconImg": "<img src=../img/eats-drinks.png />",
+          "marker": "img/eats-drinks.png",
+          "unselectedIcon": "img/eats-drinks.png",
+          "selected": true
+        }
+      },
+      "SEARCH_CITIES": [
+        {
+          "name": "Miami",
+          "lat": 25.7616798,
+          "long": -80.19179020000001,
+          "address": "Miami, FL, USA",
+          "country": "United States",
+          "country_short_code": "US",
+          "state": "Florida"
+        },
+        {
+          "name": "Los Angeles",
+          "lat": 34.0522342,
+          "long": -118.2436849,
+          "address": "Los Angeles, CA, USA",
+          "country": "United States",
+          "country_short_code": "US",
+          "state": "California"
+        },
+        {
+          "name": "New York",
+          "lat": 40.7127753,
+          "long": -74.0059728,
+          "address": "New York, NY, USA",
+          "country": "United States",
+          "country_short_code": "US",
+          "state": "New York"
+        },
+        {
+          "name": "London",
+          "lat": 51.5073509,
+          "long": -0.12775829999998223,
+          "address": "London, UK",
+          "country": "United Kingdom",
+          "country_short_code": "GB",
+          "state": "England"
+        },
+        {
+          "name": "Berlin",
+          "lat": 52.52000659999999,
+          "long": 13.404953999999975,
+          "address": "Berlin, Germany",
+          "country": "Germany",
+          "country_short_code": "DE",
+          "state": "Berlin"
+        },
+        {
+          "name": "Hong Kong",
+          "lat": 22.2783151,
+          "long": 114.17469499999993,
+          "address": "Hong Kong",
+          "country": "Hong Kong",
+          "country_short_code": "HK",
+          "state": "Hong Kong"
+        }
+      ],
+      "GLOBAL_TIMES": [
+        { "param": "00:00", "key": "12:00am", "value": "12:00 am" },{ "param": "00:15", "key": "12:15am", "value": "12:15 am" },{ "param": "00:30", "key": "12:30am", "value": "12:30 am" },{ "param": "00:45", "key": "12:45am", "value": "12:45 am" } ,{ "param": "01:00", "key": "1:00am", "value": "1:00 am" },{ "param": "01:15", "key": "1:15am", "value": "1:15 am" },{ "param": "01:30", "key": "1:30am", "value": "1:30 am" },{ "param": "01:45", "key": "1:45am", "value": "1:45 am" }, { "param": "02:00", "key": "2:00am", "value": "2:00 am" },{ "param": "02:15", "key": "2:15am", "value": "2:15 am" },{ "param": "02:30", "key": "2:30am", "value": "2:30 am" },{ "param": "02:45", "key": "2:45am", "value": "2:45 am" }, { "param": "03:00", "key": "3:00am", "value": "3:00 am" },{ "param": "03:15", "key": "3:15am", "value": "3:15 am" },{ "param": "03:30", "key": "3:30am", "value": "3:30 am" },{ "param": "03:45", "key": "3:45am", "value": "3:45 am" }, { "param": "04:00", "key": "4:00am", "value": "4:00 am" },{ "param": "04:15", "key": "4:15am", "value": "4:15 am" },{ "param": "04:30", "key": "4:30am", "value": "4:30 am" },{ "param": "04:45", "key": "4:45am", "value": "4:45 am" }, { "param": "05:00", "key": "5:00am", "value": "5:00 am" },{ "param": "05:15", "key": "5:15am", "value": "5:15 am" },{ "param": "05:30", "key": "5:30am", "value": "5:30 am" },{ "param": "05:45", "key": "5:45am", "value": "5:45 am" }, { "param": "06:00", "key": "6:00am", "value": "6:00 am" },{ "param": "06:15", "key": "6:15am", "value": "6:15 am" },{ "param": "06:30", "key": "6:30am", "value": "6:30 am" },{ "param": "06:45", "key": "6:45am", "value": "6:45 am" }, { "param": "07:00", "key": "7:00am", "value": "7:00 am" },{ "param": "07:15", "key": "7:15am", "value": "7:15 am" },{ "param": "07:30", "key": "7:30am", "value": "7:30 am" },{ "param": "07:45", "key": "7:45am", "value": "7:45 am" }, { "param": "08:00", "key": "8:00am", "value": "8:00 am" },{ "param": "08:15", "key": "8:15am", "value": "8:15 am" },{ "param": "08:30", "key": "8:30am", "value": "8:30 am" },{ "param": "08:45", "key": "8:45am", "value": "8:45 am" }, { "param": "09:00", "key": "9:00am", "value": "9:00 am" },{ "param": "09:15", "key": "9:15am", "value": "9:15 am" },{ "param": "09:30", "key": "9:30am", "value": "9:30 am" },{ "param": "09:45", "key": "9:45am", "value": "9:45 am" }, { "param": "10:00", "key": "10:00am", "value": "10:00 am" },{ "param": "10:15", "key": "10:15am", "value": "10:15 am" },{ "param": "10:30", "key": "10:30am", "value": "10:30 am" },{ "param": "10:45", "key": "10:45am", "value": "10:45 am" }, { "param": "11:00", "key": "11:00am", "value": "11:00 am" },{ "param": "11:15", "key": "11:15am", "value": "11:15 am" },{ "param": "11:30", "key": "11:30am", "value": "11:30 am" },{ "param": "11:45", "key": "11:45am", "value": "11:45 am" }, { "param": "12:00", "key": "12:00pm", "value": "12:00 pm" },{ "param": "12:15", "key": "12:15pm", "value": "12:15 pm" },{ "param": "12:30", "key": "12:30pm", "value": "12:30 pm" },{ "param": "12:45", "key": "12:45pm", "value": "12:45 pm" }, { "param": "13:00", "key": "1:00pm", "value": "1:00 pm" },{ "param": "13:15", "key": "1:15pm", "value": "1:15 pm" },{ "param": "13:30", "key": "1:30pm", "value": "1:30 pm" },{ "param": "13:45", "key": "1:45pm", "value": "1:45 pm" },  { "param": "14:00", "key": "2:00pm", "value": "2:00 pm" },{ "param": "14:15", "key": "2:15pm", "value": "2:15 pm" },{ "param": "14:30", "key": "2:30pm", "value": "2:30 pm" },{ "param": "14:45", "key": "2:45pm", "value": "2:45 pm" },  { "param": "15:00", "key": "3:00pm", "value": "3:00 pm" },{ "param": "15:15", "key": "3:15pm", "value": "3:15 pm" },{ "param": "15:30", "key": "3:30pm", "value": "3:30 pm" },{ "param": "15:45", "key": "3:45pm", "value": "3:45 pm" },  { "param": "16:00", "key": "4:00pm", "value": "4:00 pm" },{ "param": "16:15", "key": "4:15pm", "value": "4:15 pm" },{ "param": "16:30", "key": "4:30pm", "value": "4:30 pm" },{ "param": "16:45", "key": "4:45pm", "value": "4:45 pm" }, { "param": "17:00", "key": "5:00pm", "value": "5:00 pm" }, { "param": "17:15", "key": "5:15pm", "value": "5:15 pm" },{ "param": "17:30", "key": "5:30pm", "value": "5:30 pm" },{ "param": "17:45", "key": "5:45pm", "value": "5:45 pm" }, { "param": "18:00", "key": "6:00pm", "value": "6:00 pm" },{ "param": "18:15", "key": "6:15pm", "value": "6:15 pm" },{ "param": "18:30", "key": "6:30pm", "value": "6:30 pm" },{ "param": "18:45", "key": "6:45pm", "value": "6:45 pm" },  { "param": "19:00", "key": "7:00pm", "value": "7:00 pm" },{ "param": "19:15", "key": "7:15pm", "value": "7:15 pm" },{ "param": "19:30", "key": "7:30pm", "value": "7:30 pm" },{ "param": "19:45", "key": "7:45pm", "value": "7:45 pm" },  { "param": "20:00", "key": "8:00pm", "value": "8:00 pm" },{ "param": "20:15", "key": "8:15pm", "value": "8:15 pm" },{ "param": "20:30", "key": "8:30pm", "value": "8:30 pm" },{ "param": "20:45", "key": "8:45pm", "value": "8:45 pm" },  { "param": "21:00", "key": "9:00pm", "value": "9:00 pm" },{ "param": "21:15", "key": "9:15pm", "value": "9:15 pm" },{ "param": "21:30", "key": "9:30pm", "value": "9:30 pm" },{ "param": "21:45", "key": "9:45pm", "value": "9:45 pm" },  { "param": "22:00", "key": "10:00pm", "value": "10:00 pm" },{ "param": "22:15", "key": "10:15pm", "value": "10:15 pm" },{ "param": "22:30", "key": "10:30pm", "value": "10:30 pm" },{ "param": "22:45", "key": "10:45pm", "value": "10:45 pm" },  { "param": "23:00", "key": "11:00pm", "value": "11:00 pm" },{ "param": "23:15", "key": "11:15pm", "value": "11:15 pm" },{ "param": "23:30", "key": "11:30pm", "value": "11:30 pm" },{ "param": "23:45", "key": "11:45pm", "value": "11:45 pm" }
+      ]
+    }
+  },
+  "local": {
+    "config": {
+      "QB_APP_ID": 80373,
+      "QB_AUTH_KEY": "3T76un4T3b5nRnt",
+      "QB_AUTH_SECRET": "KChn5j4Y3268G5X",
+      "QB_API_ENDPOINT": "https://api.quickblox.com",
+      "QB_CHAT_ENDPOINT": "chat.quickblox.com",
+      "QB_TURN_SERVER": "turnserver.quickblox.com",
+      "QB_S3Bucket": "qbprod",
+      "NO_OF_EVENTS_PER_PAGE": 12,
+      "NO_OF_NOTFS_PER_PAGE": 10,
+      "PHQ_BASE_URL": "https://api.predicthq.com/v1",
+      "AWS_BASE_URL": "https://hqlyx5uych.execute-api.eu-west-1.amazonaws.com/local",
+      "PHQ_KEY": "QkS36BT4mfKRCrahrK1P1nyI7vYgp1",
+      "GOOGLE_CLIENT_ID": "581463513917-2rvt0mfk3rl3fbi9fmjch0ft174v7929.apps.googleusercontent.com",
+      "FACEBOOK_APP_ID": "315481722284091",
+      "MAX_NO_OF_PAGES_FROM_PHQ": 10,
+      "PROMO_ADMIN_ID": 41654286,
+      "SOCIAL_PROOF_BASE_URL": "https://randomuser.me/api",
+      "ACCESS_KEY": "fda3bfb026015bac2cc74d57fbb96112",
+      "ANDROID_APP_URL": "https://play.google.com/store/apps/details?id=com.thepromoapp.promo",
+      "IOS_APP_URL": "https://apps.apple.com/us/app/promo-see-whats-going-on-around/id1075964954"
+    }
+  },
+  "live": {
+    "config": {
+      "QB_APP_ID": 80661,
+      "QB_AUTH_KEY": "n6GwaffdUAA2Tr5",
+      "QB_AUTH_SECRET": "V3pH9CGxMcMgeMy",
+      "VIDEO_URL": "https://www.youtube.com/watch?v=wBUSbFbljNQ",
+      "QB_API_ENDPOINT": "https://api.quickblox.com",
+      "QB_CHAT_ENDPOINT": "chat.quickblox.com",
+      "QB_TURN_SERVER": "turnserver.quickblox.com",
+      "QB_S3Bucket": "qbprod",
+      "NO_OF_EVENTS_PER_PAGE": 6,
+      "NO_OF_NOTFS_PER_PAGE": 10,
+      "PHQ_BASE_URL": "https://api.predicthq.com/v1",
+      "AWS_BASE_URL": " https://nbz37lqsxc.execute-api.eu-west-1.amazonaws.com/promotest/",
+      "BACKEND_API_ENDPOINT": "https://nbz37lqsxc.execute-api.eu-west-1.amazonaws.com/promotest",
+      "BACKEND_API_KEY": "0UJgayUdNUaQNGkpUXyLh8RC8lc1PxKi1paCTLf2",
+      "API_KEY": "q9HHFf3Iia6zo7v0mGd97z8KzSVN9qO1x6f3GVti",
+      "PHQ_KEY": "QkS36BT4mfKRCrahrK1P1nyI7vYgp1",
+      "GOOGLE_CLIENT_ID": "581463513917-2rvt0mfk3rl3fbi9fmjch0ft174v7929.apps.googleusercontent.com",
+      "FACEBOOK_APP_ID": "315481722284091",
+      "MAX_NO_OF_PAGES_FROM_PHQ": 10,
+      "PROMO_ADMIN_ID": 41654286,
+      "SOCIAL_PROOF_BASE_URL": "https://randomuser.me/api",
+      "STRIPE_KEY": "pk_live_jidJWkh9hFJONOBhkxo5v74f",
+      "STRIPE_PUBLISH_KEY": "pk_live_jidJWkh9hFJONOBhkxo5v74f",
+      "STRIPE_CLIENT_ID": "ca_GyTVtCz2Y2PozHhzl2oBlujvx3kX4jZe",
+      "TICKET_PROCESSING_FEE": 0,
+      "ACCESS_KEY": "fda3bfb026015bac2cc74d57fbb96112",
+      "PAYPAL_BASE_URL": "https://www.paypal.com",
+      "ANDROID_APP_URL": "https://play.google.com/store/apps/details?id=com.thepromoapp.promo",
+      "IOS_APP_URL": "https://apps.apple.com/us/app/promo-see-whats-going-on-around/id1075964954",
+      "AWS_BUCKET": "promoappuserdata",
+      "AWS_ACCESS_KEY": "AKIAYMJYHPI75PERVWLL",
+      "AWS_SECRET_KEY": "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",
+      "AWS_REGION": "eu-west-1",
+      "AWS_IMG_SHOW_URL": "https://promoappuserdata.s3-eu-west-1.amazonaws.com",
+      "EVENT_IMG_UPLOAD_FOLDER": "event-images",
+      "SEAT_MAP_UPLOAD_FOLDER": "seatmap-file-images",
+      "ORG_LOGO_UPLOAD_FOLDER": "org_logo-file-images",
+      "REWARD_IMG_UPLOAD_FOLDER": "reward-image",
+      "USER_IMG_UPLOAD_FOLDER": "user-images",
+      "PLANS": [
+        {
+          "id": "basic",
+          "title": "Basic",
+          "subtitle": "Highlight all the events you want for a month.",
+          "description": [
+            {
+              "title": "10 Active Ticketed Events",
+              "allowed": true
+            },
+            {
+              "title": "Unlimited Event Creation",
+              "allowed": true
+            },
+            {
+              "title": "Unlimited Claims + Highlights",
+              "allowed": false
+            }
+          ],
+          "currency": "$",
+          "amount": 9.99,
+          "frequency": "Per month",
+          "highlight": true,
+          "edit": true,
+          "isPromo": false,
+          "isPhq": true,
+          "ticketedevents": 10,
+          "image": "happy.svg"
+        },
+        {
+          "id": "unlimited",
+          "title": "Unlimited",
+          "subtitle": "Highlight all the events you want for a month.",
+          "description": [
+            {
+              "title": "Unlimited Active Ticketed Events",
+              "allowed": true
+            },
+            {
+              "title": "Unlimited Event Creation",
+              "allowed": true
+            },
+            {
+              "title": "Unlimited Claims + Highlights",
+              "allowed": true
+            }
+          ],
+          "currency": "$",
+          "amount": 99.99,
+          "frequency": "Per month",
+          "highlight": true,
+          "edit": true,
+          "isPromo": false,
+          "isPhq": true,
+          "ticketedevents": -99999,
+          "image": "happy-f.svg"
+        },
+        {
+          "id": "edit",
+          "title": "I want to claim this event",
+          "subtitle": "Claim this event at the cost of",
+          "description": [
+            "Claim",
+            "Edit the event image",
+            "Add a phone number, website and email"
+          ],
+          "currency": "$",
+          "amount": 2.99,
+          "highlight": false,
+          "edit": true,
+          "isPromo": false,
+          "isPhq": true
+        },
+        {
+          "id": "highlight_and_edit",
+          "title": "Highlight and claim this event",
+          "subtitle": "Claim this event and make it more visible at the cost of",
+          "description": [
+            "Claim + Highlight"
+          ],
+          "currency": "$",
+          "amount": 4.99,
+          "highlight": true,
+          "edit": true,
+          "isPromo": false,
+          "isPhq": true
+        },
+        {
+          "id": "highlight",
+          "title": "I want to highlight my event",
+          "subtitle": "Highlight",
+          "description": [
+            "Highlight pins on the map",
+            "Highlights in the event page",
+            "Add event to the top page"
+          ],
+          "currency": "$",
+          "amount": 2.99,
+          "highlight": true,
+          "edit": true,
+          "isPromo": true,
+          "isPhq": false
+        }
+      ],
+      "JWT_SECRET": "616161",
+      "CATEGORIES": {
+        "concerts": {
+          "id": "concerts",
+          "name": "Concerts",
+          "icon": "img/concerts.svg",
+          "iconImg": "<img src=../img/concerts.svg />",
+          "marker": "img/concerts_white.png",
+          "unselectedIcon": "img/01.1.png",
+          "selected": true
+        },
+        "festivals": {
+          "id": "festivals",
+          "name": "Festivals",
+          "icon": "img/festivals.svg",
+          "iconImg": "<img src=../img/festivals.svg />",
+          "marker": "img/festivals_white.png",
+          "unselectedIcon": "img/05.1festivals.svg",
+          "selected": true
+        },
+        "performing-arts": {
+          "id": "programing-arts",
+          "name": "Performing Arts",
+          "icon": "img/programing-arts.svg",
+          "iconImg": "<img src=../img/programing-arts.svg />",
+          "marker": "img/performing-arts_white.png",
+          "unselectedIcon": "img/02.1prg-arts.png",
+          "selected": true
+        },
+        "community": {
+          "id": "community",
+          "name": "Community",
+          "icon": "img/community.svg",
+          "iconImg": "<img src=../img/community.svg />",
+          "marker": "img/community_white.png",
+          "unselectedIcon": "img/04.1community.png",
+          "selected": true
+        },
+        "sports": {
+          "id": "sports",
+          "name": "Sports",
+          "icon": "img/sports.svg",
+          "iconImg": "<img src=../img/sports.svg />",
+          "marker": "img/sports_white.png",
+          "unselectedIcon": "img/03.1sports.svg",
+          "selected": true
+        },
+        "politics": {
+          "id": "politics",
+          "name": "Politics",
+          "icon": "img/politics.svg",
+          "iconImg": "<img src=../img/politics.svg />",
+          "marker": "img/politics_white.png",
+          "unselectedIcon": "img/politics-dark.png",
+          "class": "rally-img-style",
+          "selected": true
+        },
+        "university-college": {
+          "id": "university-college",
+          "name": "University",
+          "icon": "img/college.png",
+          "iconImg": "<img src=../img/college.png />",
+          "marker": "img/college.png",
+          "unselectedIcon": "img/college.png",
+          "selected": true
+        },
+        "eats-drinks": {
+          "id": "eats-drinks",
+          "name": "Eats & Drinks",
+          "icon": "img/eats-drinks.png",
+          "iconImg": "<img src=../img/eats-drinks.png />",
+          "marker": "img/eats-drinks.png",
+          "unselectedIcon": "img/eats-drinks.png",
+          "selected": true
+        }
+      },
+      "SEARCH_CITIES": [
+        {
+          "name": "Miami",
+          "lat": 25.7616798,
+          "long": -80.19179020000001,
+          "address": "Miami, FL, USA",
+          "country": "United States",
+          "country_short_code": "US",
+          "state": "Florida"
+        },
+        {
+          "name": "Los Angeles",
+          "lat": 34.0522342,
+          "long": -118.2436849,
+          "address": "Los Angeles, CA, USA",
+          "country": "United States",
+          "country_short_code": "US",
+          "state": "California"
+        },
+        {
+          "name": "New York",
+          "lat": 40.7127753,
+          "long": -74.0059728,
+          "address": "New York, NY, USA",
+          "country": "United States",
+          "country_short_code": "US",
+          "state": "New York"
+        },
+        {
+          "name": "London",
+          "lat": 51.5073509,
+          "long": -0.12775829999998223,
+          "address": "London, UK",
+          "country": "United Kingdom",
+          "country_short_code": "GB",
+          "state": "England"
+        },
+        {
+          "name": "Berlin",
+          "lat": 52.52000659999999,
+          "long": 13.404953999999975,
+          "address": "Berlin, Germany",
+          "country": "Germany",
+          "country_short_code": "DE",
+          "state": "Berlin"
+        },
+        {
+          "name": "Hong Kong",
+          "lat": 22.2783151,
+          "long": 114.17469499999993,
+          "address": "Hong Kong",
+          "country": "Hong Kong",
+          "country_short_code": "HK",
+          "state": "Hong Kong"
+        }
+      ],
+      "GLOBAL_TIMES": [
+        { "param": "00:00", "key": "12:00am", "value": "12:00 am" },{ "param": "00:15", "key": "12:15am", "value": "12:15 am" },{ "param": "00:30", "key": "12:30am", "value": "12:30 am" },{ "param": "00:45", "key": "12:45am", "value": "12:45 am" } ,{ "param": "01:00", "key": "1:00am", "value": "1:00 am" },{ "param": "01:15", "key": "1:15am", "value": "1:15 am" },{ "param": "01:30", "key": "1:30am", "value": "1:30 am" },{ "param": "01:45", "key": "1:45am", "value": "1:45 am" }, { "param": "02:00", "key": "2:00am", "value": "2:00 am" },{ "param": "02:15", "key": "2:15am", "value": "2:15 am" },{ "param": "02:30", "key": "2:30am", "value": "2:30 am" },{ "param": "02:45", "key": "2:45am", "value": "2:45 am" }, { "param": "03:00", "key": "3:00am", "value": "3:00 am" },{ "param": "03:15", "key": "3:15am", "value": "3:15 am" },{ "param": "03:30", "key": "3:30am", "value": "3:30 am" },{ "param": "03:45", "key": "3:45am", "value": "3:45 am" }, { "param": "04:00", "key": "4:00am", "value": "4:00 am" },{ "param": "04:15", "key": "4:15am", "value": "4:15 am" },{ "param": "04:30", "key": "4:30am", "value": "4:30 am" },{ "param": "04:45", "key": "4:45am", "value": "4:45 am" }, { "param": "05:00", "key": "5:00am", "value": "5:00 am" },{ "param": "05:15", "key": "5:15am", "value": "5:15 am" },{ "param": "05:30", "key": "5:30am", "value": "5:30 am" },{ "param": "05:45", "key": "5:45am", "value": "5:45 am" }, { "param": "06:00", "key": "6:00am", "value": "6:00 am" },{ "param": "06:15", "key": "6:15am", "value": "6:15 am" },{ "param": "06:30", "key": "6:30am", "value": "6:30 am" },{ "param": "06:45", "key": "6:45am", "value": "6:45 am" }, { "param": "07:00", "key": "7:00am", "value": "7:00 am" },{ "param": "07:15", "key": "7:15am", "value": "7:15 am" },{ "param": "07:30", "key": "7:30am", "value": "7:30 am" },{ "param": "07:45", "key": "7:45am", "value": "7:45 am" }, { "param": "08:00", "key": "8:00am", "value": "8:00 am" },{ "param": "08:15", "key": "8:15am", "value": "8:15 am" },{ "param": "08:30", "key": "8:30am", "value": "8:30 am" },{ "param": "08:45", "key": "8:45am", "value": "8:45 am" }, { "param": "09:00", "key": "9:00am", "value": "9:00 am" },{ "param": "09:15", "key": "9:15am", "value": "9:15 am" },{ "param": "09:30", "key": "9:30am", "value": "9:30 am" },{ "param": "09:45", "key": "9:45am", "value": "9:45 am" }, { "param": "10:00", "key": "10:00am", "value": "10:00 am" },{ "param": "10:15", "key": "10:15am", "value": "10:15 am" },{ "param": "10:30", "key": "10:30am", "value": "10:30 am" },{ "param": "10:45", "key": "10:45am", "value": "10:45 am" }, { "param": "11:00", "key": "11:00am", "value": "11:00 am" },{ "param": "11:15", "key": "11:15am", "value": "11:15 am" },{ "param": "11:30", "key": "11:30am", "value": "11:30 am" },{ "param": "11:45", "key": "11:45am", "value": "11:45 am" }, { "param": "12:00", "key": "12:00pm", "value": "12:00 pm" },{ "param": "12:15", "key": "12:15pm", "value": "12:15 pm" },{ "param": "12:30", "key": "12:30pm", "value": "12:30 pm" },{ "param": "12:45", "key": "12:45pm", "value": "12:45 pm" }, { "param": "13:00", "key": "1:00pm", "value": "1:00 pm" },{ "param": "13:15", "key": "1:15pm", "value": "1:15 pm" },{ "param": "13:30", "key": "1:30pm", "value": "1:30 pm" },{ "param": "13:45", "key": "1:45pm", "value": "1:45 pm" },  { "param": "14:00", "key": "2:00pm", "value": "2:00 pm" },{ "param": "14:15", "key": "2:15pm", "value": "2:15 pm" },{ "param": "14:30", "key": "2:30pm", "value": "2:30 pm" },{ "param": "14:45", "key": "2:45pm", "value": "2:45 pm" },  { "param": "15:00", "key": "3:00pm", "value": "3:00 pm" },{ "param": "15:15", "key": "3:15pm", "value": "3:15 pm" },{ "param": "15:30", "key": "3:30pm", "value": "3:30 pm" },{ "param": "15:45", "key": "3:45pm", "value": "3:45 pm" },  { "param": "16:00", "key": "4:00pm", "value": "4:00 pm" },{ "param": "16:15", "key": "4:15pm", "value": "4:15 pm" },{ "param": "16:30", "key": "4:30pm", "value": "4:30 pm" },{ "param": "16:45", "key": "4:45pm", "value": "4:45 pm" }, { "param": "17:00", "key": "5:00pm", "value": "5:00 pm" }, { "param": "17:15", "key": "5:15pm", "value": "5:15 pm" },{ "param": "17:30", "key": "5:30pm", "value": "5:30 pm" },{ "param": "17:45", "key": "5:45pm", "value": "5:45 pm" }, { "param": "18:00", "key": "6:00pm", "value": "6:00 pm" },{ "param": "18:15", "key": "6:15pm", "value": "6:15 pm" },{ "param": "18:30", "key": "6:30pm", "value": "6:30 pm" },{ "param": "18:45", "key": "6:45pm", "value": "6:45 pm" },  { "param": "19:00", "key": "7:00pm", "value": "7:00 pm" },{ "param": "19:15", "key": "7:15pm", "value": "7:15 pm" },{ "param": "19:30", "key": "7:30pm", "value": "7:30 pm" },{ "param": "19:45", "key": "7:45pm", "value": "7:45 pm" },  { "param": "20:00", "key": "8:00pm", "value": "8:00 pm" },{ "param": "20:15", "key": "8:15pm", "value": "8:15 pm" },{ "param": "20:30", "key": "8:30pm", "value": "8:30 pm" },{ "param": "20:45", "key": "8:45pm", "value": "8:45 pm" },  { "param": "21:00", "key": "9:00pm", "value": "9:00 pm" },{ "param": "21:15", "key": "9:15pm", "value": "9:15 pm" },{ "param": "21:30", "key": "9:30pm", "value": "9:30 pm" },{ "param": "21:45", "key": "9:45pm", "value": "9:45 pm" },  { "param": "22:00", "key": "10:00pm", "value": "10:00 pm" },{ "param": "22:15", "key": "10:15pm", "value": "10:15 pm" },{ "param": "22:30", "key": "10:30pm", "value": "10:30 pm" },{ "param": "22:45", "key": "10:45pm", "value": "10:45 pm" },  { "param": "23:00", "key": "11:00pm", "value": "11:00 pm" },{ "param": "23:15", "key": "11:15pm", "value": "11:15 pm" },{ "param": "23:30", "key": "11:30pm", "value": "11:30 pm" },{ "param": "23:45", "key": "11:45pm", "value": "11:45 pm" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,46 @@
+<div class="tt-modal-paypal pa-modal-font" ng-controller="ManageEventsController">
+    <div class="pa-custom-modal-header bg-F6F6F6 pa-color-333333 eo-bordertop pa-bold-font pa-font-18 pa-pl-pr-30">
+        {{selectedState.title}}
+        <a ng-click="close();">
+                <i class="material-icons pa-color-333333 pa-font-24 pa-float-right">close</i>
+        </a>
+    </div>
+    <div class="modal-body event-form">
+        <p class="pa-color-5B5B5B pa-font-16" ng-if="selectedState.id !== 'new'">To receive payments of the tickets from the attendees, you have linked the following PayPal account:</p>
+        <p class="pa-font-bold pa-font-18 pa-color-5B5B5B" ng-if="selectedState.id !== 'new'">{{paypal_email}}</p>
+        <div ng-if="selectedState.id === 'linked'">
+            <md-button class="paypal-link pa-color-pink pa-border-4 pa-bold-font ht-48 pa-font-16 pa-border-CBCBCB pa-no-margin" ng-click="changeState('change')">Change PayPal Account</md-button>
+        </div>
+        <div ng-if="selectedState.id === 'change'">
+            <hr />
+            <p class="pa-color-5B5B5B pa-font-16">
+                To receive payments to a new or different PayPal account, please fill in your prefered PayPal email address:
+            </p>
+            <p class="pa-font-bold pa-font-16 pa-color-5B5B5B pa-modal-font">Email Address Registered With PayPal</p>
+            <md-input-container class="form-group full-field">
+                <label class="left-btm-paceholder"></label>
+                <input type="text" class="form-control ep tt-input-paypal-width" ng-model="model.email" placeholder="e.g . name@company.com"/>
+            </md-input-container>
+            <md-button ng-disabled="!model.email" ng-click="changeAccount()" class="h-48 pa-pink-button padding-mdbtn-w pa-no-margin"">{{buttonText}}</md-button>
+        </div>
+        <div ng-if="selectedState.id === 'new'">
+            <p class="pa-color-5B5B5B pa-font-16">To receive payments of the tickets from the attendees, please add your PayPal account by providing your registered email ID with PayPal here</p>
+            <p class="pa-font-14 pa-color-333333 pa-mt-30">Email Address Registered With PayPal</p>
+            <md-input-container class="form-group full-field">
+                <label class="left-btm-paceholder"></label>
+                <input type="text" class="form-control ep tt-input-paypal-width pending-text-approved" ng-model="model.email" placeholder="e.g . name@company.com"/>
+            </md-input-container>
+            <md-button ng-disabled="!model.email" ng-click="changeAccount()" class="h-48 pa-pink-button padding-mdbtn-w pa-no-margin">{{buttonText}}</md-button>
+
+            <div class="pa-font-15 pa-color-5B5B5B pa-mt-40">Don't have a PayPal account?
+                <p><a href="{{payPalUrl}}" class="pa-color-pink pa-text-decoration-underline" target="_blank">create a new account</a> here.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer tt-paypal-footer pa-pl-pr-30" ng-if="selectedState.id === 'change'">
+        <p class="pa-color-1B1A1A pa-font-16">
+            <i class="material-icons pa-color-E49411 pa-vertical-align">info</i>   Changing the PayPal account will take effect from this point forward and will be applicable on all of your current and future events.</span>
+        </p>
+    </div>
+</div>

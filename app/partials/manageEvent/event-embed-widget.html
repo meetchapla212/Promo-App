@@ -1,0 +1,333 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE fixed-layout-vh">
+    
+    <div flex layout-fill class="pa-bg-EEEEEE fixed-layout-vh">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content "></div>
+        <div class="layout_panel_mwrap">
+            <div ng-include="'partials/sidebar.html'"></div>
+            <div class="layout_right_panel fixed-layout-vh-auto">
+                <div class="flex_justify pa-mb-30">
+                    <div class="report_header">
+                        <h2 class="pa-font-24 pa-mt-0 pa-bold-font">Embed Widget</h2>
+                        <p class="pa-color-3333338 pa-font-14 pa-no-bt-margin-imp">Add a Promo widget to your website and improve the way users interact<br> with your events without ever having to navigate away.</p>
+                    </div>
+                </div>
+                <!-- start-first-screen -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="embed_main_tab manage-embed pa-mt-0">
+                            <div class="organizer-profile mobile-hide pa-mb-15">
+                                <div class="rebecca-event my-followers my-ticket">
+                                    <div class="upcoming-past-event">
+                                        <md-tabs md-dynamic-height md-border-bottom class="pa-tabs embed_tab">
+                                            <md-tab label="Button" md-active="buttonViewFlag" ng-disabled="disableClickFlag" class="pa-padding-20">
+                                                <div class="upcoming-past-tab-tabs-content" id="buttonView">
+                                                    <div class="widget_inner_content">
+                                                        <div class="widget_tool">
+                                                            <div class="widget_inner_head">
+                                                                <h3>Button</h3>
+                                                                <span>Add a button that enables users to quickly and easily buy or register for tickets to your events without navigating away from your website.</span>
+                                                            </div>
+
+                                                            <div class="widget_inner_tool">
+                                                                <div class="inset">
+                                                                    <span class="tool_label">Text Link</span>
+                                                                    <md-switch ng-model="embedButtons.toggles" ng-change="changeButtonToLink(embedButtons.toggles)" aria-label="Switch 1"></md-switch>
+                                                                </div>
+                                                                <div class="tool_group">
+                                                                    <span class="tool_label">Button Text</span>
+                                                                    <input ng-model="embedButtons.text" type="text" maxlength="20" placeholder="Add Button Text">
+                                                                </div>
+                                                                <div class="tool_group tool_color_pic" ng-if="!embedButtons.toggles">
+                                                                    <span class="tool_label">Button Color</span>
+                                                                    <span class="color_tool_ad" ng-style="{'background-color':embedButtons.buttonColor}"></span>
+                                                                    <input ng-model="embedButtons.buttonColor" class="pa-text-uppercase pa-cursor-pointer pa-user-select-none" colorpicker="hex" type="text" readonly placeholder="Select Button Color">
+                                                                </div>
+                                                                <div class="tool_group tool_color_pic">
+                                                                    <span class="tool_label">Text Color</span>
+                                                                    <span class="color_tool_ad tt-single-border" ng-style="{'background-color': embedButtons.textColor}"></span>
+                                                                    <input ng-model="embedButtons.textColor" class="pa-text-uppercase pa-cursor-pointer pa-user-select-none" colorpicker="hex" type="text" readonly placeholder="Select Button Text Color">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="widget_reslut_sec">
+                                                            <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button make_btn_not_working" ng-if="!embedButtons.toggles" ng-style="{'background-color':embedButtons.buttonColor,'color':embedButtons.textColor}" type="button">{{embedButtons.text}}</button>
+                                                            <md-button class="pa-mt-16 pa-mt-med-35" ng-if="embedButtons.toggles">
+                                                                <span class="tt-font-16 pa-font-bold  pa-vertical-align" ng-style="{'color': embedButtons.textColor}">{{embedButtons.text}}</span>
+                                                            </md-button>
+                                                            <div class="code_copy_web">
+                                                                <span class="copycode">Copy and Paste this code into your website.</span>
+                                                                <div class="copy_input">
+                                                                    <input ng-model="embedButtons.url" type="text" class="pa-user-select-none" readonly placeholder="">
+                                                                    <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" ng-click-copy="{{embedButtons.url}}" ng-click="buttonLinkCopied()" type="button">{{buttonDisplayTooltip}}</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </md-tab>
+                                            <md-tab label="Event Detail" md-active="detailViewFlag" ng-disabled="disableClickFlag" class="pa-padding-20">
+                                                <div class="upcoming-past-tab-tabs-content" id="detailView">
+                                                    <div class="widget_inner_content">
+                                                        <div class="widget_tool">
+                                                            <div class="widget_inner_head">
+                                                                <h3>Event Detail</h3>
+                                                                <span>This widget adds a page that allows event managers to fill in event details with the most necessary information.</span>
+                                                            </div>
+
+                                                            <div class="widget_inner_tool">
+                                                                <div class="tool_group pa-mt-0">
+                                                                    <span class="tool_label">Button Text</span>
+                                                                    <input ng-model="embedEventDetails.text" type="text" maxlength="20" placeholder="Add Button Text">
+                                                                </div>
+                                                                <div class="tool_group tool_color_pic">
+                                                                    <span class="tool_label">Button Color</span>
+                                                                    <span class="color_tool_ad" ng-style="{'background-color':embedEventDetails.buttonColor}"></span>
+                                                                    <input ng-model="embedEventDetails.buttonColor" class="pa-text-uppercase pa-cursor-pointer pa-user-select-none" colorpicker="hex" type="text" readonly placeholder="Select Button Color">
+                                                                </div>
+                                                                <div class="tool_group tool_color_pic">
+                                                                    <span class="tool_label">Text Color</span>
+                                                                    <span class="color_tool_ad tt-single-border" ng-style="{'background-color': embedEventDetails.textColor}"></span>
+                                                                    <input ng-model="embedEventDetails.textColor" class="pa-text-uppercase pa-cursor-pointer pa-user-select-none" colorpicker="hex" type="text" readonly placeholder="Select Button Text Color">
+                                                                </div>
+
+                                                                <p class="table-text">Check the boxes on which you’d require to show the info:</p>
+                                                                <div class="tool_group tool_color_pic event-form pa-no-padding-imp">
+                                                                    <md-checkbox class="pa-color-333333 pa-mb-16 tt-font-14" ng-model="embedEventDetails.description">Event Description</md-checkbox>
+                                                                    <md-checkbox class="pa-color-333333 pa-mb-16 tt-font-14" ng-model="embedEventDetails.sharing">Event Sharing Option</md-checkbox>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex align-items-start widget_inner_info">
+                                                                <i class="material-icons color-F5AF00 pa-font-20 tt-mr-10">info</i><span class="pa-font-10 pa-vertical-align-top pa-color-333333">Please change the iFrame height according to the content so that it will fit on your website. 
+                                                                    <br/>E.g. Height: 825px</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="widget_reslut_sec widget_list_detail">
+                                                            <div class="widget_list_detail_inner">
+                                                                <div class="widget_list_detail_head">
+                                                                    <h2>{{eventList[0].event_name}}</h2>
+                                                                    <div class="widget_detail_icon">
+                                                                        <img ng-src="{{eventList[0].highlighted ? 'img/'+ getCatName(eventList[0].category,categoriesMap).id +'_highlight.svg' : getCatName(eventList[0].category,categoriesMap).icon}}" class="pa-w-26 pa-icon-event" alt="category">
+                                                                        <span>{{ getCatName(eventList[0].category,categoriesMap).name }}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="widget_event_det_section">
+                                                                    <div class="row pa-mt-15 pa-ml-0 content-border event-info-bg pa-row-eq-height pa-row-eq-height-none">
+                                                                        <div class="widget-evnt-del-img col-md-6 pa-pl-0 pa-pr-0 pa-med-pr-none hidden-xs hidden-sm pa-bg-black layout-align-center-center layout-row" layout="row" layout-align="center center">
+                                                                            <div class="banner-tag-div" style="width: 100%">
+                                                                                <img alt="{{eventList[0].event_name}}" class="image-concert-width" ng-src="{{eventList[0].event_image || '../img/unnamed.png'}}">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="widget-evnt-del-content col-md-6 layout-align-stretch-start layout-column" layout="column" layout-align="stretch start">
+                                                                            <div class="content-date-detail  pa-med-padding-none">
+                                                                                <div layout="column" layout-align="center" class="layout-column">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="events-name-list pa-font-13"> <span><i class="material-icons icon-alignment pa-color-333333 pa-font-24">event_available</i></span> <span class="pa-float-none">EVENT STARTS</span>
+                                                                                                <b>{{eventList[0].start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} at {{eventList[0].start_date_time | toMoment | momentFormatter:"hh:mm A"}}</b>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="events-name-list pa-font-13"> <span><i class="material-icons icon-alignment pa-color-333333 pa-font-24">event_available</i></span> <span class="pa-float-none">EVENT ENDS</span>
+                                                                                                <b>{{eventList[0].end_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} at {{eventList[0].end_date_time | toMoment | momentFormatter:"hh:mm A"}}</b>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row pa-mb-0">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="events-name-list pa-color-333333 pa-font-13"> <span><i class="material-icons icon-alignment pa-color-333333 pa-font-24">location_on</i></span> <span class="pa-float-none">LOCATION</span>
+                                                                                                <b class="ht-48">{{eventList[0].address}}</b>
+                                                                                                <a target="_blank" href="https://maps.google.com/maps?hl=en&q={{eventList[0].latitude}},{{eventList[0].longitude}}">View Location on Map</a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div ng-if="eventList[0].event_type != 'public'" class="green-banner-tag pa-font-white free-ticket">
+                                                                                    <span class="pa-bold-font pa-font-24" ng-if="eventList[0].event_type === 'free'">FREE</span>                                                                                    
+                                                                                    <span class="pa-bold-font pa-font-24" ng-if="eventList[0].event_type === 'paid'" event="eventList[0]" event-ticket-price></span>
+                                                                                </div>
+                                                                                <div ng-if="eventList[0].event_type == 'public'" class="green-banner-tag pa-font-white no-ticket-sold" ng-shid="!eventList[0].event_type">
+                                                                                    <span class="event-create-tag-font pa-font-15 pa-bold-font">
+                                                                                        {{(!eventList[0].claimed_by && eventList[0]._user_id==0)?'Tickets cannot be purchased on unclaimed events':'No Tickets Sold on Promo App'}}
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="middle-sharing-div row">
+                                                                    <div class="col-md-6 med-social-icons visible-lg visible-md pa-pl-30 shareevent_mob" ng-if="embedEventDetails.sharing">
+                                                                        <div class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-default">
+                                                                            <i class="fa fa-facebook-f pa-font-18 pa-color-333333"></i>
+                                                                        </div>
+                                                                        <div class=" col-md-2 col-sm-2 col-xs-2 social-circle pa-ml-20 snapchat-share-button pa-cursor-default">
+                                                                            <i class="fa fa-snapchat-ghost pa-font-20 whatsapp-right-top pa-color-333333"></i>
+                                                                        </div>
+                                                                        <div class=" col-md-2 col-sm-2 col-xs-2 social-circle pa-ml-20 pa-cursor-default">
+                                                                            <i class="fa fa-whatsapp pa-font-20 whatsapp-right-top pa-color-333333"></i>
+                                                                        </div>
+                                                                        <div class="col-md-2 social-circle pa-ml-20 pa-cursor-default">
+                                                                            <i class="material-icons mail-left-right pa-font-20 pa-color-pink">mail</i>
+                                                                        </div>
+                                                                        <div class="col-md-2 col-sm-2 col-xs-2 social-circle pa-ml-20 pa-cursor-default">
+                                                                            <i class="material-icons pa-font-20 mail-left-right pa-color-pink">insert_link</i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 widget_inner_btn" ng-class="{'col-md-offset-6' : !embedEventDetails.sharing}">
+                                                                        <a data-ng-href="" class="pa-cursor-default" ng-style="{'background-color':embedEventDetails.buttonColor,'color':embedEventDetails.textColor}">{{embedEventDetails.text}}</a>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="widget_inner_desc" ng-if="embedEventDetails.description">
+                                                                    <div ta-bind ng-model="eventList[0].description"></div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="code_copy_web">
+                                                                <span class="copycode">Copy and Paste this code into your website.</span>
+                                                                <div class="copy_input">
+                                                                    <input ng-model="embedEventDetails.url" type="text" class="pa-user-select-none" readonly placeholder="">
+                                                                    <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" ng-click-copy="{{embedEventDetails.url}}" ng-click="buttonLinkCopied()" type="button">{{buttonDisplayTooltip}}</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </md-tab>
+                                            <md-tab label="Event/s List View" md-active="listViewFlag" class="pa-padding-20">
+                                                <div class="upcoming-past-tab-tabs-content" id="listView">
+                                                    <div class="widget_inner_content">
+                                                        <div class="widget_tool">
+                                                            <div class="widget_inner_head">
+                                                                <h3>Event/s List View</h3>
+                                                                <span>Get a quick, thorough overview of events by adding a "list view" that allows users to see what's happening in the near future.</span>
+                                                            </div>
+
+                                                            <div class="widget_inner_tool">
+                                                                <div class="tool_group pa-mt-0">
+                                                                    <span class="tool_label">Button Text</span>
+                                                                    <input ng-model="embedEventLists.text" type="text" maxlength="20" placeholder="Add Button Text">
+                                                                </div>
+                                                                <div class="tool_group tool_color_pic">
+                                                                    <span class="tool_label">Button Color</span>
+                                                                    <span class="color_tool_ad" ng-style="{'background-color': embedEventLists.buttonColor}"></span>
+                                                                    <input ng-model="embedEventLists.buttonColor" class="pa-text-uppercase pa-cursor-pointer" colorpicker="hex" type="text" readonly placeholder="Select Button Color">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget_reslut_sec widget_reslut_list_sec">
+                                                            <div class="widget_event_list">
+                                                                <div class="widget_event_list_inner" ng-repeat="event in eventList">
+                                                                    <div class="upgrade-colum">
+                                                                        <div class="row upgrade-manage-events-list">
+                                                                            <div class="banner-tag-div upcoming-event-box-img">
+                                                                                <img ng-src="{{event.event_image}}">
+                                                                            </div>
+
+                                                                            <div class="tt-rec-left">
+                                                                                <div class="upgrade-manage-events-list-head">
+                                                                                    <div class="upgrade-manage-events-title pa-break-word cursor-pointer tt-text-head">
+                                                                                        {{event.event_name}}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="tt-row-margin pa-pl-0 pa-center-div pa-align-items-center">
+                                                                                    <div class="widget_list_infrom">
+                                                                                        <div class="widget_list_infolist">
+                                                                                            <i class="material-icons">location_on</i>
+                                                                                            <span>{{event.state +", "+ event.country}}</span>
+                                                                                        </div>
+                                                                                        <div class="widget_list_infolist">
+                                                                                            <i class="material-icons">date_range</i>
+                                                                                            <span>{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY, h:mm a "}}</span>
+                                                                                        </div>
+                                                                                        <div class="widget_list_infolist">
+                                                                                            <i class="material-icons">attach_money</i>
+                                                                                            <span event="event" event-ticket-price></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="widget_list_btn">
+                                                                                        <a data-ng-href="" ng-style="{'border-color': embedEventLists.buttonColor, 'color': embedEventLists.buttonColor}">{{embedEventLists.text}}</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="powered_by">
+                                                                    Powered by <strong>The Promo App</strong>
+                                                                </div>
+                                                            </div>
+                                                            <div class="code_copy_web">
+                                                                <span class="copycode">Copy and Paste this code into your website.</span>
+                                                                <div class="copy_input">
+                                                                    <input ng-model="embedEventLists.url" type="text" class="pa-user-select-none" readonly placeholder="">
+                                                                    <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" ng-click-copy="{{embedEventLists.url}}" ng-click="buttonLinkCopied()" type="button">{{buttonDisplayTooltip}}</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </md-tab>
+                                            <md-tab label="Map Showing Events Location" md-active="mapViewFlag" class="pa-padding-20">
+                                                <div class="upcoming-past-tab-tabs-content" id="mapView">
+                                                    <div class="widget_inner_content">
+                                                        <div class="widget_tool">
+                                                            <div class="widget_inner_head">
+                                                                <h3>Map Showing Events Location</h3>
+                                                                <span>Enable users to view all upcoming events in a particular map area at a glance.</span>
+                                                            </div>
+
+                                                            <div class="widget_inner_tool map_widget">
+                                                                <div class="tool_group input_tool_group">
+                                                                    <label>City</label>
+                                                                    <input ng-pattern="/^[a-zA-Z0-9 \\\/,-]+$/" googleplace ng-model="embedEventMaps.city" type="text" placeholder="Type City Name Here">
+                                                                </div>
+                                                                <div class="tool_group input_tool_group">
+                                                                    <span>Please Select Dimension of the Map:</span>
+                                                                    <div class="tool_width">
+                                                                        <label>Width</label>
+                                                                        <input ng-change="setCode(false)" ng-model="embedEventMaps.width" type="text" placeholder="560">
+                                                                        <p>px</p>
+                                                                    </div>
+                                                                    <div class="tool_width">
+                                                                        <label>Height</label>
+                                                                        <input ng-change="setCode(false)" ng-model="embedEventMaps.height" type="text" placeholder="315">
+                                                                        <p>px</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget_reslut_sec widget-map">
+                                                            <div class="map-view">
+                                                                <ng-map id='liveeventsmap' map-type-control="false" class="me-map" min-zoom="11" zoom="13" center="{{embedEventMaps.lat}}, {{embedEventMaps.long}}" draggable="true" clickable-icons="false" gesture-handling="greedy" styles='[{ featureType: "poi",elementType: "labels",stylers: [{ visibility: "off" }]},{ featureType: "transit",stylers: [{ visibility: "off" }]},{"featureType": "road","elementType": "labels.icon","stylers": [{"visibility": "off"}]}]'>
+                                                                    <marker ng-repeat="em in eventList track by em.event_id" icon='{ "url": "{{em.categoriesImageView}}" , "scaledSize": [26,32],  "anchor":[0,0] }' position="{{em.latitude}}, {{em.longitude}}" id="{{em.event_id}} }">
+                                                                </ng-map>
+                                                            </div>
+
+                                                            <div class="code_copy_web">
+                                                                <span class="copycode">Copy and paste this code into your website to embed map.<span>
+                                                                <div class="copy_input">
+                                                                    <input ng-model="embedEventMaps.code" type="text" class="pa-user-select-none" readonly placeholder="" >
+                                                                    <button  class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" ng-click-copy="{{embedEventMaps.code}}" ng-click="buttonLinkCopied()" type="button">{{buttonDisplayTooltip}}</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </md-tab>
+                                        </md-tabs>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end-first-screen -->
+            </div>
+        </div>
+    </div>
+    <!-- hide this section in mobile End Here -->
+</div>

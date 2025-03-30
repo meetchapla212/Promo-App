@@ -1,0 +1,49 @@
+<div class="custom-model-content" ng-controller="csvFileController">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Import CSV File</span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+    <div class="modal-body padding-all-30">
+        <div ng-if="contactsResults.total == 0">
+            <p class="pa-color-333333 pa-font-16 pa-font-Lato">Import contacts by uploading a CSV file. This should feature an email column (compulsory) and a name column (optional).</p>
+            <p><a class="pa-color-pink pa-font-16 pa-font-Lato" href="https://promoappdata-test.s3-eu-west-1.amazonaws.com/samplecsv.csv" download target="_blank">Download our sample CSV file as a reference.</p></a>
+
+                <div align="center" class="pa-border-4 dashed-CBCBCB pa-background-E h-217 pa-mt-30-imp" ngf-drop ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-pattern="'.csv'" accept=".csv" ng-model="csvfile" ngf-max-size="10MB" ngf-change="handleFileSelect($file,$event,$invalidFiles)">
+                    <p class="pa-font-20 pa-color-999999 pa-font-Lato pa-mt-24">
+                        <md-icon class="pa-font-32 h-w-32">insert_drive_file</md-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pa-vertical-align-sub">Drag and drop file here</span>
+                    </p>
+                    <p class="pa-font-20 pa-color-999999 pa-font-Lato">OR</p>
+                    <div>
+                        <button ngf-select ngf-multiple="false" ngf-pattern="'.csv'" accept=".csv" ng-model="csvfile" ngf-max-size="10MB" ngf-change="handleFileSelect($file,$event,$invalidFiles)" class="mt-10 pa-background-pink tt-font-15 pa-font-Lato pa-border-4 pa-border-none pa-font-15 h-40 w-113">Browse</button>
+                    </div>
+                </div>
+        </div>
+        <div ng-if="contactsResults.total > 0">
+            <form class="event-form pa-no-padding" name="forms.csvForms">
+                <p class="pa-font-16 pa-color-333333 pa-font-Lato">Out of {{contactsResults.total}} emails, {{contactsResults.success}} were successfully processed, and {{contactsResults.error}} were discarded</p>
+                <p class="pa-font-16 pa-color-666666 pa-font-Lato pb-40">Your imported contacts will be saved automaticaly under the imports tab in your guest list for future use as:</p>
+
+                <md-input-container md-no-float class="md-block md-icon-right" flex-gt-sm>
+                    <label>Group Name</label>
+                    <input md-no-asterisk type="text" name="groupName" ng-model="data.groupName" class="form-control pa-font-Lato" placeholder="Import Group Aug 6th 2019, 3:47:21pm" required md-maxlength="60" />
+                    <md-icon ng-click="data.groupName='';" class="pa-font-20 pa-lh-15">close</md-icon>
+                    <div ng-messages="forms.csvForms.groupName.$error" class="input-error">
+                        <div ng-message="required">This field is required.</div>
+                        <div ng-message="md-maxlength">Group name must be less than 60 characters long.
+                        </div>
+                </md-input-container>
+            </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer pa-border-EEEEEE pa-mt-30">
+        <md-toolbar class="pa-modal-footer-height-toolbar">
+            <div class="md-toolbar-tools">
+                <div flex md-truncate>
+                </div>
+                <md-button ng-click="cancel()" class="add-link-cancel ht-48 pa-border-4 pa-font-16 pa-color-pink pa-bold-font">Cancel</md-button>
+                <md-button ng-click="save()" ng-disabled="contacts.length <= 0 || !forms.csvForms.$valid" class="pa-pink-button ht-48 pa-border-4 pa-color-999999 pa-font-16 pa-bold-font">Save</md-button>
+            </div>
+        </md-toolbar>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE fixed-layout-vh">
+    
+    <div flex layout-fill class="pa-bg-EEEEEE fixed-layout-vh">
+        <div loader working="loading" template="4" message="loadingMessage" disable-background="true" class="loader-content "></div>
+        <div class="layout_panel_mwrap">
+            <div class="pa-bg-FFFFFF layout_left_panel">
+                <div ng-include="'partials/sidebar.html'" ng-if="sidebarBlock"></div>
+            </div>
+            <div class="layout_right_panel fixed-layout-vh-auto">
+                <div class="flex_justify pa-mb-30">
+                    <div class="report_header">
+                        <h2 class="pa-font-24 pa-mt-0 pa-bold-font">Manage Event Privacy</h2>
+                        <p class="pa-color-3333338 pa-font-14 pa-no-bt-margin-imp">Manage your privacy settings here.</p>
+                    </div>
+                </div>
+                <!-- start-first-screen -->
+                <div class="row">
+                    <div class="col-lg-8">
+                        <form name="createEventForms.privacy_Event" novalidate ng-submit="saveEvent(displayEvent.is_draft, false)">
+                            <md-card class="pa-bg-FFFFFF pa-no-margin">
+                                <md-card-header class="col-md-12 pa-bg-F9 align-items-center create-header-style pa-border-EEEEEE tt-margin-bottom-0">
+                                    <md-card-header-text>
+                                        <span class="md-title pa-font-16"><span class="mr-5 pa-color-333333 pa-font-bold">Event Privacy
+                                        </span><span class="pa-font-14 card-color">(Optional)</span></span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <md-card-content class="pa-bg-FFFFFF pa-pt-30-imp pb-30">
+                                    <div class="pa-no-margin width-500px pa-mt-20 cate_event event_cat_first event_privacy" flex-gt-sm>
+                                        <label class="pa-color-333333">Privacy</label>
+                                        <div class="form-control ht-48 categorydropdown" isteven-multi-select selection-mode="single" input-model="dropdowns.event_privacy.options" translation="dropdowns.privacyLang" output-model="displayEvent.privacy_type" button-label="value" item-label="value"
+                                            tick-property="selected" helper-elements="none" name="privacyIs" on-item-click="changePrivacyData()"></div>
+                                    </div>
+                                    <div class="pa-mt-20" ng-if="displayEvent.privacy_type[0].key == 'private'">
+                                        <div><span class="pa-color-333333 pa-font-14 pa-font-600">Who can see this event?</span></div>
+                                        <div class="row pt-10">
+                                            <div class="col-md-12 col-sm-12">
+                                                <div class="tt-paid-free-box pa-width-275 pull-left clear-left pa-mb-20" ng-repeat="eventAccess in dropdowns.event_access_type" ng-class="{'pa-green-border': eventAccess.value == displayEvent.event_access_type}">
+                                                    <div class="checkbox pa-bold-font pa-color-333333 pa-font-16">
+                                                        <label class="tt-checkbox-custom w-100">
+                                                            <input type="radio" name="eventSee" ng-model="displayEvent.event_access_type" checked="{{eventAccess.checked}}" ng-change="saveDataLocal();" ng-value="eventAccess.value">
+                                                            <span class="tt-paid-check"></span>
+                                                            <span class="paid-free-style">{{eventAccess.params}}</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="event-form password-field" ng-show="displayEvent.event_access_type == '3'">
+                                                    <md-input-container class="md-block pa-mt-0 pa-mb-0" ng-class="{'md-input-invalid': createEventForms.privacy_Event.password.$invalid}" flex-gt-sm>
+                                                        <label class="pa-color-333333"></label>
+                                                        <input type="text" autocomplete="off" name="password" md-maxlength="50" maxlength="50" ng-minlength="8" ng-model="displayEvent.password" md-no-asterisk class="form-control card-color" placeholder="Privacy Password" ng-required="createEventForms.privacy_Event.password.$invalid"
+                                                            ng-keyup="checkPassword(displayEvent.password)" ng-blur="saveDataLocal()" ng-pattern="/^(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,50}$/">
+                                                        <div ng-messages="createEventForms.privacy_Event.password.$error" class="input-error">
+                                                            <div ng-message="required">This field is required.</div>
+                                                            <div ng-message="pattern">
+                                                                Privacy password should be at least 8 characters long and should contain one number, one upper case letter, and one special character.
+                                                            </div>
+                                                        </div>
+                                                    </md-input-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row pa-bootstrap-row">
+                                        <div class="col-md-12">
+                                            <md-button type="submit" class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue pa-no-margin" ng-class="{'pa-mt-20-imp': displayEvent.privacy_type[0].key != 'private'}" ng-disabled="!createEventForms.privacy_Event.$valid">Save Privacy</md-button>
+                                        </div>
+                                    </div>
+                                </md-card-content>
+                            </md-card>
+                        </form>
+                    </div>
+                </div>
+                <!-- end-first-screen -->
+            </div>
+        </div>
+    </div>
+    <!-- hide this section in mobile End Here -->
+
+    
+</div>

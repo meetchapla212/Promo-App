@@ -1,0 +1,111 @@
+<div class="custom-model-content" ng-controller="chooseSeatController" tour-step tour-step-content="Lorem Ipsum is simply dummy text of the printing and typesetting industry.">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font" ng-if="is_layoutView">Choose Seating Layout</span>
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font" ng-if="!is_layoutView"><i class="material-icons" ng-click="mixedSeating(false)">chevron_left</i> {{modalTitle}}</span>
+        <md-icon ng-click="cancel()" class="pa-float-right">close</md-icon>
+    </div>
+    <div class="modal-body pa-no-padding text-center" ng-if="is_layoutView">
+        <div class="choose_seat_layout">
+            <a href="javascript:void(0)" ng-click="mixedSeating('true', 'table')">
+                <img src="img/Tables&Chairs.svg" alt='image'>
+                <b>Tables & Chairs</b>
+            </a>
+            <a href="javascript:void(0)" ng-click="mixedSeating('true', 'section')">
+                <img src="img/Sections&Rows.svg" alt='image'>
+                <b>Sections & Rows</b>
+            </a>
+            <a href="javascript:void(0)" class="pa-mb-0" ng-click="mixedSeating('true', 'both')">
+                <img src="img/MixedLayout.svg" alt='image'>
+                <b>Mixed Layout</b>
+            </a>
+            <a href="javascript:void(0)" ng-click="cancel();initialGuidance();" class="pa-mb-0 blank_canvas">
+                <i class="material-icons">add</i>
+                <b>Blank Canvas</b>
+            </a>
+        </div>
+    </div>
+    <div class="modal-body pa-no-padding" ng-if="!is_layoutView">
+        <form class="create-w-100 event-form buyer-TC-Sec" name="myForm">
+            <div class="tc-new-phase">
+                <div class="row pa-pt-30" ng-if="section">
+                    <span class="custom-model-input_head">Sections</span>
+                    <div class="custom-model-input">
+                        <md-input-container class="md-block pa-mt-30-imp pa-mb-0" flex-gt-sm sty>
+                            <label class="pa-color-333333"># of Section</label>
+                            <a href="javascript:void(0)" class="customtooltip event_tool"><i class="material-icons">help_outline</i> <span class="customtooltiptext">Section cannot be grater than 5.</span></a>
+                            <input type="text" max-input-five="" ng-model="modalInput.sectionRow" value='{{modalInput.sectionRow}}' id="tc_seat_section_row" disable-it mousewheel="true" name="ofRows" class="form-control input-height card-color pl-9" required min="1" max="5">
+                        </md-input-container>
+                        <md-input-container class="md-block pa-mt-30-imp pa-mb-0" flex-gt-sm sty>
+                            <label class="pa-color-333333" for="tc_seat_add_mixed_rows">Rows per section</label>
+                            <input type="text" only-number="" ng-model="modalInput.rowPerSection" value="{{modalInput.rowPerSection}}" id="tc_seat_add_mixed_rows" disable-it mousewheel="true" name="Rowspersection" class="form-control input-height card-color pl-9" required min="1"
+                                maxlength="2" max="50">
+                        </md-input-container>
+                        <md-input-container class="md-block pa-mt-30-imp pa-mb-0" flex-gt-sm sty>
+                            <label class="pa-color-333333" for="tc_seat_add_mixed_cols">Seats per row</label>
+                            <input type="text" only-number="" ng-model="modalInput.columnPerSection" value="{{modalInput.columnPerSection}}" id="tc_seat_add_mixed_cols" disable-it mousewheel="true" name="Seatsperrow" class="form-control input-height card-color pl-9" required min="1"
+                                maxlength="2" max="50">
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div class="row pa-pt-30" ng-if="table">
+                    <span class="custom-model-input_head">Tables</span>
+                    <div class="custom-model-input">
+                        <md-input-container class="md-block pa-mt-30-imp pa-mb-0" flex-gt-sm sty>
+                            <label class="pa-color-333333"># of Tables</label>
+                            <input type="text" only-number="" ng-model="modalInput.perTable" value="{{modalInput.perTable}}" id="tc_seat_table_row" disable-it mousewheel="true" name="ofTables" class="form-control input-height card-color pl-9" maxlength="2" required min="0" max="50">
+                        </md-input-container>
+                        <md-input-container class="md-block pa-mt-30-imp pa-mb-0" flex-gt-sm sty>
+                            <label class="pa-color-333333">Seats per table</label>
+                            <input type="text" only-number="" ng-model="modalInput.perTableSeats" value="{{modalInput.perTableSeats}}" id="tc_table_add_mixed" disable-it mousewheel="true" name="seatspertable" class="form-control input-height card-color pl-9" maxlength="2" required
+                                min="0" max="50">
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div class="row pa-pt-30">
+                    <span class="custom-model-input_head">Also add</span>
+                    <div class="custom-model-input">
+                        <div class="custom-model-input-feature" id="tc_element_mixed_widget">
+                            <a href="javascript:void(0)" ng-click="valueSelected('pmStage')">
+                                <input type="checkbox" id="pm_stage" value="tc-icon-music" data-tt-value="Stage" />
+                                <i class="tc-icon-music"></i>
+                                <b>Stage</b>
+                            </a>
+                            <a href="javascript:void(0)" ng-click="valueSelected('pmFoodCount')">
+                                <input type="checkbox" id="pm_food_count" value="tc-icon-food" data-tt-value="Food" />
+                                <i class="tc-icon-food"></i>
+                                <b>Food Court</b>
+                            </a>
+                            <a href="javascript:void(0)" ng-click="valueSelected('pmExit')">
+                                <input type="checkbox" id="pm_exit" value="tc-icon-exit" data-tt-value="Exit" />
+                                <i class="tc-icon-exit"></i>
+                                <b>Exit</b>
+                            </a>
+                            <a href="javascript:void(0)" ng-click="valueSelected('pmBar')">
+                                <input type="checkbox" id="pm_bar" value="tc-icon-drinks-2" data-tt-value="Drinks" />
+                                <i class="tc-icon-drinks-2"></i>
+                                <b>Bar</b>
+                            </a>
+                            <a href="javascript:void(0)" ng-click="valueSelected('pmRestrooms')">
+                                <input type="checkbox" id="pm_restrooms" value="tc-icon-toilet-2" data-tt-value="Toilet" />
+                                <i class="tc-icon-toilet-2"></i>
+                                <b>Restrooms</b>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer pa-border-EEEEEE" ng-if="!is_layoutView">
+        <md-toolbar class="pa-modal-footer-height-toolbar tc_new_free_event">
+            <div class="md-toolbar-value text-left">
+                <strong class="tt-mr-10">Seating Capacity:</strong> <span class="tt-font-16" id="totalValue">{{totalCapacity}}</span>
+            </div>
+            <div class="md-toolbar-tools">
+                <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" id="pc_mixed_layout" ng-click="cancel();initialGuidance();" type="button">Continue</button>
+            </div>
+        </md-toolbar>
+    </div>
+</div>

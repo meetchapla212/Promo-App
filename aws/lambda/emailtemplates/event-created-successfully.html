@@ -1,0 +1,326 @@
+<html>
+
+	<head>
+		<title> Event Created Successfully</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+			body {
+				padding: 0;
+				margin: 0;
+				background-color: #F6F6F6;
+				font-family: Arial, sans-serif;
+			}
+
+			@media only screen and (max-width: 650px) {
+
+				.logo-main-parent img {
+					width: 100px !important;
+				}
+
+				.logo-main-parent {
+					padding: 30px 0px !important;
+				}
+
+				.top-section h1 {
+					font-size: 20px !important;
+				}
+
+				.child-event-main {
+					width: 100% !important;
+				}
+
+				.contant-body-middle {
+					width: 94% !important;
+					box-shadow: 0px 2px 4px rgba(34, 34, 34, .15) !important;
+				}
+
+				.padding-space-right-left {
+					padding: 30px 12px !important;
+				}
+
+				.heading-managing h3 {
+					font-size: 20px !important;
+				}
+
+				.icons-footers {
+					display: block !important;
+					float: none !important;
+					text-align: center !important;
+					margin-top: 15px !important;
+				}
+
+				.footer-menubars {
+					display: inline-block !important;
+					float: none !important;
+					text-align: center !important;
+					margin-top: 10px !important;
+					width: 100% !important;
+				}
+
+				.footer-menubars ul li {
+					display: inline-block !important;
+					padding-left: 12px !important;
+					padding-right: 12px !important;
+				}
+
+				.middle-box-managing {
+					margin-left: 0px !important;
+				}
+
+				.middle-box-managing p {
+					font-size: 12px !important;
+					vertical-align: top;
+				}
+
+				.middle-box-managing {
+					width: 30% !important;
+					padding: 0px 2px !important;
+				}
+
+				.middle-box-managing {
+					height: 130px !important;
+				}
+
+				.middle-box-managing:first-child {
+					margin-left: 0px !important;
+				}
+
+				.main-middle-boxes-highest {
+					width: 100% !important;
+				}
+
+				.middle-box-managing.padding-margin-mobile {
+					margin: 0px 4px !important;
+				}
+
+				.footer-menubars ul li:first-child {
+					padding-left: 0 !important;
+				}
+
+				.footer-menubars ul li:last-child {
+					padding-right: 0 !important;
+				}
+
+				.footer-child-content {
+					padding: 0px 15px !important;
+				}
+
+				.footer-bottom-deisgns {
+					padding: 20px 0px 20px 0px !important;
+				}
+
+
+			}
+
+			@media only screen and (max-width: 355px) {
+				.footer-menubars ul li {
+					display: block !important;
+					text-align: center !important;
+					padding: 0 !important;
+					margin: 10px 0 !important;
+				}
+			}
+
+		</style>
+	</head>
+
+	<body bgcolor="#F6F6F6">
+		<div class="main-event-promo" style="width: 100%;background-color: #F6F6F6;">
+			<div class="child-event-main" style="width: 650px;margin: 0px auto;background-color: #F6F6F6;padding: 0px;">
+				<div class="logo-main-parent" style=" text-align: center;padding: 42px 0px;">
+					<a href="<%=base_url%>"><img
+							src="https://www.startdesigns.com/html_demo/promo-images/logo-promo.png"></a>
+				</div>
+				<div class="contant-body-middle"
+					style="width: 600px;margin: 0px auto;background-color: #fff;border-radius: 4px;box-shadow: 0px 2px 4px rgba(34, 34, 34, .15);">
+					<div class="padding-space-right-left" style="padding: 30px 30px;">
+						<div class="top-section"
+							style="border-bottom: 1px solid #EAEAEA;padding-bottom: 30px;padding-left: 2px;">
+							<h1
+								style="font-size: 24px;font-weight: bold;line-height: 28px;margin-top: 0px;color: #333333;font-family: Arial, sans-serif;">
+								Your Event is Live!</h1>
+							<p
+								style="color: #333333;font-size: 16px;font-weight: 400;line-height: 22px;margin-top: 0px;font-family: Arial, sans-serif;">
+								Congratulations, you have successfully created your event! You are now ready to start
+								promoting and get attendees.
+							</p>
+							<br>
+							<p
+								style="color: #333333;font-size: 16px;font-weight: 400;line-height: 22px;margin-top: 0px;font-family: Arial, sans-serif;">
+								Want to see how things are looking?</p>
+
+							<a href="<%=eventUrl%>" target="_blank"
+								style="background-color: #A02542;color: #fff;text-decoration: none;padding: 14px 30px; font-size: 14px;font-weight: bold;border-radius: 4px;margin-top: 12px;display: inline-block;font-family: Arial, sans-serif;">View
+								My Event</a>
+						</div>
+
+						<div class="social-parent-main" style="border-bottom: 1px solid #EAEAEA;padding-bottom: 20px;">
+							<p style="font-size: 16px;margin-top: 20px;font-family: Arial, sans-serif;">Share this event
+								with your friends:</p>
+							<div class="social-images-main">
+								<a href="https://www.facebook.com/sharer/sharer.php?u=<%=encodedEventUrl%>"
+									style="    display: inline-block;"><img
+										src="https://www.startdesigns.com/html_demo/promo-images/facebook-icon.png"
+										style="width: 45px;display: block;margin-right: 10px;"></a>
+								<a href='https://wa.me/?text=<%=encodedEventUrl%>' style="display: inline-block;"
+									target="_blank"><img
+										src="https://www.startdesigns.com/html_demo/promo-images/whatsapp-icon.png"
+										style="width: 45px;display: block;margin-right: 10px;"></a>
+								<a href="mailto:?subject=<%=mailtosubject%>&body=<%=eventUrl%>"
+									style="    display: inline-block;"><img
+										src="https://www.startdesigns.com/html_demo/promo-images/mail-icon.png"
+										style="width: 45px;display: block;margin-right: 10px;"></a>
+
+							</div>
+						</div>
+
+						<div class="managing-section">
+							<div class="mian-table-parent">
+								<table style="    width: 100%;">
+
+									<tr>
+										<td colspan="3" style="padding: 0px;">
+											<div class="heading-managing" style="display: block;">
+												<h3
+													style="font-size: 20px;font-family: Arial, sans-serif; display: inline-block;">
+													Tips for managing your event</h3>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td style="padding: 0px;">
+											<div class="main-middle-boxes-highest">
+												<div class="middle-box-managing"
+													style="border: 1px solid #E4E4E4;border-radius: 4px;width: 164px;padding: 0px;text-align: center;height: 130px;float: left;margin-left: 0px;">
+													<div class="img-contant-middles"
+														style="    display: block;text-align: center;">
+														<img src="https://www.startdesigns.com/html_demo/promo-images/email-icon.png"
+															style=" width: 46px;display: inline-block;vertical-align: top; margin-top: 25px;">
+													</div>
+													<p style="font-size: 16px;font-family: Arial, sans-serif;">Send
+														Invites</p>
+												</div>
+												<div class="middle-box-managing padding-margin-mobile"
+													style="border: 1px solid #E4E4E4;border-radius: 4px;width: 164px;padding: 0px;text-align: center;height: 130px;float: left;margin-left: 12px;">
+													<div class="img-contant-middles"
+														style="    display: block;text-align: center;">
+														<img src="https://www.startdesigns.com/html_demo/promo-images/midea-icon.png"
+															style=" width: 46px;display: inline-block;vertical-align: top; margin-top: 25px;">
+													</div>
+													<p style="font-size: 16px;font-family: Arial, sans-serif;">Promote
+														Event</p>
+												</div>
+												<div class="middle-box-managing"
+													style="border: 1px solid #E4E4E4;border-radius: 4px;width: 164px;padding: 0px;text-align: center;height: 130px;float: left;margin-left: 12px;">
+													<div class="img-contant-middles"
+														style="    display: block;text-align: center;">
+														<img src="https://www.startdesigns.com/html_demo/promo-images/phone-icon.png"
+															style=" width: 46px;display: inline-block;vertical-align: top; margin-top: 25px;">
+													</div>
+													<p style="font-size: 16px;font-family: Arial, sans-serif;">Add
+														Administrator</p>
+												</div>
+											</div>
+										</td>
+
+
+									</tr>
+
+									<tr>
+										<td colspan="3" style="padding: 0px;">
+											<div class="heading-managing">
+												<h3
+													style="font-size: 20px;margin-top: 27px;font-family: Arial, sans-serif;">
+													Need more help?</h3>
+												<p style="margin-bottom: 42px;font-family: Arial, sans-serif;">Get in
+													touch with us and we'll answer any questions you may have.</p>
+
+												<a href="mailto:george@thepromoapp.com" target="_blank"
+													class="contact-us-btn"
+													style="border: 1px solid #A02541;color: #A02541;text-decoration: none;padding: 12px 29px 15px 29px;font-weight: bold;border-radius: 4px;font-family: Lato, sans-serif;font-size: 14px;font-family: Arial, sans-serif;">Contact
+													Us Now</a>
+											</div>
+										</td>
+									</tr>
+
+									<tr>
+										<td colspan="3">
+											<div class="cheers-title-text" style="margin-top: 50px;">
+												<p style="font-family: Arial, sans-serif;">
+													Cheers,
+													<br>
+													<br>
+													Promo App Team
+												</p>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="footer-main-parent">
+					<div class="footer-child-content" style="    padding: 0px 30px;">
+
+						<div class="border-bottom-footer"
+							style="    border-bottom: 1px solid #E2E2E2;padding-bottom: 20px;text-align: center;">
+							<div class="footer-body-ciontent">
+								<h3 style="font-size: 20px;font-weight: bold;font-family: Arial, sans-serif;">Download
+									the Promo App now</h3>
+							</div>
+							<div class="img-android-ios">
+								<a href="https://apps.apple.com/us/app/promo-see-whats-going-on-around/id1075964954"
+									style="margin-right: 5px;">
+									<img src="https://www.startdesigns.com/html_demo/promo-images/ios.png"
+										style="width: 144px;"></a>
+								<a href="https://play.google.com/store/apps/details?id=com.thepromoapp.promo">
+									<img src="https://www.startdesigns.com/html_demo/promo-images/andriod.png"
+										style="width: 144px;">
+								</a>
+
+							</div>
+						</div>
+
+						<div class="footer-bottom-deisgns"
+							style="display: block;width: 100%;padding: 20px 0px 50px 0px;">
+							<div class="icons-footers" style="    display: inline-block;">
+								<a href="http://www.facebook.com/promoappevents" style="display: inline-block;"> <img
+										src="https://www.startdesigns.com/html_demo/promo-images/facebook-icon.png"
+										style="margin-right:11px;width: 45px;display: block;"></a>
+
+							</div>
+							<div class="footer-menubars" style="display: inline-block;float: right;text-align: right;">
+								<ul style="list-style: none;padding: 0px;margin: 0px 0px 0px 0px;">
+									<li style="display: inline-block;padding-left: 30px;"><a
+											href="<%=base_url%>/about_us"
+											style="color: #333333;text-decoration: none;font-size: 14px;font-family: Arial, sans-serif;">About
+											Us</a></li>
+									<li style="display: inline-block;padding-left: 30px;"><a
+											href="<%=base_url%>/terms_of_use"
+											style="color: #333333;text-decoration: none;font-size: 14px;font-family: Arial, sans-serif;">Terms
+											of Use</a></li>
+									<li style="display: inline-block;padding-left: 30px;"><a
+											href="<%=base_url%>/cookies_policy"
+											style="color: #333333;text-decoration: none;font-size: 14px;font-family: Arial, sans-serif;">Cookie
+											Policy</a></li>
+								</ul>
+
+								<p
+									style="opacity: 0.4;color: #333333;margin: 10px 0px 0px 0px;font-size: 12px;font-family: Arial, sans-serif;">
+									Copyright@2020, Promo Application LLC. All Rights Reserved
+								</p>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</body>
+
+</html>

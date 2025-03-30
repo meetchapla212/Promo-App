@@ -1,0 +1,260 @@
+
+<div class="landingHome">
+    <section class="landingHome-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="landingHomebanner-content">
+                        <h2>Event Management Made Simple</h2>
+                        <span>Set up and organize your event without complications - Promo App makes it easy</span>
+                        <div class="bannerBtnGroup">
+                            <a ng-href="/createevent"><button class="pa-pl-pr-30 pa-pink-button ht-48 pa-no-margin md-button md-ink-ripple"><b>Create An Event</b></button></a>
+                            <a ng-href="/manageevent#claimedevents"><button class="tt-font-16 pa-pl-pr-30 pa-white-with-br-button ht-48 pa-no-margin md-button md-ink-ripple pa-color-pink pa-border-4"><b>Claim An Event</b></button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="headerImg">
+                        <img src="img/Header-graphics.svg?v3" alt="Header-graphics" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="setUp-is-snap bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="setUp-img">
+                        <img src="img/Createnewevent-1stscreen.png?v3" alt="Create new event 1st screen" class="mobile-hide-org">
+                        <img src="img/tabScreen.png?v3" alt="tabScreen mobile" class="desktop-hide-org">
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="setUp-content">
+                        <h2>Set-Up is a Snap</h2>
+                        <span>Create your event at your desk or on the go. 
+                    <br/>
+                    <br/>
+                 Whether you’re hosting a workshop, launching a product, or rocking a concert, you can list your event via the Promo App website or the mobile app.</span>
+                        <a ng-href="/createevent"><button class="pa-pl-pr-30 pa-pink-button ht-48 pa-no-margin md-button md-ink-ripple"><b>Get Started Now</b></button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="promote-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="promote-content">
+                        <h2>Promote Your Event & Sell Tickets</h2>
+                        <span>Create your event at your desk or on the go. </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="promote-img-section">
+                        <img src="img/promote.svg?v3" alt="Promote">
+                    </div>
+                </div>
+            </div>
+            <div class="promote-featured">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="promote-featured-colum">
+                            <img src="img/CombinedShape.svg?v3" alt="Combined Shape">
+                            <h3>Invite Guests</h3>
+                            <span>Invite your followers, get attendees through emails, or import CSV files of your guest list.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="promote-featured-colum">
+                            <img src="img/PromoteE.svg?v3" alt="Promote Events">
+                            <h3>Promote Events</h3>
+                            <span>Get more eyes on your event by sponsoring your listing - promotions <a href="/pricing">start at only $2.99.</a>  </span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="promote-featured-colum">
+                            <img src="img/selltickets.svg?v3" alt="Combined Shape">
+                            <h3>Sell Tickets</h3>
+                            <span>Sell tickets - or offer free ones - directly via the platform without any fuss. We’ve done the hard work for you.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="pa-pl-pr-30 pa-pink-button ht-48 pa-no-margin md-button md-ink-ripple"><b><a href="/createevent">Get Started Now </a></b></button>
+            </div>
+        </div>
+    </section>
+
+    <section class="simplify-attendance bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="attendance-img">
+                        <img src="img/attendance.svg?v3" alt="attendance">
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="attendance-head">
+                        <h3>Simplify Attendance</h3>
+
+                        <div class="attendancelist">
+                            <div class="attendancelisting">
+                                <i class="material-icons">check_circle</i>
+                                <span>When guests purchase tickets, they’ll be sent a QR code. </span>
+                            </div>
+
+                            <div class="attendancelisting">
+                                <i class="material-icons">check_circle</i>
+                                <span>Just scan the QR code to gain entry to the event. </span>
+                            </div>
+
+
+                            <div class="attendancelisting">
+                                <i class="material-icons">check_circle</i>
+                                <span>It’s easy to track and easy to use. </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="event-way" ng-controller="EventOrganiserController">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="event-way-content">
+                        <h2>Your <i>Event,</i> Your <i>Way</i>!</h2>
+                    </div>
+                    <div class="event-way-list">
+                        <a class="" ng-class="{active: (page =='extrahand') }" ng-click="page='extrahand'">
+                            <h3>Need an extra hand? </h3>
+                            <span>Add an Event Administrator to help you out.</span>
+                        </a>
+                    </div>
+
+
+                    <div class="desktop-hide mobile-show mobile-tab">
+                        <div ng-init="page='extrahand'"></div>
+                        <div class="event-way-img" ng-show="page === 'extrahand'">
+                            <img src="img/tableG.png?v3">
+                        </div>
+                    </div>
+
+                    <div class="event-way-list">
+                        <a ng-class="{active: (page =='earsground') }" ng-click="page='earsground'">
+                            <h3>Need some ears on the ground?</h3>
+                            <span>Chat with your event attendees and get their thoughts.</span>
+                        </a>
+                    </div>
+                    <div class="desktop-hide mobile-show mobile-tab">
+                        <div class="event-way-img" ng-show="page === 'earsground'">
+                            <img src="img/tab-2.png?v3">
+                        </div>
+                    </div>
+
+
+                    <div class="event-way-list">
+                        <a class="" ng-class="{active: (page =='spreadword') }" ng-click="page='spreadword'">
+                            <h3>Need to spread the word? </h3>
+                            <span>Add a Promo widget to your website and improve with your events without ever having to navigate away.</span>
+                        </a>
+                    </div>
+                    <div class="desktop-hide mobile-show mobile-tab">
+                        <div class="event-way-img" ng-show="page === 'spreadword'">
+                            <img src="img/tab-3.png?v3">
+                        </div>
+                    </div>
+
+
+                    <a ng-if="user" ng-href="/"><button class="pa-pl-pr-30 pa-pink-button ht-48 pa-no-margin md-button md-ink-ripple"><b>Sign Up Now</b></button></a>
+                    <a ng-if="!user" ng-href="/signup"><button class="pa-pl-pr-30 pa-pink-button ht-48 pa-no-margin md-button md-ink-ripple"><b>Sign Up Now</b></button></a>
+                </div>
+                <div class="col-md-6 desk-event-way-imbx mobile-hide-org">
+                    <div ng-init="page='extrahand'"></div>
+                    <div class="event-way-img" ng-show="page === 'extrahand'">
+                        <img src="img/tableG.png?v3">
+                    </div>
+
+                    <div class="event-way-img" ng-show="page === 'earsground'">
+                        <img src="img/tab-2.png?v3">
+                    </div>
+
+                    <div class="event-way-img" ng-show="page === 'spreadword'">
+                        <img src="img/tab-3.png?v3">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section class="organizers-slider bg-white">
+        <h2> Here’s What Other Event Organizers Are Saying</h2>
+        <div class="container">
+            <div class="slider-perent">
+                <div class="sliderquote next">
+                    <img src="img/ne.svg?v3">
+                </div>
+                <div class="box-container" ng-controller="EventOrganiserController">
+                    <ui-carousel slides="slides" slides-to-show="1" slides-to-scroll="1" initial-slide="0" dots="true">
+                        <!-- For slider render -->
+                        <carousel-item>
+                            <!-- placed your item content here -->
+                            <p>{{ item.content }}</p>
+                            <span><b>{{item.nameslider}}</b> {{item.Cityslider}}</span>
+                            <!-- end -->
+                        </carousel-item>
+
+                        <!-- For customize carousel next, previous button -->
+                    </ui-carousel>
+                </div>
+                <div class="sliderquote prev">
+                    <img src="img/per.png?v3">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="charge-events">
+        <div class="container">
+            <h2>Take Charge of Your Events</h2>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="charge-events-content">
+                        <span>We’re tracking over <i>30 million events worldwide!</i> Don’t get left behind.</span>
+                        <a href="/createevent"><button class="pa-pl-pr-30 pa-pink-button ht-48 pa-no-margin md-button md-ink-ripple"><b>Start Listing Your Event</b></button>
+              </a>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="charge-events-img">
+                        <img src="img/map-im.svg?v3" alt="map">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+</div>

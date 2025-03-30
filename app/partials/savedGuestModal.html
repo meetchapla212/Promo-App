@@ -1,0 +1,117 @@
+<div class="custom-model-content" ng-controller="savedGuestModalController">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Use Saved Guest List</span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+    <div class="modal-body br-EEEEEE">
+        <md-tabs md-dynamic-height md-border-bottom class="pa-tabs">
+            <md-tab label="All Guests" class="pa-padding-20">
+                <form class="event-form pa-padding-20 pa-pb-0" name="forms.inviteFollowers">
+                    <md-input-container class="md-block ht-48 md-icon-float md-icon-left">
+                        <label></label>
+                        <md-icon class="pa-color-666666">search</md-icon>
+                        <input type="text" ng-model="search.email" class="form-control card-color pl-9 md-input-with-icon" placeholder="Search followers by email address">
+                    </md-input-container>
+                    <span class="pa-font-16 pa-color-pink pa-bold-font pa-cursor-pointer pa-mb-15 pa-display-inline-flex" ng-click="selectAll()">Select All {{allGuest.length}} Guests</span>
+
+                    <div class="guest-modal-items">
+                        <md-list-item ng-repeat="guest in allGuest | filter:search" class="noright pa-font-15">
+                            <md-checkbox ng-model="guest.selected"></md-checkbox>
+                            <img flex="10" alt="{{ guest.name }}" src="../img/defaultProfilePic.png" class="md-avatar" />
+                            <p flex="40" class="pa-bold-font pa-truncate">{{ guest.email }}</p>
+                            <p flex="30" class="pa-truncate" ng-if="guest.name === '' && guest.first_name != null">{{guest.first_name}} {{guest.last_name}}</p>
+                            <p flex="30" class="pa-truncate" ng-if="guest.name != ''">{{guest.name}}</p>
+                            <p flex="30" class="pa-truncate" ng-if="guest.name === '' && guest.first_name === null">{{guest.username}}</p>
+                            <p flex="10" class="md-secondary">{{guest.type}}</p>
+                        </md-list-item>
+                    </div>
+                </form>
+            </md-tab>
+
+            <md-tab label="My Followers">
+                <form class="event-form pa-padding-20 pa-pb-0" name="forms.inviteFollowers">
+                    <md-input-container class="md-block ht-48 md-icon-float md-icon-left">
+                        <label></label>
+                        <md-icon class="pa-color-666666">search</md-icon>
+                        <input type="text" ng-model="search.email" class="form-control card-color pl-9 md-input-with-icon" placeholder="Search followers by email address">
+                    </md-input-container>
+                    <span class="pa-font-16 pa-color-pink pa-bold-font pa-cursor-pointer pa-mb-15 pa-display-inline-flex" ng-click="selectAll('follower')">Select All {{followerList.length}} Guests</span>
+
+                    <div class="guest-modal-items">
+                        <md-list-item ng-repeat="guest in followerList | filter:search" class="noright pa-font-15">
+                            <md-checkbox ng-model="guest.selected"></md-checkbox>
+                            <img flex="10" alt="{{ guest.name }}" src="../img/defaultProfilePic.png" class="md-avatar" />
+                            <p flex="40" class="pa-bold-font pa-truncate">{{ guest.email }}</p>
+                            <p flex="30" class="pa-truncate">{{guest.first_name}} {{guest.last_name}}</p>
+                            <p flex="10" class="md-secondary">{{guest.type}}</p>
+                        </md-list-item>
+                    </div>
+                </form>
+            </md-tab>
+
+            <md-tab label="Added by Email">
+                <form class="event-form pa-padding-20 pa-pb-0" name="forms.inviteFollowers">
+                    <md-input-container class="md-block ht-48 md-icon-float md-icon-left">
+                        <label></label>
+                        <md-icon class="pa-color-666666">search</md-icon>
+                        <input type="text" ng-model="search.email" class="form-control card-color pl-9 md-input-with-icon" placeholder="Search followers by email address">
+                    </md-input-container>
+                    <span class="pa-font-16 pa-color-pink pa-bold-font pa-cursor-pointer pa-mb-15 pa-display-inline-flex" ng-click="selectAll('mail')">Select All {{mailList.length}} Guests</span>
+
+                    <div class="guest-modal-items">
+                        <md-list-item ng-repeat="guest in mailList | filter:search" class="noright pa-font-15">
+                            <md-checkbox ng-model="guest.selected"></md-checkbox>
+                            <img flex="10" alt="{{ guest.name }}" src="../img/defaultProfilePic.png" class="md-avatar" />
+                            <p flex="40" class="pa-bold-font pa-truncate">{{ guest.email }}</p>
+                            <p flex="40" class="pa-truncate">{{guest.username}}</p>
+                            <p flex="10" class="md-secondary">{{guest.type}}</p>
+                        </md-list-item>
+                    </div>
+                </form>
+            </md-tab>
+            <md-tab label="Imported by CSV">
+                <form class="event-form pa-padding-20 pa-pb-0" name="forms.inviteFollowers">
+                    <md-input-container class="md-block ht-48 md-icon-float md-icon-left">
+                        <label></label>
+                        <md-icon class="pa-color-666666">search</md-icon>
+                        <input type="text" ng-model="search.email" class="form-control card-color pl-9 md-input-with-icon" placeholder="Search followers by email address">
+                    </md-input-container>
+                    <span class="pa-font-16 pa-color-pink pa-bold-font pa-cursor-pointer pa-display-inline-flex" ng-click="selectAll('csv', groupList,'array')">Select All {{csvList.length}} Guests</span>
+
+                    <mat-accordion ng-repeat="group in groupList" ng-if="group.group_members.length > 0">
+                        <div class="pa-bb-CBCBCB">
+                            <md-list-item class="noright pa-pt-0-imp pa-font-15 pa-border-CBCBCB padding-box bg-F9F9F9 pa-mt-20">
+                                <md-checkbox ng-change="selectAll('csv',group)" ng-model="group.selected"></md-checkbox>
+                                <img flex="10" src="../img/defaultProfilePic.png" class="md-avatar" />
+                                <p flex="30" class="pa-bold-font pa-truncate">{{group.group_name}}</p>
+                                <p flex="20" class="pa-truncate">{{group.date_created | toMoment | momentFormatter: 'MMM, DD, YYYY'}}</p>
+                                <p flex="10" class="pa-truncate">{{group.members_count}} Members</p>
+                                <md-button flex="30" class="md-secondary pa-color-pink pa-width-100p" ng-if="group.open" ng-click="group.open = !group.open">Close</md-button>
+                                <md-button flex="30" class="md-secondary pa-color-pink" ng-click="group.open = !group.open" ng-if="!group.open">View</md-button>
+                            </md-list-item>
+                            <md-list-item class="noright pa-font-15 pa-border-CBCBCB bb-none bt-none padding-box" ng-repeat="guest in csvList | filterByField: group._group_id | filter:search" ng-if="group.open">
+                                <md-checkbox ng-model="guest.selected"></md-checkbox>
+                                <img flex="10" src="../img/defaultProfilePic.png" class="md-avatar" />
+                                <p flex="40" class="pa-bold-font pa-truncate">{{guest.email}}</p>
+                                <p flex="30" class="pa-truncate">{{guest.name}}</p>
+                                <p flex="20" class="md-secondary">{{guest.type}}</p>
+                            </md-list-item>
+                        </div>
+                    </mat-accordion>
+
+                </form>
+            </md-tab>
+        </md-tabs>
+    </div>
+    <div class="modal-footer pa-border-EEEEEE">
+        <md-toolbar class="pa-modal-footer-height-toolbar">
+            <div class="md-toolbar-tools">
+                <div flex md-truncate>
+                </div>
+                <md-button ng-click="cancel()" class="add-link-cancel ht-48 pa-border-4 pa-font-16 pa-color-pink pa-bold-font">Cancel</md-button>
+                <md-button ng-click="save()" ng-disabled="getSelectedGuestCount() <=0" class="pa-pink-button ht-48 pa-border-4 pa-color-999999 pa-font-16 pa-bold-font">Save</md-button>
+            </div>
+        </md-toolbar>
+
+    </div>
+</div>

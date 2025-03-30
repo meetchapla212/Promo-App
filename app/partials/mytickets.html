@@ -1,0 +1,335 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE mobile-hide">
+    <div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE" style="min-height: 100vh;">
+        
+        <div flex class="container-wtd-1170 tc-new-add-parent">
+            <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+            <div ng-show="showhide.mytickets">
+                <div class="search-people-head">
+                    <h1>My Tickets</h1>
+                </div>
+                <!-- hide this section in mobile -->
+                <div class="organizer-profile pa-mb-15">
+                    <div class="rebecca-event my-followers my-ticket">
+                        <div class="upcoming-past-event">
+                            <md-tabs md-dynamic-height md-border-bottom class="pa-tabs">
+                                <md-tab label="Upcoming" class="pa-padding-20">
+                                    <div class="upcoming-past-tab-tabs-content tc_list_perent" id="tab1C">
+                                        <div class="rebecca-head" ng-if="globalUpcomingData.length == 0">Purchased tickets will appear here.</div>
+                                        <div class="upcoming-event-box pa-cursor-pointer" ng-repeat="event in globalUpcomingData | start: (currentPageUpcoming - 1) * numPerPage | limitTo: numPerPage">
+
+                                            <a class="pa-cursor-pointer">
+                                                <div class="upcoming-event-box-img" class="pa-cursor-pointer">
+                                                    <img ng-src="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" alt="{{event.event_name}}" class="object-cover">
+                                                    <span class="pa-color-333333-imp">{{event.totalTickets}} Tickets</span>
+                                                </div>
+                                                <div class="upcoming-event-content-box">
+                                                    <h3 class="">{{event.event_name}}</h3>
+                                                    <ul>
+                                                        <li>
+                                                            <md-icon class="pa-color-666666">location_on</md-icon> <span>{{event.address}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <md-icon class="pa-color-666666">date_range</md-icon> <span>{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <md-icon class="pa-color-666666">access_time</md-icon> <span>{{event.start_date_time | toMoment | momentFormatter:"hh:mm a"}}</span>
+                                                        </li>
+                                                        <li></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="tickets-info qr-code">
+                                                    <div class="tc_new_info_detail">
+                                                        <b>Order #{{event.order_id}} </b> on {{event.ticket_created_date | toMoment | momentFormatter:"MMMM DD, YYYY"}}
+                                                        <button ng-click="openTicketDetailModal(event)" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit  md-button md-ink-ripple">
+                                                            <span class="material-icons">remove_red_eye</span> View Tickets</button>
+                                                        <span class="statu-tc-info" ng-if="event.ticket_status != 'approved' ">{{event.ticket_status}}</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="custom-pagination">
+                                        <ul ng-show="globalUpcomingData.length > 10" class="pa-center-div pa-mb-0" uib-pagination previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" items-per-page="numPerPage" total-items="globalUpcomingData.length" ng-model="currentPageUpcoming"
+                                            max-size="maxSize">
+                                        </ul>
+                                    </div>
+                                </md-tab>
+                                <md-tab label="Past" class="pa-padding-20">
+                                    <div class="upcoming-past-tab-tabs-content tc_list_perent" id="tab2C">
+                                        <div class="rebecca-head" ng-if="globalPastData.length == 0">Your expired tickets will appear here.</div>
+                                        <div class="upcoming-event-box pa-cursor-pointer" ng-repeat="event in globalPastData | start: (currentPagePast - 1) * numPerPage | limitTo: numPerPage">
+                                            <a class="pa-cursor-pointer" ng-click="viewTicket(event)">
+                                                <div class="upcoming-event-box-img">
+                                                    <img class="pa-cursor-pointer" ng-src="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" alt="{{event.event_name}}">
+                                                    <span class="pa-color-333333-imp">{{event.totalTickets}} Tickets</span>
+                                                </div>
+                                                <div class="upcoming-event-content-box">
+                                                    <h3 class="">{{event.event_name}}</h3>
+                                                    <ul>
+                                                        <li>
+                                                            <md-icon class="pa-color-666666">location_on</md-icon> <span>{{event.address}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <md-icon class="pa-color-666666">date_range</md-icon> <span>{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <md-icon class="pa-color-666666">access_time</md-icon> <span>{{event.start_date_time | toMoment | momentFormatter:"hh:mm a"}}</span>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+
+                                                <div class="tickets-info qr-code">
+                                                    <div class="tc_new_info_detail">
+                                                        <b>Order #{{event.order_id}} </b> on {{event.ticket_created_date | toMoment | momentFormatter:"MMMM DD, YYYY"}}
+                                                        <button ng-click="openTicketDetailModal(event)" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit  md-button md-ink-ripple"><span class="material-icons">remove_red_eye</span> View Tickets</button>
+                                                        <span class="statu-tc-info" ng-if="event.ticket_status != 'approved' ">{{event.ticket_status}}</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="custom-pagination">
+                                        <ul ng-show="globalPastData.length > 10" class="pa-center-div " uib-pagination items-per-page="numPerPage" total-items="globalPastData.length" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" ng-model="currentPagePast"
+                                            max-size="maxSize">
+                                        </ul>
+                                    </div>
+                                </md-tab>
+                                <md-tab label="Cancelled / Refunded" class="pa-padding-20">
+                                    <div class="upcoming-past-tab-tabs-content tc_list_perent" id="tab3C">
+                                        <div class="rebecca-head" ng-if="userTicketRefundCancel.length == 0">Your Cancelled / Refunded tickets will appear here.</div>
+                                        <div class="upcoming-event-box pa-cursor-pointer" ng-repeat="event in userTicketRefundCancel | start: (currentPagePast - 1) * numPerPage | limitTo: numPerPage">
+                                            <a class="pa-cursor-pointer" ng-click="viewTicket(event)">
+                                                <div class="upcoming-event-box-img">
+                                                    <img class="pa-cursor-pointer" ng-src="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" alt="{{event.event_name}}">
+                                                    <span class="pa-color-333333-imp">{{event.totalTickets}} Tickets</span>
+                                                </div>
+                                                <div class="upcoming-event-content-box">
+                                                    <h3 class="">{{event.event_name}}</h3>
+                                                    <ul>
+                                                        <li>
+                                                            <md-icon class="pa-color-666666">location_on</md-icon> <span>{{event.address}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <md-icon class="pa-color-666666">date_range</md-icon> <span>{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <md-icon class="pa-color-666666">access_time</md-icon> <span>{{event.start_date_time | toMoment | momentFormatter:"hh:mm a"}}</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="tickets-info qr-code">
+                                                    <div class="tc_new_info_detail">
+                                                        <b>Order #{{event.order_id}} </b> on {{event.ticket_created_date | toMoment | momentFormatter:"MMMM DD, YYYY"}}
+                                                        <button ng-click="openTicketDetailModal(event)" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit  md-button md-ink-ripple"><span class="material-icons">remove_red_eye</span> View Tickets</button>
+                                                        <span class="statu-tc-info" ng-if="event.ticket_status != 'approved' ">{{event.ticket_status}}</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="custom-pagination">
+                                        <ul ng-show="userTicketRefundCancel.length > 10" class="pa-center-div" uib-pagination items-per-page="numPerPage" total-items="userTicketRefundCancel.length" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" ng-model="currentPagePast"
+                                            max-size="maxSize">
+                                        </ul>
+                                    </div>
+                                </md-tab>
+                            </md-tabs>
+                        </div>
+                    </div>
+                </div>
+                <!-- hide this section in mobile End Here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div flex layout="column" layout-align="start stretch" class="pa-background-white desktop-hide">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div ng-if="!MobileTicketDetails" flex layout-fill class="profile_mob_wrap mobile-perent desktop-hide">
+        <div ng-if="!cancelView" class="search-people-head mytickects_mb tt-padding-20 pa-pb-0-imp">
+            <h1 class="pa-display-flex pa-align-items-center pa-justify-between">My Tickets <span ng-click="cancelViewAction()" class="pull-right tt-font-16 pa-color-A02541">Cancelled Tickets</span></h1>
+        </div>
+        <div ng-if="cancelView" class="mobile-header d-hide desktop-hide mconnection_header">
+            <span class="back-btn-mobile">
+                <a ng-click="cancelViewAction()"><i class="material-icons">arrow_back</i></a>
+            </span>
+            <h2 class="pd-right-32"> My Cancelled Tickets</h2>
+        </div>
+        <!--  Events -->
+        <div ng-if="!cancelView" class="nn_events_list tt-padding-20 pa-pt-0-imp mh-100">
+            <div class="tabs_mob_upc">
+                <a ng-click="currentTab = true" ng-class="{'active': currentTab}">Upcoming</a>
+                <a ng-click="currentTab = false" ng-class="{'active': !currentTab}">Past</a>
+            </div>
+            <!-- Post List -->
+            <div class="mb_post_list bottom_fxbar" ng-if="currentTab">
+                <div ng-repeat="eventInfo in userTicketsEventsUpcoming" ng-show="userTicketsEventsUpcoming.length > 0">
+                    <label class="post_lbt">{{eventInfo.year}}</label>
+                    <div class="mb_post_bx" ng-repeat="event in eventInfo.eventData | start: (currentPagePast - 1) * numPerPage | limitTo: numPerPage">
+                        <div class="img_bx" ng-click="showMobileTicketDetails(event)">
+                            <figure><img ng-src="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" alt="{{event.event_name}}"></figure>
+                            <span class="post_lb" event-ticket-price event="event" class="free-event" ng-class="{'eo-free':!(event.ticketType === 'paid')}"></span>
+                        </div>
+                        <div class="post_details_bx">
+                            <span class="dt">{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, hh:mm A"}} UTC</span>
+                            <p>{{event.event_name}}</p>
+                            <a ng-click="showMobileTicketDetails(event)" class="tck_nv">View {{event.totalTickets}} Tickets</a>
+                        </div>
+                    </div>
+                    <div class="custom-pagination">
+                        <ul ng-show="eventInfo.eventData.length > 10" class="pa-center-div" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" uib-pagination items-per-page="numPerPage" total-items="eventInfo.eventData.length" ng-model="currentPagePast"
+                            max-size="maxMobileSize"></ul>
+                    </div>
+                </div>
+                <div ng-show="userTicketsEventsUpcoming.length == 0" class="no-data-case-profile">
+                    Purchased tickets will appear here.
+                </div>
+            </div>
+            <div class="mb_post_list bottom_fxbar" ng-if="!currentTab">
+                <div ng-repeat="eventInfo in userTicketsEventsPast" ng-show="userTicketsEventsPast.length > 0">
+                    <label class="post_lbt">{{eventInfo.year}}</label>
+                    <div class="mb_post_bx" ng-repeat="event in eventInfo.eventData | start: (currentPagePast - 1) * numPerPage | limitTo: numPerPage">
+                        <div class="img_bx" ng-click="showMobileTicketDetails(event)">
+                            <figure><img ng-src="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" alt="{{event.event_name}}"></figure>
+                            <span class="post_lb" event-ticket-price event="event" class="free-event" ng-class="{'eo-free':!(event.ticketType === 'paid')}"></span>
+                        </div>
+                        <div class="post_details_bx">
+                            <span class="dt">{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, hh:mm A"}} UTC</span>
+                            <p>{{event.event_name}}</p>
+                            <a ng-click="showMobileTicketDetails(event)" class="tck_nv">View {{event.totalTickets}} Tickets</a>
+                        </div>
+                    </div>
+                    <div class="custom-pagination">
+                        <ul ng-show="eventInfo.eventData.length > 10" class="pa-center-div" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" uib-pagination items-per-page="numPerPage" total-items="eventInfo.eventData.length" ng-model="currentPagePast"
+                            max-size="maxMobileSize"></ul>
+                    </div>
+                </div>
+                <div ng-show="userTicketsEventsPast.length == 0" class="no-data-case-profile">
+                    Your expired tickets will appear here.
+                </div>
+            </div>
+            <!-- Post List End -->
+        </div>
+
+        <div class="nn_events_list tt-padding-20 pa-mt-20 pa-pt-60" ng-if="cancelView">
+            <!-- Post List -->
+            <div class="mb_post_list bottom_fxbar">
+                <div class="mb_post_bx" ng-repeat="event in userTicketRefundCancel | start: (currentPageUpcoming - 1) * numPerPage | limitTo: numPerPage">
+                    <div class="img_bx" ng-click="showMobileTicketDetails(event)">
+                        <figure><img ng-src="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" alt="{{event.event_name}}"></figure>
+                        <span class="post_lb" event-ticket-price event="event" class="free-event" ng-class="{'eo-free':!(event.ticketType === 'paid')}"></span>
+                    </div>
+                    <div class="post_details_bx">
+                        <span class="dt">{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, hh:mm A"}} UTC</span>
+                        <p>{{event.event_name}}</p>
+                        <a ng-click="showMobileTicketDetails(event)" class="tck_nv">View {{event.totalTickets}} Tickets</a>
+                    </div>
+                </div>
+                <div ng-show="userTicketRefundCancel.length == 0" class="no-data-case-profile">
+                    The tickets you'll refund or cancel will show here.
+                </div>
+                <div class="custom-pagination" ng-show="userTicketRefundCancel.length > 10">
+                    <ul class="pa-center-div pa-mb-0" uib-pagination previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" items-per-page="numPerPage" total-items="userTicketRefundCancel.length" ng-model="currentPageUpcoming" max-size="maxMobileSize">
+                    </ul>
+                </div>
+            </div>
+            <!-- Post List End -->
+        </div>
+        <!--  Events End  -->
+        
+    </div>
+
+    <div ng-if="MobileTicketDetails" flex layout="column" layout-align="start stretch" class="give-feedback-screen bg-F9F9F9 mobile_view_tc_new pa-position-relative-index">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+        <div flex layout-fill class="mobile-perent desktop-hide  bg-F9F9F9">
+            <div class="mobile-header">
+                <span class="back-btn-mobile">
+                    <a style="font-size: 14px;" ng-click="hideMobileDetailsPage();"><i class="material-icons">arrow_back_ios</i></a>
+                </span>
+                <h2 class="pdt-right-30"><span class="material-icons">remove_red_eye</span> View Tickets</h2>
+            </div>
+            <div class="container-wtd-1170 pa-background-white" style="padding-bottom: 25px;">
+                <div class="status-id-attendee">
+                    <a class="pa-text-decoration" ng-href="/eventdetails/{{selectedMobileTicket.event_name | purger}}/{{selectedMobileTicket.event_id}}">
+                        <span class="pa-color-pink">{{selectedMobileTicket.event_name}}</span>
+                    </a>
+                    <p>{{selectedMobileTicket.start_date_time | toMoment | momentFormatter:"ddd, MMMM D, YYYY"}} at {{selectedMobileTicket.start_date_time | toMoment | momentFormatter:"hh:mm A"}} to {{selectedMobileTicket.end_date_time | toMoment | momentFormatter:"hh:mm
+                        A"}} (UTC)</p>
+                </div>
+                <div class="tc_new-section_popup" ng-if="selectedMobileTicket.tickets_details.length >1">
+                    <a ng-disabled="sliderIndex == 0" ng-click="preSlide()" class="previous_tc" ng-class="sliderIndex >= 1 ?'active_tc':''"><i class="material-icons" ng-class="sliderIndex >= 1 ?'active_tc':''" >chevron_left</i></a> Ticket {{sliderIndex+1}}/{{selectedMobileTicket.tickets_details.length}}
+                    <a ng-disabled="sliderIndex == (selectedMobileTicket.tickets_details.length-1)" ng-click="nextSlide()" class="next_tc" ng-class="sliderIndex < (selectedMobileTicket.tickets_details.length-1)?'active_tc':''"><i class="material-icons"  ng-class="sliderIndex < (selectedMobileTicket.tickets_details.length-1)?'active_tc':''">chevron_right</i></a>
+                </div>
+                <div class="tc_new-section_popup_details_child" ng-repeat="ticket in selectedMobileTicket.tickets_details" ng-if="sliderIndex == $index">
+                    <div class="tc_new-section_qr">
+                        <h2>{{selectedMobileTicket.event_name}}</h2>
+                        <span class="tc_new-section_qr_sub">{{ticket.ticket_title}} - ${{ticket.price}}</span>
+                        <div class="tc_new-section_event_details">
+                            <span><i class="material-icons">event_available</i>
+                        <p> {{selectedMobileTicket.start_date_time | toMoment | momentFormatter:"ddd, MMMM D, YYYY"}} at {{selectedMobileTicket.start_date_time | toMoment | momentFormatter:"hh:mm A"}} to {{selectedMobileTicket.end_date_time | toMoment | momentFormatter:"hh:mm A"}} (UTC)</p>
+                      </span>
+                            <span><i class="material-icons">location_on</i> <p>{{selectedMobileTicket.address}}
+                          <a class="pa-color-pink" target="_blank"  target="_blank" href="https://maps.google.com/maps?hl=en&q={{ selectedMobileTicket.latitude }},{{ selectedMobileTicket.longitude }}"> View Location on Map</a></p>
+                        </span>
+                        </div>
+                        <div class="qr_mobile_tc_new" ng-if="selectedMobileTicket.ticket_status == 'approved'">
+                            <img class="pa-cursor-pointer" ng-src="{{ticket.qrcode == '' ? 'img/qr.svg': ticket.qrcode}}" alt="qr" />
+                        </div>
+                        <div class="qr_mobile_tc_new" ng-if="selectedMobileTicket.ticket_status == 'cancelled'">
+                            <img class="pa-cursor-pointer" src="img/qr.svg" alt="qr"> <b>TICKET EXPIRED!</b>
+                        </div>
+                        <div class="qr_mobile_tc_new" ng-if="selectedMobileTicket.ticket_status == 'refunded'">
+                            <img class="pa-cursor-pointer" alt="qr" style="opacity: 0.2;" src="img/qr.svg" />
+                            <span class="cancel_status_qr">REFUNDED!</span>
+                        </div>
+                        <span class="qr_mobile_tc_new_details">Order #{{ selectedMobileTicket.order_id}}. Ordered by {{ selectedMobileTicket.attendee}} on {{selectedMobileTicket.ticket_created_date | toMoment | momentFormatter:"MMMM DD, YYYY hh:mm A"}}</span>
+                    </div>
+                </div>
+                <div class="attendee_details_head">
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">insert_invitation</i>
+                        <span>PURCHASED ON <b>{{selectedMobileTicket.ticket_created_date | toMoment | momentFormatter:"MM/DD/YYYY, hh:mm a"}} UTC</b></span>
+                    </div>
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">receipt</i>
+                        <span>ORDER NUMBER<b>#{{selectedMobileTicket.order_id}}</b></span>
+                    </div>
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">receipt</i>
+                        <span>ORDER STATUS <b>{{ (selectedMobileTicket.ticket_status == 'approved') ? 'Paid':selectedMobileTicket.ticket_status }}</b></span>
+                    </div>
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">account_circle</i>
+                        <span>ORGANISER 
+                            <b ng-if="!selectedMobileTicket.organiser_first_name">{{selectedMobileTicket.organiser_name}}</b>
+                            <b ng-if="selectedMobileTicket.organiser_first_name">{{selectedMobileTicket.organiser_first_name+' '+selectedMobileTicket.organiser_last_name}}</b>
+                             <a target="_blank" ng-href="/chat.html?userId={{selectedMobileTicket.organiser_qb_id}}">Chat With Organizer</a></span>
+                    </div>
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">attach_money</i>
+                        <span>TOTAL PRICE PAID<b >${{selectedMobileTicket.total_amount | number : 2}}</b> <a  class="pa-color-pink pa-mt-4 pa-display-block" ng-click="viewTicketReceipt(selectedMobileTicket)">View Details</a></span>
+                    </div>
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">local_activity </i>
+                        <span>TICKET QUANTITY <b >{{selectedMobileTicket.ticket_qty}}</b></span>
+                    </div>
+                </div>
+                <div class="response_tc_new_ft" ng-if="!selectedMobileTicket.expired && selectedMobileTicket.ticket_status == 'approved'">
+                    <span>Do you want to cancel tickets?</span>
+                    <a class="pa-ml-0" ng-click="cancelTicketConfirmation();">Request Refund</a>
+                </div>
+                <div class="response_tc_new_ft" ng-if="!selectedMobileTicket.expired && selectedMobileTicket.ticket_status == 'cancelled'">
+                    <span>Do you want to cancel tickets?</span>
+                    <a class="disable_btn pa-ml-0">Cancel Ticket</a>
+                </div>
+                <!-- <div class="response_tc_new_ft" ng-if="!selectedMobileTicket.expired && selectedMobileTicket.ticket_status == 'refunded'">
+                    <span>Do you want to cancel tickets?</span>
+                    <a class="disable_btn pa-ml-0">Request Refund</a>
+                </div> -->
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,849 @@
+<div ng-controller="CreateEventController">
+    <button type="button" class="pa-close-modal-btn pa-font-bold pa-center-div" ng-if="action != 'Claim'" ng-click="cancelModal()">&times;
+    </button>
+    <button type="button" class="pa-close-modal-btn pa-font-bold pa-center-div" ng-if="action === 'Claim'" ng-click="openEventDetail(displayEvent.event_id)">&times;
+    </button>
+    <div class="pa-color-grey pa-font-generic pa-create-event pa-heading-color modal-header tt-margin-bottom-0" ng-if="showSection =='createAndClaim'">
+        <h4 class="pa-Create-new pa-modal-font">{{action}} new event
+        </h4>
+    </div>
+    <!-- event preview -->
+    <div class="pa-color-grey pa-font-generic pa-create-event pa-heading-color modal-header" ng-if="showSection =='eventPreviewSec'">
+        <h4 class="pa-Create-new">Event preview</h4>
+        <span class="pa-back-to-editing pa-color-pink cursor-pointer" ng-click="changeSection('createAndClaim')">Back to editing</span>
+    </div>
+
+    <div class="modal-body pa-modal-font tt-create-event-modal">
+        <div class="container pa-container tt-padding-top-30">
+
+            <div class="pa-heading-color pa-event-host" style="display:none;">Are you the host of this event ? Edit the information and claim it for <span class="pa-heading-color pa-font-bold pa-dollar-font">$2.99.</span>
+            </div>
+            <!--Claim event div ends-->
+            <div class=" pa-form-inline">
+                <form class="form-horizontal" name="createEventform" id="create_event_form">
+                    <div ng-show="showSection =='createAndClaim'">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4 pa-event-font">Event name</label>
+                            <div class="col-sm-8">
+                                <div class="input-group pa-border">
+                                    <input class="form-control pa-input-padding" placeholder="Your Event Name" ng-model="displayEvent.event_name" uib-tooltip="Event Name is required." tooltip-placement="top-right" tooltip-trigger="'none'" tooltip-enable="!displayEvent.event_name" required>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4 pa-event-font mt-44">Where is the event happening
+                                ?</label>
+                            <div class="col-sm-8">
+                                <p class="pa-select">Select or type the address. You can also write the name of the venue.
+                                </p>
+                                <div class="input-group pa-border cursor-pointer">
+                                    <input type="text" ng-model="displayEvent.chosenPlace" googleplace class="form-control pa-input-padding " placeholder="{{locationPlaceholder}}" uib-tooltip="Location is required." tooltip-placement="top-right" tooltip-trigger="'none'" tooltip-enable="!displayEvent.chosenPlace"
+                                        required>
+                                    <span class="input-group-addon pa-background-pink  pa-addon-border" ng-click="getCurrentPos()">
+                                          <md-icon class="pa-current-location pa-color-FFFFFF">gps_fixed</md-icon>
+                                        
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4 col-xs-12 col-md-4 pa-event-font">Starts on</label>
+                            <div class="col-sm-4 col-xs-6 col-md-3">
+                                <div class="input-group pa-border start-time">
+                                    <input type="text" class="datepickerClass datePickerPosition pa-text-indent-10 pa-date-style" placeholder="29/03/02" start-view="month" min-date="minDate" today="false" moment-picker="displayEvent.start.date" ng-model="displayEvent.start.date" ng-required="true"
+                                        format="DD-MM-YYYY" autoclose="true" />
+                                    <span class="input-group-addon pa-addon-border pa-none-background cursor-pointer datePickerPosition datepickerClass">
+                                        <md-icon class="pa-color-5B5B5B pa-current-location"
+                                        ng-required="true" format="DD-MM-YYYY "
+                                        moment-picker="displayEvent.start.date"
+                                        ng-model="displayEvent.start.date" start-view="month" min-date="minDate"
+                                        today="false">date_range</md-icon>
+                                        
+                                        </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xs-6 col-md-3 dropdown" style="border:none;">
+                                <!--<input type="text" class="datepickerClass datePickerPosition" placeholder="06:30pm"
+                                   moment-picker="displayEvent.start.time" ng-model="displayEvent.start.time" min-date="displayEvent.start.date"
+                                   format="HH:mm" ng-required="true">-->
+                                <button class="dropdown-toggle pre-login-event-dropdown pa-custom-dropdown pa-background-white pa-border" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="toggleDatesFilter = !toggleDatesFilter;openDatesNav();">
+                                    <span>{{displayEvent.start.time | momentFormatter:"hh:mma"}}</span>
+                                    <span class="fa fa-caret-down pa-angle-down pa-f-14"></span>
+                                </button>
+                                <div class="dropdown-menu pa-custom-dropdown-menu pa-dropdown-width pa-padding-4" aria-labelledby="dropdownMenuButton">
+                                    <div class="dropdown-item cursor-pointer" ng-click="setTime(startTime,'start')" ng-repeat="startTime in timeList">
+                                        {{startTime}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4 col-xs-12 col-md-4 pa-event-font">Finishes on</label>
+                            <div class="col-sm-4 col-xs-6 col-md-3">
+                                <div class="input-group pa-border">
+                                    <!-- <input type="text" class="datepickerClass datePickerPosition " placeholder="29/03/02" moment-picker="end.date.datepicker" ng-model="end.date.datepicker" ng-required="true" format="DD-MM-YYYY ">-->
+                                    <input type="text" class="datepickerClass datePickerPosition pa-text-indent-10 pa-date-style" placeholder="29/03/02" start-view="month" min-date="minDate" today="false" moment-picker="displayEvent.end.date" ng-model="displayEvent.end.date" ng-required="true"
+                                        format="DD-MM-YYYY " autoclose="true">
+                                    <span class="input-group-addon pa-addon-border pa-none-background cursor-pointer datePickerPosition datepickerClass"><md-icon
+                                            class="pa-color-5B5B5B pa-current-location"
+                                            ng-required="true" format="DD-MM-YYYY "
+                                            moment-picker="displayEvent.end.date"
+                                            ng-model="displayEvent.end.date" start-view="month" min-date="minDate"
+                                            today="false">date_range</md-icon></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xs-6 col-md-3 dropdown" style="border:none;">
+                                <!--<input type="text" class="datepickerClass datePickerPosition" placeholder="06:30pm"
+                                       moment-picker="displayEvent.end.time" ng-model="displayEvent.end.time"  min-date="minDate"
+                                       format="HH:mm">-->
+                                <button class="dropdown-toggle pre-login-event-dropdown pa-custom-dropdown pa-background-white pa-border" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="toggleDatesFilter = !toggleDatesFilter;openDatesNav();">
+                                    <span>{{displayEvent.end.time | momentFormatter:"hh:mma"}}</span>
+                                    <span class="fa fa-caret-down pa-angle-down pa-f-14"></span>
+                                </button>
+                                <div class="dropdown-menu pa-custom-dropdown-menu pa-dropdown-width pa-padding-4" aria-labelledby="dropdownMenuButton">
+                                    <div class="dropdown-item cursor-pointer" ng-click="setTime(endTime,'end')" ng-repeat="endTime in timeList">
+                                        {{endTime}}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4 pa-event-font">Category</label>
+                            <div class="col-sm-8 col-md-6">
+                                <div class="text-left " isteven-multi-select selection-mode="single" input-model="categories" output-model="displayEvent.selectedCategory" button-label="iconImg name" item-label="iconImg name" tick-property="selected" helper-elements="none" translation="categoryLang"
+                                    tooltip-placement="top-right" tooltip-trigger="'none'" uib-tooltip="Category is required." tooltip-enable="!displayEvent.selectedCategory || (displayEvent.selectedCategory && displayEvent.selectedCategory.length == 0)"
+                                    required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4 pa-event-font">Description</label>
+                            <div class="col-sm-8">
+                                <textarea placeholder="" class="form-control pa-border" rows="5" cols="50" ng-model="displayEvent.description" id="comment" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4"></label>
+                            <div class="col-sm-8">
+                                <div class=" pa-border text-center pa-upload-photo" ngf-drop ngf-select ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-accept="'image/*'" ng-model="displayEvent.files" ngf-min-width="350" ngf-min-height="200" ngf-change="handleFileSelect($file,$event,$invalidFiles)"
+                                    ng-show="!imageSelected" ng-class="{'pa-upload-img-size':displayEvent.files}">
+                                    <span ng-if="!displayEvent.files" class="pa-upload-document">Upload photo</span>
+                                    <div ng-if="!displayEvent.files">
+                                        <button class="btn btn-circle pa-upload-pic">
+                                            <i class="material-icons">add_photo_alternate</i>
+                                        </button>
+                                    </div>
+                                    <img class="create-event-img-style" alt='image' ng-show="createEventform.file.$valid && displayEvent.files" ngf-thumbnail="!displayEvent.files.$error && displayEvent.files" style="max-height: 130px;">
+                                </div>
+                                <div class="cropArea" ng-show="imageSelected">
+                                    <img-crop image="imageForCropping" result-image="croppedImage" area-type="square" result-image-size="350" area-min-size="350" change-on-fly="true"></img-crop>
+                                </div>
+                                <div ng-show="imageSelected" class="mt-5">
+                                    <button class="btn btn-default" ng-click="setCroppedImageAsFinalImage($event)">
+                                            <i class="material-icons pa-vertical-align">done</i>
+                                    </button>
+                                    <button class="btn btn-default" ng-click="discardCroppedImage($event)"><i class="material-icons pa-vertical-align">close</i></button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div>
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4 pa-event-font">Website (optional)</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group pa-border">
+                                            <input type="text" class="form-control pa-input-padding" placeholder="Display Website" ng-model="displayEvent.website" uib-tooltip="Enter valid website" tooltip-placement="top-right" name="website" id="website" tooltip-trigger="'none'" tooltip-enable="!createEventform.website.$valid">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4 pa-event-font">Email (optional)</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group pa-border">
+                                                    <input type="email" class="form-control pa-input-padding" placeholder="Display Email" ng-model="displayEvent.email" uib-tooltip="Enter valid email" tooltip-placement="top-right" name="emailName" tooltip-trigger="'none'" tooltip-enable="!createEventform.emailName.$valid">
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4 pa-event-font">Phone number
+                                                        (optional)</label>
+                                                    <div class="col-sm-6">
+                                                        <div class="input-group pa-border">
+                                                            <input type='text' class="form-control pa-input-padding" placeholder="Display Phone Number" ng-model="displayEvent.phone" uib-tooltip="Enter valid phone" tooltip-placement="top-right" tooltip-trigger="'none'" name="phone" tooltip-enable="!createEventform.phone.$valid"
+                                                                ng-pattern="pattern.phone">
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" ng-if="displayEvent.friends.length > 0">
+                                                    <label class="control-label col-sm-4 pa-event-font">Invite users
+                                                        (optional)</label>
+                                                    <div class="col-sm-6" ng-if="displayEvent.friends.length > 0">
+                                                        <div>
+                                                            <div class="pa-input-padding" isteven-multi-select input-model="displayEvent.friends" output-model="displayEvent.selectedFriends" button-label="iconImage full_name" item-label="iconImage full_name" tick-property="ticked" helper-elements="none" translation="invitePeopleLang">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <form class="form-horizontal">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-4 pa-event-font" ng-if="displayEvent.admins.length > 0">Event
+                                                                administrator (optional)</label>
+                                                            <div class="col-sm-6" ng-if="displayEvent.admins.length > 0">
+                                                                <div>
+                                                                    <div ng-if="displayEvent.admins.length > 0" class="pa-input-padding" isteven-multi-select input-model="displayEvent.admins" output-model="displayEvent.selectedAdmins" button-label="iconImage full_name" item-label="iconImage full_name" tick-property="ticked"
+                                                                        helper-elements="none" translation="addAdminLang">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="form-group" ng-if="displayEvent.admins.length == 0 || displayEvent.friends.length == 0">
+                                                                <label class="control-label col-sm-4"></label>
+                                                                <div class="col-sm-8 ">
+                                                                    <div class="pa-borders-textarea">
+                                                                        <div>To Invite people to your events or designate an administrator you need to follow them.
+                                                                        </div>
+                                                                        <div>Follow other users to invite them.
+                                                                        </div>
+                                                                        <!-- <div>You have no followers yet.</div>-->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--- new section ticket  starts from here --->
+                                                            <div ng-hide="!user.selectedPlan || (action =='Create'&& user.selectedPlan && user.selectedPlan.id != 'unlimited' && totalTicketLeft <=0)">
+                                                                <div class="form-group pa-modal-font">
+                                                                    <label class="control-label col-sm-4 pa-event-font ">
+                                                                        This event is
+                                                                    </label>
+                                                                    <div class="col-sm-8">
+                                                                        <div class="row">
+                                                                            <div class="col-md-3">
+                                                                                <div class="tt-paid-free-box" ng-class="{'pa-pink-border':displayEvent.ticketType =='paid' , 'disabled-btn': action == 'Edit'}">
+                                                                                    <div class="checkbox pa-bold-font pa-color-5B5B5B pa-font-14">
+                                                                                        <label class="tt-checkbox-custom">
+                                                                                            <input type="radio"
+                                                                                                   name="freepaidradio"
+                                                                                                   ng-model="displayEvent.ticketType"
+                                                                                                   ng-value="'paid'" >
+                                                                                            <span class="tt-paid-check" >
+                                                                                            </span>
+                                                                                            PAID
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="col-md-3">
+                                                                                <div class="tt-paid-free-box" ng-class="{'pa-pink-border':displayEvent.ticketType =='free' , 'disabled-btn': action == 'Edit'}">
+                                                                                    <div class="checkbox pa-bold-font pa-color-5B5B5B pa-font-14">
+                                                                                        <label class="tt-checkbox-custom">
+                                                                                            <input type="radio"
+                                                                                                   name="freepaidradio"
+                                                                                                   ng-model="displayEvent.ticketType"
+                                                                                                   ng-value="'free'" >
+                                                                                            <span class="tt-paid-check">
+                                                                                            </span>
+                                                                                            FREE
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="col-md-3"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- if user selects paid ticket type then show this div -->
+                                                                <div ng-if="displayEvent.ticketType =='paid'">
+                                                                    <div class="form-group pa-modal-font" ng-if="showTicketTypeSec">
+                                                                        <label class="control-label col-sm-4 pa-event-font ">Ticket
+                                                                            Type
+                                                                            <i class="fa fa-asterisk tt-fa-asterik "
+                                                                               aria-hidden="true"></i>
+                                                                        </label>
+                                                                        <div class="col-sm-8">
+                                                                            <div class="input-group pa-border tt-pad-10 pa-top-20" ng-repeat="ticket in ticketsArr track by $index">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="col-md-10 pa-color-5B5B5B pa-font-18 pa-bold-font">
+                                                                                        {{ticket.name}}
+                                                                                    </div>
+                                                                                    <div class="col-md-1" ng-hide="hideEditDeleteBtn">
+                                                                                        <i class='fa fa-pencil tt-font-16 cancelled-clor cursor-pointer' ng-click="editTicket($index);"></i>
+                                                                                    </div>
+                                                                                    <div class="col-md-1" ng-hide="hideEditDeleteBtn">
+                                                                                        <i class='fa fa-trash tt-font-16 cancelled-clor cursor-pointer' ng-click="deleteTicket(ticket)"></i>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-12 tt-msg-padding">
+                                                                                    <div class="col-md-12">
+                                                                                        {{ticket.description}}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-12 tt-pad-bottom ">
+                                                                                    <div class="col-md-4 pa-color-5B5B5B tt-font-16">
+                                                                                        Price: ${{ticket.price}}
+                                                                                    </div>
+                                                                                    <div class="col-md-4 pa-color-5B5B5B tt-font-16">
+                                                                                        Quantity: {{ticket.quantity}}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div ng-hide="hideEditDeleteBtn">
+                                                                        <div class="form-group pa-modal-font">
+                                                                            <label class="control-label col-sm-4 pa-event-font ">Ticket
+                                                                                Name
+                                                                                <i class="fa fa-asterisk tt-fa-asterik"
+                                                                                   aria-hidden="true"></i>
+                                                                            </label>
+                                                                            <div class="col-sm-8">
+                                                                                <div class="input-group pa-border">
+                                                                                    <input type='text' class="form-control pa-input-padding" placeholder="e.g. general tickets" name="ticketName" ng-model="tickets.name" uib-tooltip="Ticket Name is required." tooltip-placement="top-right" tooltip-trigger="'none'" tooltip-enable="!tickets.name"
+                                                                                        required>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group pa-modal-font">
+                                                                            <label class="control-label col-sm-4 pa-event-font ">Ticket
+                                                                                Description
+                                                                                <i class="fa fa-asterisk tt-fa-asterik"
+                                                                                   aria-hidden="true"></i>
+                                                                            </label>
+                                                                            <div class="col-sm-8">
+                                                                                <div class="input-group pa-border">
+                                                                                    <input type='text' class="form-control pa-input-padding" placeholder="e.g. Each ticket grants entry to one person which includes access to general class" name="desc" ng-model="tickets.description" uib-tooltip="Ticket Description is required." tooltip-placement="top-right"
+                                                                                        tooltip-trigger="'none'" tooltip-enable="!tickets.description" required>
+
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group pa-modal-font">
+                                                                            <label class="control-label col-sm-4 pa-event-font ">Ticket
+                                                                                Quantity
+                                                                                <i class="fa fa-asterisk tt-fa-asterik"
+                                                                                   aria-hidden="true"></i>
+                                                                            </label>
+                                                                            <div class="col-sm-8">
+                                                                                <div class="input-group pa-border">
+                                                                                    <input type='number' class="form-control pa-input-padding" placeholder="e.g. 200" name="quantity" ng-model="tickets.quantity" uib-tooltip="Ticket Quantity is required." uib-tooltip="Ticket Quantity is required." tooltip-placement="top-right" tooltip-trigger="'none'"
+                                                                                        tooltip-enable="!tickets.quantity" required>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group pa-modal-font">
+                                                                            <label class="control-label col-sm-4 pa-event-font ">Ticket
+                                                                                Price
+                                                                                <i class="fa fa-asterisk tt-fa-asterik"
+                                                                                   aria-hidden="true"></i>
+                                                                            </label>
+                                                                            <div class="col-sm-8">
+                                                                                <div class="input-group pa-border">
+                                                                                    <div class="input-group">
+                                                                                        <span class="input-group-addon">$</span>
+                                                                                        <input type="number" class="form-control" name="price" ng-model="tickets.price" uib-tooltip="Ticket Price is required." uib-tooltip="Ticket Price is required." tooltip-placement="top-right" tooltip-trigger="'none'" tooltip-enable="!tickets.price" required>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group pa-modal-font" ng-hide="hideEditDeleteBtn">
+                                                                        <label class="control-label col-sm-4 pa-event-font "></label>
+                                                                        <div class="col-sm-8">
+                                                                            <div class="row">
+                                                                                <div class="col-md-8">
+                                                                                    <i class="material-icons create-plus cursor-pointer" ng-click="addAnotherTickets()" ng-class="{'disabled-btn':editSaveBtn}">
+                                                                                        add_circle
+                                                                                    </i>
+                                                                                    <span class="pa-font-14 pa-bold-font pa-color-pink tt-add-another cursor-pointer" ng-class="{'disabled-btn':editSaveBtn}" ng-click="addAnotherTickets()">
+                                                                                    Add Another Ticket
+                                                                                </span>
+                                                                                </div>
+                                                                                <div class="col-md-4" ng-show="editSaveBtn">
+                                                                                    <div class="">
+                                                                                        <span class="pa-font-14 pa-bold-font pa-color-pink tt-add-another cursor-pointer" ng-click="saveTicket()">
+                                                                                            Save
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group pa-modal-font" ng-if="displayEvent.ticketType =='paid'">
+                                                                        <label class="control-label col-sm-4 pa-event-font "></label>
+                                                                        <div class="col-sm-8">
+                                                                            <div class="col-md-12 tt-change-paypal-account tt-padding-tb-20" ng-show="user.custom_data.paypalEmail && !model.showChangePayPalSec && !hideEditDeleteBtn">
+                                                                                <div class="pa-font-14 pa-font-color-62">
+                                                                                    To receive payments for tickets purchased by attendees, you have linked the following PayPal account:
+                                                                                </div>
+                                                                                <div class="pa-font-18 pa-bold-font pa-color-5B5B5B pa-top-20">
+                                                                                    {{user.custom_data.paypalEmail}}
+                                                                                </div>
+                                                                                <div class="tt-font-15 pa-color-pink pa-bold-font tt-text-doc cursor-pointer" ng-click="model.showChangePayPalSec=true">
+                                                                                    Change PayPal Account
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 tt-change-paypal-account tt-padding-tb-20pa-modal-font tt-padding-20" ng-if="model.showChangePayPalSec">
+                                                                                <div class="pa-font-14 pa-font-color-62">
+                                                                                    To receive payments for tickets purchased by attendees, you have linked the following PayPal account:
+                                                                                </div>
+                                                                                <div class="pa-font-18 pa-bold-font pa-color-5B5B5B pa-top-20">
+                                                                                    {{user.custom_data.paypalEmail}}
+                                                                                </div>
+                                                                                <div class="pa-font-14 pa-font-color-62">
+                                                                                    To receive payments for tickets purchased by attendees in a new or different account, please enter your registered PayPal email ID below.
+                                                                                </div>
+                                                                                <div>
+                                                                                    <div class="pa-bold-font pa-event-font pa-mt-20 tt-pad-bottom">
+                                                                                        Email address registered with PayPal *
+                                                                                    </div>
+                                                                                    <div class="paypal-email input-group pa-border">
+                                                                                        <input type='email' class="form-control pa-input-padding" placeholder="e.g.,name@company.com" ng-model="model.email" required>
+                                                                                    </div>
+                                                                                    <div class="pa-event-font pa-pt-20 row">
+                                                                                        <div class="col-md-4 ">
+                                                                                            <button class="pa-background-pink tt-font-16 tt-change-btn" ng-disabled="!model.email" ng-click="changePayPalAccount($event)">
+                                                                                                {{buttonText}}
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="col-md-2 pa-color-pink pa-text-decoration-underline pa-mt-20 tt-font-15 pa-bold-font cursor-pointer" ng-click="model.email ='';model.showChangePayPalSec=false;">
+                                                                                            Cancel
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="pa-font-14 pa-font-color-62 pa-mt-20">
+                                                                                        Note: By changing PayPal account here, this and all your future events payments will be recieved on this newly linked account.
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 tt-change-paypal-account tt-padding-tb-20" ng-if="!user.custom_data.paypalEmail && !hideEditDeleteBtn">
+                                                                                <div>
+                                                                                    <div class="pa-font-14 pa-font-color-62">
+                                                                                        To receive payment of the tickets from attendees, please add your PayPal account by providing your registered email ID with PayPal here.
+                                                                                    </div>
+                                                                                    <div class="pa-bold-font pa-event-font pa-mt-20 tt-pad-bottom">
+                                                                                        Registered Email Address with PayPal *
+                                                                                    </div>
+                                                                                    <div class="paypal-email input-group pa-border">
+                                                                                        <input type='email' class="form-control pa-input-padding" placeholder="e.g.,name@company.com" name="paypalemail" ng-model="model.email" required>
+                                                                                    </div>
+                                                                                    <div class="pa-event-font pa-pt-20 ">
+                                                                                        Do not have a PayPal Account?
+                                                                                        <a href="{{payPalUrl}}" target="_blank"> <span class="pa-bold-font pa-color-pink cursor-pointer pa-text-underline">Create New Account</span></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--- new section ticket ends here --->
+                                                            </div>
+                                                            <div class="form-group" ng-if="action !== 'Claim'">
+                                                                <label class="control-label col-sm-4"></label>
+                                                                <div class="col-sm-8 " ng-if="displayEvent.claimed_by">
+                                                                    <div class="pa-pink-box">
+                                                                        <div class="checkbox pa-check-color pa-padding-none" ng-class="{'pa-no-bottom-border':displayEvent.claimed_by}">
+                                                                            <label class="checkbox pa-checkbox-custom">
+                                                                                This event is already claimed.
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-8 " ng-if="!displayEvent.claimed_by" ng-repeat="plan in plans">
+                                                                    <div class="pa-pink-box">
+                                                                        <div class="checkbox pa-check-color pa-padding-none">
+
+                                                                            <label class="checkbox pa-checkbox-custom">
+                                                                                {{plan.title}} {{plan.currency}}
+                                                                                {{plan.amount}}
+                                                                                <input type="checkbox"
+                                                                                       ng-model="plan.checked"
+                                                                                       ng-change="selectPlan(plan)">
+                                                                                <span class="check"></span>
+                                                                            </label>
+                                                                        </div>
+
+                                                                        <div ng-show="plan.checked && user.selectedPlan">
+                                                                            <div class="pa-padding-20 pa-highlight">
+                                                                                You are on {{user.selectedPlan.title}} plan
+                                                                            </div>
+                                                                            <div class="pa-padding-20 pa-highlight">
+                                                                                {{user.selectedPlan.subtitle}}
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="pa-detail" ng-show="plan.checked && !user.selectedPlan" ng-class="{'pa-color-p': 'plan.checked'}">
+                                                                            <form class="form-horizontal" id="payment-form">
+                                                                                <div class="form-group">
+                                                                                    <label for="coupon-code" class="control-label col-sm-3 pa-padding-none pa-font-normal">Promotion
+                                                                                        Coupon Code</label>
+                                                                                    <div class="col-sm-5 pa-pink-border">
+                                                                                        <input id="coupon-code" class="form-control pa-input-padding" name="coupon-code" ng-model="coupon">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label col-sm-3 pa-padding-none pa-font-normal" for="card-element">Credit
+                                                                                        Card Number</label>
+                                                                                    <div class="col-sm-9 pa-pink-border">
+                                                                                        <div id="card-element" class="form-control pa-input-padding pa-line-none"></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label col-sm-3 pa-padding-none pa-font-normal" for="card-expiry">Expiry
+                                                                                        date</label>
+                                                                                    <div class="col-sm-5 pa-pink-border">
+                                                                                        <div class="form-control pa-input-padding pa-line-none" id="card-expiry"></div>
+                                                                                    </div>
+                                                                                    <label class="control-label col-sm-2 pa-padding-none pa-font-normal" for="card-cvc">CVC</label>
+                                                                                    <div class="col-sm-2 pa-pink-border pa-cvc-card">
+                                                                                        <div class="form-control pa-input-padding pa-line-none" id="card-cvc" style="color: red;">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+
+                                                                        </div>
+
+                                                                        <div ng-show="!plan.checked && !displayEvent.claimed_by">
+                                                                            <div class="pa-padding-20 pa-sponsor">
+                                                                                Sponser your event and make it more visible:
+                                                                            </div>
+                                                                            <div class="pa-padding-20 pa-highlight" ng-repeat="description in plan.description">
+                                                                                <img src="../img/CHECK-LIST.png" alt="Check List" class="pa-tick-pink">{{description}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <!--claim event div starts-->
+                                                            <div class="form-group" ng-if="action === 'Claim' && !user.selectedPlan">
+                                                                <label class="control-label col-sm-4"></label>
+                                                                <div class="col-sm-8 ">
+                                                                    <div class="pa-pink-box">
+                                                                        <div class="checkbox pa-check-color pa-pink-font-color">
+                                                                            You can also highlight the event
+                                                                            <div class="pa-padding-20 pa-sponsor">
+                                                                                Sponser your event and make it more visible:
+                                                                            </div>
+                                                                            <div class="pa-padding-20 pa-highlight"><img src="../img/CHECK-LIST.png" alt="check list" class="pa-tick-pink">Highlight pins on the map
+                                                                            </div>
+                                                                            <div class="pa-padding-20 pa-highlight"><img src="../img/CHECK-LIST.png" alt="check list" class="pa-tick-pink">Highlights in the event page
+                                                                            </div>
+                                                                            <div class="pa-padding-20 pa-highlight"><img src="../img/CHECK-LIST.png" alt="check list" class="pa-tick-pink">Add event to the top page
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row pa-padding-month pa-padding-month-border" ng-repeat="plan in plans">
+                                                                            <div class="col-sm-7 col-md-7 col-xs-7">
+                                                                                <input type="radio" name="radio-group" id="{{plan.id}}" value="{{plan}}" ng-click="plan.checked=!plan.checked;selectPlan(plan)">
+                                                                                <label for="{{plan.id}}" class="pa-label-font">{{plan.title}}</label>
+                                                                                <div class="pa-highlight-month">
+                                                                                    {{plan.subtitle}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-5 col-md-5 col-xs-5 pa-claim">
+                                                                                {{plan.description[0]}}
+                                                                                <div class="pa-dollar-font-color pa-font-bold">
+                                                                                    {{plan.currency}}{{plan.amount}}<span class="pa-month-dollar">{{plan.frequency || '/event'}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" ng-show="action === 'Claim' && selectedPlan">
+                                                                <label class="control-label col-sm-4"></label>
+                                                                <div class="col-sm-8 ">
+                                                                    <div class="pa-pink-box pa-background-light-pink">
+                                                                        <div class="checkbox pa-check-color pa-pink-font-color pa-padding-none">
+                                                                            TOTAL FEE: {{selectedPlan.currency}}{{selectedPlan.amount}}
+
+                                                                        </div>
+                                                                        <div class="pa-detail pa-background-light-pink" ng-if="user.selectedPlan">
+                                                                            You are on {{user.selectedPlan.title}} plan
+                                                                        </div>
+                                                                        <div class="pa-detail pa-background-light-pink" ng-if="!user.selectedPlan">
+
+                                                                            <form class="form-horizontal" id="payment-form">
+                                                                                <div class="form-group">
+                                                                                    <label for="coupon-code" class="control-label col-sm-3 pa-padding-none pa-font-normal">Promotion
+                                                                                        Coupon Code</label>
+                                                                                    <div class="col-sm-5 pa-pink-border">
+                                                                                        <input id="coupon-code" class="form-control pa-input-padding" name="coupon-code" ng-model="coupon">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label col-sm-3 pa-padding-none pa-font-normal" for="card-element">Credit
+                                                                                        Card Number</label>
+                                                                                    <div class="col-sm-9 pa-pink-border">
+                                                                                        <div id="card-element" class="form-control pa-input-padding pa-line-none"></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label col-sm-3 pa-padding-none pa-font-normal" for="card-expiry">Expiry
+                                                                                        date</label>
+                                                                                    <div class="col-sm-5 pa-pink-border">
+                                                                                        <div class="form-control pa-input-padding pa-line-none" id="card-expiry"></div>
+                                                                                    </div>
+                                                                                    <label class="control-label col-sm-2 pa-padding-none pa-font-normal" for="card-cvc">CVC</label>
+                                                                                    <div class="col-sm-2 pa-pink-border pa-cvc-card">
+                                                                                        <div class="form-control pa-input-padding pa-line-none" id="card-cvc" style="color: red;">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <!--claim event div ends-->
+
+                                                            <!--create modal footer starts-->
+                                                            <hr width="100%" class="tt-hr-style">
+                                                            <div class="form-group row  tt-mar-publish" ng-show="action != 'Claim'">
+                                                                <div class="control-label col-sm-4"></div>
+                                                                <div class="col-sm-3">
+                                                                    <button class="pa-publish-btn pa-background-pink pa-font-bold pa-button-font-size" id="pay-btn" ng-disabled="((createEventform.$invalid || !createEventform.emailName.$valid) && (displayEvent.files ==' ' || displayEvent.files ==null))" ng-click="validatePublish(plan.checked)">
+                                                                        Publish
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-sm-3" ng-hide="action == 'Edit' && !displayEvent.isdraft">
+                                                                    <button class="pa-publish-btn pa-font-bold pa-draft-btn pa-button-font-size" ng-click="handleEventButton(true)">
+                                                                        Save As A Draft
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-sm-2 pa-cancel-btn pa-font-bold" ng-click="cancelModal()">
+                                                                    Cancel
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--create modal footer ends-->
+
+                                                        <!--claim modal footer starts-->
+                                                        <div class="modal-footer pa-footer-custom" ng-if="action === 'Claim'">
+                                                            <div class="form-group row pa-margin-footer ">
+                                                                <div class="control-label col-sm-4"></div>
+                                                                <div class="col-sm-5">
+                                                                    <button class="pa-publish-btn pa-background-pink pa-font-bold pa-button-font-size" ng-disabled="createEventform.$invalid || !createEventform.emailName.$valid" ng-click="validatePublish()">
+                                                                        Pay
+                                                                        {{selectedPlan.currency}}{{selectedPlan.amount}}
+                                                                        And Claim Event
+                                                                    </button>
+
+                                                                </div>
+
+                                                                <div class="col-sm-2 pa-cancel-btn pa-font-bold" ng-click="openEventDetail(displayEvent.event_id)">
+                                                                    Cancel
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--claim modal footer ends-->
+                                                    </form>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </form>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div ng-show="showSection =='eventPreviewSec'">
+            <div class="row pa-event-detail-header pa-font-white pa-modal-font tt-align-category" ng-class="{'event-line-height':(event.event_name.length < 50)}" style="margin-left: 0;">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7 pa-event-name-style">
+                    {{displayEvent.event_name}}
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 tt-align-category" align="right">
+                    <div class="pa-none pd-none">
+                        <img ng-src="{{displayEvent.selectedCategory[0].icon}}" alt="{{displayEvent.selectedCategory[0].name}}" class="h-32">
+
+                    </div>
+                    <span class="pa-event-cat-style">{{displayEvent.selectedCategory[0].name}}</span>
+                </div>
+            </div>
+
+            <div class="pa-event-detail-div">
+                <div class="row pa-event-detail-row pa-mar-top-20">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 hidden-xs">
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" align="right">
+                        <button class="btn pa-interested-text pa-unselect-type" ng-class="{'pa-event-background-pink':interestActive}">
+                            <img src="../img/like-active.png" alt="like active" class="pa-interest-img" ng-if="interestActive">
+                            <img src="../img/like.png" alt="like" class="pa-interest-img" ng-if="!interestActive">
+                            I Am Interested
+                        </button>
+                        <button class="btn pa-going-text pa-going-width pa-unselect-type" ng-class="{'pa-event-background-pink':goingActive}">
+                            <img src="../img/amgoing.png" alt="amgoing" class="pa-interest-img" ng-if="!goingActive">
+                            <img src="../img/going-active.png" alt="amgoing active" class="pa-interest-img" ng-if="goingActive">
+                            I Am Going
+                        </button>
+                        <button class="btn pa-not-going-width pa-going-text pa-unselect-type" ng-class="{'pa-event-background-pink':notGoingActive}">
+                            <img src="../img/notgoing.png" alt="notgoing" class="pa-cross-img" ng-if="!notGoingActive">
+                            <img src="../img/notgoing-active.png" alt="notgoing active" class="pa-cross-img" ng-if="notGoingActive">
+                            I Am Not Going
+                        </button>
+                    </div>
+                </div>
+                <div class="pa-event-img-sec hidden-xs hidden-sm visible-md visible-lg">
+                    <div class="row pa-row-padding">
+                        <div class="col-lg-4 col-md-4 pa-top-30 pa-margin-left-20">
+                            <div class="pa-city-name"> {{displayEvent.chosenPlace}}</div>
+                            <div class="pa-date-and-place">
+                                {{displayEvent.start.date | momentFormatter:"dddd, MMMM D"}} {{displayEvent.start.time | momentFormatter:"hh:mma"}} -
+                                <br/> {{displayEvent.end.date| momentFormatter:"dddd, MMMM D"}} {{displayEvent.end.time| momentFormatter:"hh:mma"}}
+                            </div>
+                            <br/>
+                            <br/>
+                            <div class="pa-city-namepa-top-30 pa-break-word">{{displayEvent.event_name}}</div>
+                            <div class="pa-date-and-place">
+                                {{displayEvent.chosenPlace}}
+                            </div>
+                            <div class="pa-loc-div pa-background-pink">
+                                <img src="../img/seelocation.png" alt="seelocation" class="pa-event-loc-img">
+                                <span class="pa-padding-left-2 cursor-pointer" ng-click="changeSection('eventMapView')">see location</span>
+                            </div>
+                            <div class="pa-margin-top-40">
+                                <div ng-if="displayEvent.website" class="congratulations-content">
+                                    <img src="../img/website-icon.png" alt="website" class="pa-website-icon">
+                                    <span class="pa-web-style">{{displayEvent.website}}</span>
+                                </div>
+                                <div class="pa-margin-top-15 congratulations-content" ng-if="displayEvent.email">
+                                    <img src="../img/email.png" alt="email" class="pa-website-icon">
+                                    <span class="pa-web-style">{{displayEvent.email}}</span>
+                                </div>
+                                <div class="pa-margin-top-15 congratulations-content" ng-if="displayEvent.phone">
+                                    <img src="../img/phone-icon.png" alt="phone" class="pa-website-icon">
+                                    <span class="pa-web-style">{{displayEvent.phone}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8 text-right">
+                            <img ng-src="{{displayEvent.files}}" alt="Promo app" class="pa-big-event-img">
+                        </div>
+                    </div>
+                </div>
+                <div class="pa-event-img-sec visible-xs visible-sm hidden-md hidden-lg">
+                    <div class="row pa-row-padding pa-top-20 pa-margin-left-20">
+                        <div class="col-xs-4 ">
+                            <div class="pa-city-name">{{displayEvent.chosenPlace}}</div>
+                            <div class="pa-date-and-place">
+                                {{displayEvent.start.date | date:"EEEE, MMMM d"}}
+                                <br/> {{displayEvent.start.date | date:"hh:mma"}} - {{displayEvent.end.date | date:"hh:mma"}}
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="pa-city-namepa-top-30 ">{{displayEvent.event_name}}</div>
+                            <div class="pa-date-and-place">
+                                {{displayEvent.chosenPlace}}
+                            </div>
+                            <div class="pa-loc-div pa-background-pink">
+                                <img src="../img/seelocation.png" alt="seelocation" class="pa-loc-img">
+                                <span class="pa-padding-left-2 cursor-pointer" ng-click="openSeeLocation('eventMapView')">see location</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div ng-if="displayEvent.website" class="congratulations-content">
+                                <img src="../img/website-icon.png" alt="website" class="pa-website-icon">
+                                <span class="pa-web-style">{{displayEvent.website}}</span>
+                            </div>
+                            <div class="pa-margin-top-15 congratulations-content" ng-if="displayEvent.email">
+                                <img src="../img/email.png" alt="email" class="pa-website-icon">
+                                <span class="pa-web-style">{{displayEvent.email}}</span>
+                            </div>
+                            <div class="pa-margin-top-15 congratulations-content" ng-if="displayEvent.phone">
+                                <img src="../img/phone-icon.png" alt="phone" class="pa-website-icon">
+                                <span class="pa-web-style">{{displayEvent.phone}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pa-top-20">
+                        <img ng-src="{{displayEvent.files}}" alt="promo" class="pa-big-event-img">
+                    </div>
+                </div>
+                <div class="pa-desc-style pa-font-color-62">
+                    {{displayEvent.description.trim() }}
+                </div>
+            </div>
+
+        </div>
+        <div class="pa-see-loc-div" ng-if="showSection =='eventMapView'">
+            <div class="pa-back-text" ng-click="changeSection('eventPreviewSec')">
+                <img src="../img/back-pink.png" alt="back" class="pa-back-pink cursor-pointer">
+                <span class="pa-font-bold pa-color-pink cursor-pointer">Back to event details</span>
+            </div>
+            <div>
+                <ng-map styles='[{ featureType: "poi",elementType: "labels",stylers: [{ visibility: "off" }]},{ featureType: "transit",stylers: [{ visibility: "off" }]},{"featureType": "road","elementType": "labels.icon","stylers": [{"visibility": "off"}]}]' center="{{latitude}} , {{longitude }}"
+                    style="height:600px;">
+                    <marker position="{{latitude}} , {{longitude }}"></marker>
+                    <custom-marker position="{{latitude}} , {longitude }}">
+                        <div class="event-name-marker-modal">{{displayEvent.event_name}}</div>
+                        <div class="event-marker-modal-address">
+                            {{displayEvent.address}}
+                        </div>
+                    </custom-marker>
+                </ng-map>
+            </div>
+
+        </div>
+
+        <!---preview screen footer starts-->
+        <div class="modal-footer pa-footer-custom" ng-if="showSection =='eventPreviewSec' && action !== 'Claim'">
+            <div class="form-group row pa-margin-footer ">
+                <div class="control-label col-sm-2"></div>
+                <div class="col-sm-4">
+                    <button class="pa-publish-btn pa-background-pink pa-font-bold pa-button-font-size" type="submit" ng-disabled="publishStatus" ng-click="confirmAndPublish()">
+                        {{publishStatus?'Publishing..':'Confirm And Publish'}}
+                    </button>
+                </div>
+                <div class="col-sm-3">
+                    <button class="pa-publish-btn pa-font-bold pa-draft-btn pa-button-font-size" ng-disabled="publishStatus" ng-click="handleEventButton(true)">
+                        Save As A Draft
+                    </button>
+                </div>
+                <div class="col-sm-3 pa-cancel-btn pa-font-bold" ng-disabled="publishStatus " ng-click="changeSection('createAndClaim')">
+                    Back To Editing
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer pa-footer-custom" ng-show="showSection =='eventPreviewSec' && action === 'Claim'">
+            <div class="form-group row pa-margin-footer ">
+                <div class="control-label col-sm-2"></div>
+                <div class="col-sm-4">
+                    <button class="pa-publish-btn pa-background-pink pa-font-bold pa-button-font-size" type="submit" ng-click="confirmAndPublish()">
+                        Confirm And Claim Event
+                    </button>
+                </div>
+                <div class="col-sm-3 pa-cancel-btn pa-font-bold" ng-disabled="publishStatus " ng-click="changeSection('createAndClaim')">
+                    Back To Editing
+                </div>
+            </div>
+        </div>
+
+        <!---preview screen footer ends-->
+        </form>
+    </div>
+</div>

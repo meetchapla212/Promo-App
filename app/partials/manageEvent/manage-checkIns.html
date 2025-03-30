@@ -1,0 +1,31 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE fixed-layout-vh">
+    
+    <div flex layout-fill class="pa-bg-EEEEEE fixed-layout-vh">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content "></div>
+        <div class="layout_panel_mwrap">
+            <div ng-include="'partials/sidebar.html'"></div>
+            <div class="layout_right_panel fixed-layout-vh-auto">
+                <div class="report_header mt-10">
+                    <h2 class="pa-font-20 pa-mt-0"><span class="pa-bold-font">Check-In Attendees </span>(Scan Tickets)</h2>
+                    <div class="pa-font-14 tt-mqfont-15" ng-if="!seatMapCreated">
+                        <span class="pa-bold-font">{{ticketCounts.scan_tickets}} / {{ticketCounts.total_tickets}} purchased tickets checked in</span>
+                    </div>
+                    <div class="pa-font-14 tt-mqfont-15" ng-if="seatMapCreated">
+                        <span class="pa-bold-font">{{ticketCounts.scan_tickets}} / {{event.layout_details.total_seating_capacity}} purchased tickets checked in</span>
+                    </div>
+                </div>
+                <div class="manageevent-fth-sec check-attendees">
+                    <div class="tt-flex-center tt-scan-bottom">
+                        <button ng-if="event.status == 'active'" ng-click="goToScanQrPage()" class="tt-scan-attendees tt-font-22 pa-background-pink tt-btn-100 tt-mqfont-18 pa-border-4"><a class="tt-qr-center"><i class="fa fa-qrcode tt-qrsize"></i> Check In Attendees</a>
+                        </button>
+                        <button ng-if="event.status == 'inactive'" uib-tooltip="This event has been expired. You can't do any action on it." tooltip-position="bottom" class="tt-scan-attendees tt-font-22 pa-background-pink tt-btn-100 tt-mqfont-18 pa-border-4 disabled"><a class="tt-qr-center"><i class="fa fa-qrcode tt-qrsize"></i> Check In Attendees</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- hide this section in mobile End Here -->
+
+    
+</div>

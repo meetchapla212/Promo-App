@@ -1,0 +1,190 @@
+
+<div loader working="loading" message="" disable-background="true" class="loader-content"></div>
+<section ng-controller="ManageRewardsLiveController" class="manageRewardsLive pa-bg-EEEEEE" flex layout-fill>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mr-top pa-mt-20">
+                <div class="search-people-head">
+                    <h1>View & Manage Promotions</h1>
+                    <div class="addPaypal">
+                        <a ng-click="setGuidance()" class="pa-color-pink pa-text-decoration"><i class="material-icons">add_circle</i>Create New Promotion</a>
+                    </div>
+                </div>
+                <div class="organizer-profile pa-mb-15 ">
+                    <md-content>
+                        <md-tabs class="pa-tabs" md-dynamic-height md-border-bottom>
+                            <md-tab label="Live" class="pa-padding-20 pa-font-18">
+                                <md-content ng-if="liveReward.length > 0" class="upcoming-past-tab-tabs-content">
+                                    <div class="col-md-8 pa-pl-0" ng-repeat="lr in liveReward">
+                                        <div class="manageRewardsLive-tablist  upgrade-manage-events-list " ng-if="selectedTab !== 'liveevents'">
+                                            <div class="upcoming-event-box-img">
+                                                <img data-ng-src="{{lr.image || 'img/eventImage.png'}}" alt="{{ lr.title }}" class="object-cover">
+                                            </div>
+                                            <div class="tt-rec-left">
+                                                <div class="upgrade-manage-events-list-head">
+                                                    <a href="/view_rewards_analytics/{{lr.reward_id}}" class="upgrade-manage-events-title">
+                                                        <div class="pa-break-word cursor-pointer tt-text-head">{{ lr.title }}</div>
+                                                    </a>
+
+                                                    <div class="moremenu-upgrade" ng-if="lr.is_share === false">
+                                                        <a data-toggle="dropdown" id="dropdownMenuButton{{lr.reward_id}}"><i class="material-icons">more_vert</i></a>
+                                                        <div class="morevert-menu dropdown-menu" aria-labelledby="dropdownMenuButton{{lr.reward_id}}">
+                                                            <ul>
+                                                                <li><a ng-href="/createreward/edit/{{lr.reward_id}}">Edit</a></li>
+                                                                <li><a ng-click="stopReward(lr.reward_id)">Stop a Live Promotion</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="valid-option-live-rew">
+                                                    <div class="valid-option">Valid Until: <b class="pa-display-inline">{{lr.end_date | toMoment | momentFormatter:"ddd, MMM D YYYY, hh:mm a"}}</b>
+                                                    </div>
+                                                    <div class="pa-pl-0 mt-10 pa-font-13 pa-pr-0 pa-color-5B5B5B tt-mqevent-padding pa-flex-grow tt-width-calender pa-display-inherit  upgrade-manage-eventsdate">
+                                                        <md-icon class="tt-mqcalender material-icons" aria-hidden="true" role="img">event_available</md-icon>
+                                                        <div class="pa-pl-10">
+                                                            <label class="pa-vertical-align-sub pa-display-inline ng-binding">{{ lr.event_details.event_name }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tags-label-des">
+                                                    <span ng-show="lr.people_won > 0">{{lr.people_won}} Person<div class="pa-display-inline-flex" ng-if="lr.people_won > 1">s</div> Won</span>
+                                                    <span ng-show="lr.people_eligible > 0">{{lr.people_eligible}} Person<div class="pa-display-inline-flex" ng-if="lr.people_eligible > 1">s</div> Eligible</span>
+                                                    <span ng-show="lr.active_people > 0">{{lr.active_people}} Active Person<div class="pa-display-inline-flex" ng-if="lr.active_people > 1">s</div></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </md-content>
+                                <md-content ng-if="liveReward.length === 0" class="upcoming-past-tab-tabs-content  tc_list_perent">
+                                    <div class="rebecca-head">No Live Promotions</div>
+                                </md-content>
+                            </md-tab>
+
+                            <md-tab label="Drafts" class="pa-padding-20 pa-font-18">
+                                <md-content ng-if="draftReaward.length > 0" class="upcoming-past-tab-tabs-content" ng-repeat="dr in draftReaward" ng-init="morevertopt[dr.reward_id] = false">
+                                    <div class="col-md-8 pa-pl-0">
+                                        <div class="manageRewardsLive-tablist  upgrade-manage-events-list ">
+                                            <div class="upcoming-event-box-img">
+                                                <img data-ng-src="{{dr.image || 'img/eventImage.png'}}" alt="{{dr.title}}" class="object-cover">
+                                            </div>
+                                            <div class="tt-rec-left">
+                                                <div class="upgrade-manage-events-list-head">
+                                                    <a class="upgrade-manage-events-title cursor-context-menu">
+                                                        <div class="pa-break-word tt-text-head">{{dr.title}}</div>
+                                                    </a>
+                                                    <div class="moremenu-upgrade">
+                                                        <a data-toggle="dropdown" id="dropdownMenuButton{{dr.reward_id}}"><i class="material-icons">more_vert</i></a>
+                                                        <div class="morevert-menu dropdown-menu" aria-labelledby="dropdownMenuButton{{dr.reward_id}}">
+                                                            <ul>
+                                                                <li ng-if="dr.addPromotionDisabled"><a ng-href="/createreward/edit/{{dr.reward_id}}">Edit</a></li>
+                                                                <li ng-if="!dr.addPromotionDisabled" uib-tooltip="Promotion can be created for an event before 48 hours of the event start time and Promotion ends before 2 hours of event starting." class="menu-disabled disable_link" tooltip-placement="left"><a>Edit</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="valid-option-live-rew">
+                                                    <div class="valid-option">Valid Until: <b class="pa-display-inline">{{dr.end_date | toMoment | momentFormatter:"ddd, MMM D YYYY, hh:mm a"}}</b>
+                                                    </div>
+                                                    <div class="pa-pl-0 mt-10 pa-font-13 pa-pr-0 pa-color-5B5B5B tt-mqevent-padding pa-flex-grow tt-width-calender pa-display-inherit  upgrade-manage-eventsdate">
+                                                        <md-icon class="tt-mqcalender material-icons" aria-hidden="true" role="img">event_available</md-icon>
+                                                        <div class="pa-pl-10">
+                                                            <label class="pa-vertical-align-sub pa-display-inline ng-binding">{{ dr.event_details.event_name }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="manageRewardsLivebtn" ng-if="dr.terms_condition_accept">
+                                                    <button ng-click="publishReward(dr.reward_id)">Publish Promotion</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </md-content>
+                                <md-content ng-if="draftReaward.length === 0" class="upcoming-past-tab-tabs-content  tc_list_perent">
+                                    <div class="rebecca-head">No Draft Promotions</div>
+                                </md-content>
+                            </md-tab>
+
+                            <md-tab label="Completed" class="pa-padding-20 pa-font-18">
+                                <md-content ng-if="completedReward.length > 0" class="upcoming-past-tab-tabs-content" ng-repeat="ar in completedReward" ng-init="morevertopt[ar.reward_id] = false">
+                                    <div class="col-md-8 pa-pl-0">
+                                        <div class="manageRewardsLive-tablist  upgrade-manage-events-list ">
+                                            <div class="upcoming-event-box-img">
+                                                <img data-ng-src="{{ar.image || 'img/eventImage.png'}}" alt="{{ar.title}}" class="object-cover">
+                                            </div>
+                                            <div class="tt-rec-left">
+                                                <div class="upgrade-manage-events-list-head">
+                                                    <a href="/view_rewards_analytics/{{ar.reward_id}}" class="upgrade-manage-events-title">
+                                                        <div class="pa-break-word cursor-pointer tt-text-head">
+                                                            {{ar.title}}
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="valid-option-live-rew">
+                                                    <div class="valid-option">Valid Until: <b class="pa-display-inline">{{ar.end_date | toMoment | momentFormatter:"ddd, MMM D YYYY, hh:mm a"}}</b>
+                                                    </div>
+                                                    <div class="pa-pl-0 mt-10 pa-font-13 pa-pr-0 pa-color-5B5B5B tt-mqevent-padding pa-flex-grow tt-width-calender pa-display-inherit  upgrade-manage-eventsdate">
+                                                        <md-icon class="tt-mqcalender material-icons" aria-hidden="true" role="img">event_available</md-icon>
+                                                        <div class="pa-pl-10">
+                                                            <label class="pa-vertical-align-sub pa-display-inline ng-binding">{{ ar.event_details.event_name }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </md-content>
+                                <md-content ng-if="completedReward.length === 0" class="upcoming-past-tab-tabs-content  tc_list_perent">
+                                    <div class="rebecca-head">No Completed Promotions</div>
+                                </md-content>
+                            </md-tab>
+
+                            <md-tab label="Stopped" class="pa-padding-20 pa-font-18">
+                                <md-content ng-if="archivedReward.length > 0" class="upcoming-past-tab-tabs-content" ng-repeat="ar in archivedReward" ng-init="morevertopt[ar.reward_id] = false">
+
+                                    <div class="col-md-8 pa-pl-0">
+                                        <div class="manageRewardsLive-tablist  upgrade-manage-events-list ">
+                                            <div class="upcoming-event-box-img">
+                                                <img data-ng-src="{{ar.image || 'img/eventImage.png'}}" alt="{{ar.title}}" class="object-cover">
+                                            </div>
+                                            <div class="tt-rec-left">
+                                                <div class="upgrade-manage-events-list-head">
+                                                    <a class="upgrade-manage-events-title cursor-context-menu">
+                                                        <div class="pa-break-word tt-text-head">{{ar.title}}</div>
+                                                    </a>
+
+                                                    <div class="moremenu-upgrade">
+                                                        <a data-toggle="dropdown" id="dropdownMenuButton{{ar.reward_id}}"><i class="material-icons">more_vert</i></a>
+                                                        <div class="morevert-menu dropdown-menu" aria-labelledby="dropdownMenuButton{{ar.reward_id}}">
+                                                            <ul>
+                                                                <li><a ng-click="restartReward(ar.reward_id)">Restart the Promotion</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="valid-option-live-rew">
+                                                    <div class="valid-option">Valid Until: <b class="pa-display-inline">{{ar.end_date | toMoment | momentFormatter:"ddd, MMM D YYYY, hh:mm a"}}</b>
+                                                    </div>
+                                                    <div class="pa-pl-0 mt-10 pa-font-13 pa-pr-0 pa-color-5B5B5B tt-mqevent-padding pa-flex-grow tt-width-calender pa-display-inherit  upgrade-manage-eventsdate">
+                                                        <md-icon class="tt-mqcalender material-icons" aria-hidden="true" role="img">event_available
+                                                        </md-icon>
+                                                        <div class="pa-pl-10">
+                                                            <label class="pa-vertical-align-sub pa-display-inline ng-binding">{{ ar.event_details.event_name }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </md-content>
+                                <md-content ng-if="archivedReward.length === 0" class="upcoming-past-tab-tabs-content  tc_list_perent">
+                                    <div class="rebecca-head">No Stopped Promotions</div>
+                                </md-content>
+                            </md-tab>
+                        </md-tabs>
+                    </md-content>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

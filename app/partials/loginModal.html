@@ -1,0 +1,33 @@
+<div ng-controller="LoginModalController">
+    <div class="modal-header">
+        <span class="modal-title" id="modal-title">Login or Signup </span>
+        <a ng-click="cancel()" class="pull-right">
+            <span class="modal-close-button">
+                <i class="material-icons">close</i>
+            </span>
+        </a>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <span>You must login and sign up to continue
+        </span>
+        <div class="login-modal-padding mobile-hide"> 
+            <a ng-href="/login" ng-click="cancel()">
+                <input class="btn login-button-modal" type="button" value="Login">
+            </a>
+            <a ng-href="{{ (redirectUrl && toSignup) ? toSignup : '/signup' }}" ng-click="cancel()">
+                <button class="btn signup-button-modal" type="button">Don't have an account?<span
+                        style="color:#A02541;margin-left:5px;">Create One Here</span></button>
+            </a>
+        </div>
+
+        <div class="desktop-hide pa-pt-20" layout="column" layout-align="center center">
+            <a ng-href="/login" ng-click="cancel()">
+                <md-button class="pa-font-bold pa-pink-button h-48 pa-width-100p pa-no-margin login-button-modal-mobile">Log In</md-button>
+            </a>
+            <div class="login-or pa-pt-20">Or</div>
+            <a ng-href="{{ (redirectUrl && toSignup) ? toSignup : '/signup' }}" ng-click="cancel()">
+                <md-button class="pa-font-bold pa-pink-border-button h-48 pa-width-100p login-button-modal-mobile">Sign Up</md-button>
+            </a>
+        </div>
+    </div>
+</div>

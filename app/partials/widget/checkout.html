@@ -1,0 +1,128 @@
+<div ng-controller="checkoutController">
+    <div layout="column" layout-align="start stretch" class="mobile-hide pa-bg-EEEEEE">
+        <div class="pa-bg-EEEEEE mobile-hide make_pay_loader">
+            <div class="container-wtd-1170">
+                <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content">
+                </div>
+            </div>
+            <div class="tc_selection_main">
+                <div class="text-head">
+                    <a ng-href="/widget/ticket_list?ev={{event.event_id}}" class="back-to-btn"><i
+                            class="material-icons">navigate_before</i> Back to Ticket Selection</a>
+                </div>
+                <div class="tc_selection_wrap">
+                    <div class="tc_selection_left_section" ng-hide="loading">
+
+                        <div class="custom_section_check_seat with_timer_check secure_sec_chek">
+                            <div class="secure_sec">Make Payment</div>
+                            <div class="secure_sec_green"> <i class="material-icons">lock</i> Secure Checkout</div>
+                        </div>
+                        <div class="seats_map_list">
+                            <div class="row" ng-if="event.event_type === 'free'">
+                                <div class="col-md-12 col-sm-12 col-xs-12 checkout_form">
+                                    <button
+                                        class="pa-font-Lato pa-bold-font pa-border-4 pa-mt-0 tt-font-16 continue md-button ng-scope md-ink-ripple"
+                                        ng-click="buyFreeTicket()">Register</button>
+                                </div>
+                            </div>
+                            <div class="checkout-form">
+                                <form action="/charge" ng-show="event.event_type && event.event_type !== 'free'"
+                                    method="post" id="payment-form" class='stripe-form'>
+                                    <input type="hidden" name="token" />
+                                    <div class="group">
+                                        <md-input-container class="form-group full-field pa-mt-30-imp" flex-gt-sm>
+                                            <label>Card number <div class="pa-color-red pa-display-inline-block">*</div>
+                                            </label>
+                                            <div id="card-number-element" class='stripe-field'></div>
+                                            <span class="brand" id='brand-image'></i></span>
+                                        </md-input-container>
+
+                                        <md-input-container class="form-group half-field pa-mt-30-imp" flex-gt-sm>
+                                            <label>Expiry date <div class="pa-color-red pa-display-inline-block">*</div>
+                                            </label>
+                                            <div id="card-expiry-element" class='stripe-field'></div>
+                                        </md-input-container>
+
+                                        <md-input-container class="form-group half-field pa-mt-30-imp" flex-gt-sm>
+                                            <label>CVC <div class="pa-color-red pa-display-inline-block">*</div></label>
+                                            <div id="card-cvc-element" class='stripe-field'></div>
+                                        </md-input-container>
+
+                                        <md-input-container class="form-group full-field pa-mt-30-imp" flex-gt-sm>
+                                            <label>Postal code <div class="pa-color-red pa-display-inline-block">*</div>
+                                            </label>
+                                            <div id="card-postalcode-element" name="postal_code" class='stripe-field'
+                                                placeholder="90210"></div>
+                                        </md-input-container>
+                                    </div>
+                                    <button type="submit" id="submit_button"
+                                        class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button ng-scope md-ink-ripple">Submit
+                                        Payment</button>
+                                    <div class="outcome">
+                                        <div class="error"></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tc_selection_right_section checkout_overview">
+                        <div class="tc_head_img_sec">
+                            <img ng-src="{{event.event_image}}" />
+                            <span class="check_title_dec">
+                                <b>{{ event.event_name}} <span ng-if="event.city != ''">- {{event.city}}<span></b>
+                                {{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY hh:mm a"}}
+                            </span>
+                        </div>
+                        <div class="order_summary">
+                            <div class="order_summary_strip">
+                                <span class="order_summary_head">Order Summary</span>
+                                <button class="order_sum_link" ng-if="layoutDetails !== false"
+                                    ng-click="openTicketPreview()">Map Preview</button>
+                            </div>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tickets</th>
+                                        <th>Unit Price</th>
+                                        <th>Total Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-if="price_calculation.length > 0"
+                                        ng-repeat="ticke_Details in price_calculation">
+                                        <td><span ng-if="ticke_Details._tier_id > 0"
+                                                style="background-color: {{ ticke_Details.tire_color  }};"></span> {{
+                                            ticke_Details.qty }} x {{ticke_Details.name }}</td>
+                                        <td>${{ticke_Details.unit_price }}</td>
+                                        <td>${{ticke_Details.total_price }}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="top_order_summary_space">
+                                        <td>Sub Total</td>
+                                        <td></td>
+                                        <td><b>${{sub_total}}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fees</td>
+                                        <td></td>
+                                        <td>${{total_fee}}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <div class="total_checkout">
+                                <span>Total</span>
+                                <b>${{total_amt}}</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="power_by">
+                Powered by The Promo App
+            </div>
+        </div>
+    </div>
+</div>
+</div>

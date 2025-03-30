@@ -1,0 +1,117 @@
+.event-share h3 {
+    color: #333333;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 28px;
+}
+
+.event-share span {
+    color: #666666;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.event-share .fa-facebook-f {
+    color: #4267B2;
+}
+
+.event-share .social-circle {
+    opacity: 1;
+}
+
+.event-share .social-circle[disabled] {
+    opacity: 0.5;
+}
+
+.event-share .fa-snapchat-ghost {
+    color: #F8EC1F;
+}
+
+.event-share .fa-whatsapp {
+    color: #29A81A;
+}
+
+.share-rewards-panel {
+    float: left;
+    width: 100%;
+}
+
+.share-rewards-panel .img-sec {
+    width: 240px;
+    float: left;
+    margin-right: 30px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.share-rewards-panel .content-side {
+    display: block;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.share-rewards-panel .social-circle {
+    float: left;
+}
+
+.share-rewards-panel .img-sec img {
+    width: 100%;
+    max-width: 260px;
+}
+
+.event-share .share-rewards-panel .content-side .social-circle {
+    cursor: auto !important;
+}
+
+.event-share-imgdecrption {
+    color: #666666;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 0;
+    margin-top: 30px;
+    width: 100%;
+    float: left;
+}
+
+.event-share-imgdecrption a {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.event-promo_del {
+    background: #ffffff;
+    border: 1px solid #EEEEEE;
+    box-shadow: none;
+    transition: box-shadow .24s cubic-bezier(.4, 0, .3, 1), background-color .24s cubic-bezier(.4, 0, .3, 1), -webkit-box-shadow .24s cubic-bezier(.4, 0, .3, 1) !important;
+    border-radius: 8px;
+}
+
+.event-promo_del .content-side {
+    padding: 20px 0 0 0;
+    margin-bottom: 0;
+}
+
+@media only screen and (max-width: 450px) {
+    .reward-mobile-card h2 {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+    .reward-mobile-card span {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+    .reward-mobile-card p {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+    .reward-mobile-card span {
+        padding: 0 20px;
+    }
+    .reward-mobile-card p {
+        padding: 0 20px;
+    }
+}

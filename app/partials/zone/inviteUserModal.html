@@ -1,0 +1,28 @@
+<div class="pa-modal-font">
+    <div class="modal-header bg-F9F9F9" style="border-radius: 6px 6px 0 0;">
+        <span class="custom-row pa-ml-10 pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Invite Zone <span class="pa-capitalize">{{status}}</span></span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+    <div class="pa-padding-15 auto-scroll">
+        <div class="row pa-bootstrap-row">
+            <div class="col-md-12">
+                <ui-select multiple tagging="tagTransform" tagging-tokens="SPACE|,|/" ng-model="selectedUsers.selectedUser" ng-change="checkAllValidMail()" theme="bootstrap" title="Choose a admin" on-select="afterSelection($item);" on-remove="afterRemoving($item);">
+                    <ui-select-match placeholder="Select person..."><img src="{{$item.iconImage}}" alt='image' />{{$item.email}}</ui-select-match>
+                    <ui-select-choices repeat="person in userListData | propsFilter: {name: $select.search, email: $select.search} | filter: $select.search | limitTo: ($select.search.length <= 2) ? 50 : 1000">
+                        <div ng-if="person.isTag" ng-bind-html="(person.name | highlight: $select.search) + ' (new)'"></div>
+                        <div ng-if="!person.isTag" ng-bind-html="person.name + person.isTag| highlight: $select.search"></div>
+                        <small>email: {{person.email}}</small>
+                    </ui-select-choices>
+                </ui-select>
+                <span class="pa-color-red" ng-if="errorMail && selectedUsers.selectedUser.length > 0">Please enter correct email address.</span>
+            </div>
+        </div>
+        <div class="row pa-bootstrap-row pa-mt-45">
+            <div class="col-md-12 pa-text-center">
+                <div ng-disabled="(selectedUsers.selectedUser.length == 0) || (errorMail)" ng-if="status == 'owner'" ng-click="inviteOwnerZone(selectedUsers.selectedUser)" class="inviteButton pa-background-pink pa-font-18 pa-modal-font pa-bold-font tt-padding-20 pa-mt-20 tt-mb-20 pa-cursor-pointer">Send Invitation</div>
+                <div ng-disabled="(selectedUsers.selectedUser.length == 0) || (errorMail)" ng-if="status == 'member'" ng-click="inviteMemberZone(selectedUsers.selectedUser)" class="inviteButton pa-background-pink pa-font-18 pa-modal-font pa-bold-font tt-padding-20 pa-mt-20 tt-mb-20 pa-cursor-pointer">Send Invitation</div>
+                <div ng-disabled="(selectedUsers.selectedUser.length == 0) || (errorMail)" ng-if="status == 'organizer'" ng-click="inviteOrganizerZone(selectedUsers.selectedUser)" class="inviteButton pa-background-pink pa-font-18 pa-modal-font pa-bold-font tt-padding-20 pa-mt-20 tt-mb-20 pa-cursor-pointer">Send Invitation</div>
+            </div>
+        </div>
+    </div>
+</div>

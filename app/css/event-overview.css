@@ -1,0 +1,114 @@
+.sv-changes {
+    display: block;
+    border: 1px solid #CBCBCB;
+    padding: 8px 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.15);
+}
+
+.sv-changes:hover {
+    text-decoration: none;
+    color: #A02740;
+}
+
+.event_overv_top {
+    display: flex;
+    align-items: center;
+}
+
+.event_overv_top .red_selct {
+    width: 500px;
+}
+
+.event_overv_top .red_selct .dropdown .dropdown-toggle {
+    height: 36px;
+    width: 410px;
+    border: 1px solid #E4E4E4;
+    border-radius: 4px;
+    background-color: #FBFBFB;
+    color: #9C2C2C;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 17px;
+    padding: 9px 12px 9px 20px;
+    text-transform: capitalize;
+}
+
+.event_overv_top .red_selct .dropdown .dropdown-toggle i {
+    opacity: 0.8;
+    color: #333333;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: 24px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+}
+
+.event_overv_top .red_selct .dropdown .dropdown-menu {
+    max-height: 208px;
+    overflow-y: auto;
+}
+
+.event_overv_top .red_selct .dropdown .dropdown-menu li a {
+    padding: 8px 12px;
+    text-transform: capitalize;
+}
+
+.event_overv_top .red_selct .dropdown .dropdown-menu li.active a {
+    background-color: #9C2C2C;
+    color: #fff;
+}
+
+.wht_head {
+    display: flex;
+    align-items: center;
+}
+
+.wht_head i {
+    color: rgb(153 153 153 / 0.80);
+    font-size: 22px;
+    margin: 0 0 0 10px;
+}
+
+.prog_val.tb_rt {
+    float: right;
+    width: 80px;
+}
+
+.progressbar {
+    float: right;
+}
+
+.progressbar progress[value] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 80px;
+    height: 10px;
+    vertical-align: middle;
+    margin-right: 12px;
+}
+
+.progressbar progress[value]::-webkit-progress-bar {
+    background-color: #E4E4E4;
+    border-radius: 5px;
+}
+
+progress[value]::-webkit-progress-value {
+    background-color: #B03D58;
+    border-radius: 5px;
+}
+
+.progressbar progress[value]+span {
+    color: #333333;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 17px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.highcharts-container .highcharts-root .highcharts-credits {
+    display: none;
+}

@@ -1,0 +1,74 @@
+
+<div ng-class="{'full-vh-scroll': loading}">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div ng-hide="value" class="mobile-header display-flex-mob tersm _mobileheade">
+        <span class="back-btn-mobile">
+            <a back-to-history><i class="material-icons">arrow_back_ios</i></a>
+        </span>
+    </div>
+
+    <!-- Blog Search Popup -->
+    <div class="blg_search_section_wrp" ng-class="{'open': openSearchView}">
+        <div ng-include="'partials/blog/blogSearch.html'"></div>
+        <button class="srch_close" ng-click="openSearchView=false;"><span class="material-icons">close</span></button>
+    </div>
+    <!-- Blog Search Popup End -->
+
+    <!-- Blog Container -->
+    <div class="blog_container" ng-class="{'openSearchBlog': openSearchView}">
+        <!-- Blog Top bar -->
+        <div class="blog_top_bar">
+            <div class="blog_top_bar_lt">
+                <ul class="blg_nv">
+                    <li ng-repeat="item in categoryData">
+                        <a ng-href="/blog/{{item.slug}}?cat={{item.id}}" ng-bind-html="item.name"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blog_top_bar_rt">
+                <button class="blg_searchbar" ng-click="openSearchView=true;"><span class="material-icons">search</span></button>
+            </div>
+        </div>
+        <!-- Blog Top bar -->
+        <div class="blog_top_section_wrap blog_events_wrap">
+            <h3 class="hdm">{{tagName | removeDash}}</h3> 
+            <div class="blog_lt_del" ng-class="{'full-width-section': blogTagData.length == 0 }">
+                <div class="srch_blg_ins_list full hm_highlight" data-ng-show="firstBlogTagData">
+                    <figure class="img">
+                        <a href="/blog/{{firstBlogTagData.id}}/{{firstBlogTagData.slug}}"><img ng-src="{{firstBlogTagData.image}}" alt=""></a>
+                    </figure>
+                    <span class="srch_blg_hd" ng-bind-html="firstBlogTagData.catName"></span>
+                    <a ng-href="/blog/{{firstBlogTagData.id}}/{{firstBlogTagData.slug}}" class="srch_blg_title" ng-bind-html="firstBlogTagData.title.rendered"></a>
+                    <div class="dt_com_lit">
+                        <div class="blog-date"><span class="material-icons">calendar_today</span> {{firstBlogTagData.date | toMoment | momentFormatter:"MMMM DD, YYYY"}}</div>
+                        <div class="blog-date"><span class="material-icons">person</span> {{firstBlogTagData.userName}}</div>
+                        <!-- <div class="blog-date"><span class="material-icons">question_answer</span> <a href="#">Comments</a></div> -->
+                        <div class="blog-date"><span class="material-icons">local_offer</span> {{tagName}}</div>
+                    </div>
+                    <p class="para">Josef Bodine, UX design lead at IBM, shares his three best tips for walking that fine line between free-flowing brainstorming and effective time management. </p>
+                </div>
+            </div>
+
+            <div class="blog_rt_list" >
+                <div class="srch_blg_ins_list full hm_stlist tag_blog_image" data-ng-show="blogTagData.length > 0" ng-repeat="item in blogTagData">
+                    <figure class="img">
+                        <a ng-href="/blog/{{item.id}}/{{item.slug}}"><img ng-src="{{item.image}}" alt=""></a>
+                    </figure>
+                    <div class="rc_stories_lt">
+                        <span class="srch_blg_hd" ng-bind-html="item.catName"></span>
+                        <a ng-href="/blog/{{item.id}}/{{item.slug}}" class="srch_blg_title" ng-bind-html="item.title.rendered"></a>
+                        <div class="dt_com_lit">
+                            <div class="blog-date"><span class="material-icons">calendar_today</span> {{item.date | toMoment | momentFormatter:"MMMM DD, YYYY"}}</div>
+                            <div class="blog-date"><span class="material-icons">person</span> {{item.userName}}</div>
+                            <!-- <div class="blog-date"><span class="material-icons">question_answer</span> <a href="#">Comments</a></div> -->
+                            <div class="blog-date"><span class="material-icons">local_offer</span> {{tagName}}</div>
+                        </div>
+                        <p class="para" ng-bind-html="item.excerpt.rendered"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Blog Top bar End -->
+    </div>
+    <!-- Blog Container End -->
+</div>

@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <span class="modal-title" id="modal-title">Email to Friends and colleagues </span>
+    <a ng-click="cancel()">
+        <span class="modal-close-button">
+            <i class="material-icons">close</i>
+        </span>
+    </a>
+</div>
+<div class="modal-body email-sharing-popup">
+    <form ng-submit="sendEmail(selectedEvent);" name="sendEmailModal1">
+        <div class="modal-body" id="modal-body" style="text-align:justify;">
+            <input type="text" placeholder="Your Name" required ng-model="value.name">
+            <br/>
+            <!--input type="email" required placeholder="Your Email Address"  ng-model="defaultEmail" class="hidden" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" -->
+            <span class="email-text">To:</span><input type="text" placeholder="To" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-model="value.to" required>
+
+            <br/>
+            <input rows="3" type="text" value="You are invited to {{emailModalTitle}}" readonly>
+            <hr style="margin-bottom:10px;">
+            <br rows="5"
+                placeholder="Your Message" >{{value.name }} has shared {{emailModalTitle}} with you.</br></br>
+            <span style="word-wrap: break-word;" ta-bind ng-model="emailModalSelectedEventDescription"></sapn> <br/><br/> {{shareURL}} <br/><br />George @ The Promo App
+            </textarea>
+            <hr>
+        </div>
+        <div class="modal-footer">
+            <md-button class="pa-pink-button" type="submit" ng-disabled="sendEmailModal1.$invalid" >Submit
+            </md-button>
+        </div>
+    </form>
+</div>

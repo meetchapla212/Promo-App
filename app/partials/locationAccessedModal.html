@@ -1,0 +1,32 @@
+<div class="custom-model-content">
+    <div class="modal-body pa-padding-30">
+        <div layout="column" layout-align="center center" class="mobile-hide">
+            <md-icon class="pa-color-pink pa-font-42 material-icons pa_Width_auto pa-height-auto-imp">settings</md-icon>
+            <div class="pa-font-24 pa-color-333333 pa-bold-font pa-mt-16">Location Access Blocked</div>
+            <p class="pa-color-666666 pa-font-16 pa-mt-16 pa-text-center">
+                You have denied permission for the Promo App to access your location.<br />
+                You will need to update your browser settings to re-enable.
+            </p>
+            <div class="pa-text-center">
+                <md-button ng-click="cancel()" class="pa-border-4 h-48 w-270 pa-pink-button pa-bold-font pa-mt-16">
+                    Ok, I understand
+                </md-button>
+            </div>
+        </div>
+        <div layout="column" layout-align="center center" class="desktop-hide">
+            <div class="pa-center-div layout-column">
+                <md-icon class="pa-color-pink pa-font-42 material-icons pa_Width_auto pa-height-auto-imp">settings</md-icon>
+                <div class="pa-font-24 pa-color-333333 pa-bold-font pa-mt-16 pa-text-center">Location Access Required</div>
+                <p class="pa-color-666666 pa-font-16 pa-mt-16 pa-text-center">
+                    We need access to your location to get your current location.<br />
+                    Please allow location access for Promo App.
+                </p>
+                <div class="pa-text-center">
+                    <md-button ng-click="cancel()" class="pa-border-4 h-48 w-270 pa-pink-button pa-bold-font pa-mt-16">
+                        Ok, I understand
+                    </md-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

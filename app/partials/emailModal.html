@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <span class="modal-title" id="modal-title">Email to Event Organizer  </span>
+    <a ng-click="cancel()">
+        <span class="pa-color-FFFFFF pa-font-14 pa-padding-6">
+            <i class="material-icons">close</i>
+        </span>
+    </a>
+</div>
+<div class="modal-body" style="">
+    <form ng-submit="sendEmailToOrganizer(eventDetailsData); cancel();" name="sendEmailDescModal">
+        <div class="modal-body desc-email-modal-body" id="modal-body" style="text-align:justify;">
+            <input type="text" placeholder="Your Name" required ng-model="name" >
+            <hr>
+            <input type="email" placeholder="Your Email Address"  ng-model="emailFrom" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+            <hr>
+            <input rows="3" type="text" ng-if="eventDetailsData.title" value="New Message Regarding {{eventDetailsData.title}}" readonly>
+            <input rows="3" type="text" ng-if="eventDetailsData.event_name" value="New Message Regarding {{eventDetailsData.event_name}}" readonly>
+            <hr>
+            Message:<textarea rows="5"  required ng-model="message"></textarea>
+            <hr style="margin-bottom:10px;">
+            <!--div>
+                Thanks,
+            </div>
+            <div>{{name}}</div>
+            <br/><br/>
+            <span style="word-wrap: break-word;" ng-if="eventDetailsData.title">Sent via the promo app for the event {{eventDetailsData.title}}</span>
+            <span style="word-wrap: break-word;" ng-if="eventDetailsData.event_name">Sent via the promo app for the event {{eventDetailsData.event_name}}</span>
+            <br/><br/> {{scopeURL}} <br/><br />George @ The Promo App
+            </textarea>
+            <hr-->
+        </div>
+        <div class="modal-footer">
+            <button class="btn" type="submit" ng-disabled="sendEmailDescModal.$invalid" >Submit
+            </button>
+        </div>
+    </form>
+
+</div>

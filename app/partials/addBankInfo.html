@@ -1,0 +1,126 @@
+<div class="popup-perent rewardtermspopup addBank-account custom-model-content requriedn edit_bank_acount_dt">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Enter Bank Account
+            Details </span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+    <div class="modal-body pa-text-center pa-background-white">
+        <div class="rewardpopup-content form-poup-congratulations">
+            <form name="addBankAccount" novalidate id="backAccountAdd" ng-submit="createBankToken(bankAccountParams, addBankAccount);"  autocomplete="off">
+                <div class="accout-details-form">
+                    <div class="congratulations-form-filed">
+                        <div class="row pa-mt-10 ">
+                            <div class="col-md-6">
+                                <md-input-container class="drop_with_cart">
+                                    <label>In Which Country Will You Be Paid? <p class="pa-required" style="display:inline-block; margin:0;">*</p></label>
+                                    <select ng-disabled="(user.stripe_country == 'US') ? true : false" md-container-class="event-form-select ht-48 md-icon-float md-icon-right" name="country" class="pa-border-CBCBCB ht-48" ng-model="bankAccountParams.country" ng-change="changeCountry(bankAccountParams.country)">
+                                        <option ng-repeat="item in dropdowns.payout_country.options" ng-value="item.key">
+                                              {{item.value}}
+                                        </option>
+                                    </select>
+                                </md-input-container>
+                            </div>
+                            <div class="col-md-6">
+                                <md-input-container class="drop_with_cart">
+                                    <label>Currency <p class="pa-required" style="display:inline-block; margin:0;">*</p></label>
+                                    <select id="selectCurrency" md-container-class="event-form-select ht-48 md-icon-float md-icon-right" name="currency" disabled class="pa-border-CBCBCB ht-48" ng-model="bankAccountParams.currency">
+                                        <option ng-repeat="item in dropdowns.payout_currency.options" ng-value="item.key">
+                                              {{item.value}}
+                                        </option>
+                                    </select>
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div class="row pa-mt-10 ">
+                            <div class="col-md-12 group-de-radio-button">
+                                <md-radio-group ng-model="bankAccountParams.account_holder_type">
+                                    <label>Account Holder Information <p class="pa-required" style="display:inline-block; margin:0;">*</p></label>
+                                    <md-radio-button value="individual" style="margin-top: 15px;">Individual</md-radio-button>
+                                    <md-radio-button value="company"> Company </md-radio-button>
+                                </md-radio-group>
+                            </div>
+                        </div>
+
+                        <div class="row pa-mt-10 ">
+                            <div class="col-md-6">
+                                <md-input-container ng-class="">
+                                    <label>Name On Account <p class="pa-required" style="display:inline-block; margin:0;">*</p></label>
+                                    <input md-no-asterisk ng-model="bankAccountParams.account_holder_first_name" name="accountHolderFirstName" type="text" ng-required="addBankAccount.accountHolderFirstName.$invalid" placeholder="First Name">
+                                    <div ng-messages="addBankAccount.accountHolderFirstName.$error" class="input-error">
+                                        <div ng-message="required">This field is required.</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div class="col-md-6">
+                                <md-input-container>
+                                    <label></label>
+                                    <input ng-model="bankAccountParams.account_holder_last_name" name="accountHolderLastName" type="text" ng-required="addBankAccount.accountHolderLastName.$invalid" placeholder="Last Name">
+                                    <div ng-messages="addBankAccount.accountHolderLastName.$error" class="input-error">
+                                        <div ng-message="required">This field is required.</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div class="row pa-mt-10" ng-if="bankAccountParams.country === 'US'">
+                            <div class="col-md-12">
+                                <md-input-container>
+                                    <label>Routing Number <p class="pa-required" style="display:inline-block; margin:0;">*</p></label>
+                                    <a href="javascript:void(0)" class="customtooltip event_tool" style="left: 119px;top: -24px;" uib-tooltip="Routing number must be less than & equal to 9 digits." tooltip-placement="right"><i class="material-icons">help_outline</i></a>
+                                    <input ng-model="bankAccountParams.routing_number" name="routingNumber" type="text" ng-required="addBankAccount.routingNumber.$invalid" placeholder="Enter Routing Number" maxlength="9" ng-minlength="9">
+                                    <div ng-messages="addBankAccount.routingNumber.$error" class="input-error">
+                                        <div ng-message="required">This field is required.</div>
+                                        <div ng-message="minlength"> Routing Number length should be 9.</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div class="row pa-mt-10" ng-if="bankAccountParams.country === 'GB'">
+                            <div class="col-md-12">
+                                <md-input-container>
+                                    <label>Sort Code<p class="pa-required" style="display:inline-block; margin:0;">*</p></label>
+                                    <a href="javascript:void(0)" class="customtooltip event_tool" style="left: 75px;top: -24px;" uib-tooltip="Sort Code must be less than & equal to 6 digits." tooltip-placement="right"><i class="material-icons">help_outline</i></a>
+                                    <input ng-model="bankAccountParams.sort_code" name="sortCode" autocomplete="off" type="text" ng-required="addBankAccount.sortCode.$invalid" placeholder="Enter Sort Code" maxlength="6" ng-minlength="6">
+                                    <div ng-messages="addBankAccount.sortCode.$error" class="input-error">
+                                        <div ng-message="required">This field is required.</div>
+                                        <div ng-message="minlength"> Routing Number length should be 6.</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div class="row pa-mt-10">
+                            <div class="col-md-6">
+                                <md-input-container>
+                                    <label>Account Number</label>
+                                    <a href="javascript:void(0)" class="customtooltip event_tool" style="left: 122px;top: -24px;" uib-tooltip="Account number must be less than & equal to 12 digits." tooltip-placement="bottom"><i class="material-icons">help_outline</i></a>
+                                    <input stopccp ng-model="bankAccountParams.re_account_number" name="reAccountNumber" autocomplete="new-password" type="text" ng-required="addBankAccount.reAccountNumber.$invalid" placeholder="Account Number" maxlength="12">
+                                    <div ng-messages="addBankAccount.reAccountNumber.$error" class="input-error">
+                                        <div ng-message="required">This field is required.</div>
+                                        <div ng-message="compareToNew">Account number and Re-enter Account Number not matched.</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div class="col-md-6">
+                                <md-input-container>
+                                    <label>Re-enter Account Number</label>
+                                    <a href="javascript:void(0)" class="customtooltip event_tool" style="left: 182px;top: -24px;" uib-tooltip="Account number must be less than & equal to 12 digits." tooltip-placement="bottom"><i class="material-icons">help_outline</i></a>
+                                    <input ng-model="bankAccountParams.account_number" name="accountNumber" autocomplete="re-password" type="text" ng-required="addBankAccount.accountNumber.$invalid" placeholder="Re-enter Account Number" maxlength="12" compare-to-new="bankAccountParams.re_account_number">
+                                    <div ng-messages="addBankAccount.accountNumber.$error" class="input-error">
+                                        <div ng-message="required">This field is required.</div>
+                                        <div ng-message="compareToNew">Account number and Re-enter Account Number not matched.</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pa-display-flex pa-align-center pa-justify-flex-end pa-mb-20">
+                    <button type="submit" class="md-button pa-pink-button pa-no-margin-imp md-button md-ink-rippl md-button md-ink-ripple">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

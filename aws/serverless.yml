@@ -1,0 +1,1484 @@
+service: promoapp
+
+plugins:
+    - serverless-domain-manager
+    - serverless-plugin-split-stacks
+    - serverless-prune-plugin
+    - serverless-offline
+
+custom:
+    splitStacks:
+        nestedStackCount: 20 # Controls the number of created nested stacks
+        perFunction: true
+        perType: true
+        perGroupFunction: true
+    customDomain:
+        domainName: api${file(env-${opt:stage}.json):API_PREFIX}.thepromoapp.com
+        basePath: "v1"
+        stage: ${opt:stage}
+        createRoute53Record: true
+
+provider:
+    name: aws
+    runtime: nodejs14.x
+    region: eu-west-1
+    iamRoleStatements:
+        - Effect: Allow
+          Resource: "*"
+          Action:
+              - "rds:*"
+        - Effect: Allow
+          Resource: "*"
+          Action:
+              - "cloudwatch:*"
+        - Effect: Allow
+          Resource: "*"
+          Action:
+              - "ses:*"
+        - Effect: Allow
+          Resource: "*"
+          Action:
+              - "sns:*"
+        - Effect: Allow
+          Resource: "*"
+          Action:
+              - "dynamodb:*"
+        - Effect: Allow
+          Resource: "*"
+          Action:
+              - "lambda:*"
+              - "s3:*"
+    apiKeys:
+        - ${opt:stage}-promoRESTKey1
+    usagePlan:
+        quota:
+            limit: 10000
+            offset: 2
+            period: MONTH
+        throttle:
+            burstLimit: 200
+            rateLimit: 100
+
+    environment:
+        QB_APP_ID: ${file(env-${opt:stage}.json):QB_APP_ID}
+        QB_AUTH_KEY: ${file(env-${opt:stage}.json):QB_AUTH_KEY}
+        QB_AUTH_SECRET: ${file(env-${opt:stage}.json):QB_AUTH_SECRET}
+        QB_LOGIN: ${file(env-${opt:stage}.json):QB_LOGIN}
+        QB_PASSWORD: ${file(env-${opt:stage}.json):QB_PASSWORD}
+        STAGE: ${opt:stage}
+        PROMO_ADMIN_ID: ${file(env-${opt:stage}.json):PROMO_ADMIN_ID}
+        DB_HOST: ${file(env-${opt:stage}.json):DB_HOST}
+        DB_NAME: ${file(env-${opt:stage}.json):DB_NAME}
+        DB_USER: ${file(env-${opt:stage}.json):DB_USER}
+        DB_PASSWORD: ${file(env-${opt:stage}.json):DB_PASSWORD}
+        SHARED_SECRET: ${file(env-${opt:stage}.json):SHARED_SECRET}
+        UI_BASE_URL: ${file(env-${opt:stage}.json):UI_BASE_URL}
+
+functions:
+    # runWeeklyJobForEvents:
+    #   handler: lambda/runWeeklyJobForEvents.handler
+    #   memorySize: 512
+    #   timeout: 300
+    #   environment:
+    #     REGION: eu-west-1
+    #     LAMBDA_GET_EVENTS_FROM_PHQ: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-getEventsFromPHQ
+    #     LAMBDA_GET_EVENTS_FROM_GPL: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-getEventsFromGPL
+    #   events:
+    #     - schedule: cron(0 1 ? * MON *)
+
+    # getEventsFromPHQ:
+    #   handler: lambda/getEventsFromPHQ.handler
+    #   memorySize: 512
+    #   timeout: 300
+    #   environment:
+    #     REGION: eu-west-1
+    #     categories: "concerts,festivals,performing-arts,community,sports,politics"
+    #     PHQ_BASE_URL: "https://api.predicthq.com/v1"
+    #     PHQ_KEY: "QkS36BT4mfKRCrahrK1P1nyI7vYgp1"
+    #     LAMBDA_POST_EVENTS_TO_QB: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-addEvents
+
+    # getEventsFromGPL:
+    #   handler: lambda/getEventsFromGPL.handler
+    #   memorySize: 512
+    #   timeout: 900
+    #   environment:
+    #     REGION: eu-west-1
+    #     categories: "Concerts,Festival,Performing Arts,Community,Sports,Politics"
+    #     GPL_BASE_URL: ${file(env-${opt:stage}.json):GPL_BASE_URL}
+    #     GPL_API_KEY: ${file(env-${opt:stage}.json):GPL_API_KEY}
+    #     LAMBDA_POST_EVENTS_TO_QB: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-addEvents
+
+    # addEvents:
+    #   handler: lambda/post.handler
+    #   environment:
+    #     QB_APP_ID: ${file(env-${opt:stage}.json):QB_APP_ID}
+    #     QB_AUTH_KEY: ${file(env-${opt:stage}.json):QB_AUTH_KEY}
+    #     QB_AUTH_SECRET: ${file(env-${opt:stage}.json):QB_AUTH_SECRET}
+    #     QB_LOGIN: ${file(env-${opt:stage}.json):QB_LOGIN}
+    #     QB_PASSWORD: ${file(env-${opt:stage}.json):QB_PASSWORD}
+    #     PEXELS_AUTHORIZATION_KEY: ${file(env-${opt:stage}.json):PEXEL_KEY}
+    #     IMAGES_TABLE: eventimages${file(env-${opt:stage}.json):DB_PREFIX}
+    #     REGION: eu-west-1
+    #   memorySize: 512
+    #   timeout: 30
+    #   events:
+    #     - http:
+    #         path: /events
+    #         method: post
+    #         cors: true
+
+    shareEvents:
+        handler: lambda/email.handler
+        environment:
+            Region: ${self:provider.region}
+            FROM: ${file(env-${opt:stage}.json):FROM}
+        memorySize: 512
+        timeout: 30
+        events:
+            - http:
+                  path: /share/email
+                  method: post
+                  cors: true
+
+    sendEmailToPHQ:
+        handler: lambda/emailToPHQ.handler
+        environment:
+            Region: ${self:provider.region}
+        memorySize: 512
+        timeout: 30
+        events:
+            - http:
+                  path: /emails/{type}
+                  method: post
+                  cors: true
+
+    # shareEventCounter:
+    #   handler: lambda/shareCounter.handler
+    #   environment:
+    #     QB_APP_ID: ${file(env-${opt:stage}.json):QB_APP_ID}
+    #     QB_AUTH_KEY: ${file(env-${opt:stage}.json):QB_AUTH_KEY}
+    #     QB_AUTH_SECRET: ${file(env-${opt:stage}.json):QB_AUTH_SECRET}
+    #     QB_LOGIN: ${file(env-${opt:stage}.json):QB_LOGIN}
+    #     QB_PASSWORD: ${file(env-${opt:stage}.json):QB_PASSWORD}
+    #   memorySize: 512
+    #   timeout: 30
+    #   events:
+    #     - http:
+    #         path: /share
+    #         method: post
+    #         cors: true
+
+    subscribeEmail:
+        handler: lambda/emailoctopus.handler
+        timeout: 30
+        environment:
+            LIST_ID: ${file(env-${opt:stage}.json):LIST_ID}
+            EMAIL_BASE_URL: https://emailoctopus.com/api/1.2
+            API_KEY: ${file(env-${opt:stage}.json):API_KEY}
+            LAMBDA_SYNC: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-syncUsers
+        events:
+            - http:
+                  path: subscribe
+                  method: post
+                  cors: true
+
+    unSubscribeEmail:
+        handler: lambda/unsubscribe.handler
+        timeout: 30
+        environment:
+            QB_APP_ID: ${file(env-${opt:stage}.json):QB_APP_ID}
+            QB_AUTH_KEY: ${file(env-${opt:stage}.json):QB_AUTH_KEY}
+            QB_AUTH_SECRET: ${file(env-${opt:stage}.json):QB_AUTH_SECRET}
+            QB_LOGIN: ${file(env-${opt:stage}.json):QB_LOGIN}
+            QB_PASSWORD: ${file(env-${opt:stage}.json):QB_PASSWORD}
+        events:
+            - http:
+                  path: /event/{id}/unsubscribe
+                  method: put
+                  cors: true
+
+    # paymentgateway:
+    #   handler: lambda/paymentgateway.handler
+    #   timeout: 30
+    #   environment:
+    #     STRIPE_KEY: ${file(env-${opt:stage}.json):STRIPE_KEY}
+    #   events:
+    #     - http:
+    #         path: /user/{id}/billinghistory
+    #         method: GET
+    #         cors: true
+    #         private: true
+    #     - http:
+    #         path: /user/{id}/card
+    #         method: POST
+    #         cors: true
+    #         private: true
+    #     - http:
+    #         path: /user/{id}/completetransaction
+    #         method: POST
+    #         cors: true
+    #         private: true
+    #     - http:
+    #         path: /user/unsubscribestripe
+    #         method: POST
+    #         cors: true
+    #         private: true
+
+    # runDailyJobForEvents:
+    #   handler: lambda/runDailyJobForEvents.handler
+    #   environment:
+    #     QB_APP_ID: ${file(env-${opt:stage}.json):QB_APP_ID}
+    #     QB_AUTH_KEY: ${file(env-${opt:stage}.json):QB_AUTH_KEY}
+    #     QB_AUTH_SECRET: ${file(env-${opt:stage}.json):QB_AUTH_SECRET}
+    #     QB_LOGIN: ${file(env-${opt:stage}.json):QB_LOGIN}
+    #     QB_PASSWORD: ${file(env-${opt:stage}.json):QB_PASSWORD}
+    #   events:
+    #     # Invoke Lambda function every 30 minutes
+    #     - schedule: rate(30 minutes)
+
+    locationAccessCounter:
+        handler: lambda/locationaccess.handler
+        environment:
+            LOCATION_TABLE: locationaccess${file(env-${opt:stage}.json):DB_PREFIX}
+            LOCATION_TABLE_TILL_DATE: locationaccesstilldate${file(env-${opt:stage}.json):DB_PREFIX}
+        memorySize: 512
+        timeout: 30
+        events:
+            - http:
+                  path: /location/access
+                  method: post
+                  cors: true
+
+    getTopCities:
+        handler: lambda/getTopCities.handler
+        environment:
+            CITY_TABLE: cityaccess${file(env-${opt:stage}.json):DB_PREFIX}
+            LAMBDA_GET_EVENTS_FROM_PHQ: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-getEventsFromPHQ
+        memorySize: 512
+        timeout: 300
+        events:
+            - schedule: cron(10 1 ? * MON *)
+
+    getTopLocations:
+        handler: lambda/getTopLocations.handler
+        environment:
+            LOCATION_TABLE: locationaccess${file(env-${opt:stage}.json):DB_PREFIX}
+            LAMBDA_GET_EVENTS_FROM_PHQ: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-getEventsFromPHQ
+        memorySize: 512
+        timeout: 300
+        events:
+            - schedule: cron(15 1 ? * MON *)
+
+    cityAccessCounter:
+        handler: lambda/cityaccess.handler
+        environment:
+            CITY_TABLE: cityaccess${file(env-${opt:stage}.json):DB_PREFIX}
+        memorySize: 512
+        timeout: 300
+        events:
+            - stream: arn:aws:dynamodb:eu-west-1:576180419135:table/locationaccess-test/stream/2018-04-30T11:38:58.344
+
+    # getCouponCode:
+    #   handler: lambda/getcouponcode.handler
+    #   environment:
+    #     STRIPE_KEY: ${file(env-${opt:stage}.json):STRIPE_KEY}
+    #   memorySize: 512
+    #   timeout: 30
+    #   events:
+    #     - http:
+    #         path: coupon/{id}
+    #         method: get
+    #         cors: true
+    #         private: true
+
+    # getEventsFromQB:
+    #   handler: lambda/getEventsFromQB.handler
+    #   memorySize: 512
+    #   timeout: 30
+    #   environment:
+    #     QB_APP_ID: ${file(env-${opt:stage}.json):QB_APP_ID}
+    #     QB_AUTH_KEY: ${file(env-${opt:stage}.json):QB_AUTH_KEY}
+    #     QB_AUTH_SECRET: ${file(env-${opt:stage}.json):QB_AUTH_SECRET}
+    #     QB_LOGIN: ${file(env-${opt:stage}.json):QB_LOGIN}
+    #     QB_PASSWORD: ${file(env-${opt:stage}.json):QB_PASSWORD}
+    #   runtime: nodejs14.x
+    #   events:
+    #     - http:
+    #         path: events
+    #         method: get
+    #         cors: true
+    #         private: true
+
+    # createTicket:
+    #   handler: lambda/createticket.handler
+    #   environment:
+    #     REGION: ${file(env-${opt:stage}.json):REGION}
+    #     API_PREFIX: ${file(env-${opt:stage}.json):API_PREFIX}
+    #     QB_APP_ID: ${file(env-${opt:stage}.json):QB_APP_ID}
+    #     QB_AUTH_KEY: ${file(env-${opt:stage}.json):QB_AUTH_KEY}
+    #     QB_AUTH_SECRET: ${file(env-${opt:stage}.json):QB_AUTH_SECRET}
+    #     QB_LOGIN: ${file(env-${opt:stage}.json):QB_LOGIN}
+    #     QB_PASSWORD: ${file(env-${opt:stage}.json):QB_PASSWORD}
+    #     SHARED_SECRET: ${file(env-${opt:stage}.json):SHARED_SECRET}
+    #     UI_BASE_URL: ${file(env-${opt:stage}.json):UI_BASE_URL}
+    #   memorySize: 512
+    #   timeout: 30
+    #   events:
+    #     - http:
+    #         path: events/tickets
+    #         method: post
+    #         cors: true
+    #         private: true
+
+    # paymentsuccess:
+    #   handler: lambda/paymentsuccess.handler
+    #   memorySize: 512
+    #   timeout: 30
+    #   environment:
+    #     LAMBDA_APPROVE_TICKET: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-approveTicket
+    #     UI_BASE_URL: ${file(env-${opt:stage}.json):UI_BASE_URL}
+    #   events:
+    #     - http:
+    #         path: tickets/paypal
+    #         method: post
+    #         #cors: true
+
+    approveTicket:
+        handler: lambda-v2/billing/approveTicket.handler
+        environment:
+            REGION: ${file(env-${opt:stage}.json):REGION}
+            FROM: ${file(env-${opt:stage}.json):FROM}
+            UI_BASE_URL: ${file(env-${opt:stage}.json):UI_BASE_URL}
+        memorySize: 512
+        timeout: 30
+        events:
+            - http:
+                  path: events/tickets/{id}
+                  method: put
+                  cors: true
+                  #private: true
+
+    # confirmTicket:
+    #   handler: lambda/confirmticket.handler
+    #   environment:
+    #     QB_APP_ID: ${file(env-${opt:stage}.json):QB_APP_ID}
+    #     QB_AUTH_KEY: ${file(env-${opt:stage}.json):QB_AUTH_KEY}
+    #     QB_AUTH_SECRET: ${file(env-${opt:stage}.json):QB_AUTH_SECRET}
+    #     QB_LOGIN: ${file(env-${opt:stage}.json):QB_LOGIN}
+    #     QB_PASSWORD: ${file(env-${opt:stage}.json):QB_PASSWORD}
+    #   memorySize: 512
+    #   timeout: 30
+    #   events:
+    #     - http:
+    #         path: events/scan
+    #         method: post
+    #         cors: true
+    #         private: true
+
+    # updateEvent:
+    #   handler: lambda/updateevent.handler
+    #   memorySize: 512
+    #   timeout: 30
+    #   environment:
+    #     UI_BASE_URL: ${file(env-${opt:stage}.json):UI_BASE_URL}
+    #     STRIPE_KEY: ${file(env-${opt:stage}.json):STRIPE_KEY}
+    #   events:
+    #     - http:
+    #         path: events/{event_id}
+    #         method: put
+    #         cors: true
+    #         private: true
+
+    # searchEvents:
+    #   handler: lambda/searchevents.handler
+    #   memorySize: 512
+    #   timeout: 30
+    #   environment:
+    #     QB_APP_ID: ${file(env-${opt:stage}.json):QB_APP_ID}
+    #     QB_AUTH_KEY: ${file(env-${opt:stage}.json):QB_AUTH_KEY}
+    #     QB_AUTH_SECRET: ${file(env-${opt:stage}.json):QB_AUTH_SECRET}
+    #     QB_LOGIN: ${file(env-${opt:stage}.json):QB_LOGIN}
+    #     QB_PASSWORD: ${file(env-${opt:stage}.json):QB_PASSWORD}
+    #     GPL_BASE_URL: ${file(env-${opt:stage}.json):GPL_BASE_URL}
+    #     GPL_API_KEY: ${file(env-${opt:stage}.json):GPL_API_KEY}
+    #     PEXELS_AUTHORIZATION_KEY: ${file(env-${opt:stage}.json):PEXEL_KEY}
+    #     IMAGES_TABLE: eventimages${file(env-${opt:stage}.json):DB_PREFIX}
+    #     REGION: eu-west-1
+    #   events:
+    #     - http:
+    #         path: events/search
+    #         method: post
+    #         cors: true
+    #         private: true
+
+    getStates:
+        handler: lambda/getstates.handler
+        memorySize: 512
+        timeout: 30
+        events:
+            - http:
+                  path: states/{country}
+                  method: get
+                  cors: true
+                  private: false
+
+    # adminreject:
+    #   handler: lambda/adminreject.handler
+    #   memorySize: 512
+    #   timeout: 30
+    #   environment:
+    #     UI_BASE_URL: ${file(env-${opt:stage}.json):UI_BASE_URL}
+    #     SHARED_SECRET: "616161"
+    #   events:
+    #     - http:
+    #         path: admin/reject/{id}
+    #         method: get
+    #         cors: true
+
+    # createpromoevent:
+    #   handler: lambda/createpromoevent.handler
+    #   memorySize: 512
+    #   timeout: 30
+    #   environment:
+    #     STRIPE_KEY: ${file(env-${opt:stage}.json):STRIPE_KEY}
+    #     UI_BASE_URL: ${file(env-${opt:stage}.json):UI_BASE_URL}
+    #   events:
+    #     - http:
+    #         path: events/promo
+    #         method: post
+    #         cors: true
+    #         private: true
+
+    # syncUsers:
+    #   handler: lambda/syncUsers.handler
+    #   timeout: 900
+    #   events:
+    #     - schedule: cron(45 23 * * ? *)
+
+    authentication:
+        handler: lambda-v2/auth/auth.handler
+        memorySize: 512
+        timeout: 30
+        environment:
+            UI_BASE_URL: ${file(env-${opt:stage}.json):UI_BASE_URL}
+            RESET_PASSWORD_URL: ${file(env-${opt:stage}.json):RESET_PASSWORD_URL}
+            FROM: ${file(env-${opt:stage}.json):FROM}
+            REGION: eu-west-1
+        events:
+            - http:
+                  path: /auth/login
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/admin-login
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/register
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/registerv2
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/forgotpassword
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/changepassword
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/logout
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/resetpassword
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/verifyOTP
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/verifyOTPv2
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/finishRegistration
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/sendOTP
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/resetPasswordPhone
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/resetPasswordPhoneUpdated
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/sendVerificationEmail
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/verify-email
+                  method: POST
+                  cors: true
+
+    token:
+        handler: lambda-v2/token/token.handler
+        memorySize: 512
+        timeout: 30
+        events:
+            - http:
+                  path: /token
+                  method: POST
+                  cors: true
+
+    profile:
+        handler: lambda-v2/profile/profile.handler
+        memorySize: 512
+        timeout: 30
+        environment:
+            API_PREFIX: ${file(env-${opt:stage}.json):API_PREFIX}
+            REGION: eu-west-1
+        events:
+            - http:
+                  path: /profile/{user_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /qb_user/{qb_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /profile/update
+                  method: POST
+                  cors: true
+            - http:
+                  path: /profile/getFollowerList
+                  method: GET
+                  cors: true
+            - http:
+                  path: /profile/getFollowingList
+                  method: GET
+                  cors: true
+            - http:
+                  path: /profile/getInterestedEventsList
+                  method: GET
+                  cors: true
+            - http:
+                  path: /profile/getGoingEventsList
+                  method: GET
+                  cors: true
+            - http:
+                  path: /profile/updatePaypalEmail
+                  method: POST
+                  cors: true
+            - http:
+                  path: /profile/getFollowList
+                  method: GET
+                  cors: true
+
+    eventSearch:
+        handler: lambda-v2/event/getSearchEvent.handler
+        memorySize: 512
+        timeout: 30
+        environment:
+            API_PREFIX: ${file(env-${opt:stage}.json):API_PREFIX}
+            REGION: eu-west-1
+            UI_BASE_URL: ${file(env-${opt:stage}.json):UI_BASE_URL}
+            GPL_BASE_URL: ${file(env-${opt:stage}.json):GPL_BASE_URL}
+            GPL_API_KEY: ${file(env-${opt:stage}.json):GPL_API_KEY}
+            PEXELS_AUTHORIZATION_KEY: ${file(env-${opt:stage}.json):PEXEL_KEY}
+            IMAGES_TABLE: eventimages${file(env-${opt:stage}.json):DB_PREFIX}
+            STRIPE_KEY: ${file(env-${opt:stage}.json):STRIPE_KEY}
+            # EVENTFULL_KEY: ${file(env-${opt:stage}.json):EVENTFULL_KEY}
+            # EVENTFULL_COUNT: ${file(env-${opt:stage}.json):EVENTFULL_COUNT}
+            TICKET_MASTER_EVENTS_BASE_URL: ${file(env-${opt:stage}.json):TICKET_MASTER_EVENTS_BASE_URL}
+            TICKET_MASTER_KEY: ${file(env-${opt:stage}.json):TICKET_MASTER_KEY}
+            LAMBDA_POST_EVENTS_TO_QB: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-createEvent
+        events:
+            - http:
+                  path: /event/getSearchEvent
+                  method: POST
+                  cors: true
+
+    event:
+        handler: lambda-v2/event/event.handler
+        memorySize: 512
+        timeout: 30
+        environment:
+            API_PREFIX: ${file(env-${opt:stage}.json):API_PREFIX}
+            REGION: eu-west-1
+            UI_BASE_URL: ${file(env-${opt:stage}.json):UI_BASE_URL}
+            GPL_BASE_URL: ${file(env-${opt:stage}.json):GPL_BASE_URL}
+            GPL_API_KEY: ${file(env-${opt:stage}.json):GPL_API_KEY}
+            PEXELS_AUTHORIZATION_KEY: ${file(env-${opt:stage}.json):PEXEL_KEY}
+            IMAGES_TABLE: eventimages${file(env-${opt:stage}.json):DB_PREFIX}
+            STRIPE_KEY: ${file(env-${opt:stage}.json):STRIPE_KEY}
+            EVENTFULL_KEY: ${file(env-${opt:stage}.json):EVENTFULL_KEY}
+            EVENTFULL_COUNT: ${file(env-${opt:stage}.json):EVENTFULL_COUNT}
+        events:
+            - http:
+                  path: /event/add
+                  method: POST
+                  cors: true
+            - http:
+                  path: /event/detail/{event_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /event/list
+                  method: GET
+                  cors: true
+            - http:
+                  path: /event/search
+                  method: POST
+                  cors: true
+            - http:
+                  path: /event/updateAddress
+                  method: POST
+                  cors: true
+            - http:
+                  path: /event/goingUsersInEvent
+                  method: POST
+                  cors: true
+            - http:
+                  path: /event/getUpcoming
+                  method: GET
+                  cors: true
+            - http:
+                  path: /event/getPast
+                  method: GET
+                  cors: true
+            - http:
+                  path: /guest/{guest_id}
+                  method: delete
+                  cors: true
+            - http:
+                  path: /event/update/{event_id}
+                  method: put
+                  cors: true
+            - http:
+                  path: /user/event/{user_id}
+                  method: get
+                  cors: true
+            - http:
+                  path: /event/status/
+                  method: get
+                  cors: true
+            - http:
+                  path: /event/claimed/{event_id}
+                  method: post
+                  cors: true
+            - http:
+                  path: /activeEvent
+                  method: get
+                  cors: true
+            - http:
+                  path: /shareEvent/{event_id}
+                  method: post
+                  cors: true
+            - http:
+                  path: /userSharedEvents
+                  method: get
+                  cors: true
+            - http:
+                  path: /userMonthyEventDetails
+                  method: GET
+                  cors: true
+            - http:
+                  path: /event/cancel
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /event/payoutChange/{event_id}
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /event/addTicket/{event_id}
+                  method: POST
+                  cors: true
+            - http:
+                  path: /event/getReferalLink
+                  method: POST
+                  cors: true
+            - http:
+                  path: /deleteTicket/{ticket_id}
+                  method: DELETE
+                  cors: true
+            - http:
+                  path: /event/update/image/{event_id}
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /event/delete/{event_id}
+                  method: DELETE
+                  cors: true
+            - http:
+                  path: /event/addEventvisitor
+                  method: POST
+                  cors: true
+            - http:
+                  path: /event/republish
+                  method: POST
+                  cors: true
+            - http:
+                  path: /event/getAtteneeDetail
+                  method: POST
+                  cors: true
+            - http:
+                  path: /event/get/detailForm/{event_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /event/add/detailForm/{event_id}
+                  method: POST
+                  cors: true
+            - http:
+                  path: /event/get/questions
+                  method: GET
+                  cors: true
+            - http:
+                  path: /event/getFormDetails
+                  method: GET
+                  cors: true
+                  
+            # - http:
+            #       path: /event/updateCheckoutForm/{event_id}
+            #       method: POST
+            #       cors: true
+            # - http:
+            #       path: /event/add/questions/{event_id}
+            #       method: POST
+            #       cors: true
+            # - http:
+            #       path: /event/delete/questions/{question_id}
+            #       method: DELETE
+            #       cors: true
+            # - http:
+            #       path: /event/getForm/{event_id}
+            #       method: GET
+            #       cors: true
+            # - http:
+            #       path: /event/getUserDetail/{event_id}
+            #       method: GET
+            #       cors: true
+
+    user:
+        handler: lambda-v2/user/user.handler
+        memorySize: 512
+        timeout: 30
+        environment:
+            STRIPE_KEY: ${file(env-${opt:stage}.json):STRIPE_KEY}
+        events:
+            - http:
+                  path: /user/followUser
+                  method: POST
+                  cors: true
+            - http:
+                  path: /user/unfollowUser
+                  method: POST
+                  cors: true
+            - http:
+                  path: /user/checkFollow
+                  method: POST
+                  cors: true
+            - http:
+                  path: /user/eventStatus/{event_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /users/getPlans
+                  method: GET
+                  cors: true
+            - http:
+                  path: /user/bankAccountDetails/{bank_token}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /user/linkBankAccount/{bank_token}
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /user/updateBankDetails
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /user/removeBankAccount/{bank_token}
+                  method: DELETE
+                  cors: true
+            - http:
+                  path: /user/listingBankAccounts
+                  method: GET
+                  cors: true
+            - http:
+                  path: /user/connectStripeAccount
+                  method: POST
+                  cors: true
+            - http:
+                  path: /user/changeDefaultBank/{bank_token}
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /ephemeral_keys
+                  method: GET
+                  cors: true
+            - http:
+                  path: /stripeAccountCreate
+                  method: POST
+                  cors: true
+            - http:
+                  path: /user/account/webhook
+                  method: POST
+                  cors: true
+            - http:
+                  path: /user/payout/webhook
+                  method: POST
+                  cors: true
+            - http:
+                  path: /user/groupDetails
+                  method: GET
+                  cors: true
+            - http:
+                  path: /event/inviteAdministrator/{event_id}
+                  method: POST
+                  cors: true
+            - http:
+                  path: /event/verify/eventAdministratorRequest
+                  method: POST
+                  cors: true
+            - http:
+                  path: /event/createEventAdministrator
+                  method: POST
+                  cors: true
+            - http:
+                  path: /event/administrator-invitation/history/{event_id}
+                  method: GET
+                  cors: true
+
+    tickets:
+        handler: lambda-v2/tickets/tickets.handler
+        memorySize: 512
+        timeout: 30
+        environment:
+            REGION: eu-west-1
+            API_PREFIX: ${file(env-${opt:stage}.json):API_PREFIX}
+            UI_BASE_URL: ${file(env-${opt:stage}.json):UI_BASE_URL}
+            STRIPE_KEY: ${file(env-${opt:stage}.json):STRIPE_KEY}
+            STRIPE_FEE: ${file(env-${opt:stage}.json):STRIPE_FEE}
+            PROMOAPP_FEE: ${file(env-${opt:stage}.json):PROMOAPP_FEE}
+        events:
+            - http:
+                  path: /ticket/getAllTickets
+                  method: GET
+                  cors: true
+            - http:
+                  path: /ticket/refundedAndCancelledTickets
+                  method: GET
+                  cors: true
+            - http:
+                  path: /ticket/{ticket_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /user/tickets
+                  method: POST
+                  cors: true
+            - http:
+                  path: /event/tickets/{event_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /approveTicket/{user_ticket_id}
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /scanTicket
+                  method: POST
+                  cors: true
+            - http:
+                  path: /paymentIntents
+                  method: POST
+                  cors: true
+            - http:
+                  path: /ticket/cancel/{purchase_ticketId}
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /organiser/ticket_cancel/{purchase_ticketId}
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /user/intent_tickets
+                  method: POST
+                  cors: true
+            - http:
+                  path: /ticket/purchased_details/{purchase_ticketId}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /user/edit/details/{details_id}
+                  method: POST
+                  cors: true
+
+    general:
+        handler: lambda-v2/general/general.handler
+        memorySize: 512
+        timeout: 30
+        events:
+            - http:
+                  path: /general/postFeedback
+                  method: POST
+                  cors: true
+            - http:
+                  path: /general/getNotification
+                  method: GET
+                  cors: true
+            - http:
+                  path: /general/searchUser
+                  method: GET
+                  cors: true
+            - http:
+                  path: /general/getAllUser
+                  method: GET
+                  cors: true
+            - http:
+                  path: /general/pushNotification
+                  method: POST
+                  cors: true
+            - http:
+                  path: /general/getEventCategories
+                  method: GET
+                  cors: true
+            - http:
+                  path: /bugType
+                  method: GET
+                  cors: true
+            - http:
+                  path: /bugReporting
+                  method: POST
+                  cors: true
+            - http:
+                  path: /contactUs
+                  method: POST
+                  cors: true
+
+    billing:
+        handler: lambda-v2/billing/billing.handler
+        memorySize: 512
+        timeout: 30
+        environment:
+            STRIPE_KEY: ${file(env-${opt:stage}.json):STRIPE_KEY}
+        events:
+            - http:
+                  path: /billing/billingHistory
+                  method: GET
+                  cors: true
+            - http:
+                  path: /billing/completetransaction
+                  method: POST
+                  cors: true
+            - http:
+                  path: /plan/unsubscribe
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /checkCoupon/{coupon_code}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /event/highlight/{event_id}
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /user/getDefultCardDetails
+                  method: GET
+                  cors: true
+            - http:
+                  path: /account/checkStatus
+                  method: POST
+                  cors: true
+    
+    discount:
+        handler: lambda-v2/discount/discount.handler
+        memorySize: 512
+        timeout: 30
+        events:
+            - http:
+                  path: /discount/addPromocode
+                  method: POST
+                  cors: true
+            - http:
+                  path: /discount/deletePromocode
+                  method: DELETE
+                  cors: true
+            - http:
+                  path: /discount/getPromocode/{event_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /discount/checkPromocode
+                  method: GET
+                  cors: true
+            
+    comment:
+        handler: lambda-v2/comment/comment.handler
+        memorySize: 512
+        timeout: 30
+        events:
+            - http:
+                  path: /comment
+                  method: get
+                  cors: true
+            - http:
+                  path: /comment/add
+                  method: post
+                  cors: true
+            - http:
+                  path: /comment/{comment_id}
+                  method: delete
+                  cors: true
+
+    Rewards:
+        handler: lambda-v2/rewards/rewards.handler
+        memorySize: 512
+        timeout: 30
+        events:
+            - http:
+                  path: /rewards
+                  method: GET
+                  cors: true
+            - http:
+                  path: /reward/{reward_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /reward-add
+                  method: POST
+                  cors: true
+            - http:
+                  path: /reward-update/{reward_id}
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /reward-delete/{reward_id}
+                  method: DELETE
+                  cors: true
+            - http:
+                  path: /add-winner-info
+                  method: POST
+                  cors: true
+            - http:
+                  path: /disqualify-user/{reward_id}
+                  method: POST
+                  cors: true
+    Analytics:
+        handler: lambda-v2/analytics/analytics.handler
+        memorySize: 512
+        timeout: 30
+        events:
+            - http:
+                  path: /analytics/addSocialShare
+                  method: POST
+                  cors: true
+            - http:
+                  path: /shared-event
+                  method: GET
+                  cors: true
+            - http:
+                  path: /user-analytics/{reward_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /analytics/visited
+                  method: POST
+                  cors: true
+            - http:
+                  path: /organiser-analytics/{reward_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /analytics/event
+                  method: POST
+                  cors: true
+            - http:
+                  path: /report/event
+                  method: POST
+                  cors: true
+            - http:
+                  path: /event/singleAnalytic
+                  method: POST
+                  cors: true
+
+    runDailyJobForEventsStatus:
+        handler: lambda-v2/event/runDailyJobForEventsStatus.handler
+        environment:
+            STRIPE_KEY: ${file(env-${opt:stage}.json):STRIPE_KEY}
+        events:
+            - schedule: rate(30 minutes)
+
+    # scrap event from other server
+
+    runDailyJobForEventsScrap:
+        handler: lambda-v2/event/runDailyJobForEventsScrap.handler
+        memorySize: 512
+        timeout: 300
+        environment:
+            REGION: eu-west-1
+            TICKET_MASTER_EVENTS_BASE_URL: ${file(env-${opt:stage}.json):TICKET_MASTER_EVENTS_BASE_URL}
+            TICKET_MASTER_KEY: ${file(env-${opt:stage}.json):TICKET_MASTER_KEY}
+            LAMBDA_POST_EVENTS_TO_QB: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-createEvent
+        events:
+            - schedule: cron(0 0 * * ? *)
+            - http:
+                  path: /scrapEventsFromTicketMaster
+                  method: GET
+                  cors: true
+      
+    runWeeklyJobForEventsScrap:
+        handler: lambda-v2/event/runWeeklyJobForEvents.handler
+        memorySize: 512
+        timeout: 300
+        environment:
+            REGION: eu-west-1
+            LAMBDA_GET_EVENTS_FROM_PHQ: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-eventClonePHQ
+            # LAMBDA_GET_EVENTS_FROM_GPL: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-getEventsFromGPLScrap
+        events:
+            - schedule: cron(0 1 ? * MON *)
+            - http:
+                  path: /scrapEventFromPHQ
+                  method: GET
+                  cors: true
+
+#     getEventsFromGPLScrap:
+#         handler: lambda-v2/event/getEventsFromGPL.handler
+#         memorySize: 512
+#         timeout: 900
+#         environment:
+#             REGION: eu-west-1
+#             categories: "Concerts,Festival,Performing Arts,Community,Sports,Politics"
+#             GPL_BASE_URL: ${file(env-${opt:stage}.json):GPL_BASE_URL}
+#             GPL_API_KEY: ${file(env-${opt:stage}.json):GPL_API_KEY}
+#             LAMBDA_POST_EVENTS_TO_QB: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-createEvent
+
+    eventClonePHQ:
+        handler: lambda-v2/event/eventClonePHQ.handler
+        memorySize: 512
+        timeout: 300
+        environment:
+            REGION: eu-west-1
+            LAMBDA_GET_EVENTS_FROM_PHQ: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-scrapEventsFromPHQ
+
+    scrapEventsFromPHQ:
+        handler: lambda-v2/event/getEventsFromPHQ.handler
+        memorySize: 512
+        timeout: 300
+        environment:
+            REGION: eu-west-1
+            categories: "concerts,festivals,performing-arts,community,sports,politics"
+            PHQ_BASE_URL: "https://api.predicthq.com/v1"
+            PHQ_KEY: "QkS36BT4mfKRCrahrK1P1nyI7vYgp1"
+            LAMBDA_POST_EVENTS_TO_QB: arn:aws:lambda:eu-west-1:576180419135:function:promoapp-${opt:stage,self:provider.stage}-createEvent
+
+    createEvent:
+        handler: lambda-v2/event/createEvent.handler
+        memorySize: 512
+        timeout: 300
+        environment:
+            PEXELS_AUTHORIZATION_KEY: ${file(env-${opt:stage}.json):PEXEL_KEY}
+            IMAGES_TABLE: eventimages${file(env-${opt:stage}.json):DB_PREFIX}
+            REGION: eu-west-1
+
+    runDailyWinner:
+        handler: lambda-v2/rewards/getWinner.handler
+        memorySize: 512
+        timeout: 300
+        events:
+            - schedule: rate(30 minutes)
+            - http:
+                  path: /winner
+                  method: GET
+                  cors: true
+
+    payout:
+        handler: lambda-v2/payout/payout.handler
+        memorySize: 512
+        timeout: 30
+        environment:
+            STRIPE_KEY: ${file(env-${opt:stage}.json):STRIPE_KEY}
+        events:
+            - http:
+                  path: /payout/activeEvents
+                  method: POST
+                  cors: true
+            - http:
+                  path: /payout/pending-payment
+                  method: POST
+                  cors: true
+            - http:
+                  path: /payout/completed
+                  method: POST
+                  cors: true
+
+    widget:
+        handler: lambda-v2/widget/widget.handler
+        memorySize: 512
+        timeout: 30
+        environment:
+            REGION: eu-west-1
+            API_PREFIX: ${file(env-${opt:stage}.json):API_PREFIX}
+            UI_BASE_URL: ${file(env-${opt:stage}.json):UI_BASE_URL}
+            STRIPE_KEY: ${file(env-${opt:stage}.json):STRIPE_KEY}
+            STRIPE_FEE: ${file(env-${opt:stage}.json):STRIPE_FEE}
+            PROMOAPP_FEE: ${file(env-${opt:stage}.json):PROMOAPP_FEE}
+        events:
+            - http:
+                  path: /widget/eventList
+                  method: GET
+                  cors: true
+            - http:
+                  path: /auth/register/widgetUser
+                  method: POST
+                  cors: true
+            - http:
+                  path: /auth/verify/widgetUser
+                  method: POST
+                  cors: true
+            - http:
+                  path: /user/widget_tickets
+                  method: POST
+                  cors: true
+            - http:
+                  path: /user/event_list/{user_id}
+                  method: GET
+                  cors: true
+
+    runDailyJobForEventReward:
+        handler: lambda-v2/event/runDailyJobForEventReward.handler
+        events:
+            - schedule: rate(30 minutes)
+
+    runDailyJobForEventRewardAboutToExpire:
+        handler: lambda-v2/event/runDailyJobForEventRewardAboutToExpire.handler
+        events:
+            - schedule: rate(1 day)
+
+    Sitemap:
+        handler: lambda-v2/sitemap/index.handler
+        environment:
+            REGION: ${file(env-${opt:stage}.json):REGION}
+            SITEMAP_FILENAME: ${file(env-${opt:stage}.json):SITEMAP_FILENAME}
+            BUCKET_NAME: ${file(env-${opt:stage}.json):BUCKET_NAME}
+        memorySize: 512
+        timeout: 30
+        events:
+            # - schedule: rate(1 day)
+            - schedule: cron(0 0 * * ? *)
+            - http:
+                  path: /sitemap
+                  method: GET
+                  cors: true
+
+    SeatingPlanMaps:
+        handler: lambda-v2/seating-plan-maps/seating_plan_map.handler
+        memorySize: 512
+        timeout: 30
+        events:
+            - http:
+                  path: /seating-plan-maps/add
+                  method: POST
+                  cors: true
+            - http:
+                  path: /seating-plan-maps/detail/{event_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /seating-plan-maps/update/{seating_plan_id}
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /seating-plan-maps/delete/{seating_plan_id}
+                  method: DELETE
+                  cors: true
+            - http:
+                  path: /seating-plan-maps/existing-plan/detail/{event_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /seating-plan-maps/ticket-detail/{seating_plan_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /seating-plan-maps/hold-seats
+                  method: POST
+                  cors: true
+            - http:
+                  path: /seating-plan-maps/deleteUserHoldTickets
+                  method: DELETE
+                  cors: true
+            - http:
+                  path: /seating-plan-maps/getUserHoldTickets/{event_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /seating-plan-maps/widget/hold-seats
+                  method: POST
+                  cors: true
+            - http:
+                  path: /seating-plan-maps/deleteWidgetUserHoldTickets
+                  method: POST
+                  cors: true
+
+    zone:
+        handler: lambda-v2/zone/index.handler
+        environment:
+            REGION: ${file(env-${opt:stage}.json):REGION}
+            FROM: ${file(env-${opt:stage}.json):FROM}
+            UI_BASE_URL: ${file(env-${opt:stage}.json):UI_BASE_URL}
+        memorySize: 512
+        timeout: 30
+        events:
+            - http:
+                  path: /zone/lists
+                  method: GET
+                  cors: true
+                  private: false
+            - http:
+                  path: /owner/zones/list
+                  method: GET
+                  cors: true
+                  private: false
+            - http:
+                  path: /owner/zone/delete
+                  method: PUT
+                  cors: true
+                  private: false
+            - http:
+                  path: /zone/view/{zone_id}
+                  method: GET
+                  cors: true
+                  private: false
+            - http:
+                  path: /zone/events/list/{zone_id}
+                  method: GET
+                  cors: true
+                  private: false
+            - http:
+                  path: /zone/owners/list/{zone_id}
+                  method: GET
+                  cors: true
+                  private: false
+            - http:
+                  path: /zone/members/list/{zone_id}
+                  method: GET
+                  cors: true
+                  private: false
+            - http:
+                  path: /zone/member/view/{member_id}
+                  method: GET
+                  cors: true
+                  private: false
+            - http:
+                  path: /zone/member/delete/{member_id}
+                  method: PUT
+                  cors: true
+                  private: false
+            - http:
+                  path: /zone/member/update/{member_id}
+                  method: PUT
+                  cors: true
+                  private: false
+            - http:
+                  path: /owner/dashboard
+                  method: GET
+                  cors: true
+                  private: false
+            - http:
+                  path: /zone/event/delete/{event_id}
+                  method: PUT
+                  cors: true
+                  private: false
+            - http:
+                  path: /zone/add-member/{zone_id}
+                  method: POST
+                  cors: true
+            - http:
+                  path: /member/invitation/{member_id}
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /member/zoneListing
+                  method: GET
+                  cors: true
+                  private: false
+            - http:
+                  path: /zone/member/block/{member_id}
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /zone/owner/invitation
+                  method: POST
+                  cors: true
+            - http:
+                  path: /zone/member/invitation
+                  method: POST
+                  cors: true
+            - http:
+                  path: /zone/owner/process-invitation
+                  method: POST
+                  cors: true
+            - http:
+                  path: /zone/member/process-invitation
+                  method: POST
+                  cors: true
+            - http:
+                  path: /zone/organizers/listing/{zone_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /zone/organizer/block/{organizer_id}
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /zone/organizer/delete/{organizer_id}
+                  method: PUT
+                  cors: true
+            - http:
+                  path: /users/zone/listing
+                  method: GET
+                  cors: true
+            - http:
+                  path: /member/leave-zone/{zone_id}
+                  method: DELETE
+                  cors: true
+            - http:
+                  path: /zone/organizer/invitation
+                  method: POST
+                  cors: true
+            - http:
+                  path: /zone/organizer/process-invitation
+                  method: POST
+                  cors: true
+            - http:
+                  path: /general/zone/events/listing/{zone_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /general/zone/owners/list/{zone_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /general/zone/organizers/listing/{zone_id}
+                  method: GET
+                  cors: true
+            - http:
+                  path: /general/zone/members/listing/{zone_id}
+                  method: GET
+                  cors: true

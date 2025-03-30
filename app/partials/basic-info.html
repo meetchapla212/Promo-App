@@ -1,0 +1,305 @@
+<div class="info-bas-create-event" ng-show="showHide.template == 'partials/basic-info.html'">
+    <div class="col-lg-2 col-md-2 col-sm-0 col-xs-0"></div>
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 pb-100">
+        <section class="basic_info_1" ng-show="currentInfoSection.includes('create_event_form_1')">
+            <md-card class="card-color margin">
+                <md-card-header class="col-md-12 pa-bg-F9 align-items-center create-header-style pa-border-EEEEEE tt-margin-bottom-0">
+                    <md-card-header-text>
+                        <span class="md-title"><span class="pa-bold-font pa-font-20 pa-color-333333">General
+                                Information</span><span class="pa-font-16 ml-10">(Required)</span></span>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-content class="pa-no-padding pa-background-white" layout-gt-sm="row" layout-padding>
+                    <form class="event-form create-w-100 pa-mt-30" name="createEventForms.create_event_form_1" id="create_event_form_1">
+                        <md-input-container class="md-block pa-mt-20-imp pa-mb-0 " flex-gt-sm>
+                            <label class="pa-color-333333">Event Name <span class="pa-required">*</span></label>
+                            <input type="text" name="event_name" md-maxlength="50" maxlength="50" ng-minlength="10" ng-model="displayEvent.event_name" md-no-asterisk class="form-control card-color" placeholder="e.g. Masquerade Ball: Charity Fundraiser" required ng-blur="saveDataLocal()">
+
+                            <div ng-messages="createEventForms.create_event_form_1.event_name.$error" class="input-error">
+                                <div ng-message="required">This field is required.</div>
+                                <div ng-message="md-maxlength">Event name must be less than 50 characters long.
+                                </div>
+                                <div ng-message="minlength">Event name must be greater than 10 characters.
+                                </div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="pa-no-margin width-50 pa-mt-30-imp cate_event event_cat_first" flex-gt-sm>
+                            <label class="pa-color-333333">Event Category <span class="pa-required">*</span></label>
+                            <div class="form-control ht-48 categorydropdown" isteven-multi-select selection-mode="single" input-model="categories" output-model="displayEvent.selectedCategory" button-label="iconImg name" item-label="iconImg name" tick-property="selected" helper-elements="none"
+                                translation="dropdowns.categoryLang" tooltip-trigger="'none'" uib-tooltip="Category is required." required name="event_category" on-item-click="saveDataLocal()">
+                            </div>
+                            <div class="input-error" ng-messages="createEventForms.create_event_form_1.event_category.$error">
+                                <div ng-message="required">This field is required.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="pa-no-margin width-50 pa-mt-50 cate_event event_cat_first" ng-if="zoneList.length > 0" flex-gt-sm>
+                            <label class="pa-color-333333">Zone List</label>
+                            <div class="form-control ht-48 categorydropdown" isteven-multi-select selection-mode="single" ng-class="{'dropdown-disabled': !user.is_zone_member || zoneList.length == 0}" ng-disabled="!user.is_zone_member && zoneList.length == 0" input-model="zoneList"
+                                output-model="displayEvent.zone_id" button-label="name" item-label="name" tick-property="selected" helper-elements="none" tooltip-trigger="'none'" translation="dropdowns.zoneLang" uib-tooltip="Zone is required." required name="event_zone"
+                                on-item-click="saveDataLocal()">
+                            </div>
+                        </md-input-container>
+                    </form>
+                </md-card-content>
+            </md-card>
+        </section>
+        <section class="create_event_form_2 venu_drop_down" ng-show="currentInfoSection.includes('create_event_form_2')">
+            <md-card class="card-color margin">
+                <md-card-header class="pa-color-grey align-items-center pa-border-EEEEEE tt-margin-bottom-0">
+                    <md-card-header-text>
+                        <span class="md-title"><span class="mr-5 pa-color-333333 pa-font-bold">Location</span><span class="pa-font-16 ml-10">(Required)</span></span>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-content layout-gt-sm="row" layout-padding class="pa-background-white pa-no-padding">
+                    <form class="create-w-100 event-form pa-mt-30" name="createEventForms.create_event_form_2">
+                        <md-input-container class="pa-no-margin width-50 pa-mt-30-imp cate_event event_cat_first pa-mb-20-imp" flex-gt-sm>
+                            <label class="pa-color-333333">Venue is <span class="pa-required">*</span></label>
+                            <div class="form-control ht-48 categorydropdown" isteven-multi-select selection-mode="single" input-model="newVenues" translation="dropdowns.venueLang" output-model="displayEvent.venue_is" button-label="value" item-label="value" tick-property="selected"
+                                helper-elements="none" tooltip-trigger="'none'" uib-tooltip="Venue is required." required name="venueIs" on-item-click="saveDataLocal();venueIsFinialised()">
+                            </div>
+                            <div class="input-error" ng-messages="createEventForms.create_event_form_2.venueIs.$error">
+                                <div ng-message="required">This field is required.</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container ng-class="{'ng-hide':showHide.searchVenueOptions}" class="md-block pa-mb-0 md-icon-float md-icon-left pa-mt-30-imp" flex-gt-sm>
+                            <label for="eventTitle" class="pa-color-333333">City Name <span
+                                    class="pa-required">*</span></label>
+                            <md-icon>search</md-icon>
+                            <input md-no-asterisk ng-pattern="/^[a-zA-Z0-9 \\\/,-]+$/" name="searchAddress" type="text" data-gp-types="(cities)" googleplace ng-model="displayEvent.chosenPlace" class="form-control ht-48 card-color pl-9 md-input-with-icon" placeholder="Write city name here">
+                            <div ng-messages="createEventForms.create_event_form_2.searchAddress.$error">
+                                <div ng-message="required">This field is required.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container ng-class="{'ng-hide':!showHide.searchVenueOptions}" class="md-block pa-mt-30-imp pa-mb-0 md-icon-float md-icon-left pa-no-margin" flex-gt-sm>
+                            <label for="eventTitle" class="pa-color-333333">Search for Venue or Address <span
+                                    class="pa-required">*</span></label>
+                            <md-icon>search</md-icon>
+                            <input type="text" ng-pattern="/^[a-zA-Z0-9 \\\/,-]+$/" md-no-asterisk name="searchAddress"  googleplace ng-model="displayEvent.chosenPlace" class="form-control ht-48 card-color pl-9 md-input-with-icon" placeholder="e.g. Madison Square Garden" required>
+                            <div ng-messages="createEventForms.create_event_form_2.searchAddress.$error">
+                                <div ng-message="required">This field is required.</div>
+                            </div>
+                        </md-input-container>
+                        <div ng-if="displayEvent.location && displayEvent.location.length>0 && displayEvent.venue_is[0].key === 'finalised' ">
+                            <div class="pa-mt-30-imp">
+                                <div class="google-map pa-border-CBCBCB" ng-if="!showHide.selectedAddressDiv">
+                                    <ng-map styles='[{ featureType: "poi",elementType: "labels",stylers: [{ visibility: "off" }]},{ featureType: "transit",stylers: [{ visibility: "off" }]},{"featureType": "road","elementType": "labels.icon","stylers": [{"visibility": "off"}]}]' center="{{displayEvent.latitude}} , {{displayEvent.longitude }}"
+                                        style="height:240px;">
+                                        <marker position="{{displayEvent.latitude}} , {{displayEvent.longitude }}" icon="{url: '{{categoriesMap[displayEvent.selectedCategory[0].id].icon}}' , scaledSize: [26,32], origin: [0,0], anchor: [16,40] }">
+                                        </marker>
+                                    </ng-map>
+                                </div>
+
+                                <div class="map-google pa-border-CBCBCB" ng-if="showHide.selectedAddressDiv">
+                                    <div class="google-map">
+                                        <ng-map styles='[{ featureType: "poi",elementType: "labels",stylers: [{ visibility: "off" }]},{ featureType: "transit",stylers: [{ visibility: "off" }]},{"featureType": "road","elementType": "labels.icon","stylers": [{"visibility": "off"}]}]' center="{{displayEvent.latitude}} , {{displayEvent.longitude }}"
+                                            style="height:240px;">
+                                            <marker position="{{displayEvent.latitude}} , {{displayEvent.longitude }}" icon="{url: '{{categoriesMap[displayEvent.selectedCategory[0].id].icon}}' , scaledSize: [26,32], origin: [0,0], anchor: [16,40] }">
+                                            </marker>
+                                        </ng-map>
+                                    </div>
+                                    <div class="map_content clearfix pa-padding-20">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pa-no-padding">
+                                            <div class="pa-color-333333 pa-font-16 pa-font-bold lh-19 pa-md-8">
+                                                {{displayEvent.address.streetAddress}}</div>
+                                            <div class="pa-color-666666 pa-font-bold">{{displayEvent.address.state}}, {{displayEvent.address.city}}, {{displayEvent.address.country}} {{displayEvent.address.zipcode}}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pa-no-padding">
+                                            <div class="icon_map pa-float-right">
+                                                <md-icon class="material-icons width-48 ht-48 pa-border-50 pa-border-CBCBCB lh-45 pa-mr-20 pa-text-center" ng-click="showHide.selectedAddressDiv=false">edit</md-icon>
+                                                <md-icon ng-click="resetLocation()" class="material-icons width-48 ht-48 pa-border-50 pa-border-CBCBCB lh-45 pa-text-center">
+                                                    search</md-icon>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-if="!showHide.selectedAddressDiv" class="street_addressSec">
+                                <div class="form-group mb-30">
+                                    <h3 class="mr-5 pa-color-333333 pa-font-bold pa-font-20">Street Address</h3>
+                                </div>
+                                <div class="row ce-sa">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <md-input-container class="md-block pa-mt-30-imp pa-no-margin" flex-gt-sm>
+                                            <label class="pa-color-333333">Address <span
+                                                    class="pa-required">*</span></label>
+                                            <input type="text" md-no-asterisk name="fullAddress" class="form-control ht-48 card-color" placeholder="e.g. 12.2 4th Street, Appartment, Suite, Building" ng-model="displayEvent.address.streetAddress" required ng-blur="saveDataLocal();">
+                                            <div ng-messages="createEventForms.create_event_form_2.fullAddress.$error">
+                                                <div ng-message="required">This field is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+
+                                <div class="row ce-sa">
+                                    <div class="col-lg-6 col-md-6 mb-991">
+                                        <md-input-container class="md-block pa-no-margin" flex-gt-sm>
+                                            <label class="pa-color-333333">City <span
+                                                    class="pa-required">*</span></label>
+                                            <input type="text" md-no-asterisk name="addressCity" class="form-control ht-48 card-color" placeholder="Miami" ng-model="displayEvent.address.city" required>
+                                            <div ng-messages="createEventForms.create_event_form_2.addressCity.$error">
+                                                <div ng-message="required">This field is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <label class="pa-color-333333 label-absolute">State <span
+                                                class="pa-required">*</span></label>
+                                        <md-input-container class="md-block pa-no-margin" flex-gt-sm>
+                                            <md-select md-container-class="event-form-select md-icon-float md-icon-right ht-48" md-no-asterisk ng-required="true" name="addressState" ng-model="displayEvent.address.state">
+                                                <md-option ng-repeat="item in dropdowns.states.options" ng-value="item.key">
+                                                    {{item.value}}
+                                                </md-option>
+                                            </md-select>
+                                            <span class="caret"></span>
+                                            <div ng-messages="createEventForms.create_event_form_2.addressState.$error">
+                                                <div ng-message="required">This field is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 mb-991">
+                                        <md-input-container class="md-block pa-no-margin" flex-gt-sm>
+                                            <label class="pa-color-333333">Zip Code <span
+                                                    class="pa-required">*</span></label>
+                                            <input type="text" md-no-asterisk name="addressZip" ng-model="displayEvent.address.zipcode" class="form-control card-color" placeholder="e.g. 94103" required>
+                                            <div ng-messages="createEventForms.create_event_form_2.addressZip.$error">
+                                                <div ng-message="required">This field is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <md-input-container class="md-block mb-30 pa-no-margin" flex-gt-sm>
+                                            <label class="pa-color-333333">Country <span
+                                                    class="pa-required">*</span></label>
+                                            <md-select md-container-class="event-form-select md-icon-float md-icon-right ht-48" md-no-asterisk ng-required="true" name="addressCountry" class="ht-48" ng-model="displayEvent.address.country">
+                                                <md-option ng-repeat="item in dropdowns.countries.options" ng-value="item.key">
+                                                    {{item.value}}
+                                                </md-option>
+                                            </md-select>
+                                            <span class="caret"></span>
+                                            <div ng-messages="createEventForms.create_event_form_2.addressCountry.$error">
+                                                <div ng-message="required">This field is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                                <div class="form-group pa-no-bt-margin-imp">
+                                    <button ng-click="resetLocation()" class="h-48 tt-font-16 pa-bold-font pa-color-pink pa-bg-FFFFFF pa-border-CBCBCB pa-border-4 pa-width-28">Search
+                                        Location Again</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </md-card-content>
+            </md-card>
+        </section>
+        <section class="basic_info_3" ng-show="currentInfoSection.includes('create_event_form_3')">
+            <md-card class="card-color margin pa-mb-50">
+                <md-card-header class="pa-color-grey align-items-center pa-border-EEEEEE tt-margin-bottom-0">
+                    <md-card-header-text>
+                        <span class="md-title .pa-font-13"><span class="mr-5 pa-color-333333 pa-font-bold">Date and
+                                Time</span><span class="pa-font-16 ml-10">(Required)</span></span>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-content class="pa-no-padding pa-background-white" layout-gt-sm="row" layout-padding>
+                    <form class="event-form create-w-100 pa-mt-30" name="createEventForms.create_event_form_3">
+                        <div class="form-group pa-mt-20">
+                            <div class="row ce-sa ">
+                                <div class="col-lg-6 col-md-6 mb-991 event_from_date">
+                                    <md-input-container class="create-w-100 md-icon-float md-icon-left pa-no-margin" flex-gt-sm md-is-error="createEventForms.create_event_form_3.startDate.$invalid">
+                                        <label class="pa-color-333333">Event Start Date <span
+                                                class="pa-required">*</span></label>
+                                        <md-icon>date_range</md-icon>
+                                        <input md-no-asterisk name="startDate" readonly date-range-picker class="form-control date-picker input-height card-color md-input-with-icon" type="text" ng-required="true" ng-model="displayEvent.start.date" ng-attr-min="action === 'Create'? dropdowns.startDateRangePicker.minDate : dropdowns.startDateRangePicker.minDate"
+                                            options="dropdowns.startDateRangePicker.options" id="eventStartDate" />
+                                        <div ng-messages="createEventForms.create_event_form_3.startDate.$error">
+                                            <div ng-message="required">This field is required.</div>
+                                            <div ng-message="minDate">Please enter correct date.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <md-input-container class="create-w-100 md-icon-float md-icon-left pa-no-margin" flex-gt-sm md-is-error="createEventForms.create_event_form_3.startTime.$invalid">
+                                        <label class="pa-color-333333">Event Start Time <span
+                                                class="pa-required">*</span></label>
+                                        <md-icon>query_builder</md-icon>
+                                        <md-select ng-change="validateTime(displayEvent.start.date,displayEvent.start.time,displayEvent.end.date,displayEvent.end.time,'create_event_form_3','endDate');upateTicketDefaultTime(displayEvent.start.date,displayEvent.start.time)" md-container-class="event-form-select md-icon-float md-icon-right"
+                                            name="startTime" class="form-control ht-48 md-select-with-icon" ng-model="displayEvent.start.time" ng-change="saveDataLocal();">
+                                            <md-option ng-repeat="item in dropdowns.times.options" ng-value="item.key">
+                                                {{item.value}}
+                                            </md-option>
+                                        </md-select>
+                                        <div ng-messages="createEventForms.create_event_form_3.startTime.$error">
+                                            <div ng-message="required">This field is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group ce-sa">
+                            <div class="row event_from_date_start">
+                                <div class="col-lg-6 col-md-6 pa-position-relative mb-991">
+                                    <md-input-container class="create-w-100 pa-no-margin md-icon-float md-icon-left" flex-gt-sm>
+                                        <label class="pa-color-333333">Event End Date <span
+                                                class="pa-required">*</span></label>
+                                        <md-icon>date_range</md-icon>
+
+                                        <input md-no-asterisk name="endDate" readonly date-range-picker class="form-control date-picker ht-48 card-color md-input-with-icon" type="text" ng-required="true" ng-model="displayEvent.end.date" ng-attr-min="dropdowns.endDateRangePicker.minDate" options="dropdowns.endDateRangePicker.options"
+                                            id="eventEndDate" />
+                                        <div ng-messages="createEventForms.create_event_form_3.endDate.$error">
+                                            <div ng-message="required">This field is required.</div>
+                                            <div ng-message="minDate">End date must be after start date.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div class="col-lg-6 col-md-6 pa-position-relative">
+                                    <md-input-container class="create-w-100 md-icon-float md-icon-left pa-no-margin" flex-gt-sm>
+                                        <label class="pa-color-333333">Event End Time <span
+                                                class="pa-required">*</span></label>
+                                        <md-icon>query_builder</md-icon>
+                                        <md-select ng-change="validateTime(displayEvent.start.date,displayEvent.start.time,displayEvent.end.date,displayEvent.end.time,'create_event_form_3','endDate')" name="endTime" md-container-class="event-form-select md-icon-float md-icon-right" class="form-control ht-48 md-select-with-icon"
+                                            ng-model="displayEvent.end.time" ng-change="saveDataLocal();">
+                                            <md-option ng-repeat="item in dropdowns.times.options" ng-value="item.key">
+                                                {{item.value}}
+                                            </md-option>
+                                        </md-select>
+                                        <div ng-messages="createEventForms.create_event_form_3.endTime.$error">
+                                            <div ng-message="required">This field is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group pa-mt-30-imp pa-no-bt-margin-imp event_tym_zone">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <md-input-container flex-gt-sm class="create-w-100 md-icon-float md-icon-left pa-no-margin" flex-gt-smflex-gt-smflex-gt-sm>
+                                        <label for="eventCategory" class="pa-color-333333">Event Time Zone <span
+                                                class="pa-required">*</span></label>
+                                        <md-icon>query_builder</md-icon>
+                                        <md-select md-container-class="event-form-select md-icon-float md-icon-right ht-48" name="timezone" class="form-control ht-48 md-select-with-icon" ng-model="displayEvent.timezone" ng-change="saveDataLocal();">
+                                            <md-option ng-repeat="item in dropdowns.timezones.options" ng-value="item.key">
+                                                {{item.value}}
+                                            </md-option>
+                                        </md-select>
+                                        <span class="caret"></span>
+                                        <div ng-messages="createEventForms.create_event_form_3.timezone.$error">
+                                            <div ng-message="required">This field is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </md-card-content>
+            </md-card>
+        </section>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-0 col-xs-0 eventBottom"></div>
+</div>

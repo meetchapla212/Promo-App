@@ -1,0 +1,641 @@
+<div flex layout="column" layout-align="start stretch" class="pa-background-white" ng-controller="SeatPlanController">
+    <div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE manageevent-main-up">
+
+        <div class="pa-color-5B5B5B pa-modal-font layout-align-start-stretch flex" ng-cloak>
+            <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+
+            <section class="event_create_tc_layout">
+                <div class="create_tc_layout_head">
+                    <h2>{{eventname}}</h2>
+                    <div class="seat_layout_bar">
+                        <span>Seating Capacity: <span id="pa_total_seat" data-total-seat="0">0</span></span>
+                        <button name="tc_save_button" class="tc-save-button pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit md-button" ng-click="savingMap()" type="button">Save</button>
+                        <i class="material-icons" ng-click="unSaved()">close</i>
+                    </div>
+                </div>
+
+                <div class="event_create_tc_layout_sec">
+                    <div class="create_tc_layout_left_sec">
+                        <div class="upcoming-past-event pa-mt-0">
+                            <input type="hidden" id="tc_square_size" value="35" />
+                            <input type="hidden" id="tc_admin_zoom_level" name="tc_admin_zoom_level_post_meta" value="1" />
+                            <input type="hidden" id="tc_ticket_types" name="tc_ticket_types_post_meta" value="" />
+                            <input type="hidden" id="tc_pan_position_left" name="tc_pan_position_left_post_meta" value="254" />
+                            <input type="hidden" id="tc_current_screen_width" name="tc_current_screen_width_post_meta" value="1349" />
+                            <input type="hidden" id="tc_pan_position_top" name="tc_pan_position_top_post_meta" value="-91" />
+                            <input type="hidden" id="tc_part_no" name="tc_part_no_post_meta" value="12" />
+                            <input type="hidden" id="tc_thumbnail_img" name="tc_thumbnail_post_meta" value="" />
+                            <md-tabs md-dynamic-height md-border-bottom class="pa-tabs">
+                                <md-tab class="pa-padding-20">
+                                    <md-tab-label>Map
+                                        <md-tooltip md-direction='bottom'>Select this to view a map of your venue layout.</md-tooltip>
+                                    </md-tab-label>
+                                    <md-tab-body>
+                                        <div class="upcoming-past-tab-tabs-content" id="tab2C">
+                                            <div class="tc-sidebar payout_table" id="mapArea">
+                                                <div class="md-accordion md-section">
+                                                    <md-toolbar ng-init="expanded_1 = true" ng-click="collapseAccordion('section')">
+                                                        <div class="md-toolbar-tools">
+                                                            <h2>
+                                                                <span>Seating Sections</span>
+                                                            </h2>
+                                                            <span flex=""></span>
+                                                            <span ng-class="{expandCollapse:true, active:expanded_1}"><i class="material-icons">expand_more</i></span>
+                                                        </div>
+                                                    </md-toolbar>
+                                                    <div ng-class="{dataContent:true, activeContent:expanded_1}">
+                                                        <div class="tc-settings-wrap tc-seat-select" id="seatType">
+                                                            <div class="tc-options-wrap">
+                                                                <label>Seating Type</label>
+                                                                <select class="tc-seat-assign" id="tc_seat_assign">
+                                                                <option value="assigned" selected>Assigned Seating</option>
+                                                                <option value="general">General Admission</option>
+                                                            </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tc-settings-wrap tc-tables-settings" id="tc-seat-labels-settings">
+                                                            <div id="tc_label_widget">
+                                                                <div class="tc-title-wrap">
+                                                                    <h4>Assign Seat Labels<span id="tc-seat-labels-num"></span></h4>
+                                                                </div>
+                                                                <!-- .tc-title-wrap -->
+
+                                                                <div class="tc-options-wrap">
+                                                                    <div class="tc-input-wrap tc-seat-labels" id="tc-labels-multi-select">
+                                                                        <div class="tc-input-third">
+                                                                            <label>Letter</label>
+                                                                            <input type="text" only-text-number="" ng-model="titleText1" maxlength="1" class="tc_label_letter" placeholder="A" />
+                                                                        </div>
+                                                                        <!-- .tc-input-third -->
+                                                                        <div class="tc-input-third">
+                                                                            <label>From</label>
+                                                                            <input type="text" only-number="" ng-model="perFrom" disable-it mousewheel="true" class="tc_label_from_multi" placeholder="1" />
+                                                                        </div>
+                                                                        <!-- .tc-input-third -->
+                                                                        <span class="tc_col_label_invert">↔</span>
+                                                                        <div class="tc-input-third">
+                                                                            <label>To</label>
+                                                                            <input type="text" only-number="" ng-model="perTo" disable-it mousewheel="true" class="tc_label_to_multi" placeholder="20" />
+                                                                        </div>
+                                                                        <!-- .tc-input-third -->
+                                                                    </div>
+                                                                    <!-- .tc-input-wrap -->
+                                                                    <div class="tc-input-wrap tc-seat-labels" id="tc-labels-single-select">
+                                                                        <div class="tc-input-half">
+                                                                            <label>Label</label>
+                                                                            <input type="text" only-text-number="" ng-model="titleText" class="tc_label_letter" maxlength="4" placeholder="A1" />
+                                                                        </div>
+                                                                        <!-- .tc-input-third -->
+                                                                    </div>
+                                                                    <!-- .tc-input-wrap -->
+                                                                    <div class="tc-clear"></div>
+                                                                    <button class="tc-change-button" ng-click="changeAssignFlag()" type="submit">Assign</button>
+                                                                    <button class="tc-cancel-button" ng-click="changeAssignFlag()">Unset</button>
+                                                                    <div class="tc-clear"></div>
+                                                                </div>
+                                                                <!-- .tc-options-wrap -->
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="tc-settings-wrap tc-tables-settings" id="tc-seats">
+                                                            <div class="tc-settings-wrap tc-tables-settings" id="tc_seating_group_widget">
+                                                                <div class="tc-options-wrap">
+                                                                    <div class="tc-input-wrap" id="seatTypeTitle">
+                                                                        <label>Title <span class="text-red">*</span></label>
+                                                                        <input type="text" required only-text-number="" ng-model="titleText2" id="tc_seating_group_title" />
+                                                                        <span id="tc_seating_group_message"></span>
+                                                                    </div>
+                                                                    <!-- .tc-input-wrap -->
+                                                                    <div class="tc_slider_custom">
+                                                                        <div class="tc-input-wrap tc-input-slider tc-seat-rows-slider">
+                                                                            <label>Rows <span class="text-red">*</span></label>
+                                                                            <div class="tc-number-slider"></div>
+                                                                            <input type="text" required only-number="" disable-it mousewheel="true" ng-model="rowPerSection" id="tc_seat_add_seats_rows" class="tc-slider-value" />
+                                                                        </div>
+                                                                        <!-- .tc-input-slider -->
+                                                                        <div class="tc-input-wrap tc-input-slider tc-seat-cols-slider">
+                                                                            <label>Columns <span class="text-red">*</span></label>
+                                                                            <div class="tc-number-slider"></div>
+                                                                            <input type="text" required only-number="" disable-it mousewheel="true" ng-model="columnPerSection" id="tc_seat_add_seats_cols" class="tc-slider-value" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- .tc-input-slider -->
+                                                                    <div class="tc-clear"></div>
+                                                                    <div class="tc_seat_add_controls pa-display-inline-block">
+                                                                        <button class="tc-change-button" type="button" disabled id="tc_add_seats_button">Create</button>
+                                                                    </div>
+                                                                    <div class="tc_seat_edit_controls">
+                                                                        <button class="tc-edit-button" type="button" id="tc_edit_seats_button">Edit</button>
+                                                                        <button class="tc-cancel-button" id='tc_cancel_seat_button'>Cancel</button>
+                                                                    </div>
+                                                                    <div class="tc-clear"></div>
+                                                                </div>
+                                                                <!-- .tc-options-wrap -->
+                                                            </div>
+                                                            <!-- .tc-settings-wrap -->
+                                                        </div>
+
+                                                        <div class="tc-settings-wrap tc-tables-settings" id="tc-standing">
+                                                            <div class="tc-settings-wrap  tc-tables-settings" id="tc_standing_widget">
+                                                                <div class="tc-options-wrap">
+                                                                    <div class="tc-input-wrap" id="seatTypeTitle1">
+                                                                        <label>Title <span class="text-red">*</span></label>
+                                                                        <input type="text" required only-text-number="" ng-model="titleText3" id="tc_standing_group_title" />
+                                                                        <span id="tc_standing_group_message"></span>
+                                                                    </div>
+                                                                    <!-- .tc-input-wrap -->
+                                                                    <div class="tc-input-wrap tc-input-slider tc-standing-input-slider" id="seatCapacity">
+                                                                        <label>Capacity <span class="text-red">*</span></label>
+                                                                        <div class="tc-number-slider tc_standing_area_num"></div>
+                                                                        <input type="text" required only-number="" disable-it mousewheel="true" ng-model="perCapacity" id="tc_standing_num" maxlength="6" minlength="1" class="tc-slider-value tc_standing_area_num_value" />
+                                                                    </div>
+                                                                    <!-- .tc-input-wrap -->
+                                                                    <div class="tc-color-picker-wrap" id="seatColor">
+                                                                        <label>Area Color</label>
+                                                                        <div class="tc-color-picker-standing tc-standing-color-picker">
+                                                                            <input type="hidden" class="tc_standing_color" value="#dedede" />
+                                                                            <input class="tc-color-picker" type="text" value="" />
+                                                                        </div>
+                                                                        <!-- .tc-color-picker-standing -->
+                                                                    </div>
+                                                                    <!-- .tc-color-picker-wrap -->
+                                                                    <div class="tc-clear"></div>
+                                                                    <div class="tc_seat_add_controls pa-display-inline-block">
+                                                                        <button class="tc-change-button" type="button" disabled id="tc_add_standing_button">Create</button>
+                                                                    </div>
+                                                                    <div class="tc_seat_edit_controls">
+                                                                        <button class="tc-change-button" type="button" id="tc_edit_standing_button">Edit</button>
+                                                                        <button class="tc-cancel-button" id="tc_cancel_standing_button">Cancel</button>
+                                                                    </div>
+                                                                    <div class="tc-clear"></div>
+                                                                </div>
+                                                                <!-- .tc-options-wrap -->
+                                                            </div>
+                                                            <!-- .tc-settings-wrap -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="md-accordion md-chairs">
+                                                    <md-toolbar ng-init="expanded_2 = false" ng-click="collapseAccordion('chairs');">
+                                                        <div class="md-toolbar-tools">
+                                                            <h2>
+                                                                <span>Chairs</span>
+                                                            </h2>
+                                                            <span flex=""></span>
+                                                            <span ng-class="{expandCollapse:true, active:expanded_2}"><i class="material-icons">expand_more</i></span>
+                                                        </div>
+                                                    </md-toolbar>
+                                                    <div ng-class="{dataContent:true, activeContent:expanded_2}">
+                                                        <div class="tc-settings-wrap tc-tables-settings" id="tc-table">
+                                                            <div class="tc-options-wrap">
+                                                                <div class="tc-input-wrap" id="chairTypeTitle">
+                                                                    <label>Title <span class="text-red">*</span></label>
+                                                                    <input type="text" only-text-number="" ng-model="titleText4" class="tc_table_title" />
+                                                                    <span id="tc_table_message"></span>
+                                                                </div>
+
+                                                                <!-- .tc-input-wrap -->
+                                                                <div class="tc_slider_custom_inner" id="chairNUmberOfSeat">
+                                                                    <div class="tc-input-wrap tc-input-slider">
+                                                                        <label>Number of Seats <span class="text-red">*</span></label>
+                                                                        <div class="tc-number-slider tc_table_seats_num"></div>
+                                                                        <input type="text" only-number="" ng-model="perTable" disable-it mousewheel="true" id="tc_table_seats_num" class="tc-slider-value tc_table_seats_num_value" />
+                                                                        <div class="tc_end_seats_holder">
+                                                                            <label>End Seats</label>
+                                                                            <div class="tc-number-slider tc_table_end_seats"></div>
+                                                                            <input type="text" only-number="" value="4" ng-model="perTableSeats" disable-it mousewheel="true" id="tc_table_end_seats" class="tc-slider-value tc_table_end_seats_value" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- .tc-input-slider -->
+                                                                <div class="tc-input-wrap tc-select-shape" id="chairShapeSeat">
+                                                                    <label>Shape</label>
+                                                                    <div class="tc-shape-wrap">
+                                                                        <input type="radio" id="c1" name="tc_seat_table_type" class="tc_seat_table_type tc_seat_table_type_circle" value="circle" checked />
+                                                                        <label for="c1" class="tc-select-shape-round"><span class="tc-span-sizer"></span><span class="tc-span-active"></span></label>
+                                                                        <input type="radio" id="c2" name="tc_seat_table_type" class="tc_seat_table_type tc_seat_table_type_square" value="square" />
+                                                                        <label for="c2" class="tc-select-shape-box"><span class="tc-span-sizer"></span><span class="tc-span-active"></span></label>
+                                                                        <div class="tc-clear"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- .tc-input-slider -->
+
+                                                                <div class="tc-color-picker-wrap tc-table-color-picker" id="chairShapeColor">
+                                                                    <label>Table Color</label>
+                                                                    <div class="tc-color-picker-element">
+                                                                        <input type="hidden" class="icon-color" value="#A02541" />
+                                                                        <input class="tc-color-picker" type="text" />
+                                                                    </div>
+                                                                    <!-- .tc-color-picker-element -->
+                                                                </div>
+                                                                <!-- .tc-color-picker-wrap -->
+
+                                                                <div class="tc-clear"></div>
+
+                                                                <div class="tc_table_add_controls pa-display-inline-block">
+                                                                    <button class="tc-change-button" type="button" disabled id="tc_add_table_button">Create</button>
+                                                                </div>
+
+                                                                <div class="tc_table_edit_controls">
+                                                                    <button class="tc-edit-button" type="button" id="tc_edit_table_button">Edit</button>
+                                                                    <button class="tc-cancel-button" id="tc_cancel_table_button">Cancel</button>
+                                                                </div>
+                                                                <div class="tc-clear"></div>
+                                                            </div>
+                                                            <!-- .tc-options-wrap -->
+                                                        </div>
+                                                        <!-- .tc-settings-wrap -->
+                                                    </div>
+                                                </div>
+
+                                                <div class="md-accordion md-objects">
+                                                    <md-toolbar ng-init="expanded_3 = false" ng-click="collapseAccordion('objects')">
+                                                        <div class="md-toolbar-tools">
+                                                            <h2>
+                                                                <span>Objects</span>
+                                                            </h2>
+                                                            <span flex=""></span>
+                                                            <span ng-class="{expandCollapse:true, active:expanded_3}"><i class="material-icons">expand_more</i></span>
+                                                        </div>
+                                                    </md-toolbar>
+                                                    <div ng-class="{dataContent:true, activeContent:expanded_3}">
+                                                        <div class="tc-settings-wrap tc-tables-settings" id="tc_element_widget">
+                                                            <div class="tc-options-wrap">
+                                                                <div id="selectIcon">
+                                                                    <div class="tc-input-wrap">
+                                                                        <label>Title <span class="text-red">*</span></label>
+                                                                        <input type="text" required only-text-number="" ng-model="objectTitle" class="tc_element_title" value="Exit" />
+                                                                        <span id="tc_element_title_message"></span>
+                                                                    </div>
+                                                                    <!-- .tc-input-wrap -->
+
+                                                                    <div class="tc-clear"></div>
+                                                                    <div class="tc-select-elements">
+                                                                        <ul>
+                                                                            <li>
+                                                                                <div class="tc-element-row">
+                                                                                    <input type="radio" id="tc-icon-exit" name="tc-element-selection" value="tc-icon-exit" checked />
+                                                                                    <label for="tc-icon-exit" class="tc-select-element" title="Exit">
+                                                                                <span class="tc-icon-exit"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-toilet" name="tc-element-selection" value="tc-icon-toilet" />
+                                                                                    <label for="tc-icon-toilet" class="tc-select-element" title="Toilet">
+                                                                                <span class="tc-icon-toilet"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-stage" name="tc-element-selection" value="tc-icon-stage" />
+                                                                                    <label for="tc-icon-stage" class="tc-select-element" title="Stage">
+                                                                                <span class="tc-icon-stage"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-drinks" name="tc-element-selection" value="tc-icon-drinks" />
+                                                                                    <label for="tc-icon-drinks" class="tc-select-element" title="Drinks">
+                                                                                <span class="tc-icon-drinks"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-shower" name="tc-element-selection" value="tc-icon-shower" />
+                                                                                    <label for="tc-icon-shower" class="tc-select-element" title="Showers">
+                                                                                <span class="tc-icon-shower"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-camping" name="tc-element-selection" value="tc-icon-camping" />
+                                                                                    <label for="tc-icon-camping" class="tc-select-element" title="Camping Area">
+                                                                                <span class="tc-icon-camping"></span>
+                                                                            </label>
+                                                                                </div>
+                                                                                <!-- .tc-element-row -->
+                                                                                <div class="tc-element-row tc-no-border tc-bottom-icon-row">
+                                                                                    <input type="radio" id="tc-icon-dancefloor" name="tc-element-selection" value="tc-icon-dancefloor" />
+                                                                                    <label for="tc-icon-dancefloor" class="tc-select-element" title="Dance Floor">
+                                                                                <span class="tc-icon-dancefloor"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-food" name="tc-element-selection" value="tc-icon-food" />
+                                                                                    <label for="tc-icon-food" class="tc-select-element" title="Food">
+                                                                                <span class="tc-icon-food"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-info" name="tc-element-selection" value="tc-icon-info" />
+                                                                                    <label for="tc-icon-info" class="tc-select-element" title="Info">
+                                                                                <span class="tc-icon-info"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-entrance" name="tc-element-selection" value="tc-icon-entrance" />
+                                                                                    <label for="tc-icon-entrance" class="tc-select-element" title="Entrance">
+                                                                                <span class="tc-icon-entrance"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-drinks-2" name="tc-element-selection" value="tc-icon-drinks-2" />
+                                                                                    <label for="tc-icon-drinks-2" class="tc-select-element" title="Drinks">
+                                                                                <span class="tc-icon-drinks-2"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-atm" name="tc-element-selection" value="tc-icon-atm" />
+                                                                                    <label for="tc-icon-atm" class="tc-select-element" title="ATM">
+                                                                                <span class="tc-icon-atm"></span>
+                                                                            </label>
+                                                                                </div>
+                                                                                <!-- .tc-element-row -->
+                                                                            </li>
+
+                                                                            <li>
+                                                                                <div class="tc-element-row">
+                                                                                    <input type="radio" id="tc-icon-music" name="tc-element-selection" value="tc-icon-music" />
+                                                                                    <label for="tc-icon-music" class="tc-select-element" title="Stage">
+                                                                                <span class="tc-icon-music"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-table-2" name="tc-element-selection" value="tc-icon-table-2" />
+                                                                                    <label for="tc-icon-table-2" class="tc-select-element" title="Tables">
+                                                                                <span class="tc-icon-table-2"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-reception" name="tc-element-selection" value="tc-icon-reception" />
+                                                                                    <label for="tc-icon-reception" class="tc-select-element" title="Reception">
+                                                                                <span class="tc-icon-reception"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-toilet-2" name="tc-element-selection" value="tc-icon-toilet-2" />
+                                                                                    <label for="tc-icon-toilet-2" class="tc-select-element" title="Toilet">
+                                                                                <span class="tc-icon-toilet-2"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-escalator" name="tc-element-selection" value="tc-icon-escalator" />
+                                                                                    <label for="tc-icon-escalator" class="tc-select-element" title="Escalator">
+                                                                                <span class="tc-icon-escalator"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-elevator" name="tc-element-selection" value="tc-icon-elevator" />
+                                                                                    <label for="tc-icon-elevator" class="tc-select-element" title="Elevator">
+                                                                                <span class="tc-icon-elevator"></span>
+                                                                            </label>
+                                                                                </div>
+                                                                                <!-- .tc-element-row -->
+
+                                                                                <div class="tc-element-row tc-no-border tc-bottom-icon-row">
+                                                                                    <input type="radio" id="tc-icon-disability" name="tc-element-selection" value="tc-icon-disability" />
+                                                                                    <label for="tc-icon-disability" class="tc-select-element" title="Disability Entrance">
+                                                                                <span class="tc-icon-disability"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-gym" name="tc-element-selection" value="tc-icon-gym" />
+                                                                                    <label for="tc-icon-gym" class="tc-select-element" title="Gym">
+                                                                                <span class="tc-icon-gym"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-parking" name="tc-element-selection" value="tc-icon-parking" />
+                                                                                    <label for="tc-icon-parking" class="tc-select-element" title="Parking">
+                                                                                <span class="tc-icon-parking"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-doctor" name="tc-element-selection" value="tc-icon-doctor" />
+                                                                                    <label for="tc-icon-doctor" class="tc-select-element" title="Doctor">
+                                                                                <span class="tc-icon-doctor"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-mac" name="tc-element-selection" value="tc-icon-mac" />
+                                                                                    <label for="tc-icon-mac" class="tc-select-element" title="Computer">
+                                                                                <span class="tc-icon-mac"></span>
+                                                                            </label>
+                                                                                    <input type="radio" id="tc-icon-hanger" name="tc-element-selection" value="tc-icon-hanger" />
+                                                                                    <label for="tc-icon-hanger" class="tc-select-element" title="Wardrobe">
+                                                                                <span class="tc-icon-hanger"></span>
+                                                                            </label>
+                                                                                </div>
+                                                                                <!-- .tc-element-row -->
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!-- .tc-select-elements -->
+                                                                </div>
+                                                                <div class="tc-color-picker-wrap" id="selectIconColor">
+                                                                    <label>Icon Color</label>
+                                                                    <div class="tc-color-picker-element tc-element-color-picker">
+                                                                        <input type="hidden" class="icon-color" value="#ffffff" />
+                                                                        <input class="tc-color-picker" type="text" value="" />
+                                                                    </div>
+                                                                    <!-- .tc-color-picker-element -->
+                                                                </div>
+                                                                <!-- .tc-color-picker-wrap -->
+
+                                                                <div class="tc-color-picker-wrap" id='selectIconBGColor'>
+                                                                    <label>Background Color</label>
+                                                                    <div class="tc-color-picker-element tc-element-background-color-picker">
+                                                                        <input type="hidden" class="icon-background-color" value="#A02541" />
+                                                                        <input class="tc-background-color-picker" type="text" value="" />
+                                                                    </div>
+                                                                    <!-- .tc-color-picker-element -->
+                                                                </div>
+                                                                <!-- .tc-color-picker-wrap -->
+
+                                                                <div class="tc_element_add_controls pa-display-inline-block">
+                                                                    <button class="tc-change-button" type="button" id="tc_add_element_button">Create</button>
+                                                                </div>
+                                                                <div class="tc_element_edit_controls">
+                                                                    <button class="tc-edit-button" type="button" id="tc_edit_element_button">Edit</button>
+                                                                    <button class="tc-cancel-button" id="tc_cancel_element_button">Cancel</button>
+                                                                </div>
+                                                                <div class="tc-clear"></div>
+                                                            </div>
+                                                            <!-- .tc-options-wrap -->
+                                                        </div>
+                                                        <!-- .tc-settings-wrap -->
+                                                    </div>
+                                                </div>
+
+                                                <div class="md-accordion md-text">
+                                                    <md-toolbar ng-init="expanded_4 = false" ng-click="collapseAccordion('text')">
+                                                        <div class="md-toolbar-tools">
+                                                            <h2>
+                                                                <span>Text</span>
+                                                            </h2>
+                                                            <span flex=""></span>
+                                                            <span ng-class="{expandCollapse:true, active:expanded_4}"><i class="material-icons">expand_more</i></span>
+                                                        </div>
+                                                    </md-toolbar>
+                                                    <div ng-class="{dataContent:true, activeContent:expanded_4}">
+                                                        <div class="tc-settings-wrap  tc-tables-settings" id="tc_text_widget">
+                                                            <div class="tc-options-wrap">
+                                                                <div class="tc-input-wrap" id="textTypeTitle">
+                                                                    <label>Text <span class="text-red">*</span></label>
+                                                                    <input type="text" required only-text-number="" ng-model="titleText5" class="tc_text_title" />
+                                                                    <span id="tc_text_message"></span>
+                                                                </div>
+                                                                <!-- .tc-input-wrap -->
+
+                                                                <div class="tc-clear"></div>
+                                                                <div class="tc-color-picker-wrap" id="textColor">
+                                                                    <label>Color</label>
+                                                                    <div class="tc-color-picker-element">
+                                                                        <input type="hidden" class="tc_text_color" value="#A02541" />
+                                                                        <input class="tc-color-picker" type="text" value="#000000" />
+                                                                    </div>
+                                                                    <!-- .tc-color-picker-element -->
+                                                                </div>
+                                                                <!-- .tc-color-picker-wrap -->
+
+                                                                <div class="tc-input-wrap tc-input-slider font_size_slider" id="textFontSize">
+                                                                    <label>Font Size</label>
+                                                                    <div class="tc-number-slider"></div>
+                                                                    <input type="text" only-number="" ng-model="textSize" class="tc-slider-value tc_text_size" />
+                                                                </div>
+                                                                <!-- .tc-input-slider -->
+
+                                                                <div class="tc_text_add_controls">
+                                                                    <button class="tc-change-button" type="button" disabled id="tc_add_text_button">Create</button>
+                                                                </div>
+
+                                                                <div class="tc_text_edit_controls">
+                                                                    <button class="tc-edit-button" type="button" id="tc_edit_text_button">Edit</button>
+                                                                    <button class="tc-cancel-button" id="tc_cancel_text_button">Cancel</button>
+                                                                </div>
+
+                                                                <div class="tc-clear"></div>
+
+                                                            </div>
+                                                            <!-- .tc-options-wrap -->
+                                                        </div>
+                                                        <!-- .tc-settings-wrap -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </md-tab-body>
+                                </md-tab>
+                                <md-tab class="pa-padding-20">
+                                    <md-tab-label>Tiers
+                                        <md-tooltip md-direction='bottom'>Select this to assign specific seats to specific ticket tiers/types.</md-tooltip>
+                                    </md-tab-label>
+                                    <md-tab-body>
+                                        <div class="upcoming-past-tab-tabs-content" id="tab2C">
+                                            <div class="tiers_compent">
+                                                <div class="tiers_head">
+                                                    <span class="pull-left">Tiers Assigned</span>
+                                                    <span class="pull-right"><span id="pa_assigned_tier" data-total-assigned="0">0</span>/<span id="pa_total_seats" data-total-seat="0">0</span></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="check-promo">
+                                                  <input class="checkhour" type="checkbox" >
+                                                  <span class="check-ui"></span>
+                                                  <span class="chec-category">Show Selling Order</span>
+                                                </label>
+                                                </div>
+
+                                                <ul ui-sortable="sortableOptions" class="tiers_list" ng-model="list">
+                                                    <li ng-repeat="item in list track by $index" id="pm_tiers_{{$index}}" data-tier="tier-{{item.tier_array_no}}" markable class="tiers_list_drag">
+                                                        <div class="tiers_list_content">
+                                                            <span class="drag_li_icon" id="tierSequence">
+                                                            <i class="material-icons draggable-item">drag_indicator</i>
+                                                        </span>
+                                                            <span class="add_more_tiers" id="tierManualAction" data-tt-color="{{item.color}}" style="background-color: {{item.color}}">
+                                                            <i class="material-icons icon-add" style="display: none;" ng-click="addToTiers($event)" uib-tooltip="Add to Tier">add</i>
+                                                            <i class="material-icons icon-remove" style="display: none;" ng-click="removeToTier($event)" uib-tooltip="Remove to Tier">remove</i>
+                                                            <i class="material-icons icon-edit" ng-click="showColor = !showColor" uib-tooltip="Change Tier Color">edit</i>
+                                                        </span>
+                                                            <span class="tiers_list_name" id="tierNameCapacity">
+                                                            <input type="text" ng-model="tierName" class="itemInput" ng-blur="updateTitle(tierName, item.tier_array_no)" value="{{item.name}}" />
+                                                            <p><span data-tier-cp="{{item.seating_capacity}}">{{item.seating_capacity}}</span> Seats</p>
+                                                            </span>
+                                                        </div>
+                                                        <span class="delete_list_tiers" id="tierDelete" uib-tooltip="Delete">
+                                                        <i class="material-icons cancelled-clor" ng-click="removeTier($index, item.tier_array_no, item.tier_id)">delete_outline</i>
+                                                    </span>
+                                                        <div class="color_picker" ng-show="showColor">
+                                                            <spectrum-colorpicker format="'hex'" on-hide="colorUpdate(color, item.tier_array_no)" options="{showAlpha: true}" ng-model="item.color">
+                                                            </spectrum-colorpicker>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="row pa-mt-30-imp" id="addTierGuidance">
+                                                    <div class="col-md-12">
+                                                        <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" ng-disabled="tierDisabled" ng-click="addTier(list.length)" type="button" style="width: 100% !important;margin: 0;">Add Tier</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </md-tab-body>
+                                </md-tab>
+
+                                <!-- Future Component UI --->
+                                <!-- <md-tab label="Holds" class="pa-padding-20">
+                                    <div class="upcoming-past-tab-tabs-content" id="tab2C">
+                                        <div class="tiers_compent">
+                                            <div class="tiers_head" style="padding-bottom: 0;">
+                                                <span class="pull-left">Held</span>
+                                                <span class="pull-right">27/230</span>
+                                            </div>
+                                            <div class="tiers_list_drag">
+                                                <div class="tiers_list_content">
+                                                    <span class="add_more_tiers" style=" background-color: #FFB440;">
+                                                    <i class="material-icons">add</i>
+                                                  </span>
+                                                    <span class="tiers_list_name" style="padding-left:12px;">
+                                                    Hold
+                                                    <p>27 Seats</p>
+                                                  </span>
+                                                </div>
+                                                <span class="delete_list_tiers">
+                                                  <i class="material-icons">delete_outline</i>
+                                                </span>
+                                            </div>
+                                            <div class="row pa-mt-30-imp">
+                                                <div class="col-md-12">
+                                                    <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" type="button" style="width: 100% !important;margin: 0;">Add Hold</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </md-tab> -->
+                            </md-tabs>
+                        </div>
+                    </div>
+                    <div class="create_tc_layout_right_sec">
+                        <div class="canvas-bt-strip">
+                            <div class="noti_fiy_tc tc-seating-tooltips">
+                                <i class="material-icons">info</i>
+                                <p>You will get all guidelines information here.</p>
+                            </div>
+                        </div>
+                        <div class="tc-wrapper tc-map" id="tc_tcwrapper">
+                            <div id="tc-seating-dialog">Are you sure that you want to permanently delete the selected object?</div>
+                            <div id="tc-seating-change-event-dialog">If you change the event all ticket types will be unassigned. Do you want to change the event?</div>
+                            <div id="tc-seating-required-label-dialog">WARNING: Seats marked with black do not have assigned labels. Please select marked seats and add unique label to each.</div>
+                            <div id="tc-seating-same-label-error-dialog">All seat labels must be unique. Please correct errors and try to assign label(s) again.</div>
+                            <div class="tc-pan-wrapper"></div>
+                        </div>
+                        <!-- .tc-wrapper -->
+                        <div class="canvas_bt_strip">
+                            <div class="guide_button">
+                                <button class="tc-plus-wrap" ng-if="MapGuidanceFlag" ng-click="guidenceStartAgain()" uib-tooltip="Start Venue Map Design Guidance" tooltip-placement="left"><i class="material-icons">help</i></button>
+                                <button class="tc-plus-wrap" ng-if="tierGuidanceFlag" ng-click="guidenceTierStartAgain()" uib-tooltip="Start Venue Map Tier Guidance" tooltip-placement="left"><i class="material-icons">help</i></button>
+                            </div>
+                            <div class="zoom_in_out tc-zoom-wrap">
+                                <button class="tc-plus-wrap" uib-tooltip="Zoom In" tooltip-placement="left"><i class="material-icons">add</i></button>
+                                <button class="tc-minus-wrap" uib-tooltip="Zoom Out" tooltip-placement="left"><i class="material-icons">remove</i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        
+    </div>
+</div>
+
+<script>
+    var tc_seatings_tooltips = {
+        "pan_wrapper": "Left click and drag to pan (or use arrow keys). Use mouse wheel to zoom",
+        "draggable": "Click and drag to move",
+        "rotate": "Click and drag to rotate. Hold SHIFT key to rotate it in precise steps.",
+        'assign': 'Double click to assign the seat name and number. After click again it will disabled.',
+        "delete": "Click to remove the object permanently",
+        "copy": "Click to copy the object",
+        "edit": "Click to edit the object",
+        "resizable": "Click and drag to resize. Hold SHIFT key to resize the object proportionally.",
+        "drag_slider": "Drag to change the value",
+        "click_option": "Click to change the value",
+        "selectable": "Click to select \/ deselect seats. Use CTRL \/ CMD keys or mouse lasso to mark multiple desired seats at once.",
+        "save": "Click to save changes"
+    };
+
+    var tc_controls_vars = {
+        "ajaxUrl": "#",
+        "are_you_sure": "Are you sure?",
+        "label_error_message": "Label error message",
+        "yes": "Yes",
+        "ok": "OK",
+        "no": "No",
+        "tc_reserved_seat_color": "#DCCBCB"
+    };
+
+    if (typeof tc_reserved_seats == "undefined") {
+        var tc_reserved_seats = new Array();
+    }
+    tc_reserved_seats[28] = new Array();
+</script>

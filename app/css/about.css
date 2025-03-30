@@ -1,0 +1,542 @@
+.about-banner {
+    background-image: url(../img/about-banner.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 300px;
+    background-position: center;
+}
+
+.banner-head {
+    color: #FFFFFF;
+    font-size: 60px;
+    font-weight: bold;
+    text-transform: capitalize;
+    padding: 107px 0;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.event-based {
+    padding: 80px 0;
+}
+
+.bg-white {
+    background: #fff;
+}
+
+.event-based-content h2 {
+    color: #333333;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 46px;
+    padding-right: 40px;
+    margin-bottom: 30px;
+}
+
+.event-based-content {
+    display: inline-block;
+    width: 100%;
+    max-width: 570px;
+}
+
+.event-based-content h2 span {
+    color: #38B968;
+}
+
+.event-based-desc {
+    color: #666666;
+    font-size: 24px;
+    line-height: 36px;
+}
+
+.event-based-map img {
+    width: 100%;
+}
+
+.event-based-map {
+    padding: 24px 0;
+}
+
+.access-device-event {
+    background: #F6F6F6;
+    padding: 80px 0;
+}
+
+.access-device-event .event-based-content {
+    margin: 80px 0;
+}
+
+.exciting-features-head h2 {
+    color: #333333;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 46px;
+    text-align: center;
+    width: 100%;
+    margin: 0 0 65px 0;
+}
+
+.exciting-features-box-img img {
+    width: 70px;
+}
+
+.exciting-feature-content h3 {
+    margin: 20px 0 10px 0;
+    color: #333333;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.exciting-feature-content span {
+    color: #666666;
+    font-size: 18px;
+    line-height: 26px;
+}
+
+.exciting-features {
+    padding: 80px 0;
+}
+
+.exciting-features-note {
+    color: #333333;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 34px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.founder-profile {
+    background-color: #F6F6F6;
+    padding: 80px 60px;
+}
+
+.founder_img img {
+    width: 100%;
+    display: block
+}
+
+.founder_m_wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1170px;
+}
+
+.founder_m_wrapper .founder_img {
+    width: 385px;
+}
+
+.founder_m_wrapper .founder-about {
+    width: calc(100% - 445px);
+}
+
+
+/* .founder-profile .col-md-4 {
+    background-image: url(../img/George.png);
+    background-size: 400px;
+    background-repeat: no-repeat;
+    background-position: left, center;
+    height: 400px;
+} */
+
+
+/* .founder-about {
+    width: 100%;
+} */
+
+.founder-about h2 {
+    color: #333333;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 44px;
+    margin: 0 0 10px 0;
+}
+
+.postion-about {
+    display: block;
+    color: #666666;
+    font-size: 26px;
+    line-height: 32px;
+    margin-bottom: 20px;
+}
+
+.founder-desc {
+    color: #666666;
+    font-size: 18px;
+    line-height: 30px;
+}
+
+.founder-desc {
+    color: #666666;
+    font-size: 18px;
+    line-height: 30px;
+}
+
+
+/* Contact Us */
+
+.contact-banner {
+    background-image: url(../img/anthony-delanoix.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 430px;
+    background-position: center;
+    position: relative;
+}
+
+.contact-banner::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: rgb(0 0 0 / 50%);
+}
+
+.contact-ban-details {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+    position: relative;
+}
+
+.contact-ban-details .contact-head {
+    font-size: 42px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.contact-ban-details .contact-sub-head {
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 15px;
+}
+
+.contact-ban-details .gt-dir {
+    font-size: 15px;
+    font-weight: 300;
+    color: #fff;
+}
+
+.contact-para {
+    background: #A02541;
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.contact-para p {
+    width: 570px;
+    margin: 30px auto;
+    font-size: 20px;
+    font-weight: 300;
+    max-width: 100%;
+    line-height: 1.67;
+}
+
+.contact-para p b {
+    font-weight: 600;
+}
+
+.th-organisign {
+    background: #f7f7f7;
+    padding: 80px 20px;
+}
+
+.th-organisign .hd {
+    font-weight: 600;
+    display: table;
+    margin: 0 auto 25px;
+}
+
+.contactbx {
+    width: calc(50% - 20px);
+    border: 1px solid #bfbfbf;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.contact-bx-wrap {
+    width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.contactbx .hq {
+    font-size: 24px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.contactbx p {
+    color: #949494;
+    margin-bottom: 20px;
+}
+
+.contactbx h4 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.contactbx a {
+    display: table;
+    color: #4c4c4c;
+    font-size: 16px;
+    position: relative;
+    padding-left: 30px;
+    margin: 15px 0;
+}
+
+.contactbx a:last-child {
+    margin-bottom: 0;
+}
+
+.contactbx a i {
+    color: #a02541;
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+}
+
+@media screen and (max-width: 1170px) {
+    .event-based-content h2 {
+        font-size: 30px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    /* .founder-about {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto;
+        float: none;
+        padding-top: 40px;
+        padding-bottom: 0;
+        padding-right: 0;
+    } */
+    .founder-profile {
+        padding: 80px 60px 150px;
+    }
+    .th-organisign {
+        padding: 80px 20px 120px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .access-device-event .event-based-content {
+        margin: 30px 0;
+    }
+    .event-based-content h2 {
+        font-size: 26px;
+    }
+    .exciting-features-head h2 {
+        font-size: 30px;
+        line-height: 1.67;
+    }
+    .exciting-feature-content h3 {
+        font-size: 20px;
+    }
+    .exciting-feature-content span {
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    .founder-profile {
+        padding: 80px 30px 150px;
+    }
+    .founder_m_wrapper {
+        align-items: flex-start;
+    }
+    .founder_m_wrapper .founder_img {
+        width: 165px;
+    }
+    .founder_m_wrapper .founder-about {
+        width: calc(100% - 215px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .event-based-content {
+        max-width: 100%;
+        text-align: left;
+    }
+    .exciting-features-list-box {
+        text-align: left;
+        padding-bottom: 30px;
+    }
+    .access-device-event .event-based-content {
+        margin: 20px 0;
+    }
+    .banner-head {
+        font-size: 50px;
+    }
+    .event-based-content h2 {
+        font-size: 22px;
+        line-height: 30px;
+        padding-right: 0;
+        margin-bottom: 15px;
+        margin-top: 0;
+    }
+    .event-based-desc {
+        font-size: 16px;
+        line-height: 26px;
+    }
+    .exciting-features-head h2 {
+        font-size: 22px;
+        margin-bottom: 40px;
+        text-align: left;
+        line-height: 30px;
+    }
+    .founder-about h2 {
+        font-size: 22px;
+    }
+    .postion-about {
+        font-size: 20px;
+    }
+    .exciting-feature-content h3 {
+        font-size: 20px;
+    }
+    .exciting-feature-content span {
+        font-size: 16px;
+    }
+    .exciting-features-note {
+        font-size: 15px;
+        text-align: left;
+        margin-top: 0;
+        line-height: 22px;
+    }
+    .access-device-event .event-based-content {
+        margin: 20px 0;
+    }
+    .banner-head {
+        font-size: 50px;
+    }
+    .event-based-content h2 {
+        font-size: 22px;
+        line-height: 30px;
+        padding-right: 0;
+        margin-bottom: 15px;
+        margin-top: 0;
+    }
+    .event-based-desc {
+        font-size: 16px;
+        line-height: 26px;
+    }
+    .exciting-features-head h2 {
+        font-size: 22px;
+        margin-bottom: 40px;
+        text-align: left;
+        line-height: 30px;
+    }
+    .founder-about h2 {
+        font-size: 22px;
+    }
+    .postion-about {
+        font-size: 20px;
+    }
+    .exciting-feature-content h3 {
+        font-size: 20px;
+    }
+    .exciting-feature-content span {
+        font-size: 16px;
+    }
+    .exciting-features-note {
+        font-size: 15px;
+        text-align: left;
+        margin-top: 0;
+        line-height: 22px;
+    }
+    /* .founder-about {
+        text-align: left;
+        padding-top: 30px;
+    } */
+    .founder-desc {
+        font-size: 16px;
+    }
+    .event-based {
+        padding: 40px 0;
+    }
+    .event-based-map {
+        padding-top: 30px;
+        padding-bottom: 0;
+    }
+    .access-device-event {
+        padding: 40px 0;
+    }
+    .exciting-features {
+        padding: 40px 0;
+    }
+    .exciting-features-box-img img {
+        width: 60px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .founder-profile {
+        padding: 40px 30px 150px;
+        min-height: auto;
+    }
+    .founder_m_wrapper {
+        align-items: flex-start;
+    }
+    .founder_m_wrapper .founder_img {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .founder_m_wrapper .founder-about {
+        width: 100%;
+    }
+    .contact-ban-details .contact-head {
+        font-size: 30px;
+    }
+    .contact-ban-details {
+        padding: 0 20px;
+    }
+    .contact-ban-details .contact-sub-head {
+        font-size: 18px;
+        text-align: center;
+    }
+    .contact-para p {
+        font-size: 16px;
+    }
+    .contact-para {
+        padding: 20px;
+    }
+    .th-organisign {
+        padding: 50px 20px 80px;
+    }
+    .th-organisign .hd {
+        font-size: 22px;
+    }
+    .contact-bx-wrap {
+        flex-wrap: wrap;
+    }
+    .contactbx {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .contactbx .hq {
+        font-size: 20px;
+    }
+    .contactbx h4 {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .founder-profile .col-md-4 {
+        height: 400px;
+        background-size: 400px;
+    }
+}

@@ -1,0 +1,895 @@
+.pa-event-detail-modal {
+    border-radius: 0;
+}
+
+.pa-event-detail-header {
+    background-color: #3b373c !important;
+    min-height: 65px;
+    padding: 0;
+}
+
+.Post-Comment-btn[disabled] {
+    color: #333333 !important;
+    opacity: 0.6;
+}
+
+.new-Post-Comment-btn[disabled] {
+    color: #333333 !important;
+    opacity: 0.6;
+    background-color: #e4e4e4;
+    cursor: not-allowed;
+}
+
+.new-Post-Comment-btn {
+    height: 48px;
+    width: 190px;
+    background-color: #a02541;
+}
+
+.pa-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    display: inline-block;
+    padding: 9px;
+    padding-top: 10px;
+    position: relative;
+    top: 11px;
+    background: #fff;
+}
+
+.pa-event-img {
+    width: 17px;
+    height: 17px;
+    display: block;
+}
+
+.pa-event-cat-style {
+    font-size: 16px;
+    padding-left: 4px;
+    text-transform: uppercase;
+}
+
+.pa-event-name-style {
+    font-size: 22px;
+    word-break: break-all;
+}
+
+.pa-event-detail-header .row {
+    margin-left: 0;
+}
+
+.pa-claim-event-style {
+    border: 1px solid #a02541;
+    height: 32px;
+    font-size: 13px;
+}
+
+.pa-interested-text {
+    font-size: 13px;
+    height: 32px;
+    width: 30%;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.pa-interest-img {
+    height: 13px;
+    width: 15px;
+    position: relative;
+    left: -3px;
+}
+
+.pa-going-text {
+    font-size: 13px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-left: 8px;
+}
+
+.pa-unselect-type {
+    color: #5b5b5b;
+    border: 1px solid #a02541;
+    background: #fff;
+}
+
+.pa-going-width {
+    width: 24.5%;
+    height: 32px;
+}
+
+.pa-not-going-width {
+    width: 32%;
+    height: 32px;
+}
+
+.pa-cross-img {
+    height: 11px;
+    width: 11px;
+    position: relative;
+    left: -5px;
+}
+
+.pa-event-detail-row {
+    margin-right: -15px;
+}
+
+.pa-event-img-sec {
+    border: 1px solid #363138;
+    border-radius: 4px;
+    margin-top: 16px;
+}
+
+.pa-city-name {
+    color: #5b5b5b;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.pa-date-and-place {
+    font-size: 14px;
+    color: #666666;
+}
+
+.pa-top-30 {
+    margin-top: 30px;
+}
+
+.pa-event-loc-img {
+    height: 11px;
+    width: 7px;
+}
+
+.pa-loc-div {
+    width: 92px;
+    border-radius: 4px;
+    padding-left: 3px;
+    margin-top: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .pa-loc-div {
+        width: 100px !important;
+        padding: 5px 5px 5px 5px !important;
+    }
+    .pa-loc-img {
+        height: 12px !important;
+        width: 12px !important;
+    }
+}
+
+.pa-margin-left-20 {
+    position: relative;
+    left: 22px;
+}
+
+.pa-padding-left-2 {
+    padding-left: 2px;
+}
+
+.pa-margin-top-40 {
+    padding-top: 40px;
+    padding-bottom: 30px;
+}
+
+.pa-website-icon {
+    height: 20px;
+    width: 20px;
+}
+
+.pa-web-style {
+    color: #666666;
+    font-size: 14px;
+    word-break: break-all;
+}
+
+.pa-margin-top-15 {
+    margin-top: 15px;
+}
+
+.pa-big-event-img {
+    height: 380px;
+    width: 100%;
+}
+
+.event-detail-big-img {
+    height: 100%;
+    width: 100%;
+    object-fit: scale-down;
+}
+
+.quickBloxImgSize {
+    width: auto;
+}
+
+.pa-desc-style {
+    font-size: 14px;
+    margin-top: 32px;
+    margin-bottom: 36px;
+}
+
+.pa-font-white {
+    color: #fff;
+}
+
+.pa-rel-event-text {
+    color: #5b5b5b;
+    font-size: 18px;
+    margin-top: 26px;
+    margin-bottom: 26px;
+}
+
+.pa-event-close-marker {
+    position: absolute;
+    color: white;
+    top: -16px;
+    right: -12px;
+    height: 30px;
+    width: 30px;
+}
+
+.pa-event-close-button {
+    border-radius: 50%;
+    width: 30px;
+    background: #fff;
+    border: 1px solid #ceccce;
+    height: 30px;
+    position: relative;
+}
+
+.pa-event-close-button i {
+    left: 6px;
+    color: rgb(5, 5, 5) !important;
+    position: relative;
+    opacity: 0.4;
+}
+
+.pa-event-close-top i {
+    top: 6px;
+}
+
+.event-line-height {
+    line-height: 65px;
+}
+
+.close-marker-style i {
+    top: -13px;
+}
+
+.pa-back-pink {
+    height: 11px;
+    width: 11px;
+}
+
+.pa-back-text {
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.pa-related-event-style {
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: -15px;
+}
+
+.pa-modal-body-bottom {
+    padding-bottom: 0;
+}
+
+.pa-event-background-pink {
+    background-color: #a02541;
+    color: #fff !important;
+}
+
+.pa-comment-box input {
+    -webkit-appearance: button !important;
+    margin-top: 1px;
+    border: 1px solid #ccc;
+}
+
+.pa-comment-text {
+    color: #5b5b5b;
+    font-size: 18px;
+}
+
+.pa-border-top-none {
+    border-top: none;
+}
+
+.pa-margin-left-0 {
+    margin-left: 0 !important;
+}
+
+@media screen and (max-width: 767px) {
+    .pa-event-close-button {
+        position: relative;
+        top: 6px;
+        left: 0;
+    }
+    .event-detail-big-img {
+        width: 100%;
+        object-fit: cover;
+    }
+    .tt-text-left {
+        text-align: left !important;
+    }
+    .tt-buy-ticket-btn {
+        width: 90%;
+        height: 40px !important;
+        margin-bottom: 0 !important;
+    }
+    .green-banner-tag {
+        position: static !important;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .pa-claim-event-style {
+        width: auto;
+    }
+    .event-line-height {
+        line-height: inherit;
+    }
+    .close-marker-style i {
+        top: 8px;
+        left: 6px;
+    }
+    .pa-interested-text {
+        width: auto;
+    }
+    .pa-going-width {
+        width: 26.5%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .pa-event-name-style {
+        font-size: 15px;
+    }
+    .pa-circle {
+        width: 27px;
+        height: 27px;
+        padding: 5px;
+        padding-top: 5px;
+    }
+    .pa-event-img {
+        width: 15px;
+        height: 15px;
+    }
+    .pa-event-cat-style {
+        font-size: 13px;
+        padding-left: 4px;
+        position: relative;
+        top: 2px;
+    }
+    .pa-city-name {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .pa-going-width {
+        width: 25.5%;
+    }
+    .pa-interest-img {
+        height: auto;
+        width: 12px;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 700px) {
+    .pa-not-going-width {
+        width: auto;
+    }
+    .pa-going-width {
+        width: 24.5%;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .pa-going-status {
+        text-align: left !important;
+    }
+    .pa-interested-text {
+        font-size: 12px;
+    }
+    .pa-interest-img {
+        width: 10px;
+    }
+    .pa-going-text {
+        font-size: 11px;
+    }
+    .pa-interest-img {
+        width: 10px;
+    }
+    .pa-cross-img {
+        height: 8px;
+        width: 7px;
+    }
+    .pa-not-going-width {
+        width: auto;
+    }
+    .pa-url-margin-top {
+        margin-top: 20px;
+    }
+    .quickBloxImgSize {
+        width: 100%;
+    }
+    .pa-big-event-img {
+        width: 100% !important;
+    }
+    .event-detail-big-img {
+        width: 100%;
+        object-fit: cover;
+    }
+    .tt-text-left {
+        text-align: left !important;
+    }
+    .tt-buy-ticket-btn {
+        width: 90%;
+        height: 40px !important;
+        margin-bottom: 0 !important;
+    }
+}
+
+@media screen and (max-width: 991px) and (min-width: 600px) {
+    .pa-loc-img {
+        width: 16px !important;
+        height: 16px !important;
+    }
+    .pa-loc-div {
+        width: 114px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .pa-date-style {
+        font-size: 10px !important;
+    }
+}
+
+@media screen and (max-width: 640px) and (min-width: 481px) {
+    .pa-event-name-style {
+        font-size: 18px;
+    }
+    .pa-circle {
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+        padding-top: 6px;
+        position: relative;
+        top: 11px;
+    }
+    .pa-event-cat-style {
+        font-size: 15px;
+        padding-left: 4px;
+        text-transform: capitalize;
+    }
+    .pa-city-name {
+        font-size: 18px;
+    }
+}
+
+.pa-row-padding {
+    margin-right: -15px;
+}
+
+.pa-see-loc-div {
+    padding-bottom: 30px;
+}
+
+.pa-top-20 {
+    margin-top: 8px;
+    margin-bottom: 20px;
+}
+
+.pa-website-url {
+    word-break: break-all !important;
+    max-width: 225px !important;
+}
+
+.tt-going-width {
+    height: 40px !important;
+}
+
+.tt-row {
+    margin-left: auto !important;
+}
+
+/**Event Detail CSS Starts**/
+
+.concert-img {
+    height: 42px;
+    width: 42px;
+}
+
+.footer-position-fix {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.image-concert-width {
+    max-width: 100%;
+    object-fit: scale-down;
+}
+
+.pa-ml-0 {
+    margin-left: 0px;
+}
+
+.content-border {
+    border: 1px solid #e4e4e4;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.icon-alignment {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.events-name-list {
+    opacity: 0.6;
+}
+
+.banner-tag-div {
+    position: relative;
+    background-color: #d8d8d8;
+    overflow: hidden;
+}
+
+.scraped_image {
+    background-size: cover !important;
+    width: 100%;
+    height: 530px;
+    float: left;
+    background-position: center !important;
+}
+
+.scraped_image_ticket {
+    background-size: cover !important;
+    width: 100%;
+    float: left;
+    background-position: center !important;
+}
+
+.banner-tag-div.upcoming-event-box-img {
+    background-color: transparent;
+}
+
+.green-tag-free {
+    position: absolute;
+    width: 120px;
+    background: #d0021b;
+    top: 24px;
+    left: -25px;
+    transform: rotate(-45deg);
+    text-align: center;
+    color: #ffffff;
+    z-index: 9;
+}
+
+.date-detail-para {
+    padding-left: 34px;
+}
+
+.green-banner-tag {
+    position: absolute;
+    bottom: 0px;
+    height: 46px;
+    width: 101%;
+    text-align: center;
+    line-height: 46px;
+    margin-left: -35px;
+}
+
+.green-banner-tag .green-colr-imp {
+    color: #fff !important;
+}
+
+.no-ticket-sold,
+.free-ticket.yellow-banner-style {
+    background-color: #f5a623;
+}
+
+.free-ticket {
+    background: #3fb86b;
+}
+
+.event-create-tag-font {
+    opacity: 0.9;
+    color: #ffffff;
+}
+
+.middle-sharing-div {
+    padding: 40px 0;
+    margin-left: -5px;
+}
+
+.middle-sharing-div-opacity {
+    border-top: 1px solid #333333;
+    height: 1px;
+    opacity: 0.2;
+}
+
+.custom-dropdown-tab {
+    line-height: 48px;
+    width: 100%;
+    border: 1px solid #979797;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+.social-icons {
+    height: 43px;
+    width: 43px;
+    border: 1px solid #333333;
+    opacity: 0.6;
+    display: inline-block;
+    border-radius: 50%;
+    font-size: 18px;
+    line-height: 18px;
+    text-align: center;
+    padding: 7px 8px;
+    margin: 2px 5px;
+}
+
+.event-detail-number {
+    border-bottom: 1px solid #eeeeee;
+    padding: 30px 0;
+}
+
+.content-event-para-width {
+    width: 85%;
+}
+
+.Event-Contact-Details-text {
+    padding: 18px 30px;
+    border-radius: 8px 8px 0 0;
+    height: 60px;
+    background: #eeeeee;
+    border: 1px solid #eeeeee;
+}
+
+.event-detail-one-tag {
+    border: 1px solid #eeeeee;
+    background-color: #fbfbfb;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.Rebecca-Willson-div {
+    padding: 25px 20px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.account-icon {
+    font-size: 42px;
+    line-height: 42px;
+    height: 42px;
+    text-align: center;
+    color: #333333;
+    vertical-align: middle;
+    margin-right: 10px;
+    border: 1px solid rgba(51, 51, 51, 0.6);
+}
+
+.follow-pa-btn {
+    height: 42px;
+    width: 110px;
+}
+
+.border-detail-pa-gray {
+    padding: 30px 0;
+    border-bottom: 1px solid #333333;
+}
+
+.comments-div {
+    margin: 30px 0;
+}
+
+.input-password-detail {
+    height: 48px;
+    width: 600px;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    background-color: #ffffff;
+    padding: 0 30px;
+    color: #333333;
+    font-size: 16px;
+}
+
+.Post-Comment-btn {
+    height: 48px;
+    width: 190px;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+.post-margin {
+    margin: 30px 0 25px 0;
+}
+
+.w-600 {
+    width: 600px;
+}
+
+.pa-ml-lorem {
+    margin-left: 55px;
+}
+
+.pa-40 {
+    padding: 40px;
+}
+
+.Nulla-maximus-div {
+    border-radius: 4px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+    margin: 0px 0 20px 0;
+}
+
+.Sponsored-text {
+    background: #1402d0 !important;
+}
+
+.Buy-Ticket-btn {
+    width: 100%;
+    height: 48px;
+    border-radius: 4px;
+    border: 0px;
+}
+
+.manage-events-btn {
+    border-radius: 4px;
+    line-height: 48px;
+    width: 190px;
+}
+
+.event-belong-div {
+    border-radius: 8px !important;
+    padding: 18px 30px;
+}
+
+.claim-this-event-btn {
+    border: 1px solid #333333;
+    border-radius: 4px;
+    width: 205px;
+    height: 48px;
+}
+
+.qr-code-scanner-event {
+    margin: 50px 20px;
+    padding-bottom: 15px;
+}
+
+.qr-event-code {
+    font-size: 105px;
+}
+
+.content-date-detail {
+    word-break: break-word;
+}
+
+.pa-mb-100 {
+    margin-bottom: 100px;
+}
+
+@media only screen and (max-width: 480px) {
+    .pa-med-padding-none {
+        padding: 0px;
+    }
+    .pa-med-font-20 {
+        font-size: 20px;
+    }
+    .pa-med-font-16 {
+        font-size: 16px !important;
+    }
+    .pa-row-eq-height-none {
+        display: unset !important;
+    }
+    .pa-med-pr-none {
+        padding-right: 0px !important;
+    }
+    .pa-med-pl-none {
+        padding-left: 0px !important;
+    }
+    .pa-med-pad-20 {
+        padding: 20px;
+    }
+    .pa-icon-event {
+        height: 27px;
+        width: 21px;
+        margin: 5px 7px 5px 18px;
+    }
+    .green-banner-tag {
+        bottom: -60px;
+        width: 118%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .buy-now-btn-med {
+        margin: 30px 0;
+    }
+    .custom-dropdown-tab {
+        margin-left: 17px;
+        width: 95%;
+    }
+    .med-social-icons {
+        text-align: center;
+        margin: 10px 0 -20px 0;
+    }
+    .content-event-para-width {
+        width: 100%;
+        padding: 0 10px;
+    }
+    .event-detail-one-tag {
+        margin-left: 10px;
+    }
+    .Rebecca-Willson-div {
+        padding: 18px 5px;
+    }
+    .comments-div {
+        margin: 30px 10px;
+    }
+    .input-password-detail {
+        width: 94%;
+        margin-left: 10px;
+    }
+    .Post-Comment-btn {
+        margin-left: 10px;
+    }
+    .pa-med-margin-40 {
+        margin-bottom: 40px;
+    }
+    .med-dropdown-left {
+        left: 120px !important;
+    }
+    .manage-events-btn {
+        margin: 20px 0 40px 20px;
+    }
+    .event-title-margin {
+        margin-left: 20px;
+    }
+    .pa-mb-100 {
+        margin-bottom: 20px;
+    }
+    .pa-mt-med-35 {
+        margin-top: 0px;
+    }
+    .delete-med-icon {
+        width: 100%;
+        padding-right: 20px;
+    }
+    .qrcode-size-large {
+        margin-left: 18px;
+    }
+    .tt-med-center {
+        text-align: center;
+        width: 105%;
+        margin-top: -50px;
+    }
+    .buy-btn-large {
+        display: none;
+    }
+    .banner-tag-div {
+        margin-left: 14px;
+        text-align: center;
+    }
+}
+
+.event-descrition-sm {
+    height: 90px;
+    overflow: hidden;
+}
+
+.show-more {
+    overflow: visible;
+    height: auto;
+}
+
+/**Event Detail CSS Ends**/

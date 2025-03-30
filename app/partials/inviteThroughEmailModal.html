@@ -1,0 +1,56 @@
+<div class="custom-model-content" ng-controller="inviteThroughEmailController">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Invite Through Email</span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+
+    <form name="forms.inviteThroughEmail" class="event-form pa-no-padding">
+        <div class="modal-body padding-30">
+            <div class="form-group">
+                <p class="pa-font-16 pa-color-333333 pa-modal-font">Enter the email addresses you’d like to send your invitation to:</p>
+                <p class="pa-font-16 pa-color-666666 pa-modal-font">(Separated by commas)</p>
+                <p class="pa-font-16 pa-color-666666 pa-modal-font" ng-show="emailFrom && emailFrom.length > 0">(Add by Enter)</p>
+            </div>
+
+            <md-input-container class="md-block  pa-mb-0 pa-no-margin md-input-has-placeholder" flex-gt-sm>
+                <label for="email"></label>
+                <input md-no-asterisk name="email" ng-model="emailFrom" type="text" class="form-control card-color pa-mt-0" id="email" placeholder="e.g. name@domain.com" ng-keyup="add($event)">
+                <div ng-messages="forms.inviteThroughEmail.email.$error">
+                    <div ng-message="pattern">Invalid email!</div>
+                </div>
+            </md-input-container>
+
+            <div class="pa-pb-20">
+                <md-chips class="pa-chips" ng-model="contacts" readonly="'true'" md-removable="'true'">
+                    <md-chip-template>
+                        <span>
+                            {{$chip.email}}
+                        </span>
+                    </md-chip-template>
+
+
+                    <md-icon md-chip-remove class="pa-color-333333 pa-font-13 pa-chips-icon">close</md-icon>
+
+                </md-chips>
+                <!-- <button class="email-btn" ng-repeat="contact in contacts track by $index">
+                    <span class="pa-font-13">{{contact.email}}</span>
+                    <md-icon class="pa-font-20 pa-color-333333 pa-float-right" ng-click="remove($index)">close</md-icon>
+                </button> -->
+            </div>
+            <div class="invitation-send pa-mt-20 padding-8">
+                <i class="material-icons color-F5AF00 pa-font-24">info</i> <span class="pa-font-16 pa-vertical-align-top">The invitations will be sent when the event is published.</span>
+            </div>
+        </div>
+        <div class="modal-footer pa-border-EEEEEE">
+            <md-toolbar class="pa-modal-footer-height-toolbar">
+                <div class="md-toolbar-tools">
+                    <div flex md-truncate>
+                    </div>
+                    <md-button ng-click="cancel()" class="add-link-cancel ht-48 pa-border-4 pa-font-16 pa-color-pink pa-bold-font">Cancel</md-button>
+                    <md-button ng-click="save()" ng-disabled="contacts.length <= 0 || !forms.inviteThroughEmail.$valid" class="pa-pink-button ht-48 pa-border-4 pa-color-999999 pa-font-16 pa-bold-font">Save</md-button>
+                </div>
+            </md-toolbar>
+
+        </div>
+    </form>
+</div>

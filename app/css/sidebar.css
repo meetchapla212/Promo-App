@@ -1,0 +1,91 @@
+.sidebar_panel {
+    width: 287px;
+    background: #fff;
+    height: calc(100vh - 125px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sd_navigation {
+    padding: 0;
+    width: 100%;
+    list-style-type: none;
+}
+
+.sd_navigation li {
+    display: block;
+    margin: 2px 0;
+}
+
+.sd_navigation li a {
+    display: block;
+    color: #333;
+    position: relative;
+    padding: 8px 0 8px 35px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.sd_navigation li a:hover {
+    background-color: #E4E4E4;
+    text-decoration: none;
+}
+
+.sd_navigation li a[disabled="disabled"] {
+    background-color: #E4E4E4;
+    text-decoration: none;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.sd_navigation li a[disabled="disabled"][uib-tooltip] {
+    background-color: #E4E4E4;
+    text-decoration: none;
+    cursor: not-allowed;
+    pointer-events: all;
+    opacity: 0.8;
+}
+
+.sd_navigation li a.active,
+.sd_navigation li a.active i {
+    color: #A02740;
+    text-decoration: none;
+}
+
+.sd_navigation li a i {
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    font-size: 17px;
+    font-style: normal;
+    color: rgb(51 51 51 / 0.60);
+}
+
+.sd_navigation li a i md-icon {
+    font-size: 21px;
+}
+
+.st_navigation li a {
+    color: #A02541;
+    padding: 2px 0;
+    display: inline-flex;
+}
+
+.st_navigation li a:hover {
+    background-color: transparent;
+    color: #69182b;
+}
+
+.save-button-sticky {
+    position: sticky;
+    bottom: 0;
+    width: 280px;
+}
+
+@media only screen and (max-width: 1199px) {
+    .sidebar_panel {
+        width: 250px;
+    }
+}

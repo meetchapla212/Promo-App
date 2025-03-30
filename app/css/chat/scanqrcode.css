@@ -1,0 +1,46 @@
+.tt-main-qr-div{
+  padding:2% 6%;
+  background:#F2F1F1;
+}
+.tt-scan-qr-div{
+  background:#4C4B4C;
+}
+.tt-scan-reader{
+  padding:35%;
+  width: 50%;
+  margin:0 auto;
+  border:1px solid #FF0000;
+}
+ .tt-mb-50{
+  margin-bottom:50px;
+}
+
+.tt-mb-20{
+  margin-bottom:20px;
+}
+
+.tt-pd-30{
+  padding-top:30px;
+}
+.tt-pdb-50{
+  padding-bottom:50px;
+}
+
+.tt-font-19{
+  font-size:19px;
+}
+.tt-helper-text{
+  padding:2% 4%;
+}
+.tt-main-screen-padding
+{
+  padding:4% 10%;
+}
+.tt-media-arrow-left{
+  position: absolute;
+  top: 4px;
+  left: 20px;
+}
+.tt-top-position{
+  top:4px !important;
+}

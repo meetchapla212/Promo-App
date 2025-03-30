@@ -1,0 +1,55 @@
+<div class="pa-modal-font">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content "></div>
+
+    <div class="modal-header bg-F9F9F9">
+        <span class="custom-row pa-ml-10 pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">{{model_title}} Event Administrator</span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+    <div class="pa-padding-15 add_existing_user_model hide_close_Btn">
+        <div class="row tt-margin-left-none">
+            <div class="col-md-12">
+                <p class="pa-color-5B5B5B pa-modal-font pa-font-16  pa-display-font">An event administrator will be able to manage your event, keep an eye on tickets and payments, and keep things running smoothly.<br> They will have access to your event until the event is marked as "closed" on The Promo App.</p>
+                <span class="pa-info-tooltip"><i class="material-icons pa-vertical-align pa-color-pink pa-font-20 pa-ml-10 pa-cursor-pointer">help</i>
+                    <span class="pa-info-tooltiptext pa-modal-font">
+                        <div class="pa-modal-font pa-color-FFFFFF">
+                            <p class="pa-ml-20 pa-bold-font pa-color-FFFFFF">Any event administrator you add will be able to :</p>
+                           <ul class="pa-color-FFFFFF">
+                               <li>View the event in their "manage events" list</li>
+                               <li>Edit/view/add new ticket types</li>
+                               <li>Edit/delete the event</li>
+                               <li>Add new administrators to the event</li>
+                               <li>Scan attendees' tickets</li>
+                               <li>View and change all ticket types (Both Paid and Free options)</li>
+                           </ul>
+                        </div>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="row pa-mt-20 tt-margin-left-none">
+            <div class="col-md-12">
+                <p class="pa-font-18 pa-color-5B5B5B pa-modal-font pa-bold-font">Event Administrator</p>
+            </div>
+        </div>
+        <div class="row  tt-margin-left-none">
+            <div class="col-md-12">
+                <ui-select multiple tagging="tagTransform" tagging-tokens="SPACE|,|/" ng-model="multipleDemo.selectedAdmins" ng-change="checkAllValidMail()" theme="bootstrap" title="Choose a admin" on-select="afterSelection($item);" on-remove="afterRemoving($item);">
+                    <ui-select-match placeholder="Select person..."><img src="{{$item.iconImage}}" alt='image' />{{$item.email}}</ui-select-match>
+                    <ui-select-choices repeat="person in displayAdmins | propsFilter: {name: $select.search, email: $select.search} | filter: $select.search | limitTo: ($select.search.length <= 2) ? 50 : 1000">
+                        <div ng-if="person.isTag " ng-bind-html="(person.name | highlight: $select.search) + ' (new)'"></div>
+                        <div ng-if="!person.isTag " ng-bind-html="person.name + person.isTag| highlight: $select.search"></div>
+                        <small>
+                        email: {{person.email}}
+                      </small>
+                    </ui-select-choices>
+                </ui-select>
+                <span class="pa-color-red" ng-if="errorMail"> Please enter correct email address. </span>
+            </div>
+        </div>
+        <div class="row pa-mt-20 tt-margin-left-none">
+            <div class="col-md-12 pa-text-center">
+                <div ng-disabled="(multipleDemo.selectedAdmins.length == 0) || (errorMail)" ng-click="addAdminToEvent(multipleDemo.selectedAdmins)" class="pa-background-pink pa-font-18 pa-modal-font pa-bold-font tt-padding-20 pa-mt-20 tt-mb-20 pa-cursor-pointer">Save Changes</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26" height="32" viewBox="0 0 26 32">
+  <defs>
+    <clipPath id="clip-Concerts26_32">
+      <rect width="26" height="32"/>
+    </clipPath>
+  </defs>
+  <g id="Concerts26_32" data-name="Concerts26*32" clip-path="url(#clip-Concerts26_32)">
+    <g id="Group_40" data-name="Group 40">
+      <g id="Group_7" data-name="Group 7" transform="translate(0 0)">
+        <path id="Path_9" data-name="Path 9" d="M21.516,3a12.873,12.873,0,0,0-13,12.74c0,10.59,13,19.26,13,19.26s13-9.307,13-19.261A12.872,12.872,0,0,0,21.516,3Z" transform="translate(-8.516 -3)" fill="#f63c03"/>
+      </g>
+      <g id="Group_9" data-name="Group 9" transform="translate(7.919 5.302)">
+        <g id="Group_8" data-name="Group 8" transform="translate(1.462)">
+          <path id="Path_10" data-name="Path 10" d="M37.17,15.181a2.29,2.29,0,1,0-2.146,2.426A2.291,2.291,0,0,0,37.17,15.181Z" transform="translate(-28.406 -13.03)" fill="#fff"/>
+          <path id="Path_11" data-name="Path 11" d="M29.515,18.995l-3.268,4.35,1.135.975,3.857-3.772A4.81,4.81,0,0,1,29.515,18.995Z" transform="translate(-25.742 -15.534)" fill="#fff"/>
+          <path id="Path_12" data-name="Path 12" d="M26.245,28.376l.534-.44-1.062-.9-.341.574Z" transform="translate(-25.376 -18.912)" fill="#fff"/>
+        </g>
+        <path id="Path_13" data-name="Path 13" d="M24.109,28.381l-.23.593a3.6,3.6,0,0,0-1.019,2.194,1.145,1.145,0,0,0,.457.831c1.156.889,2.934-.795,3-.859.019-.017,1.894-1.667,2.769-.69a.907.907,0,0,1,.234.72c-.092,1.041-1.538,2.392-2.088,2.823a.316.316,0,1,0,.39.5c.09-.071,2.193-1.737,2.328-3.266a1.529,1.529,0,0,0-.393-1.2c-.385-.431-1.114-.816-2.392-.2a6.054,6.054,0,0,0-1.278.849c-.376.36-1.585,1.283-2.186.822a.511.511,0,0,1-.212-.382,3,3,0,0,1,.829-1.684l.7-.243" transform="translate(-22.856 -19.475)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

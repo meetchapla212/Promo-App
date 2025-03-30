@@ -1,0 +1,123 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE fixed-layout-vh">
+    
+    <div flex layout-fill class="pa-bg-EEEEEE fixed-layout-vh">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content "></div>
+        <div class="layout_panel_mwrap">
+            <div class="pa-bg-FFFFFF layout_left_panel">
+                <div ng-include="'partials/sidebar.html'" ng-if="sidebarBlock"></div>
+            </div>
+            <div class="layout_right_panel fixed-layout-vh-auto">
+                <div class="flex_justify pa-mb-30">
+                    <div class="report_header">
+                        <h2 class="pa-font-24 pa-mt-0 pa-bold-font">Event Highlight</h2>
+                        <p class="pa-color-3333338 pa-font-14 pa-no-bt-margin-imp">Hightlights event on search list.</p>
+                    </div>
+                </div>
+                <!-- start-first-screen -->
+                <div class="row">
+                    <div class="col-lg-8">
+                        <form name="createEventForms.promote_event">
+                            <md-card class="pa-bg-FFFFFF pa-no-margin">
+                                <md-card-header class="col-md-12 pa-bg-F9 align-items-center create-header-style pa-border-EEEEEE tt-margin-bottom-0">
+                                    <md-card-header-text>
+                                        <span class="md-title pa-font-16"><span class="mr-5 pa-color-333333 pa-font-bold">Highlight Event 
+                                        </span><span class="pa-font-14 card-color">(Optional)</span></span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <md-card-content class="pa-bg-FFFFFF pa-pt-30-imp pb-30">
+                                    <div ng-repeat="plan in plans">
+                                        <div class="col-md-12">
+                                            <p class="pa-font-16 pa-color-333333">{{plan.subtitle}} <span class="pa-color-38B968 pa-font-24 pa-bold-font">{{plan.currency}}
+                                                    {{plan.amount}} Only</span></p>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="form-check highlight-div pa-border-4" id="highlight-checkbox" ng-class="{'checked-highlight-div':plan.checked, 'checked-highlight-disable': sponsoredPaymentDone}">
+                                                <md-checkbox md-no-ink="" ng-change="selectPlan(plan)" ng-disabled="sponsoredPaymentDone || displayEvent.status != 'active'" class="pa-no-margin ml-mt-12 pa-color-999999 checbox-highlight" ng-model="plan.checked">
+                                                    {{plan.title}}
+                                                </md-checkbox>
+                                            </div>
+                                            <div class="pa-padding-20 pa-highlight highlight-list" ng-if="!plan.checked">
+                                                <div ng-repeat="description in plan.description" class="pb-30">
+                                                    <md-icon class="pa-color-333333 tt-mr-10">done_all</md-icon>{{description}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <md-button ng-click='sponsoredPayment()' id="continueButton" class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue pa-no-margin pa-mt-16-imp" ng-disabled="!plan.checked || sponsoredPaymentDone">Pay {{plan.currency}} {{plan.amount}}
+                                            </md-button>
+                                        </div>
+                                        <div class="col-md-12" ng-if="displayEvent.status != 'active'">
+                                            <span class="padding-8 mt-10 pa-display-inline-block invitation-send pa-font-bold">
+                                                This feature is only available for live events.
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 pa-mt-45" ng-show="showHide.showCardDetails">
+                                        <form name="createEventForms.card_details" id="payment-form">
+                                            <div class="col-md-7 mr15">
+                                                <md-input-container class="pa-no-margin pa-mt-30-imp flex-gt-sm pa-width-100p" flex-gt-sm>
+                                                    <label class="pa-font-14 pa-color-333333 pa-bold-font pa-modal-font">Credit Card Number</label>
+                                                    <div name="card" id="card-element" class="form-control link-input w-90"></div>
+                                                </md-input-container>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <md-input-container class="pa-no-margin pa-mt-30-imp flex-gt-sm pa-mb-0 pa-width-100p" flex-gt-sm>
+                                                            <label class="pa-font-14 pa-color-333333 pa-bold-font pa-modal-font">Expiry Date</label>
+                                                            <div id="card-expiry" class="form-control link-input w-88" placeholder="MM/YY"></div>
+                                                        </md-input-container>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <md-input-container class="pa-no-margin pa-mt-30-imp flex-gt-sm pa-width-100p" flex-gt-sm>
+                                                            <label class="pa-font-14 pa-color-333333 pa-bold-font pa-modal-font">CVC</label>
+                                                            <div id="card-cvc" class="form-control link-input w-88" placeholder="012"></div>
+                                                        </md-input-container>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!--Don't remove the below commented portion: it will be use during integration:- -->
+                                        <div class="col-md-5 promotional-coupon-div">
+                                            <div class="pa-width-100p" ng-if="!couponValid">
+                                                <md-input-container class="pa-no-margin pa-mt-30-imp flex-gt-sm" flex-gt-sm>
+                                                    <label class="pa-font-14 pa-color-333333 pa-bold-font pa-modal-font">Promotional Coupon Code</label>
+                                                    <input ng-change="resetCoupon()" name="coupon" class="form-control" placeholder="Enter Code" ng-model="displayEvent.coupon_name">
+                                                    <div ng-messages="createEventForms.promote_event.coupon.$error">
+                                                        <div ng-message="invalid">Invalid coupon</div>
+                                                    </div>
+                                                </md-input-container>
+                                                <div>
+                                                    <md-button ng-click="validateCoupon()" ng-disabled="!displayEvent.coupon_name" class="pa-pink-button">Apply</md-button>
+                                                </div>
+                                            </div>
+                                            <div class="promotional-coupon-div" align="center" ng-if="couponValid">
+                                                <div>
+                                                    <md-icon class="pa-color-38B968 font-64 mt-10">check_circle</md-icon>
+                                                </div>
+                                                <div class="pa-font-16 pa-color-333333 pa-bold-font mt-10">
+                                                    <span>Promotion coupon code</span>
+                                                    <p>applied successfully</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 pa-mt-20">
+                                        <div class="invitation-send multiline-info padding-8">
+                                            <i class="material-icons color-F5AF00 pa-font-24 tt-mr-10">info</i>
+                                            <span class="pa-font-16 pa-vertical-align-top">When you click "Pay $ 2.99" you will be asked to verify your payment method. If a credit card has been saved to your profile, simply select this option. If no card has been added previously, you will be asked to add new payment details.</span>
+                                        </div>
+                                    </div>
+                                </md-card-content>
+                            </md-card>
+                        </form>
+                    </div>
+                </div>
+                <!-- end-first-screen -->
+            </div>
+        </div>
+    </div>
+    <!-- hide this section in mobile End Here -->
+
+    
+</div>

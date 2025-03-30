@@ -1,0 +1,92 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE">
+    
+    <div flex layout-fill class="container-wtd-1170" ng-controller="ChangeAdminController">
+
+        <div class="pa-font-24 pa-bold-font h-29 admin-margin">Add Event Administrator</div>
+        <md-card class="pa-background-white">
+            <div layout="row">
+                <div class="col-lg-6">
+                    <div class="admin_form padding-30">
+                        <md-card-header class="pd-none">
+                            <md-card-header-text class="pa-pb-20">
+                                <span class="md-title pa-bold-font pa-lh-15">Add Correct Email Address Of The Administrator</span>
+                            </md-card-header-text>
+                        </md-card-header>
+                        <md-card-content class="pd-none">
+                            <form class="event-form create-w-100" name="formDetails.create_event_form_1">
+                                <md-input-container class="md-block pa-mt-30-imp pa-mb-0 pa-no-margin md-input-has-placeholder flex-gt-sm" flex-gt-sm="">
+                                    <label class="pa-color-333333" for="input_4">Name</label>
+                                    <input type="text" name="event_name" md-maxlength="60" ng-minlength="2" ng-model="formDetails.name" md-no-asterisk="" placeholder="e.g. John" required id="input_4" aria-invalid="true">
+                                    <div ng-messages="formDetails.create_event_form_1.event_name.$error" class="input-error">
+                                        <div ng-message="required">This field is required.</div>
+                                        <div ng-message="md-maxlength">Name must be less than 60 characters long.
+                                        </div>
+                                        <div ng-message="minlength">Name must be greater than 2 characters.
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <!-- </div> -->
+                                <md-input-container class="md-block pa-mt-30-imp pa-mb-0 pa-no-margin md-input-has-placeholder flex-gt-sm" flex-gt-sm="">
+                                    <label class="pa-color-333333" for="input_4">Email Address</label>
+                                    <input type="text" name="email_address" md-no-asterisk ng-model="formDetails.email" class="form-control input-height card-color" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" placeholder="e.g. John@domain.com" required aria-invalid="true">
+                                    <div ng-messages="formDetails.create_event_form_1.email_address.$error" class="input-error">
+                                        <div ng-message="required">This field is required.</div>
+                                        <div ng-message="pattern">Invalid email!</div>
+                                    </div>
+                                </md-input-container>
+                                <md-button class="pa-pink-button pa-bold-font pa-border-4 tt-font-16 invite pa-mt-30" type="button" ng-click="invite()" ng-disabled="!formDetails.event_name || !formDetails.email">Send Invite</md-button>
+                            </form>
+                        </md-card-content>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="admin_formprev margin-l10">
+                        <md-card-header>
+                            <md-card-header-text>
+                                <span class="md-title pa-bold-font pa-lh-15 pa-lh-15">Last Details You Added:</span>
+
+                            </md-card-header-text>
+                        </md-card-header>
+                        <md-card-content>
+                            <div class="">
+                                <div>
+                                    <div class="pa-color-333333 opacity-6">
+                                        <md-icon class="material-icons">person</md-icon>
+                                        <span class="pa-font-13">NAME</span>
+                                    </div>
+                                    <div class="pa-color-333333 tt-font-16 pa-bold-font lh-0157">{{formDetails.admin.name}}</div>
+                                </div>
+                                <div>
+                                    <div class="pa-color-333333 opacity-6">
+                                        <md-icon class="material-icons">email</md-icon>
+                                        <span class="pa-font-13">EMAIL ADDRESS</span>
+                                    </div>
+                                    <div class="pa-color-333333 tt-font-16 pa-bold-font lh-0157">{{formDetails.admin.email}}
+                                        <div class="admin_err">
+                                            <md-icon class="material-icons color-F5A623">error</md-icon><span class="color-F5A623 pa-font-wt-500 pa-ml-10">The email address is not correct.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="pa-color-333333 opacity-6">
+                                        <md-icon class="material-icons">event</md-icon>
+
+                                        <span class="pa-font-13">EVENT NAME</span>
+                                    </div>
+                                    <div class="pa-color-333333 tt-font-16 pa-bold-font lh-0157 {">{{formDetails.event_name}}</div>
+                                    <a ng-href="/eventdetails/{{formDetails.event_name | purger}}/{{formDetails.event_id}}">
+                                        <div class="tt-font-16 final_map">View Event Detail</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </md-card-content>
+                    </div>
+                </div>
+            </div>
+        </md-card>
+        <div class="pa-text-center">
+            <div class="pa-color-333333 pa-font-16 lh-19 pa-mt-30 pa-mb-20">Do not want to do it now?</div>
+            <a ng-href="/"><button class="pa-background-white pa-bold-font pa-color-pink tt-font-16 pa-border-4 md-button pa-border-CBCBCB admin_button" type="button">Skip & Go to Home</button></a>
+        </div>
+    </div>
+</div>

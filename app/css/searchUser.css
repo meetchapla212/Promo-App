@@ -1,0 +1,545 @@
+.search-people-head h1 {
+    font-size: 24px;
+    color: #333333;
+    font-weight: bold;
+    margin: 20px 0 15px 0;
+}
+
+.search-people-section {
+    display: inline-block;
+    width: 100%;
+    background-color: #fff;
+    border: solid 1px #EEEEEE;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.10);
+    border-radius: 4px;
+    padding: 20px 15px;
+    padding-bottom: 15px;
+}
+
+.search-people-section .form-group {
+    width: 100%;
+    max-width: 510px;
+    position: relative;
+    margin-bottom: 0;
+}
+
+.search-people-section .form-group .material-icons {
+    position: absolute;
+    color: #333;
+    z-index: 9;
+    left: 10px;
+    top: 9px;
+}
+
+.search-people-section .form-group .input-group input.form-control {
+    height: 40px;
+    font-size: 16px;
+    color: #333333;
+    background: #F6F6F6;
+    border: solid 1px #E4E4E4;
+    border-radius: 4px;
+    box-shadow: none;
+    width: 100%;
+    float: left;
+    display: table-cell;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    padding-left: 45px;
+    padding-top: 4px;
+}
+
+.people-follow {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.search-people-section .form-group .input-group input.form-control::placeholder {
+    color: #999999;
+}
+
+.search-people-section .form-group .input-group {
+    width: 100%;
+    display: flex;
+}
+
+.search-btn {
+    background: #A02541;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    width: 109px;
+    border: none;
+}
+
+.search-btn:disabled {
+    background: #999999;
+}
+
+.search-btn:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.search-people-section .form-control:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.search-people-section .form-group span {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    color: #666666;
+    margin-top: 8px;
+}
+
+.mobile-form.web-form {
+    padding-left: 0px;
+    padding-top: 0px;
+}
+
+.search-people-mobile-section form .form-group {
+    margin-bottom: 20px;
+    display: inline-block !important;
+}
+
+.search-people-mobile-section .multiSelect .checkboxLayer {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    max-width: 100%;
+    box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.175);
+}
+
+.form-group.full-field {
+    width: 100%;
+    display: block !important;
+}
+
+.mobile-form form .form-group span {
+    margin-top: 2px;
+    color: #999999;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    opacity: 1;
+}
+
+.mobile-form form .form-group span.date-picker-icon {
+    display: inline-flex;
+    align-items: center;
+    margin: 6px 0 0;
+}
+
+.mobile-form .event-form .form-group label .pa-pointer-events-all {
+    float: right;
+}
+
+.mob-detect-city {
+    color: #A02541;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 20px;
+    text-align: right;
+    text-decoration: none;
+}
+
+.mobile-form.web-form form .form-group #startDateRangePicker {
+    padding-left: 40px;
+    font-weight: normal;
+    color: #333333 !important;
+}
+
+.mob-date-range .form-control {
+    width: 50%;
+    float: left;
+}
+
+.daterangepicker.ltr.show-calendar.opensright.pa-datepicker.drop_search_pic.drop-up::before {
+    display: none !important;
+}
+
+.daterangepicker.ltr.show-calendar.opensright.pa-datepicker.drop_search_pic.drop-up::after {
+    display: none !important;
+}
+
+.categorydropdown {
+    margin-top: 1px;
+}
+
+.categorydropdown .multiSelect .multiSelectItem:not(.multiSelectGroup).selected {
+    color: #000 !important;
+}
+
+.search-people-section.search-people-section-web {
+    border: none;
+    box-shadow: none;
+    padding-left: 0px;
+}
+
+.search-box-area form {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.search-box-area .search-people-zone-list {
+    width: 240px;
+}
+
+.search-people-zone-list .form-group {
+    margin-top: 0;
+    position: relative;
+    padding: 0;
+}
+
+.search-people-zone-list .form-group .form-control {
+    height: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #9C2C2C;
+    background: #FBFBFB;
+    border: solid 1px #E4E4E4;
+    border-radius: 4px;
+    box-shadow: none;
+    width: 100%;
+    float: left;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url(../img/arrow-down.png);
+    background-repeat: no-repeat;
+    background-size: 14px;
+    background-position: 92.8% 12px;
+}
+
+.search-people-zone-list .form-group .form-control+i {
+    right: 0;
+    left: unset;
+}
+
+
+/*people-list*/
+
+.people-list {
+    display: flex;
+    margin-bottom: 15px;
+    font-size: 16px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.suggested-people-head h2 {
+    font-size: 24px;
+    color: #333333;
+    font-weight: bold;
+    margin: 0 0 20px 0;
+}
+
+.people-box {
+    margin-right: 10px;
+    width: 18.9%;
+    margin-top: 20px;
+}
+
+.people-box:first-child {
+    margin-left: 0;
+}
+
+.people-box-inner {
+    display: inline-block;
+    width: 100%;
+    background: #FBFBFB;
+    border: solid 1px #EEEEEE;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.10);
+    border-radius: 4px;
+}
+
+.people-profile {
+    display: table;
+    text-align: center;
+    width: 80px;
+    height: 80px;
+    margin: 10px auto;
+    border: solid 1px #E4E4E4;
+    border-radius: 50%;
+}
+
+.people-profile img {
+    width: 80px;
+    border-radius: 50%;
+}
+
+.people-name-lco {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    line-height: 19px;
+    color: #666666;
+    min-height: 45px;
+    margin-bottom: 20px;
+}
+
+.people-name-lco b {
+    display: block;
+    color: #333333;
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 4px;
+}
+
+.people-follow {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    background: #fff;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.people-follow a {
+    display: inline-block;
+    width: 100%;
+    border-top: solid 1px #E4E4E4;
+    color: #A02541;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 5px 0;
+}
+
+.people-follow a i {
+    float: left;
+    margin-right: 6px;
+}
+
+.people-follow a span {
+    width: auto;
+    display: inline-block;
+}
+
+.people-follow a:hover {
+    text-decoration: none;
+}
+
+.serch-result h2 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333333;
+    margin: 0 0 20px 0;
+}
+
+.people-follow a.hide-flowing {
+    color: #333333;
+    display: none;
+}
+
+.people-follow a.following {
+    color: #333333;
+    box-shadow: none;
+}
+
+.show-flowing~a.hide-flowing {
+    display: block;
+}
+
+.people-follow a.show-flowing {
+    display: none;
+}
+
+.people-name-lco b {
+    white-space: nowrap;
+    width: 170px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+.people-box-inner {
+    min-height: 203px;
+}
+
+.mobile-form .event-form .form-group select.form-control {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+}
+
+.mobile-form .event-form .form-group select.form-control+i {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+}
+
+md-tabs.md-dynamic-height md-tab-content.md-active {
+    overflow-y: auto;
+}
+
+.search_page_multi_category span.caret {
+    top: 22px;
+}
+
+@media only screen and (max-width: 1440px) {
+    .search-people-head h1 {
+        font-size: 22px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .search-people-section button {
+        display: none;
+    }
+    .search-people-section button.apply-btn-mob {
+        display: inline-block;
+        width: 150px;
+    }
+    /* Followers*/
+    .search-people-section {
+        padding-left: 0px;
+        padding-right: 0px;
+        border: none;
+        box-shadow: none;
+    }
+    .search-people-section .form-group .material-icons {
+        color: #999999;
+    }
+    .search-people-section .form-group span {
+        color: #999999;
+    }
+    .search-people-section .form-group .close {
+        color: #333333;
+        right: 10px;
+        left: unset;
+        z-index: 11;
+    }
+    .search-people-section .form-group .input-group input.form-control {
+        background-color: #EEEEEE;
+    }
+    .people-follow a {
+        padding: 7px 15px;
+        font-size: 15px;
+        font-weight: 500;
+        border: solid 1px #CBCBCB;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+    .people-follow {
+        width: auto;
+        float: right;
+    }
+    .people-name-lco {
+        width: auto;
+        overflow: hidden;
+        text-align: left;
+        font-size: 15px;
+        padding-left: 10px;
+        margin-bottom: 0;
+    }
+    .people-profile {
+        float: left;
+    }
+    .people-profile img {
+        width: 48px;
+    }
+    .people-profile {
+        width: 48px;
+        height: 48px;
+        margin: 0;
+    }
+    .people-name-lco b {
+        font-size: 16px;
+    }
+    .people-box {
+        margin: 0 auto;
+        margin-top: 0;
+        max-width: 100%;
+    }
+    .people-box-inner {
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        min-height: auto;
+    }
+    .people-follow a i {
+        display: none;
+    }
+    .people-box:nth-child(4) {
+        margin-top: 0;
+    }
+    .people-box:nth-child(3) {
+        margin-top: 0;
+    }
+    .people-box:nth-child(5) {
+        margin-top: 0;
+    }
+    .people-list {
+        margin-bottom: 0;
+    }
+    .people-list .people-box {
+        margin-bottom: 30px;
+    }
+    .people-follow {
+        margin-top: 9px;
+    }
+    .people-name-lco {
+        margin-top: 0;
+    }
+    .people-list:last-child .people-box:last-child {
+        margin-bottom: 0;
+    }
+    .profile-box-section {
+        position: relative;
+    }
+    .my-profile-info-pe,
+    .people-box {
+        width: 100%;
+    }
+    .daterangepicker td.active.start-date,
+    .daterangepicker td.active.start-date:hover {
+        border-radius: 0;
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .people-box:nth-child(3) {
+        margin-left: 0;
+        margin-top: 0;
+    }
+    .people-box:nth-child(4) {
+        margin-left: 0;
+    }
+    .people-box:nth-child(5) {
+        margin-left: 0px;
+    }
+    .people-follow a.following {
+        border: 1px solid transparent;
+        color: #A02541;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .people-box {
+        width: 100%;
+        margin: 0 auto;
+        float: none;
+    }
+    .suggested-people-head h2 {
+        text-align: left;
+        font-size: 22px;
+    }
+    .serch-result h2 {
+        text-align: left;
+        font-size: 14px;
+    }
+    .people-name-lco b {
+        width: 155px !important;
+    }
+    .serch-result h2 {
+        text-align: left;
+        font-size: 14px;
+    }
+}

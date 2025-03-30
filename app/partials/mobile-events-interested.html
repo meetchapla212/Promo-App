@@ -1,0 +1,27 @@
+<!-- Mobile view -->
+<div flex layout="column" layout-align="start stretch" class="pa-background-white desktop-hide">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div flex layout-fill class="interested_mob_wrap mobile-perent desktop-hide ">
+        <div class="mobile-header display-flex-mob">
+            <span class="back-btn-mobile">
+                <a back-to-history class="pa-cursor-pointer"><i class="material-icons">arrow_back_ios</i></a>
+            </span>
+
+            <span class="share-link right-b-mobile"><a href="/" style="margin: 0 auto;display: table;">Browse Events</a></span>
+        </div>
+        <div class="container-wtd-1170">
+            <h2 class="add-mob-title">I am Interested In...</h2>
+            <div class="events-to-display" ng-show="!loading && (!allGoingEvents || allGoingEvents.length === 0)">
+                <span class="events-to-display-title">No events to display!</span>
+                <span class="events-to-display-content">You have not marked any event as "Going" or "Interested". All the events
+                    you show an interest in will appear here.</span>
+                <div class="add-btn-mob">
+                    <a ng-href="/" class="bg-theme-btn">Browse Events</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-12 col-sm-6 pa-pl-pr-0" id="event_box_{{event.id}}" ng-repeat="event in allGoingEvents">
+                <event-overview event="event" read-only="true" hide-description="true"></event-overview>
+            </div>
+        </div>
+    </div>
+</div>

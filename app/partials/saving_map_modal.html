@@ -1,0 +1,50 @@
+<div class="custom-model-content">
+
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Saving Map</span>
+        <md-icon ng-click="cancel()" class="pa-float-right">close</md-icon>
+    </div>
+    <div class="modal-body pa-no-padding">
+        <div class="event-form pa-pt-30-imp">
+            <md-input-container class="md-block pa-mt-30">
+                <label class="pa-font-14 pa-color-333333 pa-bold-font pa-modal-font">Venue Map Name</label>
+                <input type="text" ng-model="venueMapName" class="form-control mt-10" placeholder="Seat Map Name" class="input-error">
+            </md-input-container>
+            <div class="custom_section_check_seat">
+                <div class="form-group">
+                    <label class="check-promo">
+                        <input class="checkhour" type="checkbox" />
+                        <span class="check-ui"></span>
+                        <span class="chec-category">Share map with events using this venue.</span>
+                    </label>
+                </div>
+            </div>
+            <div class="map_issue_list_sec">
+                <div class="map_issue_list">
+                    <span class="bg-green"></span> No issues with your map design
+                </div>
+                <div class="map_issue_list" ng-if="seatmap.enableSaveData">
+                    <span class="bg-yellow"></span> All seats need to be assigned to a tier to continue.
+                </div>
+                <div class="map_issue_list" ng-if="seatmap.assignSaveData">
+                    <span class="bg-yellow"></span> All seats need to be assigned to a seat name & number to continue.
+                </div>
+                <div class="map_issue_list" ng-if="!seatmap.enableSaveData">
+                    <span class="bg-green"></span> All seats have best available selling order.
+                </div>
+                <div class="map_issue_list" ng-if="!seatmap.enableSaveData">
+                    <span class="bg-green"></span> All seats have a tier assigned.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer pa-border-EEEEEE">
+        <md-toolbar class="pa-modal-footer-height-toolbar tc_new_free_event">
+            <div class="md-toolbar-tools">
+                <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit" ng-click="cancel()" type="button">Back To Venue Designer</button>
+                <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" ng-if="seatmap.saveAsADraft" ng-click="saveSeatChartObject(venueMapName, true);cancel();" type="button" ng-disabled="!venueMapName">Save for later</button>
+                <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" ng-if="!seatmap.saveAsADraft" ng-click="saveSeatChartObject(venueMapName, false);cancel();" type="button" ng-disabled="!venueMapName || seatmap.enableSaveData || seatmap.assignSaveData">Publish</button>
+            </div>
+        </md-toolbar>
+    </div>
+</div>

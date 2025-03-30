@@ -1,0 +1,17 @@
+<div class="blg_srch_ins_wrp">
+    <div class="blg_srch_tp">
+        <span class="material-icons">search</span>
+        <input type="text" ng-model="searchText" ng-change="searchPost(searchText)" placeholder="Search">
+    </div>
+    <div ng-if="blogSerachData.length > 0">
+        <div class="srch_blg_list">
+            <div class="srch_blg_ins_list pa-pb-20" ng-show="$index < loadIndexPostSearch" ng-repeat="item in blogSerachData">
+                <span class="srch_blg_hd" ng-bind-html="item.catName"></span>
+                <a ng-href="/blog/{{item.id}}/{{item.slug}}" class="srch_blg_title" ng-bind-html="item.title.rendered"></a>
+                <div class="blog-date"><span class="material-icons">calendar_today</span> {{item.date | toMoment | momentFormatter:"MMMM DD, YYYY"}}</div>
+                <p class="para" ng-bind-html="item.excerpt.rendered"></p>
+            </div>
+        </div>
+        <a class="srch_see_all" ng-click="showAllSearchPost()">{{buttonclicked ? 'See Less Results' : 'See All Results' }}</a>
+    </div>
+</div>

@@ -1,0 +1,260 @@
+.date-picker-filter .date-picker {
+    border: 0px;
+    outline: none;
+    box-shadow: none !important;
+    padding: 6px 8px 6px 36px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid #eeeeee;
+    border-radius: 4px;
+    min-width: 380px;
+    text-align: left;
+}
+
+.rebecca-event.my-followers.my-ticket .rebecca-head {
+    margin-bottom: 0;
+}
+
+.date-picker-filter {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.date-picker-filter .datepicker-icon {
+    position: absolute;
+    left: 8px;
+    top: 5px;
+}
+
+.date-picker-filter .datepicker-icon .material-icons {
+    color: rgba(51, 51, 51, .8);
+}
+
+.payout-picker.pa-datepicker .drp-buttons:before {
+    display: none;
+}
+
+.payout_table .text-green {
+    color: #009638;
+}
+
+.payout_table .text-red {
+    color: #D0021B;
+}
+
+.payout_table .text-yellow {
+    color: #D18200;
+}
+
+.payout_table .text-black {
+    color: #666666;
+}
+
+.tt-single-border {
+    border: 1px solid #979797;
+}
+
+.tt-statusbar {
+    background-color: #38B968;
+}
+
+.price_parent .about-banner {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../img/pricing-page-banner.png);
+}
+
+.payout-box-pay p i {
+    float: left;
+    margin-right: 5px;
+}
+
+.payout-box-pay .panding {
+    font-size: 14px !important;
+    font-weight: 400 !important;
+}
+
+.payout-box-pay .panding i {
+    font-size: 20px;
+    margin-top: 2px;
+}
+
+.popup_wtd_700 .modal-dialog.modal-md {
+    width: 700px;
+}
+
+.addBank-account .congratulations-form-filed {
+    margin-top: 15px;
+}
+
+.addBank-account .congratulations-form-filed md-input-container {
+    margin-bottom: 20px !important;
+}
+
+.addBank-account .congratulations-form-filed md-input-container input[type="text"]:disabled {
+    background: #EEEEEE !important;
+}
+
+.admission_info_strip i {
+    float: left;
+    margin-right: 0;
+    width: 3%;
+    margin-top: 10px;
+}
+
+.admission_info_strip span {
+    margin: 8px 0;
+    display: block;
+    width: 96%;
+    float: right;
+}
+
+.box_add_payout {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+.table>tbody+tbody {
+    border-width: 1px;
+}
+
+.tt-mqwidth-100 {
+    color: #333333;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 40px;
+    display: inline-block;
+}
+
+.add_pay_meth_btn {
+    margin-left: 0px;
+    margin-bottom: 20px !important;
+    min-width: auto !important;
+    width: auto;
+}
+
+.billing-event-table table thead {
+    border-bottom: solid 1px #D8D8D8;
+}
+
+.payout_methodtable .table {
+    border-top: solid 1px #e7e7e7;
+}
+
+.payout-no-data-case {
+    display: inline-block;
+    width: 100%;
+    border-top: solid 1px #D8D8D8;
+}
+
+.payout-no-data-case span {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+.payout-no-data-case .save-exit.payout_method_btn {
+    line-height: 22px;
+}
+
+.payout-no-data-case-without-line {
+    display: inline-block;
+    width: 100%;
+}
+
+.payout-no-data-case-without-line span {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+.payout-no-data-case-without-line .save-exit.payout_method_btn {
+    line-height: 22px;
+}
+
+.addBank-account .login-modal .modal-title {
+    top: -4px;
+    font-size: 20px;
+    float: left;
+}
+
+.addBank-account .modal-body {
+    top: 0;
+    z-index: 0;
+}
+
+.popup-perent.rewardtermspopup.addBank-account.custom-model-content.requriedn .rewardpopup-content span .tickMark {
+    text-align: right;
+}
+
+.addBank-account .login-modal .modal-body {
+    padding-top: 10px;
+    background: #F6F6F6;
+    padding-bottom: 0px;
+}
+
+.addBank-account .modal-footer button {
+    float: right;
+}
+
+.addBank-account .login-modal .modal-body input::placeholder {
+    color: #999999;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.addBank-account .modal-footer {
+    border-radius: 0 0 4px 4px;
+    background-color: #FFFFFF;
+    margin-top: -10px;
+    padding-right: 30px;
+    position: relative;
+    z-index: 9;
+}
+
+.addBank-account .row {
+    margin-right: -15px;
+}
+
+.addBank-account md-input-container input {
+    font-size: 16px;
+}
+
+.addBank-account md-input-container select {
+    border: 1px solid #CBCBCB !important;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    display: inline-block;
+    width: 100%;
+    height: 48px;
+    font-size: 16px;
+    margin-top: 12px;
+    padding-left: 16px;
+    color: #333333;
+    font-weight: 400;
+}
+
+.addBank-account .row .md-label {
+    color: #333333;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 23px;
+}
+
+.billing-event-table table {
+    margin-bottom: 0;
+}
+
+.billing-event-table table thead tr th {
+    color: #999999;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 19px;
+    padding: 20px 0 22px 0;
+    border: none;
+}

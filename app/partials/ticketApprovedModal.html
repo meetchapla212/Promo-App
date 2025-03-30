@@ -1,0 +1,79 @@
+<div class="modal-paypal pa-border-4 pa-f6f6f6-border tt-ticket-width pa-modal-font pa-pb-20 custom-model-content " ng-controller="TicketApproveModalController">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content "></div>
+
+    <div class="modal-header bg-F9F9F9 h-51">
+        <span class="custom-row pa-ml-10 pa-font-20 line-ht-1 pa-color-333333 pa-bold-font pa-modal-font">{{selectedState.title}}
+            <span
+                ng-if="selectedState.approvedOn">{{selectedState.approvedOn | toMoment | momentFormatter:"MMMM D, YYYY"}}</span>
+        </span>
+        <md-icon class="pa-float-right line-ht-1" ng-click="close()">close</md-icon>
+    </div>
+    <div class="tt-status-section">
+        <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8">
+            <div class="tt-ticket-holder-name pa-bold-font pa-color-333333 pa-font-20 pa-mb-4 pa-md-8 pa-capitalize">
+                {{ticket.username}}</div>
+            <div class="tt-ticket-holder-mail pa-font-bold pa-color-666666 pa-font-16">{{ticket.email}}</div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4 hidden-xs">
+            <div class="pa-color-333333 opacity-6 pa-text-align-right pa-font-15 mb-5">
+                <md-icon class="tt-mr-10">stars</md-icon>Ticket Status
+            </div>
+            <div class="pa-font-bold pa-text-align-right pa-font-16" ng-class="{'ticket-pending':(selectedState.id === 'pending'),'tt-ticket-approved':(selectedState.id === 'approved')}">
+                {{selectedState.status}}</div>
+        </div>
+    </div>
+    <div class="modal-hr pa-md-8"></div>
+    <div class="row tt-ticket-detail">
+        <div class="col-sm-5 col-lg-5 col-xs-12">
+            <div class="ticket-date">
+                <i class="material-icons icon-roted icon-roted">confirmation_number</i>
+                <span>TICKET TYPE
+                    <b class="ng-binding pa-mt-4">{{ticket.ticket_type}}</b>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12">
+            <div class="ticket-date">
+                <i class="material-icons icon-roted icon-roted">confirmation_number</i>
+                <span>TICKET QUANTITY
+                    <b class="ng-binding pa-mt-4">{{ticket.ticket_qty}}</b>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12">
+            <div class="ticket-date">
+                <i class="material-icons">attach_money</i>
+                <span>PRICE PAID
+                    <b class="ng-binding pa-mt-4">${{ticket.total_amount}}</b>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row tt-ticket-detail">
+        <div class="col-md-6 col-sm-6 col-lg-6 hidden-xs">
+            <div class="ticket-date">
+                <i class="material-icons">event</i>
+                <span>PURCHASED ON
+                    <b class="ng-binding pa-mt-4">{{ticket.date_created | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}
+                        at {{ticket.date_created | toMoment | momentFormatter:"hh:mm a"}}</b>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-6 hidden-xs">
+            <div class="ticket-date">
+                <img src="img/paypal-2.png">
+                <span>PAYMENT RECEIVED IN PAYPAL ACCOUNT
+                    <b class="ng-binding pa-mt-4">{{ticket.paypal_email}}</b>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="pa-pt-15" ng-if="!selectedState.id || selectedState.id != 'approved'">
+        <div class="modal-hr pa-md-8"></div>
+        <div class="pa-padding-15 pa-font-16 lh-24 ht-48 pa-width-661">
+            Approve this ticket if you have received the payment made by {{ticket.username}} in your mentioned PayPal account.
+        </div>
+        <button ng-click="approve(ticket.user_ticket_id)" class="ht-48 pa-bold-font pa-border-4 tt-font-16 pa-mt-30 pa-ml-20 md-button w-184 pa-background-pink ticket-shadow" type="button">Approve Ticket</button>
+    </div>
+</div>

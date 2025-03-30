@@ -1,0 +1,233 @@
+.Nulla-maximus-div {
+    box-shadow: none !important;
+    border: solid 1px #dcdcdc !important;
+    transition: box-shadow .24s cubic-bezier(.4, 0, .3, 1), background-color .24s cubic-bezier(.4, 0, .3, 1), -webkit-box-shadow .24s cubic-bezier(.4, 0, .3, 1) !important;
+}
+
+.Nulla-maximus-div:hover {
+    box-shadow: 0 4px 15px 0 rgba(40, 44, 53, .06), 0 2px 2px 0 rgba(40, 44, 53, .08) !important;
+}
+
+.custom-dropdown-tab {
+    text-align: left;
+    padding-left: 13px;
+    padding-right: 8px;
+}
+
+.custom-dropdown-tab md-icon {
+    float: right;
+    margin-top: 13px;
+}
+
+.Rebecca-Willson-div .account-icon {
+    margin-top: 5px;
+}
+
+.Rebecca-Willson-div a span {
+    white-space: nowrap;
+    width: 190px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    margin-bottom: 0 !important;
+    color: #333333;
+    text-decoration: none !important;
+    font-size: 20px !important;
+}
+
+.comments-div~div #commentId {
+    height: 150px !important;
+    resize: none;
+}
+
+.comment-count {
+    border: 1px solid #E4E4E4;
+    border-radius: 16px;
+    height: 32px;
+    width: 53px;
+    padding-top: 5px;
+}
+
+.auth-comman-screen {
+    width: 100%;
+    height: calc(100vh - 52px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.auth-comman-screen .event-image-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
+}
+
+.auth-comman-screen .event-image-screen+.event-image-overlay {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    zoom: 1;
+}
+
+.auth-comman-screen .auth-area-section {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #fff;
+    z-index: 1;
+    position: relative;
+    width: 100%;
+}
+
+.auth-comman-screen .auth-area-section hr {
+    border-top: 2px solid #fff;
+    opacity: 1;
+}
+
+.auth-comman-screen .auth-area-section .auth-org-user {
+    text-transform: capitalize;
+}
+
+.auth-comman-screen .event-auth-error {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 12px;
+    background-color: #A02541;
+    color: #fff;
+    font-size: 16px;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+}
+
+.auth-comman-screen .event-auth-error>span.material-icons {
+    position: absolute;
+    right: 10px;
+}
+
+body form.form-ticket {
+    margin-top: 25px;
+}
+
+body form.form-ticket input {
+    color: black;
+    background: #ffffff00;
+    border: 0px;
+}
+
+form.form-ticket md-input-container.md-icon-left {
+    padding: 0;
+}
+
+.input-group-btn i {
+    right: 10px;
+}
+
+.input-group-btn .pa-lock-icon {
+    left: 10px;
+}
+
+.input-group-btn {
+    background: white;
+    border: 1px solid #CBCBCB;
+    border-radius: 4px !important;
+}
+
+body .form-ticket md-input-container label {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0;
+    position: relative;
+    left: 0;
+    transform: unset !important;
+    color: white;
+}
+
+.btn-transparent {
+    width: auto !important;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+    height: 48px !important;
+}
+
+button.btn-transparent:hover {
+    background: #ffffff3b;
+}
+
+@media only screen and (max-width: 1024px) {
+    .form-ticket.mobile-insta-login {
+        padding: 0 !important;
+    }
+    .form-ticket.mobile-insta-login label {
+        text-align: left;
+    }
+    .form-ticket.mobile-insta-login .tt-text-right-align {
+        text-align: left;
+    }
+    .form-ticket.mobile-insta-login .tt-text-right-align button.btn-transparent {
+        border: 1px solid;
+    }
+    .auth-area-section {
+        padding: 20px;
+    }
+}
+
+.interested-button {
+    border-radius: 25px;
+    border: 2px solid #a02541;
+    background-color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 38px;
+    color: #a02541;
+    font-size: 14px;
+    padding: 6px 12px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.interested-button>i {
+    margin-right: 6px;
+}
+
+.auth-area-section h3 {
+    line-height: 2;
+    text-align: center;
+}
+.auth-area-section a.pa-back-btn {
+    height: 40px;
+    min-height: 34px;
+    line-height: 34px;
+    font-family: Lato;
+    border-radius: 0;
+    color: #FFFFFF;
+    width: 142px;
+    background-color: #A02541;
+    border: none !important;
+    border-radius: 4px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+.auth-area-section a.pa-back-btn:hover {
+    background: #69182b;
+    color: #fff !important;
+    text-decoration: none;
+}

@@ -1,0 +1,40 @@
+{
+  "Records": [
+    {
+      "eventID": "1d208b0b0d8f49558f68b3fe4ed164c7",
+      "eventName": "INSERT",
+      "eventVersion": "1.1",
+      "eventSource": "aws:dynamodb",
+      "awsRegion": "eu-west-1",
+      "dynamodb": {
+        "ApproximateCreationDateTime": 1525089300,
+        "Keys": {
+          "location": {
+            "S": "51.5073509,-0.12775829999998223"
+          }
+        },
+        "NewImage": {
+          "city": {
+            "S": "London, UK"
+          },
+          "count": {
+            "N": "1"
+          },
+          "location": {
+            "S": "51.5073509,-0.12775829999998223"
+          },
+          "lat": {
+            "N": "51.5073509"
+          },
+          "long": {
+            "N": "-0.12775829999998223"
+          }
+        },
+        "SequenceNumber": "25952900000000015800758255",
+        "SizeBytes": 123,
+        "StreamViewType": "NEW_AND_OLD_IMAGES"
+      },
+      "eventSourceARN": "arn:aws:dynamodb:eu-west-1:576180419135:table/locationaccess-test/stream/2018-04-30T11:38:58.344"
+    }
+  ]
+}

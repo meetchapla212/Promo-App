@@ -1,0 +1,263 @@
+<style>
+    .gm-style {
+        font-family: 'lato';
+    }
+
+    .gm-style div {
+        overflow: visible !important;
+    }
+
+
+    .gm-style div {
+        overflow: inherit !important;
+    }
+
+    img[src="https://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png"] {
+        display: none;
+    }
+
+    .ng-map-info-window {
+        width: 100%;
+        position: absolute;
+    }
+
+    .ng-map-info-window::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, 0);
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 12px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .ng-map-info-window::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, 0);
+        width: 0;
+        height: 0;
+        border-left: 9px solid transparent;
+        border-right: 9px solid transparent;
+        border-top: 11px solid #A02541;
+    }
+
+    .ng-map-info-window div:first-child>div:nth-child(4) {
+        background-color: transparent !important;
+        z-index: -1;
+    }
+
+    .marker-counter .close-marker {
+        display: initial !important;
+    }
+
+    .marginLeft {
+        margin-left: 10px !important;
+    }
+
+    .link-share {
+        height: 30px !important;
+        width: 90px !important;
+        margin-left: -20px !important;
+    }
+
+    .gm-style .gm-style-iw-t::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, 0);
+        width: 0;
+        height: 0;
+        border-left: 9px solid transparent;
+        border-right: 9px solid transparent;
+        border-top: 11px solid #ffffff;
+        z-index: 9999;
+        opacity: 1;
+        background: transparent;
+    }
+
+    .gm-style img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .gm-style .gmnoprint {
+        position: fixed !important;
+        right: 20px !important;
+        left: auto !important;
+        top: initial !important;
+        bottom: 100px !important;
+    }
+    
+    .gm-style .gmnoprint>div.gm-style-cc {
+        padding-top: 15px;
+    }
+    
+    .gm-style .gmnoprint.gm-style-cc {
+        bottom: 71px !important;
+    }
+
+    .event_box_img img {
+        width: 233px;
+        height: 173px;
+        object-fit: cover;
+    }
+
+    @media screen and (max-width: 767px) {
+        .gm-style .gmnoprint {
+            bottom: 130px !important;
+        }
+        .gm-style .gmnoprint.gm-style-cc {
+            bottom: 100px !important;
+        }
+    }
+
+</style>
+
+<div class="map-loader-class loader-home-left-map" ng-class="{'prelogin': !user}">
+    <ng-map id='eventsmap' map-type-id="roadmap" map-type-control="false" class="custom-ng-map" min-zoom="13" zoom="15" center="{{location[0]}}, {{location[1]}}" ng-style="mapStyle" draggable="true" zoom-control="true" street-view-control="false" clickable-icons="false"
+        gesture-handling="greedy" on-dragend="emc.dragEnd()" ng-click="emc.mapClicked()" fullscreen-control-options="{position:'TOP_LEFT'}" styles='{{mapDetails.style}}' on-zoom_changed="emc.zoomChanged()">
+        <marker ng-if="currentLocation" position="{{currentLocation.lat}}, {{currentLocation.lng}}" icon="{ url:'/img/bluedot.png', scaledSize:[0,0], origin: [0,0], anchor: [16,40] }"></marker>
+        <info-window id="event-iw" style="z-index:9999;" on-domready="emc.initInfoWindow()">
+            <div class="pa-marker-container" id="mk_{{emc.em.event_id}}" layout="row">
+                <!-- Image div starts 111-->
+                <div class="map-marker-background-grad pa-cursor-pointer event_box_img" event-detail-new-tab=""
+                    event="emc.em">
+                    <img src="{{emc.em.event_image || '/img/unnamed_icon.png'}}" alt="{{emc.em.event_name}}" />
+                </div>
+                <div ng-show="emc.em.tickets_list.length > 0 || emc.em.event_type == 'free'" class="pa-center-div mm-view pa-font-12 pa-modal-font">
+                    <span class="eo-opacity7" event-ticket-price event="emc.em" ng-class="{'eo-free':!(emc.em.ticket_type === 'paid')}"></span>
+                </div>
+
+                <div class="eo-tag" ng-show="emc.em._user_id == user.user_id" event-detail-new-tab="" event="emc.em">My
+                    Event </div>
+                <div class="eo-tag" ng-show="emc.em.claimed_by == user.user_id" event-detail-new-tab="" event="emc.em">
+                    Claimed</div>
+                <div class="eo-tag eo-tag-sponsored" ng-show="emc.em.claimed_by !== user.user_id && emc.em.highlighted"
+                    event-detail-new-tab="" event="emc.em">Sponsered</div>
+                <!-- Image div ends -->
+                <!-- Event details div starts -->
+                <div class="pa-map-event-details pa-color-333333 tt-padding-20 pa-modal-font " layout="column"
+                    layout-align="space-around start">
+
+                    <div class="pa-width-100p" layout="row" layout-align="space-between start" ng-cloak>
+                        <div class="tt-font-16 pa-bold-font cursor-pointer" event-detail-new-tab="" event="emc.em">
+                            {{emc.em.event_name | breakLength:'40'}} {{urlEventName}}</div>
+                        <div ng-click="emc.hideMarkers(emc.em)">
+                            <md-icon class="pa-font-20">close</md-icon>
+                        </div>
+                    </div>
+                    <div ng-show="emc.em.address" class="pa-center-div eo-opacity pa-cursor-pointer"
+                        event-detail-new-tab="" event="emc.em"><i class="material-icons pa-font-20">
+                            location_on
+                        </i>
+                        <!-- <span class="pa-font-14 pa-marker-icon-align">{{emc.em.address}}</span> -->
+                        <span
+                            class="pa-font-14 pa-marker-icon-align">{{emc.em.city +" "+ emc.em.state +" "+ emc.em.country}}</span>
+                    </div>
+                    <div class="pa-center-div eo-opacity pa-cursor-pointer" event-detail-new-tab="" event="emc.em"><i
+                            class="material-icons pa-font-20">
+                            date_range
+                        </i><span
+                            class="pa-font-14 pa-marker-icon-align">{{emc.em.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}</span>
+                    </div>
+                    <div class="pa-center-div eo-opacity pa-cursor-pointer" event-detail-new-tab="" event="emc.em"><i
+                            class="material-icons pa-font-20">
+                            access_time
+                        </i><span
+                            class="pa-font-14 pa-marker-icon-align">{{emc.em.start_date_time | toMoment | momentFormatter:"hh:mm a"}}</span>
+                    </div>
+
+                </div>
+                <!-- Event details div ends -->
+            </div>
+        </info-window>
+
+        <custom-control ng-show="mobScreen" position="BOTTOM_LEFT" index="1" id="mob-event-iw"
+            class="info-custom-control pa-background-white mobile-info-custom">
+            <div class="pa-marker-container" id="md_{{emc.em.event_id}}" layout="row">
+                <!-- Image div starts -->
+                <div class="map-marker-background-grad pa-cursor-pointer" event-detail-new-tab="" event="emc.em"
+                    ng-click="saveEventId(emc.em.event_id)">
+                    <img ng-src="{{emc.em.event_image || '/img/unnamed.png'}}" alt="{{emc.em.event_name}}"
+                        on-error="/img/unnamed.png">
+                </div>
+                <div ng-if="emc.em.tickets_list.length > 0" ng-cloak class="pa-center-div mm-view pa-font-12 pa-modal-font">
+                    <span class="eo-opacity7" event-ticket-price event="emc.em" ng-class="{'eo-free ':!(emc.em.ticket_type === 'paid')}"></span>
+                </div>
+                <div class="eo-tag-mobile" ng-if="emc.em._user_id === user.user_id">My Event</div>
+                <div class="eo-tag-mobile" ng-if="emc.em.claimed_by === user.user_id">Claimed</div>
+                <div class="eo-tag-mobile eo-tag-sponsored"
+                    ng-if="emc.em.claimed_by !== user.user_id && emc.em.highlighted">
+                    Sponsored</div>
+                <!-- Image div ends -->
+                <!-- Event details div starts -->
+                <div class="pa-map-event-details pa-color-333333 tt-padding-20 pa-modal-font" layout="column"
+                    layout-align="space-around start">
+                    <div class="mb-8 pa-width-100p" layout="row" layout-align="space-between start">
+                        <div class="tt-font-14 pa-bold-font pa-cursor-pointer pa-multiline-ellipse overflow-hidden" event-detail-new-tab="" event="emc.em" ng-click="saveEventId(emc.em.event_id);">{{emc.em.event_name}}</div>
+                        <div ng-click="emc.hideMarkers(emc.em)">
+                            <md-icon class="pa-font-18">close</md-icon>
+                        </div>
+                    </div>
+                    <div event-detail-new-tab="" event="event" ng-show="emc.em.address"
+                        class="w-100 pa-center-div mb-8 eo-opacity pa-cursor-pointer"><i
+                            class="material-icons pa-font-20">
+                            location_on
+                        </i><span class="pa-font-12 pa-marker-icon-align">{{emc.em.address}}</span>
+                    </div>
+                    <div event-detail-new-tab="" event="event" class="pa-center-div eo-opacity mb-8 pa-cursor-pointer">
+                        <i class="material-icons pa-font-20">
+                            date_range
+                        </i><span
+                            class="pa-font-12 pa-marker-icon-align">{{emc.em.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}</span>
+                    </div>
+                    <div event-detail-new-tab="" event="event" class="pa-center-div eo-opacity mb-8 pa-cursor-pointer">
+                        <i class="material-icons pa-font-20">
+                            access_time
+                        </i><span
+                            class="pa-font-12 pa-marker-icon-align">{{emc.em.start_date_time | toMoment | momentFormatter:"hh:mm a"}}</span>
+                    </div>
+                </div>
+                <!-- Event details div ends -->
+            </div>
+        </custom-control>
+
+        <custom-control id="map_events_filters" position="TOP_RIGHT" index="1" ng-if="!mobScreen" class="mobile-hide">
+            <div class="pa-map-list-section" ng-class="{'new-map-list-sec':isWebBanner}" layout="row">
+                <div class="pa-filters-responsive-dropdown-parent">
+                    <div class="pa-custom-btn pa-center-div pa-map-white-bg pa-filter-button pa-mr-20 map-icon-ie" ng-disabled="preventUnselect" ng-click="openNav($event);">
+                        <md-icon class="pa-map-unselected">filter_list</md-icon>
+                    </div>
+                    <div ng-show="toggleFilters" id="categoriesList" class="pa-filters-responsive-dropdown-container pa-right-dropdown pa-right-dropdown">
+                        <div class="category-list">
+                            <button type="button" class="checkall" ng-click="toggleCategorySelection()">{{categorySelectionButton}}</button>
+                            <p class="category-warning" ng-if="preventUnselect">Select at least one category to view events <span>*</span></p>
+                            <label ng-repeat="(key, value) in categoriesMap">
+                                <input class="checkhour" type="checkbox" ng-model="categoriesMap[key].selected"
+                                    ng-change="changeCategorySelection()">
+                                <span class="check-ui"></span>
+                                <span class="chec-category"><img class="category-list-img-map" ng-src="{{value.icon}}"
+                                        alt="concerts" /> {{categoriesMap[key].name}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="pa-custom-btn pa-center-div pa-left-button map-icon-ie" ng-click="setView(false)"
+                    ng-class="isMaps?'pa-map-white-bg':'pa-map-red-bg'">
+                    <md-icon ng-class="isMaps?'pa-map-unselected':'pa-color-FFFFFF'">list</md-icon>
+                </div>
+                <div class="pa-custom-btn pa-center-div pa-right-button map-icon-ie" ng-click="setView(true)"
+                    ng-class="isMaps?'pa-map-red-bg':'pa-map-white-bg'">
+                    <md-icon ng-class="isMaps?'pa-color-FFFFFF':'pa-map-unselected'">map</md-icon>
+                </div>
+            </div>
+        </custom-control>
+    </ng-map>
+</div>

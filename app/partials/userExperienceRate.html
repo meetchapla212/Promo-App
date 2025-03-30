@@ -1,0 +1,63 @@
+<div class="user_experience pa-bg-FFFFFF pa-vh-100">
+    <div class="col-lg-2 col-md-2 col-sm-0 col-xs-0"></div>
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 pb-100">
+        <md-card class="card-color margin-57">
+            <md-card-header class="col-md-12 pa-bg-F9 align-items-center create-header-style pa-border-EEEEEE tt-margin-bottom-0">
+                <md-card-header-text>
+                    <span class="md-title"><span class="pa-bold-font pa-font-20 pa-color-333333">Rate Your Experience</span></span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-content class="pa-padding-30">
+                <div class="pa-color-333333 pa-bold-font pb-5">How was your experience with create event process?</div>
+                <div class="card_item">
+
+                    <md-card class="pa-border-EEEEEE pa-border-4 user_card pa-display-inline-block pa-no-margin-imp" ng-class="(feedback.rating == 'excellent')?'pa-bg-E4E4E4':''" ng-click="feedback('excellent')">
+                        <md-card-content class="pa-text-center">
+                            <img src="img/excellent.png" class="md-card-image pa-border-50 pa-mb-15" alt="image caption" style="border: 2px solid #38B968;">
+                            <p class="pa-color-333333 pa-font-16 lh-19">Excellent</p>
+                        </md-card-content>
+                    </md-card>
+
+                    <md-card class="pa-border-EEEEEE pa-border-4 user_card pa-display-inline-block pa-margin-20-0" ng-class="(feedback.rating == 'good')?'pa-bg-E4E4E4':''" ng-click="feedback('good')">
+                        <md-card-content class="pa-text-center">
+                            <img src="img/good.png" class="md-card-image pa-border-50 pa-mb-15" alt="image caption" style="border: 2px solid #38B968;">
+                            <p class="pa-color-333333 pa-font-16 lh-19">Good</p>
+                        </md-card-content>
+                    </md-card>
+
+                    <md-card class="pa-border-EEEEEE pa-border-4 user_card pa-display-inline-block pa-margin-20-0" ng-class="(feedback.rating == 'unsure')?'pa-bg-E4E4E4':''" ng-click="feedback('unsure')">
+                        <md-card-content class="pa-text-center">
+                            <img src="img/unsure.png" class="md-card-image pa-border-50 pa-mb-15" alt="image caption" style="border: 2px solid 
+                                                #F5A623;">
+                            <p class="pa-color-333333 pa-font-16 lh-19">Unsure</p>
+                        </md-card-content>
+                    </md-card>
+
+                    <md-card class="pa-border-EEEEEE pa-border-4 user_card pa-display-inline-block pa-margin-20-0" ng-class="(feedback.rating == 'poor')?'pa-bg-E4E4E4':''" ng-click="feedback('poor')">
+                        <md-card-content class="pa-text-center">
+                            <img src="img/poor.png" class="md-card-image pa-border-50 pa-mb-15" alt="image caption" style="border: 2px solid 
+                                                #D0021B;">
+                            <p class="pa-color-333333 pa-font-16 lh-19">Poor</p>
+                        </md-card-content>
+                    </md-card>
+
+                    <md-card class="pa-border-EEEEEE pa-border-4 user_card pa-display-inline-block pa-margin-20-0" ng-class="(feedback.rating == 'awful')?'pa-bg-E4E4E4':''" ng-click="feedback('awful')">
+                        <md-card-content class="pa-text-center">
+                            <img src="img/awful.png" class="md-card-image pa-border-50 pa-mb-15" alt="image caption" style="border: 2px solid 
+                                                #D0021B;">
+                            <p class="pa-color-333333 pa-font-16 lh-19">Awful</p>
+                        </md-card-content>
+                    </md-card>
+
+                </div>
+                <div class="pa-color-333333 pa-bold-font pb-5 pa-mt-20">Add Comment <span class="opacity: 0.8;">(optional)</span></div>
+                <md-input-container class="create-w-100 pa-no-margin comment-optional-textarea">
+                    <textarea ng-model="feedback.comment" id="form7" class="form-control input-height card-color pa-min-h-80" rows="3"></textarea>
+                </md-input-container>
+                <md-button class="pa-mt-30 ht-48 pa-border-4 pa-border-none pa-pink-button pa-font-16 pa-bold-font user_button pa-ml-0 pa-mr-0" ng-disabled="!feedback.rating" ng-click="saveFeedback()">Submit</md-button>
+            </md-card-content>
+        </md-card>
+
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-0 col-xs-0"></div>
+</div>

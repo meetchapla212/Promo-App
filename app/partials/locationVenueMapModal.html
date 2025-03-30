@@ -1,0 +1,35 @@
+<div class="custom-model-content">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font pa-capitalize">{{tier.venue_map_name}}</span>
+        <md-icon ng-click="cancel()" class="pa-float-right">close</md-icon>
+    </div>
+    <div class="modal-body pa-no-padding">
+        <div class="create-w-100 event-form venue_detail buyer-TC-Sec">
+            <div class="tc-new-phase">
+                <div class="row venu_maps_sec" style="margin-left: 0;">
+                    <div class="venu_maps_sec_sub_head">
+                        <span class="pull-right">Price Tiers</span>
+                        <span class="pull-right tt-text-right-align">Capacity</span>
+                    </div>
+                    <div class="venu_maps_content" ng-repeat="tier in tier.tiers">
+                        <span class="status_dot" style="background-color: {{tier.color}}"></span>
+                        <p class="tier-name pa-capitalize">{{tier.name}}</p>
+                        <p class="tier-capacity">{{tier.seating_capacity}}</p>
+                    </div>
+
+                    <div class="venu_maps_total">
+                        Total {{tier.total_seating_capacity}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer pa-border-EEEEEE">
+            <md-toolbar class="pa-modal-footer-height-toolbar tc_new_free_event">
+                <div class="md-toolbar-tools">
+                    <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit" type="button" ng-click="cancel()">Cancel</button>
+                    <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" ng-click="useExistingVenue(tier, event_id);" type="button">Use Venue Map</button>
+                </div>
+            </md-toolbar>
+        </div>
+    </div>
+</div>

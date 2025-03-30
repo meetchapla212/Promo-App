@@ -1,0 +1,87 @@
+<!-- Mobile view -->
+<div flex layout="column" layout-align="start stretch" class="pa-background-white desktop-hide">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div flex layout-fill class="mobile-perent desktop-hide ">
+        <div class="mobile-header display-flex-mob">
+            <span class="back-btn-mobile">
+                <a back-to-history class="pa-cursor-pointer"><i class="material-icons">arrow_back_ios</i></a>
+            </span>
+
+
+        </div>
+        <div ng-if="!SharedEvents" class="container-wtd-1170 reward-mobile-card events-to-display pa-mt-50">
+            <h2 class="add-mob-title">Events I have Shared</h2>
+            <span class="reward-mobile-card-sub-head">You haven’t shared any events so far.</span>
+            <p>The events you will share, will be presented here.</p>
+            <div class="">
+                <div class="share-events-get-rewards-card">
+                    <img src="img/reward.svg">
+                    <span class="gift-card-share-head">Share Events and Get a Chance to Win Exciting Rewards!</span>
+                    <a href="/" class="pa-add-event pa-font-14 md-button md-ink-ripple">Browse Events</a>
+                    <p><b>Note:</b> Rewards are applicable on certain events on which the organiser will associate reward system with his event.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- mobile date -->
+        <div ng-if="SharedEvents" class="upcoming-past-tab-tabs-content mobile-reward-details shared_mobile">
+            <div class="container-wtd-1170 reward-mobile-card events-to-display pa-mt-50">
+                <div class="reward-mobile-card events-to-display pa-mt-10" style="margin-bottom: 0;">
+                    <h2 class="add-mob-title">Events I have Shared</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-xs-12 col-sm-6" ng-repeat="event in SharedEvents | start: (currentPageGoing - 1) * numPerPage | limitTo: numPerPage">
+                        <div class="col-md-12 custom-events">
+                            <div>
+                                <div class="row tt-row-margin tt-tbox ">
+                                    <div class="eo-rel eo-flexalign eo-bordertop">
+                                        <div class="background-grad pa-cursor-pointer">
+                                            <img pa-event-img url="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" alt="{{event.event_name}}">
+                                        </div>
+                                        <div class="pa-edit-eo pa-cursor-pointer" ng-if="event.is_rewardShared ">
+                                            <md-icon class="material-icons" role="img" aria-label="edit">assessment
+                                            </md-icon><a href="/view_analytics_attendee/{{event.reward_id}}">View Analytics</a></div>
+                                    </div>
+
+                                    <div class="eo-view eo-price eo-top-right pa-font-14 pa-modal-font"><span class="free-event eo-free">FREE</span></div>
+                                    <div class="pa-width-100p tt-row-margin eo-bottom-left shared-event-datetime eo-colorF4F4F7 pa-font-15 pa-modal-font eo-flexes dat_time_sec_new">
+                                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-6 pd-left pa-pr-0 eo-flexes eo-align">
+                                            <i class="material-icons">
+                                                    date_range
+                                                </i>
+                                            <span class="eo-leftspace eo-font-size">{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}</span>
+                                        </div>
+                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 tt-display-end eo-flexes eo-align">
+                                            <i class="material-icons">
+                                                    access_time
+                                                </i><span class="eo-leftspace eo-font-size">{{event.start_date_time | toMoment | momentFormatter:"hh:mm a"}}</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- extra   -->
+
+                            <div class="row tt-row-margin">
+                                <div class="event-row col-sm-12 col-xs-12 noPadding">
+                                    <div class="event-description-bubble col-sm-12 col-xs-12">
+                                        <a class="retaincolor">{{event.event_name}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row tt-row-margin eo-clr eo-opacity eo-flexes tt-outlinebtn" role="button" tabindex="0">
+
+                                <i class="material-icons eo-color-333333 pa-font-24 eo-space">
+                                        location_on
+                                    </i><span class="pa-font-15 pa-modal-font eo-leftspace eo-loc">{{event.city +", "+ event.state +", "+ event.country}}</span>
+                            </div>
+                            <!-- end ngIf: event.address -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

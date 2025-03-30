@@ -1,0 +1,55 @@
+<div class="custom-model-content" ng-controller="inviteFollowersController">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Invite My Followers</span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+    <div class="modal-body pa-padding-30 br-EEEEEE">
+        <form class="event-form pa-no-padding" name="forms.inviteFollowers">
+            <md-input-container class="md-block ht-48 md-icon-float md-icon-left">
+                <label></label>
+                <md-icon class="pa-color-666666">search</md-icon>
+                <input type="text" ng-model="search.email" class="form-control card-color pl-9 md-input-with-icon" placeholder="Search followers by email">
+            </md-input-container>
+            <div class="pa-display-inline-block pa-width-100p-imp pa-vertical-align">
+                <span class="pa-font-16 pa-color-pink pa-bold-font" ng-if="selectedFollowers > 0" ng-click="clearAll()">Clear All</span>
+                <span class="pa-float-right pa-font-16 pa-color-666666">{{selectedFollowers}} Followers Selected</span>
+            </div>
+            <div class="table-responsive pa-mt-30 pa-border-none">
+                <table ng-if="followers && followers.length > 0">
+                    <tr class="row follower-table" ng-repeat="follower in followers | filter:search.email">
+                        <td id="follower">
+                            <md-checkbox ng-change="calculateFollowers()" md-no-ink="" class="pa-no-margin pa-color-333333" ng-model="follower.selected" aria-label="{{follower.username}}">
+                            </md-checkbox>
+                        </td>
+                        <td class="col-md-1 col-sm-1 col-xs-1">
+                            <img pa-user-img="{{follower.id}}" ng-if="follower.profile_pic === null" class="follower-img  rounded" />
+                            <img data-ng-src="{{follower.profile_pic}}" ng-if="follower.profile_pic != null" class="follower-img  rounded" />
+                        </td>
+                        <td class="col-md-6 col-sm-6 col-xs-6">
+                            <span class="pa-font-15 pa-color-333333 pa-bold-font mr15" ng-if="follower.email != ''">{{follower.email}}</span>
+                            <span class="pa-font-15 pa-color-333333 pa-bold-font mr15" ng-if="follower.email === ''">{{follower.first_name}} {{follower.last_name}}</span>
+                        </td>
+                        <td class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="pa-font-15 pa-color-666666">{{follower.username}}</span>
+                        </td>
+                        <td class="col-md-2 col-sm-2 col-xs-2">
+                            <span class="pa-float-right pa-position-relative l-15 pa-font-15 pa-color-666666">Follower</span>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer pa-border-EEEEEE">
+        <md-toolbar class="pa-modal-footer-height-toolbar">
+            <div class="md-toolbar-tools">
+                <div flex md-truncate>
+                </div>
+                <md-button ng-click="cancel()" class="add-link-cancel ht-48 pa-border-4 pa-font-16 pa-color-pink pa-bold-font">Cancel</md-button>
+                <md-button ng-click="save()" ng-disabled="selectedFollowers <= 0" class="pa-pink-button ht-48 pa-border-4 pa-color-999999 pa-font-16 pa-bold-font">Save</md-button>
+            </div>
+        </md-toolbar>
+
+    </div>
+</div>

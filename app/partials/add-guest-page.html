@@ -1,0 +1,48 @@
+<div class="pa-bg-f9f9f9 pa-h-100 invited-guest-pr" ng-show="showHide.template == 'partials/add-guest-page.html'">
+    <div class="col-lg-2 col-md-2 col-sm-0 col-xs-0"></div>
+
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 pb-100 ">
+        <section class="pa-mt-30">
+            <md-card class="pa-bg-FFFFFF">
+                <md-card-header class="col-md-12 pa-bg-F9 align-items-center create-header-style pa-border-EEEEEE tt-margin-bottom-0">
+                    <md-card-header-text>
+                        <span class="md-title"><span class="pa-bold-font pa-font-20 pa-color-333333">Invite Guests
+                            </span><span class="pa-font-16 ml-10">(Optional)</span></span>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-content class="pa-pt-30-imp pb-30">
+                    <div layout="column" class="padding-25">
+                        <p class="pa-font-16 pa-color-666666">You have not invited any guests yet. To invite your contacts, please choose one of the following options:</p>
+
+                        <div layout-align="space-between center" class="text-left">
+                            <md-button ng-click="inviteMyFollower()" class="pa-border-CBCBCB pa-border-4 h-48 pa-background-white pa-pl-pr-16 pa-ml-0">
+                                <md-icon class="pa-color-666666">people</md-icon><span class="pa-pl-10 pa-font-16 pa-color-pink pa-bold-font">Invite My Followers</span>
+                            </md-button>
+                            <md-button ng-click="inviteEmailModal()" class="pa-border-CBCBCB pa-border-4 h-48 pa-background-white pa-pl-pr-16">
+                                <md-icon class="pa-color-666666">email</md-icon><span class="pa-pl-10 pa-font-16 pa-color-pink pa-bold-font">Invite Through Email</span>
+                            </md-button>
+                            <md-button ng-click="csvModal()" class="pa-border-CBCBCB pa-border-4 h-48 pa-background-white pa-pl-pr-16">
+                                <md-icon class="pa-color-666666">insert_drive_file</md-icon><span class="pa-pl-10 pa-font-16 pa-color-pink pa-bold-font">Import CSV File</span>
+                            </md-button>
+                        </div>
+
+
+                        <div ng-if="guestList.guest_list.length > 0 || guestList.group_list.length > 0" layout="column" layout-align="center center">
+                            <div class="create-w-100 pa-bt-CBCBCB mid-sec"></div>
+                            <div align="center" class="or-circle">
+                                <span class="or-text">OR</span>
+                            </div>
+                            <md-button ng-click="savedGuestModal()" class="pa-border-CBCBCB pa-border-4 h-48 pa-background-white pa-pl-pr-30">
+                                <span class="pa-font-16 pa-color-pink pa-bold-font">Use Saved Guest List</span>
+                            </md-button>
+                        </div>
+                    </div>
+
+                </md-card-content>
+            </md-card>
+        </section>
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-0 col-xs-0"></div>
+
+</div>

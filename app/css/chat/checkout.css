@@ -1,0 +1,157 @@
+.checkout-loader-div .loader {
+  position: fixed !important;
+}
+
+.tt-border-dashed {
+  border-bottom: 2px dashed #CCCCCC;
+  padding-top  : 20px;
+}
+
+.tt-buy-btn {
+  width        : 180px;
+  height       : 60px;
+  border       : none;
+  border-radius: 5px;
+}
+
+.tt-total-amount-div {
+  height      : 70px;
+  margin-right: -20px;
+  margin-left : -20px;
+}
+
+.tt-background-EEEEEE {
+  background: #EEEEEE;
+}
+
+.tt-note-paypal {
+  word-spacing: 2px;
+}
+
+.tt-line-height {
+  line-height: 1.5;
+}
+
+.tt-checkout-div-padding {
+  padding: 4% 8% 12% 8%;
+}
+
+.tt-border-radius-top {
+  border-radius: 7px 7px 0px 0px;
+}
+
+.tt-border-radius-bottom {
+  border-radius: 0px 0px 7px 7px;
+}
+
+.tt-border-radius-7 {
+  border-radius: 7px;
+}
+
+@media only screen and (max-width: 780px) {
+  .tt-media-font-18 {
+    font-size: 18px;
+  }
+
+  .tt-media-font-16 {
+    font-size: 16px;
+  }
+
+  .tt-media-font-14 {
+    font-size: 14px;
+  }
+
+  .tt-media-color-3B373C {
+    color: #3B373C;
+  }
+
+  .tt-padding-media-zero {
+    padding: unset;
+  }
+
+  .tt-media-left-align {
+    text-align: left;
+  }
+
+  .tt-media-center-align {
+    text-align: center;
+  }
+
+  .tt-media-right-align {
+    text-align: right;
+  }
+
+  .tt-padding-media-8 {
+    padding: 8px;
+  }
+
+  .tt-margin-8 {
+    margin: 0px -8px 0px -8px;
+  }
+
+  .tt-media-ml-12 {
+    margin-left: 12px;
+  }
+
+  .tt-height-auto {
+    height: auto;
+  }
+
+  .tt-media-btn-margin {
+    margin: 0px -8px 0px 7px;
+  }
+
+  .tt-width-100 {
+    width: 100%;
+  }
+
+  .tt-border-radius-zero {
+    border-radius: 0;
+  }
+
+  .tt-border-none {
+    border: none;
+  }
+
+  .tt-media-mb-50 {
+    margin-bottom: 50px;
+  }
+
+  .tt-media-background-EEEEEE {
+    background: #EEEEEE;
+  }
+
+  .tt-media-margin {
+    margin: -8px -15px 10px -8px !important;
+  }
+
+  .tt-media-d-none {
+    display: none;
+  }
+
+  .tt-media-icon {
+    position: absolute;
+    top     : -50px;
+  }
+
+  .tt-media-pr-0 {
+    padding-right: 0 !important;
+  }
+
+  .tt-media-pl-5 {
+    padding-left: 5px !important;
+  }
+}
+
+@media only screen and (min-width: 780px) {
+  .tt-media-d-none-max {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .checkout-loader .loader-content {
+    position: fixed !important;
+    left    : 30% !important;
+  }
+}

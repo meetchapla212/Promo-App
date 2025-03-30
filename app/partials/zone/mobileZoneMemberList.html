@@ -1,0 +1,26 @@
+<div layout="column" layout-align="start stretch" class="mobile-perent desktop-hide flex notifications-sec-mob">
+    <div class="mobile-header display-flex-mob">
+        <span class="back-btn-mobile">
+            <a back-to-history class="pa-cursor-pointer"><i class="material-icons">arrow_back_ios</i></a>
+        </span>
+    </div>
+    <div class="container notifications-sec-mob" infinite-scroll="getnotification()" infinite-scroll-distance="1">
+        <h2 class="add-mob-title">Zone List</h2>
+        <div loader working="loading" disable-background="true" class="loader-content"></div>
+        <ul class="zone-list" ng-if="zoneListData.length > 0">
+            <li class="zone-list-item" ng-repeat="list in zoneListData">
+                <div class="zone-item-image">
+                    <i class="material-icons" ng-if="list.logo == ''">account_circle</i>
+                    <img ng-src="{{list.logo}}" ng-if="list.logo != ''" alt="Promoapp" />
+                </div>
+                <div class="zone-item-info">
+                    <div class="zone-name">{{list.name}}</div>
+                    <div class="zone-action"><a ng-click="removeZoneConfirmation(list.zone_id, 'list')">Leave Zone</a></div>
+                </div>
+            </li>
+        </ul>
+        <div ng-if="zoneListData.length == 0" class="no-data-case-profile pa-mt-40">
+            No Member Zone To Be Displayed
+        </div>
+    </div>
+</div>

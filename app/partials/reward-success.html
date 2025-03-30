@@ -1,0 +1,55 @@
+<div class="create_event_success pa-h-100 reward_success">
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <div class="event_success">
+                <md-card class="margin pa-bg-FFFFFF pa-height-100p pa-event-success-box">
+                    <div class="reward-published">
+                        <div class="reward-publishedContent">
+                            <div>
+                                <md-button class="pa-green-button md-fab pa-cursor-default" aria-label="Event created Successfully">
+                                    <md-icon class="material-icons">check</md-icon>
+                                </md-button>
+                            </div>
+                            <div class="pa-font-24 pa-bold-font lh-29 mt-32 mb-32">
+                                Promotion {{action == 'Create'?'Published':(action + 'ed')}} Successfully.
+                            </div>
+                            <div class="copyUrlfiled">
+                                <input type="" name="" value="{{base_url}}/eventdetails/{{urlEventName}}/{{eventRDetails.event_id}}">
+                                <md-button ng-click-copy="{{base_url}}/eventdetails/{{urlEventName}}/{{eventRDetails.event_id}}" ng-click="linkCopied()">{{displayTooltip === true ? 'COPIED URL' : 'COPY URL'}}</md-button>
+                            </div>
+                            <div class="share-eventon">
+                                <span>Share your event on</span>
+                                <div class="med-social-icons">
+                                    <div class="social-circle pa-cursor-pointer">
+                                        <a ng-click="socialShare('facebook')" target="_blank"><i class="fa fa-facebook-f pa-font-24"></i></a>
+                                    </div>
+                                    <div class="social-circle pa-cursor-pointer pa-ml-15 snapchat-share-button" data-share-url="{{getSocialShareURL()}}">
+                                        <i class="fa fa-snapchat-ghost pa-font-24 snapchat-right-top "></i>
+                                    </div>
+                                    <div class="social-circle pa-cursor-pointer pa-ml-15">
+                                        <a ng-click="socialShare('whatsapp')" class="whatsapp-icon" target="_blank"><i class="fa fa-whatsapp pa-font-24 whatsapp-right-top"></i></a>
+                                    </div>
+                                    <div class="social-circle pa-cursor-pointer pa-ml-15">
+                                        <a ng-click="emailShare()" target="_blank"><i class="material-icons mail-left-right pa-font-24 pa-color-pink">mail</i></a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="share-event-other">
+                                <span>Or</span>
+
+                                <div class="bannerBtnGroup">
+                                    <button ng-click="exit()" class="tt-font-16 pa-pl-pr-30 pa-white-with-br-button ht-48 pa-no-margin md-button md-ink-ripple pa-color-pink pa-border-4"><b>Go Home</b></a>
+                                    <button ng-click="gotoManageEvent()" class="pa-pl-pr-30 pa-pink-button ht-48 pa-no-margin md-button md-ink-ripple"><b>Manage Event </b></a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+</div>

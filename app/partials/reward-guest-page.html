@@ -1,0 +1,1209 @@
+<div class="pa-h-100" ng-show="showHide.template == 'partials/reward-guest-page.html'">
+    <div class="container final_step_reward" id="finalPreview">
+        <section class="pa-mt-30">
+            <md-card class="card-color">
+                <md-card-content class="pa-padding-30" style="background: #ffffff">
+                    <form name="createRewardForms.create_reward_guest_1" id="createRewardForms.create_reward_guest_1" class="pa-mb-40">
+                        <div class="row">
+                            <div class="col-md-9 pa-med-pad-20" id="eventTitle">
+                                <p class="pa-color-333333 pa-modal-font pa-font-28 pa-bold-font pa-med-font-20 event-title-margin">
+                                    {{eventRDetails.event_name}}
+                                </p>
+
+                                <div class="pa-color-333333 pa-modal-font pa-font-18 pa-capitalize pa-med-font-16">
+                                    <span><img
+                                            ng-src="{{eventRDetails.highlighted ? 'img/'+ eventRDetails.category + '_highlight.svg' : getCatName(eventRDetails.category,categoriesMap).icon}}"
+                                            class="pa-icon-event" width="32">
+                                        {{ getCatName(eventRDetails.category,categoriesMap).name }}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <div class="row event-info-bg content-border pa-position-relative rewardbookdetails pa-row-eq-height pa-row-eq-height-none" id="eventBasicInfo">
+                            <div class="col-md-8 pa-pl-0 pa-pr-0 pa-med-pr-none pa-bg-black layout-align-center-center layout-row" layout="row" layout-align="center center">
+                                <div class="banner-tag-div banner-img-style">
+                                    <img ng-src="{{eventRDetails.event_image || '../img/unnamed.png'}}" alt="{{eventRDetails.event_name}}" class="image-concert-width">
+                                </div>
+                            </div>
+                            <div class="col-md-4 layout-align-stretch-start layout-column" layout="column" layout-align="stretch start">
+                                <div class="content-date-detail tt-padding-20 pa-med-padding-none">
+                                    <div layout="column" layout-align="space-between start">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="events-name-list pa-color-333333 pa-font-13"> <span><i
+                                                            class="material-icons icon-alignment pa-color-333333 pa-font-24">event_available</i></span>EVENT STARTS
+                                                </div>
+                                                <div class="date-detail-para pa-color-333333 pa-bold-font tt-font-16">
+                                                    {{eventRDetails.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} at {{ eventRDetails.start_date_time | toMoment | momentFormatter:"hh:mm A"}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 pa-mt-20">
+                                                <div class="events-name-list pa-color-333333 pa-font-13"> <span><i
+                                                            class="material-icons icon-alignment pa-color-333333 pa-font-24">event_available</i></span>EVENT ENDS
+                                                </div>
+                                                <div class="date-detail-para pa-color-333333 pa-bold-font tt-font-16">
+                                                    {{eventRDetails.end_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} at {{ eventRDetails.end_date_time | toMoment | momentFormatter:"hh:mm A"}}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 pa-mt-20">
+                                                <div class="events-name-list pa-color-333333 pa-font-13">
+                                                    <span><i
+                                                            class="material-icons icon-alignment pa-color-333333 pa-font-24">location_on</i></span>LOCATION
+                                                </div>
+                                                <div class="date-detail-para pa-color-333333 pa-bold-font tt-font-16">
+                                                    {{eventRDetails.address}}
+                                                </div>
+                                                <a target="_blank" href="https://maps.google.com/maps?hl=en&q={{ eventRDetails.latitude }},{{ eventRDetails.longitude }}" class="date-detail-para pa-color-pink tt-font-16 pa-mb-100 pa-cursor-pointer" ng-if="event.address" event="eventRDetails">View Location on Map</a>
+                                            </div>
+                                        </div>
+
+                                        <div ng-show="eventRDetails.ticket_type !== ''" class="green-banner-tag pa-font-white free-ticket">
+                                            <span class="event-create-tag-font tt-font-16" ng-show="eventRDetails.ticket_type == 'free'"><b>FREE</b></span>
+                                            <span class="event-create-tag-font tt-font-16" ng-if="eventRDetails.ticket_type == 'paid'"><b event="event" event-ticket-price></b></span>
+                                        </div>
+                                        <div class="green-banner-tag no-ticket-sold pa-font-white reward-priceDetails full-width" ng-if="eventRDetails.ticket_type == ''">
+                                            <span class="event-create-tag-font pa-font-15 pa-bold-font">
+                                                {{(!eventRDetails.claimed_by &&
+                                                eventRDetails._user_id==promoAdminId)?'Tickets cannot be purchased on
+                                                unclaimed events':'No Tickets Sold on Promo App'}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="middle-sharing-div row">
+                            <div class="col-md-3 pa-pl-0 visible-lg visible-md">
+                                <button class="interested-button"> <i class="material-icons"> favorite_border </i> Interested in Event</button>
+                            </div>
+                            <div class="col-md-5 pull-right">
+                                <button class="Buy-Ticket-btn pa-color-FFFFFF tt-font-16 pa-bold-font pa-background-pink buy-now-btn-med" buy-ticket-or-view-event="" event="eventRDetails" ng-if="!eventRDetails.closed && eventRDetails.canBuyTicket">Buy
+                                    Ticket</button>
+                                <span class="pa-text-center pa-font-bold pa-font-18" ng-if="eventRDetails.closed">This
+                                    Event is Closed</span>
+                            </div>
+                        </div>
+
+                        <div class="middle-sharing-div-opacity"></div>
+                        <div class="row pa-mt-30-imp">
+                            <div class="col-md-8 rewardemotext">
+                                <div class="pa-color-666666 tt-font-16 content-event-para-width pa-break-word" ta-bind ng-model="eventRDetails.description" ng-class="{ 'show-more': showMore === true, 'event-descrition-sm': eventRDetails.description.length > 200} ">
+                                </div>
+
+                                <a ng-if="showMore === false && eventRDetails.description.length > 200" class="mt-10 pa-color-pink pa-font-14 pa-bold-font" ng-click="viewMore()">View
+                                    More</a>
+
+                                <a ng-if="showMore === true && eventRDetails.description.length > 200" class="mt-10 pa-color-pink pa-font-14 pa-bold-font" ng-click="viewMore()">View
+                                    Less</a>
+
+
+                                <div class="event-share pa-display-inline-block" id="promotionView">
+                                    <h3>{{addReward.title}}</h3>
+
+                                    <span>Valid Until:
+                                        {{ promotion_end_date | toMoment | momentSubtract: "120" : "minutes" |
+                                        momentFormatter:"ddd, MMM D, YYYY hh:00 A"}}</span>
+
+                                    <div class="share-rewards-panel">
+                                        <div class="img-sec">
+                                            <img ng-src="{{addReward.image}}" alt="{{addReward.title}}">
+                                        </div>
+                                        <div class="content-side">
+                                            <div class="social-circle pa-cursor-pointer" disabled>
+                                                <i class="fa fa-facebook-f pa-font-24"></i>
+                                            </div>
+                                            <div class="social-circle pa-cursor-pointer pa-ml-20" disabled>
+                                                <i class="fa fa-snapchat-ghost pa-font-24 snapchat-right-top "></i>
+                                            </div>
+                                            <div class="social-circle pa-cursor-pointer pa-ml-20" disabled>
+                                                <i class="fa fa-whatsapp pa-font-24 whatsapp-right-top"></i>
+                                            </div>
+                                            <div class="social-circle pa-cursor-pointer pa-ml-20" disabled>
+                                                <i class="material-icons mail-left-right pa-font-24 pa-color-pink">mail</i>
+                                            </div>
+                                            <div class="social-circle pa-cursor-pointer pa-ml-20" disabled>
+                                                <i class="material-icons pa-font-24 mail-left-right pa-color-pink">insert_link</i>
+                                            </div>
+
+                                            <div class="event-share-imgdecrption">
+                                                <p>{{addReward.description}}</p>
+                                                <a class="mt-10 pa-color-pink pa-font-14 pa-bold-font pa-display-block" data-toggle="modal" data-target="#RewardTerms">View Promotion Terms
+                                                    & Conditions</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="event-detail-one-tag Rebecca-reward">
+                                    <div class="Rebecca-Willson-div">
+                                        <div>
+                                            <img pa-user-img="{{eventRDetails.organizer_details.id}}" alt="{{eventRDetails.organizer_details.username}}" class="img-circle wh-42 account-icon" />
+
+                                            <span ng-if="eventRDetails.organizer_details.first_name" class="pa-font-18 pa-med-font-16 pa-bold-font">{{eventRDetails.organizer_details.first_name+'
+                                                '+eventRDetails.organizer_details.last_name}}</span>
+                                            <span ng-if="!eventRDetails.organizer_details.first_name" class="pa-font-18 pa-med-font-16 pa-bold-font">{{eventRDetails.organizer_details.username}}</span>
+
+                                        </div>
+                                        <div class="pa-color-666666 pa-font-16 pa-ml-lorem pa-lh-0 pa-mb-20">Organizer
+                                        </div>
+                                        <div class="pa-mt-20">
+                                            <input type="button" class="md-raised follow-pa-btn pa-border-4 pa-bg-FFFFFF pa-ml-lorem pa-border-CBCBCB pa-color-pink pa-font-14 pa-bold-font" value="Follow" />
+                                        </div>
+                                        <div class="pa-cursor-pointer tt-font-16 pa-color-pink pa-break-all web-link-Rebecca" ng-show="eventRDetails.websiteurl">
+                                            <span><i class="material-icons icon-alignment pa-color-333333 pa-font-24 events-name-list"
+                                                    style="margin-right:7px;">web</i>
+                                            </span>{{ eventRDetails.websiteurl }}
+                                        </div>
+
+                                        <div class="pa-cursor-pointer tt-font-16 pa-color-pink pa-mt-20">
+                                            <a class="pa-color-A02541" ng-show="eventRDetails._user_id == eventRDetails.organizer_details.id" target="_blank" ng-href="/chat.html?userId={{eventRDetails._user_id}}">
+                                                <i class="material-icons icon-alignment pa-color-333333 pa-font-24 events-name-list">chat</i>Chat with Organizer
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </md-card-content>
+            </md-card>
+
+            <div class="rewardlistingWin" id="rewardlistingWin">
+
+                <div class="Winlist mr-bt-18" ng-show="addReward.winner_type == 'random'">
+
+                    <i class="material-icons">done_all</i>
+                    <div class="WinlistContent">You have selected the option of <b>Social Event Promotion
+                            {{addReward.no_of_people}} winners</b></div>
+                </div>
+                <div class="Winlist mr-bt-18" ng-show="addReward.winner_type == 'first_few'">
+                    <i class="material-icons">done_all</i>
+                    <div class="WinlistContent">You have selected the option of <b>First {{addReward.no_of_people}}
+                            Promoters</b></div>
+                </div>
+
+                <div class="Winlist  mr-bt-18" ng-show="addReward.reward_type == 'by_email'">
+                    <i class="material-icons">done_all</i>
+                    <div class="WinlistContent">The Promotion will be <b>given online through email.</b><span style="color: #666666;"> (Organizer is responsible for this)</span></div>
+                </div>
+                <div class="Winlist  mr-bt-18" ng-show="addReward.reward_type == 'at_venue'">
+                    <i class="material-icons">done_all</i>
+                    <div class="WinlistContent">The Promotion will be <b>given at the venue.</b><span style="color: #666666;"> (Organizer is responsible for this)</span></div>
+                </div>
+                <div class="Winlist  mr-bt-18" ng-show="addReward.reward_type == 'deliver'">
+                    <i class="material-icons">done_all</i>
+                    <div class="WinlistContent">The Promotion will be <b>given at winner's delivery address.</b><span style="color: #666666;"> (Organizer is responsible for this)</span></div>
+                </div>
+
+                <div class="Winlist">
+                    <i class="material-icons">done_all</i>
+                    <div class="WinlistContent">The Promotion is <b>Valid Until {{ promotion_end_date | toMoment |
+                            momentSubtract: "120" | momentFormatter:"ddd, MMM D, YYYY hh:00 A"}}</b>
+                    </div>
+                </div>
+            </div>
+            <div class="agreePromoreward" ng-class="{'active-check':addReward.reward_term}">
+                <md-input-container class="md-block">
+                    <md-checkbox ng-class="{'md-checked': addReward.reward_term}" ng-click="popup()" data-backdrop="static" name="reward_term" ng-model="addReward.reward_term" required> I agree to the Promo App Promotion <span class="pa-bold-font pa-color-pink align-middle">Terms &
+                            Conditions</span></md-checkbox>
+                    <div ng-messages="createRewardForms.create_reward_guest_1.reward_term.$error" class="input-error">
+                        <div ng-message="required">This is require</div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <!-- Reward Terms of services -->
+
+            <div class="modal fade popup-perent rewardtermspopup terms-popup" id="RewardConditions" tabindex="-1" role="dialog" aria-labelledby="RewardConditions" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+                <div class="modal-dialog login-modal">
+                    <div class="modal-header bg-F9F9F9">
+                        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font" style="padding-left: 0 !important;">Terms and Conditions of Use </span>
+                        <md-icon class="pa-float-right pa-cursor-pointer" ng-click="toggleCancel()" data-dismiss="modal">close</md-icon>
+                    </div>
+                    <!-- Modal content-->
+                    <div class="modal-body pa-background-white">
+                        <div class="pa-pl-pr-0 mobile-width-100p layout-align-start-stretch flex">
+                            <div class="new_terms_ui">
+                                <div class="terms_main_row row">
+                                    <div class="col-md-4">
+                                        <div class="terms_side_menu">
+                                            <span class="terms_side_menu_head">
+                                                <a> General</a>
+                                            </span>
+                                            <ul>
+                                                <li>
+                                                    <a>1.1 Accepting the Terms </a>
+                                                </li>
+                                                <li>
+                                                    <a>1.2 Terms of Use</a>
+                                                </li>
+                                                <li>
+                                                    <a>1.3 Unacceptable Behavior</a>
+                                                </li>
+                                                <li>
+                                                    <a>1.4 Termination </a>
+                                                </li>
+                                                <li>
+                                                    <a>1.5 Jurisdiction </a>
+                                                </li>
+                                                <li>
+                                                    <a>1.6 Limits on Liability</a>
+                                                </li>
+                                                <li>
+                                                    <a>1.7 Intellectual Property Clause</a>
+                                                </li>
+                                                <li>
+                                                    <a>1.8 Warranty Disclaimer</a>
+                                                </li>
+                                                <li>
+                                                    <a>1.9 Third-Party Content</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="terms_side_menu">
+                                            <span class="terms_side_menu_head">
+                                                <a> Specific Conditions Regarding Features</a>
+                                            </span>
+                                            <ul>
+                                                <li>
+                                                    <a>2.1 New Events</a>
+                                                    <ul>
+                                                        <li>
+                                                            <a>2.1.1 Event Details</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>2.1.2 Licenses and Permits </a>
+                                                        </li>
+                                                        <li>
+                                                            <a>2.1.3 Ticket Validity</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a>2.2 Claiming Events</a>
+                                                    <ul>
+                                                        <li>
+                                                            <a>2.2.1 Scraped Events</a>
+                                                        </li>
+                                                        <li>
+                                                            <a>
+                                                                2.2.2 Claimed Events
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a>2.3 Payouts</a>
+                                                    <ul>
+                                                        <li>
+                                                            <a>2.3.1 Pending payments </a>
+                                                        </li>
+                                                        <li>
+                                                            <a>2.3.2 Additional fees</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a>2.4 Refunds and Cancellations</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="terms_side_menu">
+                                            <span class="terms_side_menu_head">
+                                                <a> Social Event Promotion Feature </a>
+                                            </span>
+                                            <ul>
+                                                <li>
+                                                    <a>3.1.1 Eligibility </a>
+                                                </li>
+                                                <li>
+                                                    <a>3.1.2 Agreement to Rules - Event Organizer</a>
+                                                </li>
+                                                <li>
+                                                    <a>3.1.3 Agreement to Rules - Event Attendee</a>
+                                                </li>
+                                                <li>
+                                                    <a>3.1.4 Campaign Period </a>
+                                                </li>
+                                                <li>
+                                                    <a>3.2 How it Works</a>
+                                                </li>
+                                                <li>
+                                                    <a>3.2.1 Rewards/Giveaways/Prizes </a>
+                                                </li>
+                                                <li>
+                                                    <a>3.2.2 Odds </a>
+                                                </li>
+                                                <li>
+                                                    <a>3.2.3 Winner Selection and Notification </a>
+                                                </li>
+                                                <li>
+                                                    <a>3.3 Terms & Conditions </a>
+                                                </li>
+                                                <li>
+                                                    <a>3.4 Limitation of Liability </a>
+                                                </li>
+                                                <li>
+                                                    <a>3.5 Disputes </a>
+                                                </li>
+                                                <li>
+                                                    <a>3.6 Privacy Policy </a>
+                                                </li>
+                                                <li>
+                                                    <a>3.7 Social Media</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="terms_content_box">
+                                            <div class="terms_content_head">
+                                                General
+                                            </div>
+                                            <div class="terms_content_post">
+                                                <b> Hello, and welcome to the Promo App.</b><br /> These Terms and Conditions govern your use of the Promo App and all its features. It provides information about the Promo App and its services. These Terms
+                                                and Conditions constitute a legally binding document between you (the user) or your third-party representative and the Promo App.
+
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>1.1 Accepting the Terms</h3>
+                                                <span>
+                                                    <b> By using the Promo App, you are automatically deemed to:</b>
+                                                    <ul>
+                                                        <li>1.1.1) Have the legal capacity to act in terms of the Law
+                                                        </li>
+                                                        <li>1.1.2) Accept these Terms and Conditions in their entirety
+                                                        </li>
+                                                        <li>1.1.3) Agree to act in accordance with the Terms and
+                                                            Conditions as they are at the time of use</li>
+                                                    </ul>
+
+                                                </span>
+                                                <b>Use of the Promo App without accepting the Terms and Conditions is
+                                                    prohibited. </b>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>1.2 Terms of Use</h3>
+                                                <span>
+                                                    Subject to your agreement to and compliance with the Terms and
+                                                    Conditions, the Promo App grants you a non-exclusive,
+                                                    non-transferable, non-shareable, revocable, limited license to use
+                                                    the Services within the App in accordance with the Terms and
+                                                    Conditions as they are at the time of use. The Promo App reserves
+                                                    the right to restrict use as and when they see fit, in accordance
+                                                    with the Terms and Conditions or any other law or treaties.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>1.3 Unacceptable Behavior</h3>
+                                                <span>
+                                                    Your access to, and your use of the Promo App and its Services, must
+                                                    be lawful and must be in compliance with these Terms and Conditions.
+                                                    We specifically prohibit any use of the Promo App and its Services,
+                                                    and you agree not to use the Promo App, for any of the following:
+                                                    <ul>
+                                                        <li>
+                                                            1.3.1 Engaging in conduct that would constitute a criminal
+                                                            offense, giving rise to civil liability or otherwise violate
+                                                            any city, state, national or international law or regulation
+                                                            that would fail to comply with accepted Internet protocol;
+                                                        </li>
+                                                        <li>1.3.1 Communicating, transmitting, or posting material that
+                                                            is copyrighted or otherwise owned by a third party unless
+                                                            you are the copyright owner or have the permission of the
+                                                            owner to post it;</li>
+                                                        <li>
+                                                            1.3.2 Communicating, transmitting, or posting material that
+                                                            reveals trade secrets, unless you own them or have the
+                                                            permission of the owner;
+                                                        </li>
+                                                        <li>
+                                                            1.3.3 Communicating, transmitting, or posting material that
+                                                            infringes on any other intellectual property, privacy, or
+                                                            publicity right of another;
+                                                        </li>
+                                                        <li>
+                                                            1.3.4 Using the Promo App for any other purpose than its
+                                                            intended purpose or in contravention of these Terms and
+                                                            Conditions.
+                                                        </li>
+                                                        <li>
+                                                            1.3.4 Attempting to interfere in any way with the Promo App,
+                                                            or our networks or network security, or attempting to use
+                                                            the Promo App to gain unauthorized access to any other
+                                                            computer system or Application;
+                                                        </li>
+                                                        <li>
+                                                            1.3.5 Accessing data not intended for you, or logging on to
+                                                            a server or account, which you are not authorized to access;
+                                                        </li>
+                                                        <li>
+                                                            1.3.6 Attempting to probe, scan, or test the vulnerability
+                                                            of a system or network or to breach security or
+                                                            authentication measures without proper authorization (or
+                                                            succeeding in such an attempt);
+                                                        </li>
+                                                        <li>
+                                                            1.3.7 Attempting to interfere or interfering with the
+                                                            operation of the Promo App, its Services, or our provision
+                                                            of Services to any other users of the Promo App, our hosting
+                                                            provider, or our network, including, without limitation, via
+                                                            means of submitting a virus to the App, overloading,
+                                                            “flooding”, “mailbombing” or “crashing” the App.
+                                                        </li>
+                                                    </ul>
+                                                </span>
+
+                                                <span>
+                                                    In addition, if you operate an account, contribute to an account,
+                                                    post material to the Promo App, post links on the Promo App, or
+                                                    otherwise make material available by means of the Promo App (any
+                                                    such material, "Content"), you are solely responsible for the
+                                                    content of, and any harm and damages resulting from that Content.
+                                                    That is the case regardless of whether the Content in question
+                                                    constitutes text, graphics, an audio file, or computer software. By
+                                                    making Content available, you represent and warrant that:
+                                                    <ul>
+                                                        <li>
+                                                            1.3.8 The downloading, copying and use of the Content will
+                                                            not infringe the proprietary rights, including but not
+                                                            limited to the copyright, patent, trademark, or trade secret
+                                                            rights, of any third party;
+                                                        </li>
+
+                                                        <li>
+                                                            1.3.9 If your employer has rights to intellectual property
+                                                            you create, you have either (i) received written permission
+                                                            from your employer to post or make available the Content,
+                                                            including but not limited to any software, or (ii) secured
+                                                            from your employer a written waiver as to all rights in or
+                                                            to the Content;
+                                                        </li>
+                                                        <li>
+                                                            1.3.10 You have fully complied with any third-party licenses
+                                                            relating to the Content, and have done all things necessary
+                                                            to successfully pass through to end users any required
+                                                            terms;
+                                                        </li>
+                                                        <li>
+                                                            1.3.11 The Content does not contain or install any viruses,
+                                                            worms, malware, Trojan horses or other harmful or
+                                                            destructive content;
+                                                        </li>
+                                                        <li>
+                                                            1.3.12 The Content is not spam, and does not contain
+                                                            unethical or unwanted commercial content designed to drive
+                                                            traffic to third-party sites or boost the search engine
+                                                            rankings of third-party sites, or to further unethical or
+                                                            unlawful acts (such as phishing) or mislead recipients as to
+                                                            the source of the material (such as spoofing);
+                                                        </li>
+                                                        <li>
+                                                            1.3.13 The Content is not obscene, libelous, hateful or
+                                                            racially or ethnically objectionable, and does not violate
+                                                            the privacy or publicity rights of any third party.
+                                                        </li>
+                                                    </ul>
+                                                </span>
+                                            </div>
+                                            <div class="terms_content_post_single">
+                                                <h3>1.4 Termination </h3>
+                                                <span>
+                                                    You may terminate your paid subscription plan with the Promo App at
+                                                    any time by accessing the “My Account” section and clicking the
+                                                    ‘cancel’ button next to your plan. Furthermore, we may terminate or
+                                                    suspend your access to the Promo App and its Services at any time,
+                                                    if:
+                                                    <ul>
+                                                        <li>1.4.1 You breach these Terms and Conditions and/or any other
+                                                            agreement with the Promo App</li>
+                                                        <li>1.4.2 We reasonably suspect that you are using the Promo App
+                                                            or Services to breach the law or infringe any third party
+                                                            rights</li>
+                                                        <li>
+                                                            1.4.3 We reasonably suspect that you are trying to unfairly
+                                                            exploit or misuse its policies
+                                                        </li>
+                                                        <li>
+                                                            1.4.4 We reasonably suspect that you are using the Promo App
+                                                            and its Services fraudulently, or that Products or Services
+                                                            provided to you are being used by a third party fraudulently
+                                                        </li>
+                                                        <li>
+                                                            1.4.5 You fail to pay any amounts due to the Promo App or
+                                                            its users
+                                                        </li>
+                                                        <li>
+                                                            1.4.6 You violate any applicable law or regulation.
+                                                        </li>
+                                                    </ul>
+                                                </span>
+                                                <span>
+                                                    We may terminate any agreement and access to your account, if the
+                                                    Services or any part thereof, are no longer legally available in
+                                                    your jurisdiction, or are no longer commercially viable, at our sole
+                                                    discretion.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>1.5 Jurisdiction </h3>
+                                                <span>
+                                                    Should any disputes arise, by action of the Promo App or you, the
+                                                    courts of the United States of America will have exclusive
+                                                    jurisdiction to adjudicate any dispute arising under or in
+                                                    connection with this Agreement. This is irrespective of where you
+                                                    are globally, or the area in which the Promo App operates, performs
+                                                    its function, or licenses its data. You, hereby, waive all rights to
+                                                    forum in terms of international law or otherwise and agree to adhere
+                                                    to the jurisdiction and findings of the courts of the United States
+                                                    of America.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>1.6 Limits on Liability</h3>
+                                                <span>
+                                                    Under no circumstances shall any party related to the Promo App, its
+                                                    subsidiaries and affiliates, their respective directors, officers,
+                                                    employees or agents, and other representatives, be liable for any
+                                                    indirect, consequential, incidental, special, or punitive damages,
+                                                    including but not limited to lost profits and business interruption,
+                                                    whether in contract or in the law of damages, including negligence,
+                                                    arising in any way from the use of the Promo App or its Services,
+                                                    and/or the Contents thereof, or of any hyperlinked website, even if
+                                                    any party is expressly advised of the possibility of such damages.
+                                                </span>
+                                                <span>
+                                                    The Promo App is in no way responsible for the outcome or legal
+                                                    implications of any events promoted on the App (see section 2 below
+                                                    for further details).
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>1.7 Intellectual Property Clause</h3>
+                                                <span>
+                                                    The Promo App retains all interest and vested rights in and to the
+                                                    Promo App and its Service, including all documentation, software,
+                                                    modifications, improvements, upgrades, derivative works, and all
+                                                    other Intellectual Property rights in connection with the Service,
+                                                    including the Promo App's name, logos, and trademarks reproduced
+                                                    through the App and its Services. This is in accordance with all
+                                                    international Copyright laws and treaties, as well as the Digital
+                                                    Millennium Copyright Act.
+
+                                                </span>
+                                            </div>
+                                            <div class="terms_content_post_single">
+                                                <h3>1.8 Warranty Disclaimer</h3>
+                                                <span>
+                                                    While we aim to provide you with the best App possible, the Promo
+                                                    App and its Services are provided “as is” and “as available” without
+                                                    any express or implied warranty or condition of any kind. You,
+                                                    hereby, agree to use the App at your own risk.
+                                                </span>
+                                                <span>
+                                                    The Promo App and/or its representatives make no representations and
+                                                    disclaim any warranties or conditions of quality, merchantability,
+                                                    fitness for purpose, or non-infringement. You are solely responsible
+                                                    for taking any necessary measures to protect yourself and your
+                                                    device from viruses, worms, Trojan horses, and other harmful or
+                                                    destructive content. We are in no way liable for any harm or damages
+                                                    resulting from your access or use of the Promo App, its Services, or
+                                                    access or use of non-Promo App sites or applications. We assume no
+                                                    responsibility for the actions of third-parties or hyperlinked sites
+                                                    on the Promo App. We claim no responsibility for any third-party
+                                                    applications, content, offers, products, or services showcased or
+                                                    promoted on the Promo App. The Promo App is not responsible for any
+                                                    interaction, transaction, or communication between you and a
+                                                    third-party in relation to the Promo App or its Services.
+                                                </span>
+                                                <span>
+                                                    We reserve the right (though not the obligation) to:
+                                                    <ul>
+                                                        <li>1.8.1 Refuse or remove any Content that, in our reasonable
+                                                            opinion, violates any internal or external policy or is in
+                                                            any way harmful or objectionable</li>
+                                                        <li>1.8.2 Terminate or deny access to and use of the Promo App
+                                                            and its Services to any person for any reason. This is at
+                                                            our sole discretion.</li>
+                                                    </ul>
+                                                </span>
+                                                <span>
+                                                    No advice or information given in any form on behalf of the Promo
+                                                    App will create any warranty on behalf of the Promo App.
+                                                </span>
+                                                <span>
+                                                    THIS SECTION DOES NOT AFFECT YOUR STATUTORY RIGHTS AS A CONSUMER.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>1.9 Third-Party Content</h3>
+                                                <span>
+                                                    The Promo App has not reviewed, and cannot review, all of the
+                                                    material posted to the Promo App and cannot, therefore, be
+                                                    responsible for that material’s content, use, or effects. The Promo
+                                                    App does not represent or imply that it endorses the material posted
+                                                    on the App, or that it believes such material to be accurate,
+                                                    useful, or non-harmful. The Promo App is merely a host. The Promo
+                                                    App may contain content that is offensive, indecent, or otherwise
+                                                    objectionable, as well as content containing technical inaccuracies,
+                                                    typographical mistakes, and other errors. The App may also contain
+                                                    material that violates the privacy or publicity rights, or infringes
+                                                    the intellectual property and other proprietary rights of third
+                                                    parties, or the downloading, copying, or use of which is subject to
+                                                    additional terms and conditions, stated or unstated. We, hereby,
+                                                    eradicate any responsibility for any harm and/or damages resulting
+                                                    from the use or downloading of postings of other parties on the
+                                                    Promo App.
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="terms_content_box">
+                                            <div class="terms_content_head">
+                                                Specific Conditions Regarding Features
+                                            </div>
+                                            <div class="terms_content_post_single">
+                                                <h3>2.1 New Events</h3>
+                                                <span>
+                                                    Promo App is not the creator, organizer, or owner of the events
+                                                    listed on the platform. The Promo App provides its Services, which
+                                                    allow Organizers to set up, manage, and promote their events.
+                                                </span>
+                                                <span>
+                                                    The Organizer is solely responsible for ensuring that any event
+                                                    meets all applicable local, state, provincial, national and other
+                                                    laws, rules and regulations, and that the goods and services
+                                                    described on the event page are delivered as described.
+                                                </span>
+                                            </div>
+                                            <div class="terms_content_post_single">
+                                                <h3>2.1.1 Event Details</h3>
+                                                <span>
+                                                    The Promo App does not make any claim to the Organizer’s Event
+                                                    Content. The Organizer, or his/her representative, is solely
+                                                    responsible for their Content. The Organizer grants the Promo App a
+                                                    non-exclusive, worldwide, perpetual, irrevocable, royalty-free,
+                                                    transferable, sublicensable right and license to access, use,
+                                                    reproduce, transmit, adapt, modify, perform, display, distribute,
+                                                    translate, publish and create derivative works based on that of the
+                                                    Organizer, in whole or in part, in any media, for the purpose of
+                                                    operating the Services (including the Promo App's promotional and
+                                                    marketing services, which may include without limitation, promotion
+                                                    of the event on a third party website).
+                                                    <ul>
+                                                        <li>2.1.1. The Organizer agrees and declares that the Event
+                                                            Content:</li>
+                                                        <li>2.1.1.(i)(a) does not/will not infringe, violate,
+                                                            misappropriate or otherwise conflict with the rights of any
+                                                            third party and </li>
+                                                        <li>2.1.1(i)(b) complies with all applicable local, state,
+                                                            provincial, national and other laws, rules and regulations.
+                                                        </li>
+                                                        <li></li>
+                                                    </ul>
+                                                </span>
+                                                <span>
+                                                    The Organizer’s Event Content must be accurate and truthful. The
+                                                    Promo App reserves the right to remove Event Content from the
+                                                    Services if we believe, in our sole discretion, that it violates
+                                                    these Terms and Conditions.
+                                                </span>
+                                                <span>The Promo App may use the Organizer’s name and logo for the
+                                                    purpose of identifying them as an existing or past customer of the
+                                                    Promo App, both on the Services and in marketing, advertising, and
+                                                    promotional materials. </span>
+                                                <span>The Promo App may preserve the Organizer’s Event Content and
+                                                    account information and may also disclose Event Content and account
+                                                    information if required to do so by law or in the good faith belief
+                                                    that such preservation or disclosure is reasonably necessary to
+                                                    <ul>
+                                                        <li>2.1.1(ii)(a) comply with legal process; </li>
+                                                        <li>2.1.1(ii)(b) respond to claims that any of the Event Content
+                                                            violates the rights of third parties;</li>
+                                                        <li>2.1.1(ii)(c) enforce or administrator the Terms of Service,
+                                                            including without limitation, these Terms of Service; and/or
+                                                        </li>
+                                                        <li>2.1.1(ii)(d) protect the rights, property and/or personal
+                                                            safety of the Promo App, its users and/or the public,
+                                                            including fraud prevention. </li>
+                                                    </ul>
+                                                </span>
+                                            </div>
+                                            <div class="terms_content_post_single">
+                                                <h3>2.1.2 Licenses and Permits </h3>
+                                                <span>
+                                                    Event Organizers represent and warrant to Promo App that:
+                                                    <ul>
+                                                        <li>2.1.2(i) The Organizer and affiliates will obtain, prior to
+                                                            the start of ticket sales, all applicable licenses, permits,
+                                                            and authorizations with respect to events hosted by them on
+                                                            the Promo App platform.
+                                                        </li>
+                                                        <li>
+                                                            2.1.2(ii) The Organizer and affiliates will comply and will
+                                                            ensure that the venues for each event will comply, with all
+                                                            applicable laws, regulations, rules, and ordinances.
+                                                        </li>
+                                                        <li>
+                                                            2.1.2(iii) The Promo App will only offer tickets to an event
+                                                            after the Organizer has obtained any specific Licensures for
+                                                            such event, including, but not limited to, any state,
+                                                            county, municipal or other local authority's authorization
+                                                            of the event, traffic engineering authorizations, fire
+                                                            department inspection reports, authorization to receive
+                                                            minors (if applicable), sanitary authorization (if
+                                                            applicable), and any other potentially applicable
+                                                            authorization.
+                                                        </li>
+                                                        <li>
+                                                            2.1.2(iv) The Organizer agrees to release the Promo App, and
+                                                            its affiliates and subsidiaries, and each of its and their
+                                                            respective parent companies, subsidiaries, officers,
+                                                            affiliates, representatives, shareholders, contractors,
+                                                            directors, agents, partners, and employees from all damages
+                                                            (whether direct, indirect, incidental, consequential or
+                                                            otherwise), losses, liabilities, costs and expenses of every
+                                                            kind and nature, including, without limitation, attorneys'
+                                                            fees, known and unknown, arising out of or in any way
+                                                            connected with the Organizer’s or their affiliates'
+                                                            Licensure, any failure to obtain or maintain any Licensure,
+                                                            or any error in obtaining or maintaining any Licensure.
+                                                        </li>
+                                                        <li>
+                                                            2.1.2(v) The Organizer agrees to provide evidence of
+                                                            Licensure and related information prior to offering tickets
+                                                            or registrations for events on the Site and promptly upon
+                                                            the reasonable request of the Promo App from time to time or
+                                                            at any specified time.
+                                                        </li>
+                                                    </ul>
+                                                </span>
+                                            </div>
+                                            <div class="terms_content_post_single">
+                                                <h3>2.1.3 Ticket Validity</h3>
+                                                <span>
+                                                    The Organizer acknowledges that the applicable procedure to check
+                                                    the validity of the ticket must always be followed. The Promo App
+                                                    will not be held liable, under any circumstances, for any costs
+                                                    arising from non-compliance by the Organizer with applicable
+                                                    procedures that must be implemented by said Organizer to check the
+                                                    validity of tickets.
+                                                </span>
+                                                <span>
+                                                    The Promo App will not be held liable, under any circumstances, for
+                                                    costs and/or damage of tickets in which fraud and/or damage has
+                                                    arisen by the purchase of the ticket through non-official means,
+                                                    such as third-parties.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3 style="font-size: 24px; margin-bottom: 0;">2.2 Claiming Events</h3>
+                                                <h3 style="margin-top: 10px;">2.2.1 Scraped Events</h3>
+                                                <span>
+                                                    When certain events are scraped from third-party platforms (
+                                                    Facebook, PHQ, etc.), the Promo App will not be held liable for any
+                                                    errors in the event description or other details provided. The
+                                                    scraping process is fully automated, and as such, the Promo App has
+                                                    no control over any of the event details as provided on the
+                                                    platform.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>2.2.2 Claimed Events</h3>
+                                                <span>
+                                                    Event Organizers may claim the above mentioned events as their own
+                                                    and provide updated information to potential attendees. It is the
+                                                    Organizer’s responsibility to provide information that is up-to-date
+                                                    and correct. The new event Organizer is responsible for updating
+                                                    ticketing information and setting up payment options for attendees.
+                                                </span>
+                                                <span>
+                                                    At the time of claiming the event, the Organizer takes full
+                                                    responsibility for all details surrounding the event and agrees that
+                                                    all information is correct. If event attendees or any users of the
+                                                    platform find these details to be incorrect, it should be taken up
+                                                    with the event Organizer directly. The Promo App may not be held
+                                                    liable for incorrect or incomplete information regarding events.
+                                                </span>
+                                                <span>
+                                                    The Organizer understands and agrees that they will be liable for
+                                                    any misinformation. Attendees may contact the Organizer directly for
+                                                    clarification of any existing information and to request additional
+                                                    information.
+                                                </span>
+                                            </div>
+                                            <div class="terms_content_post_single">
+                                                <h3 style="font-size: 24px; margin-bottom: 0;">2.3 Payouts</h3>
+                                                <span>
+                                                    Funds received from attendees for the purchase of event tickets will
+                                                    be held in custody by the Promo App until the conclusion of the
+                                                    event. Thereafter, the funds will automatically be transferred
+                                                    electronically to the Organizer’s designated bank account (USA banks
+                                                    only).
+                                                </span>
+                                                <span>
+                                                    The Promo App will not be held responsible for incorrect banking
+                                                    details provided by the user, which may or may not lead to funds
+                                                    held in custody being transferred to the incorrect party. It is the
+                                                    user’s responsibility to ensure the accuracy of the provided banking
+                                                    details.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>2.3.1 Pending payments </h3>
+                                                <span>
+                                                    For payments that are ready to pay out on a certain date/escrow
+                                                    amount/payments, the Promo App can block the Organizer’s money for a
+                                                    10-day holding period, or as long as is necessary, in order to
+                                                    ensure the attendees’ refund is processed properly within a
+                                                    specified time.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>2.3.2 Additional fees</h3>
+                                                <span>
+                                                    Payouts may incur additional fees, as specified by the user’s local
+                                                    bank and/or the payment gateway. The Promo App does not control
+                                                    these fees and, as such, cannot be held liable for any changes or
+                                                    increases to these fees.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3 style="font-size: 24px; margin-bottom: 0;">2.4 Refunds and Cancellations
+                                                </h3>
+                                                <span>
+                                                    The event Organizer maintains the right to cancel/unpublish an event
+                                                    at any time. The Organizer will be solely responsible for any
+                                                    cancelation fees that may arise from doing so. The Organizer will
+                                                    also be responsible for any refunds to be allocated to attendees
+                                                    from said cancellation.
+                                                </span>
+                                                <span>
+                                                    Should the event be canceled/unpublished, the users will be notified
+                                                    automatically with regards to their refund. The refund will be
+                                                    processed in accordance with the payment gateway's policy and the
+                                                    user will be notified once they have been refunded. The Organizer
+                                                    may issue refunds individually.
+                                                </span>
+                                                <span>
+                                                    The Promo App is in no way responsible or liable for any event
+                                                    cancellations or changes made by the Organizer. We may not be held
+                                                    liable for any unissued refunds or cancelation fees.
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="terms_content_box">
+                                            <div class="terms_content_head">
+                                                3 Social Event Promotion Feature
+                                            </div>
+                                            <div class="terms_content_post_single">
+                                                <h3>3.1.1 Eligibility </h3>
+                                                <span>
+                                                    The Social Event Promotion Feature is open only to users of the
+                                                    Promo App, who are attending the event in question, and who are 18
+                                                    years of age at the date of entry.
+                                                </span>
+                                                <span>
+                                                    Employees of the Promo App, its affiliates, subsidiaries,
+                                                    advertising and promotion agencies, and suppliers, (collectively the
+                                                    “Employees”), and immediate family members and/or those living in
+                                                    the same household of Employees are not eligible to participate in
+                                                    any Social Event Promotion Campaigns.
+                                                </span>
+                                                <span>
+                                                    Additionally, the event Organizer(s), their affiliates,
+                                                    subsidiaries, advertising and promotion agencies, and suppliers,
+                                                    (collectively the “Employees”), and immediate family members and/or
+                                                    those living in the same household of Employees are not eligible to
+                                                    participate in any Social Event Promotion Campaigns.
+                                                </span>
+                                                <span>
+                                                    The Social Event Promotion Giveaway is subject to all applicable
+                                                    federal, state, and local laws and regulations.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>3.1.2 Agreement to Rules - Event Organizer</h3>
+                                                <span>
+                                                    By making use of the Social Event Promotion Feature, the event
+                                                    Organizer agrees to be fully unconditionally bound by these Rules.
+                                                    The event Organizer is responsible for the set up of the giveaway,
+                                                    determining the length of the sweepstakes, and providing the
+                                                    winner(s) with the agreed-upon reward/giveaway/prize.
+                                                </span>
+                                                <span>
+                                                    The Promo App bears no responsibility in ensuring that the
+                                                    reward/giveaway/prize is delivered to the winner.
+                                                </span>
+                                            </div>
+                                            <div class="terms_content_post_single">
+                                                <h3>3.1.3 Agreement to Rules - Event Attendee</h3>
+                                                <span>
+                                                    By participating, the event Attendee agrees to be fully,
+                                                    unconditionally bound by these Rules. The event Attendee agrees to
+                                                    accept the decisions of the event Organizer as final and binding as
+                                                    it relates to the content of the Social Event Promotion Giveaway.
+                                                </span>
+                                                <span>
+                                                    The Promo App is not responsible for the provision of
+                                                    rewards/giveaways/prizes. The event Attendee agrees to contact the
+                                                    event Organizer directly, should a disagreement arise.
+                                                </span>
+                                            </div>
+                                            <div class="terms_content_post_single">
+                                                <h3>3.1.4 Campaign Period </h3>
+                                                <span>
+                                                    The event Organizer is responsible for setting a reasonable time
+                                                    frame for each new Reward Campaign.
+                                                </span>
+                                            </div>
+                                            <div class="terms_content_post_single">
+                                                <h3>3.2 How it Works</h3>
+                                                <span>
+                                                    The Promo App’s Reward Feature operates on principles of social
+                                                    sharing. Event Attendees must share the event on their social media
+                                                    profiles using the link provided by the event Organizer. Shares will
+                                                    be tracked and based on the rules decided by the event Organizer, a
+                                                    winner/winners will be chosen.
+                                                </span>
+                                                <span>
+                                                    Event Attendees must provide the information requested. They may not
+                                                    enter more times than is indicated by using multiple email
+                                                    addresses, identities, or devices in an attempt to circumvent the
+                                                    rules. If an event Attendee uses fraudulent methods or otherwise
+                                                    attempts to circumvent the rules, their submission may be removed
+                                                    from eligibility.
+                                                </span>
+                                            </div>
+                                            <div class="terms_content_post_single">
+                                                <h3>3.2 How it Works</h3>
+                                                <span>
+                                                    The Promo App’s Reward Feature operates on principles of social
+                                                    sharing. Event Attendees must share the event on their social media
+                                                    profiles using the link provided by the event Organizer. Shares will
+                                                    be tracked and based on the rules decided by the event Organizer, a
+                                                    winner/winners will be chosen.
+                                                </span>
+                                                <span>
+                                                    Event Attendees must provide the information requested. They may not
+                                                    enter more times than is indicated by using multiple email
+                                                    addresses, identities, or devices in an attempt to circumvent the
+                                                    rules. If an event Attendee uses fraudulent methods or otherwise
+                                                    attempts to circumvent the rules, their submission may be removed
+                                                    from eligibility.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>3.2.1 Rewards/Giveaways/Prizes</h3>
+                                                <span>
+                                                    The Winner(s) of the Social Event Promotion Campaign will receive
+                                                    the prize as announced by the event Organizer. The reward must be
+                                                    officially decided upon before the Reward Campaign commences.
+                                                </span>
+                                                <span>
+                                                    The specifics of the reward shall be solely determined by the event
+                                                    Organizer. No cash or other prize substitution shall be permitted
+                                                    except at the event Organizer’s discretion. The prize is non
+                                                    transferable. Any and all reward-related expenses, including without
+                                                    limitation any and all federal, state, and/or local taxes, shall be
+                                                    the sole responsibility of the Winner. No substitution of prize or
+                                                    transfer/assignment of prize to others or request for the cash
+                                                    equivalent by Winner(s) is permitted. Acceptance of the prize
+                                                    constitutes permission for the event Organizer to use the Winner’s
+                                                    name, likeness, and entry for purposes of advertising and trade
+                                                    without further compensation, unless prohibited by law.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>3.2.2 Odds </h3>
+                                                <span>
+                                                    The odds of winning depend on the number of eligible entries
+                                                    received.
+                                                </span>
+                                            </div>
+                                            <div class="terms_content_post_single">
+                                                <h3>3.2.3 Winner Selection and Notification </h3>
+                                                <span>
+                                                    The Winner will be selected under the supervision of the event
+                                                    Organizer. The Winner will be notified within five (5) days
+                                                    following the selection of the Winner.
+                                                </span>
+                                                <span>
+                                                    The Promo App shall have no liability for the Winner’s failure to
+                                                    receive notices due to spam, junk e-mail, or other security settings
+                                                    or for the Winner’s provision of incorrect or otherwise
+                                                    non-functioning contact information.
+                                                </span>
+                                                <span>
+                                                    If the Winner cannot be contacted, is ineligible, fails to claim the
+                                                    prize within 5 days from the time award notification was sent, or
+                                                    fails to timely return a completed and executed declaration and
+                                                    release as required, the prize may be forfeited and an alternate
+                                                    Winner selected.
+                                                </span>
+                                                <span>
+                                                    Receipt by the Winner of the prize offered is conditioned upon
+                                                    compliance with any and all federal, state, and local laws and
+                                                    regulations. ANY VIOLATION OF THESE OFFICIAL RULES
+                                                </span>
+                                                <span>
+                                                    BY THE WINNER (AT The Promo App’s SOLE DISCRETION) WILL RESULT IN
+                                                    WINNER’S DISQUALIFICATION AS WINNER OF THE CAMPAIGN, AND ALL
+                                                    PRIVILEGES AS WINNER WILL BE IMMEDIATELY TERMINATED.
+                                                </span>
+                                            </div>
+                                            <div class="terms_content_post_single">
+                                                <h3>Terms & Conditions </h3>
+                                                <span>
+                                                    The Promo App reserves the right, in its sole discretion, to cancel,
+                                                    terminate, modify or suspend the Reward Feature should any virus,
+                                                    bug, non-authorized human intervention, fraud, or other cause beyond
+                                                    The Promo App’s control corrupt or affect the administration,
+                                                    security, fairness, or proper conduct of the feature. In such a
+                                                    case, the event Organizer may select the Winner from all eligible
+                                                    entries received prior to and/or after (if appropriate) the action
+                                                    taken by The Promo App.
+                                                </span>
+                                                <span>
+                                                    The Promo App reserves the right, in its sole discretion, to
+                                                    disqualify any individual who tampers or attempts to tamper with the
+                                                    entry process or the operation of the Campaign or website or
+                                                    violates these Terms and Conditions. The Promo App has the right, in
+                                                    its sole discretion, to maintain the integrity of the Campaign, to
+                                                    void votes for any reason, including, but not limited to:
+                                                    <ul>
+                                                        <li> 3.3.1 multiple entries from the same user from different IP
+                                                            addresses; </li>
+                                                        <li>3.3.2 multiple entries from the same computer in excess of
+                                                            that allowed by Campaign Rules; </li>
+                                                        <li>3.3.3 or the use of bots, macros, scripts, or other
+                                                            technical means for entering.</li>
+                                                    </ul>
+                                                </span>
+                                                <span>
+                                                    Any attempt by an entrant to deliberately damage any website or
+                                                    undermine the legitimate operation of the Campaign may be in
+                                                    violation of criminal and civil laws. Should such an attempt be
+                                                    made, the Promo App reserves the right to seek damages to the
+                                                    fullest extent permitted by the law.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>3.4 Limitation of Liability </h3>
+                                                <span>
+                                                    By making use of the Rewards Feature, event Attendees and event
+                                                    Organizers agree to release and hold harmless the Promo App and its
+                                                    subsidiaries, affiliates, advertising and promotion agencies,
+                                                    partners, representatives, agents, successors, assigns, employees,
+                                                    officers, and directors from any liability, illness, injury, death,
+                                                    loss, litigation, claim, or damage that may occur, directly or
+                                                    indirectly, whether caused by negligence or not, from:
+                                                    <ul>
+                                                        <li>3.4.1 An event Attendee’s participation in a Rewards
+                                                            Campaign and/or his/her acceptance, possession, use, or
+                                                            misuse of any prize or any portion thereof; </li>
+                                                        <li>3.4.2 Technical failures of any kind, including but not
+                                                            limited to the malfunction of any computer, cable, network,
+                                                            hardware, or software, or other mechanical equipment; </li>
+                                                        <li>3.4.3 The unavailability or inaccessibility of any
+                                                            transmissions, telephone, or Internet service; </li>
+                                                        <li>3.4.4 Unauthorized human intervention in any part of the
+                                                            entry process or the promotion; </li>
+                                                        <li>3.4.5 Electronic or human error in the administration of the
+                                                            promotion or the processing of entries.</li>
+                                                    </ul>
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>3.5 Disputes </h3>
+                                                <span>
+                                                    As a condition of using the Rewards Feature, the user hereby
+                                                    declares that any and all disputes that cannot be resolved between
+                                                    the parties, and causes of action arising out of or connected with
+                                                    any Rewards Campaign, shall be resolved individually, without resort
+                                                    to any form of class action, exclusively before a court located in
+                                                    their state having jurisdiction. Further, in any such dispute, under
+                                                    no circumstances shall the participant be permitted to obtain awards
+                                                    for, and hereby waives all rights to, punitive, incidental, or
+                                                    consequential damages, including reasonable attorney’s fees, other
+                                                    than participant’s actual out-of-pocket expenses. The user further
+                                                    waives all rights to have damages multiplied or increased.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>3.6 Privacy Policy</h3>
+                                                <span>
+                                                    Information submitted with an entry is subject to the Privacy Policy
+                                                    stated on the Promo App website.
+                                                </span>
+                                            </div>
+
+                                            <div class="terms_content_post_single">
+                                                <h3>3.7 Social Media </h3>
+                                                <span>
+                                                    Any Rewards Campaigns hosted by the Organizer are in no way
+                                                    sponsored, endorsed, administered by, or associated with any social
+                                                    media platforms outside of the Promo App.
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="terms-popup-ft">
+                            <a href="javascript:void(0)" ng-click="toggleCancel()" data-dismiss="modal">Cancel</a>
+                            <input type="button" class="md-button pull-left" ng-click="toggle()" value="Ok, I Agree" data-dismiss="modal">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reward Terms Popup -->
+            <div class="modal fade popup-perent rewardtermspopup" id="RewardTerms" tabindex="-1" role="dialog" aria-labelledby="RewardTerms" aria-hidden="true">
+                <div class="modal-dialog login-modal">
+                    <!-- Modal content-->
+                    <div class="modal-body pa-text-center pa-background-white">
+                        <div class="rewardpopup-content">
+                            <i class="material-icons">info</i>
+                            <h2>Promotion Terms & Conditions</h2>
+                            <span>{{addReward.terms_condition}}</span>
+                            <md-button data-dismiss="modal">Ok, I understand.</md-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-0 col-xs-0"></div>
+
+</div>

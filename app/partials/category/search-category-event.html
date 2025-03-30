@@ -1,0 +1,74 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE">
+    
+    <div flex class="container-wtd-1170 mobile-hide">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+        <div class="search-people pa-mb-15 row pa-bootstrap-row nav">
+            <div class="container">
+                <div class="row pa-bootstrap-row">
+                    <div>
+                        <div class="pa-font-bold pa-color-333333 pa-font-32 pa-med-font-20 carousel-control-event pa-display-flex pa-align-items-center pa-justify-between mb-30">
+                            <div class="search-people-head pull-left">
+                                <h1 class="pa-no-margin-imp">Event Categories</h1>
+                            </div>
+                            <span class="slider-nav-e-web">
+                                <a ng-click="handleSlider('prev','myCarousel-web')" class="left-e-mob active-arrow"><i
+                                        class="material-icons">keyboard_arrow_left</i></a>
+                                <a ng-click="handleSlider('next','myCarousel-web')" class="right-e-mob active-arrow"><i
+                                        class="material-icons">navigate_next</i></a>
+                            </span>
+                        </div>
+
+                        <span ng-if="categoriesMap.length==0">
+                            <h4 style="text-align: center;">Loading Categories</h4>
+                        </span>
+
+                        <div id="myCarousel-web" class="carousel slide media-carousel carousel-multi-items hidden-sm hidden-xs" data-interval="false" data-ride="carousel" style="width:100%">
+                            <div class="carousel-inner">
+                                <div ng-repeat="n in numberOfItems() track by $index" class="item" ng-class="{active:$index==0}">
+                                    <div class="col-xs-12 col-12 col-sm-6 col-md-3 related-events-slider" ng-repeat="item in categoriesMap | limitTo: 4 :($index * 4)" style="padding: 5px;" ng-click="searchByCategory(item.id)">
+                                        <a ng-href="/category/{{item.id}}">
+                                            <span><img src={{item.image}} alt='image' class='catogery-image' /></span>
+                                            <span class='catogery-name'><b>{{item.name}}</b></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-people-section mt-40">
+                <div class="pa-modal-font row hidden-xs pa-pl-pr-15">
+                    <div class="row pa-bootstrap-row">
+                        <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4 pa-mt13 h-40">
+                            <i class="material-icons pa-color-333333 pa-map-marker location_on
+                        _post_ovr">location_on</i>
+                            <div class="input-group recommended-sub-header">
+                                <input type="text" class="form-control pa-no-padding recommend-input-control pa-h-43 pa-color-333333 pa-pr-25 pa-border-E4E4E4 pa-font-16 bg-F6F6F6" googleplace placeholder="{{locationPlaceholder}}" ng-disabled="disableLocation" ng-model="chosenPlace"
+                                    required="" aria-invalid="false" autocomplete="off">
+                                <span class="input-group-addon pa-input-addon recommend-input-addon catogery-page">
+                                    <a ng-click="getCurrentPos()">
+                                        <md-icon class="pa-color-pink material-icons" role="img" aria-label="gps_fixed">
+                                            gps_fixed</md-icon>
+                                    </a>
+                                    <a ng-click="clearLocation()" ng-show="chosenPlace" class="gps-current remove-location-icon"><i class="material-icons pa-color-333333">close</i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="separator" style="margin-bottom: 0px;"></div>
+                <div class="suggested-people">
+                    <div class="people-list pa-no-bt-margin-imp pa-bootstrap-row row" infinite-scroll="increaseLimit(ev.length)">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" id="event_box_{{x.event_id}}" ng-repeat="x in events =( ev |unique:'event_id' | orderBy:'claimed_on' | orderBy:'start_date_time_ms') track by x.event_id" ng-init="updateShowEventListLoader(events.length,$index)"
+                            ng-if="$index < eventPerPage">
+                            <event-overview event="x" read-only="true" hide-description="true"></event-overview>
+                        </div>
+                    </div>
+                    <div class="people-list" ng-if="ev.length === 0 && !loading">No events found</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

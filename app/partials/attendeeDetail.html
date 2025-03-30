@@ -1,0 +1,136 @@
+<div class="custom-model-content unpublish-popup attendee_details_popup">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Attendee
+            Details</span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+    <div class="modal-body pa-text-center pa-background-white">
+        <div class="rewardpopup-content">
+            <div class="status-id-attendee">
+                <span class="status-green" ng-if="!ticket.user_info.first_name">{{ticket.user_info.username}}</span>
+                <span class="status-green" ng-if="ticket.user_info.first_name">{{ticket.user_info.first_name+'
+                    '+ticket.user_info.last_name}}</span>
+                <p>{{ticket.user_info.email}}</p>
+            </div>
+            <div class="attendee_details_inner_content">
+                <div class="attendee_details_head">
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">insert_invitation</i>
+                        <span>PURCHASED ON <b>{{ticket.date_created | toMoment | momentFormatter:"MM/DD/YYYY" }},
+                                {{ticket.date_created | toMoment | momentFormatter:"hh:mma" }} UTC</b></span>
+                    </div>
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">insert_invitation</i>
+                        <span>ORDER NUMBER<b>#{{ticket.id}}</b></span>
+                    </div>
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">insert_invitation</i>
+                        <span>ORDER STATUS <b class="pa-capitalize">{{ticket.ticket_details_status}}</b></span>
+                    </div>
+                </div>
+            </div>
+            <div class="pa-pb-20">
+                <table class="attendee_table">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left;">Ticket Type</th>
+                            <th>Ticket Quantity</th>
+                            <th>Price Per Ticket</th>
+                            <th>Price Paid</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="details in ticket.ticket_details">
+                            <td style="text-align: left;">{{details.ticket_name}}</td>
+                            <td>{{details.qty}}</td>
+                            <td>${{details.total_price / details.qty}}</td>
+                            <td>${{details.total_price}}</td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td style="text-align: left;">Total</td>
+                            <td>{{ticket.ticket_qty}}</td>
+                            <td></td>
+                            <td>${{ticket.total_amount}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="attendee_details_footer" ng-if="ticket.checkedIn_count > 0 && (ticket.ticket_details_status === 'paid' || ticket.ticket_details_status === 'free') && ticket.ticket_qty !== ticket.checkIn_details.length">
+                <div class="attendee_details_footer_left_bar">
+                    <div class="attendee_details_inner_left_bar">
+                        <i class="material-icons">stars</i>
+                        <div>
+                            CHECK IN STATUS
+                            <span class="check-status"><b class="status-green">{{ticket.checkedIn_count}} Tickets
+                                    Checked In</b> <b class="status-pending" ng-if="(ticket.ticket_qty - ticket.checkedIn_count != 0)"> / {{ticket.ticket_qty - ticket.checkedIn_count}} Tickets Pending</b></span>
+                            <div class="check-status-date" ng-repeat="checkin in ticket.checkIn_details">#{{checkin.details_id}} ticket checked in
+                                on {{checkin.checkedin_at | unixFormatter}} UTC by
+                                <p ng-if="checkin.first_name != ''" class="pa-float-left pa_Width_auto pa-no-bt-margin-imp pa-font-bolder">{{checkin.first_name}} {{checkin.last_name}} - {{checkin.email}}</p> 
+                                <p ng-if="checkin.first_name == ''" class="pa-float-left pa_Width_auto pa-no-bt-margin-imp pa-font-bolder">{{checkin.username}} - {{checkin.email}}</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="attendee_details_footer_right_bar" ng-if="(ticket.ticket_qty - ticket.checkedIn_count != 0)">
+                    <a ng-click="goToScanQrPage()" class="pa-pink-button pa-no-margin md-button md-ink-rippl md-button md-ink-ripple"><i
+                            class="fa fa-qrcode tt-qrsize"></i> Scan to Check In</a>
+                </div>
+            </div>
+
+            <div class="attendee_details_footer" ng-if="ticket.ticket_qty === ticket.checkIn_details.length">
+                <div class="attendee_details_footer_left_bar">
+                    <div class="attendee_details_inner_left_bar">
+                        <i class="material-icons">stars</i>
+                        <div>
+                            CHECK IN STATUS
+                            <span class="check-status"><b class="status-green">Completed</b> </span>
+                            <span class="check-status-date">{{ticket.checkedIn_count}} tickets checked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="attendee_details_footer" ng-if="false">
+                <div class="attendee_details_footer_left_bar">
+                    <div class="attendee_details_inner_left_bar">
+                        <i class="material-icons">stars</i>
+                        <div>
+                            CHECK IN STATUS
+                            <span class="check-status"><b class="status-green">Completed</b> </span>
+                            <span class="check-status-date">{{ticket.checkedIn_count}} tickets checked in on 3/02/2020,
+                                3:23pm UTC</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="attendee_details_footer" ng-if="ticket.checkedIn_count === 0 && (ticket.ticket_details_status === 'paid' || ticket.ticket_details_status === 'free') && ticket.ticket_qty !== ticket.checkIn_details.length">
+                <div class="attendee_details_footer_left_bar">
+                    <div class="attendee_details_inner_left_bar">
+                        <i class="material-icons">stars</i>
+                        <div>
+                            CHECK IN STATUS
+                            <span class="check-status"><b class="status-pending"> Pending</b></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="attendee_details_footer_right_bar">
+                    <a ng-click="goToScanQrPage()" class="pa-pink-button pa-no-margin md-button md-ink-rippl md-button md-ink-ripple"><i
+                            class="fa fa-qrcode tt-qrsize"></i> Scan to Check In</a>
+                </div>
+            </div>
+
+            <div class="attendee_details_footer_bottom" ng-if="ticket.checkedIn_count === 0 && ticket.ticket_details_status === 'paid' && ticket.ticket_qty !== ticket.checkIn_details.length && addPromotionDisabled && event.status == 'active'">
+                Do you want to issue a refund?
+                <a ng-click="refundTicket(ticket)">Refund</a>
+            </div>
+
+            <div class="attendee_details_footer_bottom" ng-if="ticket.checkedIn_count === 0 && ticket.ticket_details_status === 'free' && ticket.ticket_qty !== ticket.checkIn_details.length && addPromotionDisabled && event.status == 'active'">
+                Do you want to issue a refund?
+                <a ng-click="refundTicket(ticket)">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>

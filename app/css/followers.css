@@ -1,0 +1,48 @@
+.my-followers .rebecca-head {
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+.following-msg {
+    display: flex;
+    width: auto;
+    margin-top: 20px;
+}
+
+.following-msg a,
+.following-msg button {
+    margin: 0;
+    line-height: normal;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    padding: 12px 37px;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+    margin-top: 0;
+}
+
+.border-btn {
+    border: solid 1px #CBCBCB;
+    color: #A02541;
+}
+
+.following-msg button {
+    margin-right: 15px;
+    border: solid 1px #a02541;
+}
+
+.font-img {
+    width: 24px;
+    padding: 3px;
+    margin-left: -3px;
+    margin-top: -3px;
+}
+
+.following-msg a i,
+.following-msg button i {
+    float: left;
+    margin-top: 0px;
+    margin-right: 8px;
+}

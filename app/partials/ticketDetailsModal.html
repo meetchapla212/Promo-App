@@ -1,0 +1,111 @@
+<div class="custom-model-content event_claim_confirmation unpublish-popup attendee_details_popup">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">View Tickets</span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+    <div class="modal-body pa-text-center pa-background-white">
+        <div class="rewardpopup-content">
+            <div class="status-id-attendee">
+                <span class="pa-color-pink" event-detail-modal event="ticketDetails">{{ticketDetails.event_name}}</span>
+                <p>{{ticketDetails.start_date_time | toMoment | momentFormatter:"ddd, MMMM D, YYYY"}} at {{ticketDetails.start_date_time | toMoment | momentFormatter:"hh:mm A"}} to {{ticketDetails.end_date_time | toMoment | momentFormatter:"hh:mm A"}} (UTC)</p>
+            </div>
+
+            <div class="attendee_details_inner_content">
+                <div class="attendee_details_head">
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">insert_invitation</i>
+                        <span>PURCHASED ON <b>{{ticketDetails.ticket_created_date | toMoment | momentFormatter:"MM/DD/YYYY, hh:mm a"}} UTC</b></span>
+                    </div>
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">receipt</i>
+                        <span>ORDER NUMBER<b>#{{ticketDetails.order_id}}</b></span>
+                    </div>
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">receipt</i>
+                        <span>ORDER STATUS <b>{{ (ticketDetails.ticket_status == 'approved') ? ((ticketDetails.total_amount == 0) ? 'Free':'Paid'):ticketDetails.ticket_status }}</b></span>
+                    </div>
+                </div>
+                <div class="attendee_details_head">
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">account_circle</i>
+                        <span>ORGANISER <b ng-if="!ticketDetails.organiser_first_name">{{ticketDetails.organiser_name}}</b>  <b ng-if="ticketDetails.organiser_first_name">{{ticketDetails.organiser_first_name+' '+ticketDetails.organiser_last_name}}</b> <a target="_blank" ng-href="/chat.html?userId={{ticketDetails.organiser_qb_id}}" class="pa-color-pink pa-mt-4 pa-display-block" >Chat With Organizer</a></span>
+                    </div>
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">attach_money</i>
+                        <span>TOTAL PRICE PAID<b>${{ticketDetails.total_amount | number : 2}}</b> <a ng-click="showDetails = !showDetails" class="pa-color-pink pa-mt-4 pa-display-block" >View Details</a></span>
+                    </div>
+                    <div class="attendee_details_head_inner">
+                        <i class="material-icons">local_activity </i>
+                        <span>TICKET QUANTITY <b>{{ticketDetails.ticket_qty}}</b></span>
+                    </div>
+                </div>
+
+                <table class="attendee_table" ng-if="showDetails">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left;">Ticket Type</th>
+                            <th>Ticket Quantity</th>
+                            <th>Price Per Ticket</th>
+                            <th>Price Paid</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-class="$last?'attendee_table_last attendee_table_last_final_sec' : 'attendee_table_last attendee_table_last'" ng-repeat="ticket in ticketInfo">
+                        <tr>
+                            <td style="text-align: left;">{{ticket.ticket_title}}</td>
+                            <td>{{ticket.qty}}</td>
+                            <td>${{ticket.price | number : 2}}</td>
+                            <td>${{ticket.total | number : 2}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td style="text-align: left;">Total</td>
+                            <td>{{ticketDetails.ticket_qty}}</td>
+                            <td>${{ticketDetails.ticket_price / ticketDetails.ticket_qty | number : 2}}</td>
+                            <td>${{ticketDetails.total_amount | number : 2}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="tc_new-section_popup" ng-if="ticketDetails.tickets_details.length >1">
+                    <a ng-disabled="sliderIndex == 0" ng-click="preSlide()" class="previous_tc" ng-class="sliderIndex >= 1 ?'active_tc':''"><i class="material-icons" ng-class="sliderIndex >= 1 ?'active_tc':''">chevron_left</i> Previous</a> Ticket {{sliderIndex+1}}/{{ticketDetails.tickets_details.length}}
+                    <a ng-disabled="sliderIndex == (ticketDetails.tickets_details.length-1)" ng-click="nextSlide()" class="next_tc " ng-class="sliderIndex < (ticketDetails.tickets_details.length-1)?'active_tc':''"><i class="material-icons"  ng-class="sliderIndex < (ticketDetails.tickets_details.length-1)?'active_tc':''">chevron_right</i> Next</a>
+                </div>
+                <div class="tc_new-section_popup_details" ng-class="ticketDetails.tickets_details.length == 1 ? 'pa-mt-20' : '' " ng-repeat="ticket in ticketDetails.tickets_details" ng-if="sliderIndex == $index">
+                    <div class="tc_new-section_popup_details_child" ng-class="ticketDetails.ticket_status == 'cancelled' || ticketDetails.ticket_status == 'refunded' ? 'pa-mb-30' : ''">
+                        <div class="tc_new-section_qr">
+                            <h2>{{ticketDetails.event_name}}</h2>
+                            <div class="ticket-description" ng-if="ticket._ticket_id === tickets.ticket_id" ng-repeat="tickets in ticketDetailsData.tickets_details">{{tickets.description}}</div>
+                            <span class="tc_new-section_qr_sub">{{ticket.ticket_name}} - ${{ticket.price}}</span>
+                            <div class="tc_new-section_event_details">
+                                <span><i class="material-icons">event_available</i>
+                                    {{ticketDetails.start_date_time | toMoment | momentFormatter:"ddd, MMMM D, YYYY"}} at {{ticketDetails.start_date_time | toMoment | momentFormatter:"hh:mm A"}} to {{ticketDetails.end_date_time | toMoment | momentFormatter:"hh:mm A"}} (UTC)
+                                </span>
+                                <span><i class="material-icons">location_on</i> {{ticketDetails.address}}
+                                    <a class="pa-color-pink" target="_blank" href="https://maps.google.com/maps?hl=en&q={{ ticketDetails.latitude }},{{ ticketDetails.longitude }}"> View Location on Map</a>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="tc_new-section_qr_img_sec" ng-if="ticketDetails.ticket_status == 'approved'">
+                            <img class="pa-cursor-pointer" ng-src="{{ticket.qrcode}}" alt="qr" />
+                        </div>
+                        <div class="tc_new-section_qr_img_sec" ng-if="ticketDetails.ticket_status == 'cancelled'">
+                            <img class="pa-cursor-pointer" src="img/qr.svg" alt="qr"> <b>TICKET EXPIRED!</b>
+                        </div>
+                        <div class="tc_new-section_qr_img_sec" ng-if="ticketDetails.ticket_status == 'refunded'">
+                            <img class="pa-cursor-pointer" alt="qr" style="opacity: 0.2;" src="img/qr.svg" />
+                            <span class="cancel_status_qr">REFUNDED!</span>
+                        </div>
+                        <div class="order_tc_new_popup_sec">
+                            Order #{{ ticketDetails.order_id}}. Ordered by {{ ticketDetails.attendee}} on {{ticketDetails.ticket_created_date | toMoment | momentFormatter:"MMMM DD, YYYY hh:mm A"}}
+                        </div>
+                    </div>
+                    <div class="response_tc_new_ft" ng-if="!ticketDetails.expired &&  ticketDetails.ticket_status == 'approved'">
+                        <span>Do you want to cancel tickets? </span>
+                        <a ng-click="cancelTicketConfirmation(ticketDetails.order_id);">Request Refund</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

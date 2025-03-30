@@ -1,0 +1,90 @@
+<div flex layout="column" layout-align="start stretch" class="pa-background-white">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div flex layout-fill class="interested_mob_wrap account-wrapper mobile-perent ">
+        <div class="mobile-header display-flex-mob desktop-hide">
+            <span class="back-btn-mobile">
+                <a back-to-history class="pa-cursor-pointer"><i class="material-icons">arrow_back</i></a>
+            </span>
+        </div>
+        <div class="container-wtd-1170 mobile-insta-login">
+            <h2 class="add-mob-title desktop-hide">Sign Up</h2>
+            <figure ng-click="goToPage('/')" class="login_lg mobile-hide"><img src="/img/logo-the-promo-app-red.png" alt="promoapp" class="img-responsive"></figure>
+            <div class="mobile-hide verify_em_ph_title signup_em_ph_tit">Sign up to buy tickets, create events, and more.</div>
+            <div class="forgot-tabs">
+                <div class="rd_tab" ng-repeat="sign in radioData">
+                    <input type="radio" name="sginup-rd" id="signup-{{sign.value}}" ng-value="sign.value" ng-click="tabChange(sign.value)" ng-checked="sign.checked" ng-disabled="sign.isDisabled" ng-class="{'md-align-top-left': $index==1}"> <label for="signup-{{sign.value}}">{{ sign.label }}</label>
+                </div>
+            </div>
+            <form name="signupForm" autocomplete="off" novalidate ng-submit="signUpConfirm($event, signupForm)" id="signupFormId">
+                <div ng-if="!tabSection" class="md-input-container disabled">
+                    <country-code-select ng-model="countryCode"></country-code-select>
+                </div>
+                <md-input-container class="form-group full-field pa-mt-30-imp flex-gt-sm md-input-has-value mobile-hide pa-mb-0">
+                    <label ng-class="{'padding-left-115-m': !tabSection}">{{tabSection ? 'Email Address' : 'Mobile Number'}} <sup class="pa-required">*</sup></label>
+                    <input readonly ng-model="userName" name="userName" ng-class="{'padding-left-110': !tabSection}" class="form-control login-control ob-color-input tt-font-16"
+                        type="text" ng-change="signupBlur(userName)" ng-required="signupForm.userName.$invalid"/>
+                    <a class="username-clear" ng-hide="true" ng-click="userName = null"><span class="material-icons">close</span></a>
+                    <div ng-messages="signupForm.userName.$error" class="input-error">
+                        <div ng-message="required">This field is required.</div>
+                    </div>
+                    <div ng-if="usernameError && tabSection" class="username-error"><div>Please Enter Valid Email Address.</div></div>
+                    <div ng-if="mobileNumberError && !tabSection" class="username-error"><div>Please Enter Valid Mobile Number.</div></div>
+                </md-input-container>
+                <p class="pa-font-12 pa-color-666666 pa-mb-20">This {{ tabSection ? 'email address' : 'phone number'}} has been verified.</p>
+                <div class="half_filed_prent pa-mb-40">
+                    <md-input-container class="form-group full-field pa-mt-30-imp flex-gt-sm md-input-has-value mobile-hide pa-mb-0 half_filed_sec">
+                        <label>First Name <span class="pa-required">*</span></label>
+                        <input md-no-asterisk ng-model="first_name" name="firstName" class="form-control login-control ob-color-input tt-font-16" type="text" ng-required="signupForm.firstName.$invalid">
+                        <a class="username-clear" ng-hide="!first_name" ng-click="first_name = null"><span class="material-icons">close</span></a>
+                        <div ng-messages="signupForm.firstName.$error" class="input-error">
+                            <div ng-message="required">This field is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="form-group full-field pa-mt-30-imp flex-gt-sm md-input-has-value mobile-hide pa-mb-0 half_filed_sec">
+                        <label>Last Name <span class="pa-required">*</span></label>
+                        <input md-no-asterisk ng-model="last_name" name="lastName" class="form-control login-control ob-color-input tt-font-16" type="text" ng-required="signupForm.lastName.$invalid">
+                        <a class="username-clear" ng-hide="!last_name" ng-click="last_name = null"><span class="material-icons">close</span></a>
+                        <div ng-messages="signupForm.lastName.$error" class="input-error">
+                            <div ng-message="required">This field is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-input-container class="form-group full-field pa-mt-30-imp flex-gt-sm md-input-has-value mobile-hide pa-mb-40 pa-mb-20">
+                    <label>Password <span class="pa-required">*</span></label>
+                    <input md-no-asterisk ng-model="password" name="password" ng-blur="passwordInfo=false" class="form-control login-control pa-pr-55 tt-font-16" type="{{inputType}}" ng-focus="Password=true" ng-blur="Password=false" ng-required="signupForm.password.$invalid">
+                    <div class="pass-show" ng-class="{'up': password != ''}" ng-click="hideShowPassword()">{{inputType === 'password'?'Show':'Hide'}}</div>
+                    <a class="username-clear" ng-hide="!password" ng-click="password = null"><span class="material-icons">close</span></a>
+                    <div ng-messages="signupForm.password.$error" class="input-error">
+                        <div ng-message="required">This field is required.</div>
+                    </div>
+                    <div class="pass_req_list">
+                        <span ng-show="password.length >=8" class="verify_list"><i class="material-icons">check</i>Password should be at least 8 characters long </span>
+                        <span ng-show="password.length < 8 || password.length == null"><i class="material-icons">close</i>Password should be at least 8 characters long </span>
+
+                        <span ng-show="passwordHasNumber(password)" class="verify_list"><i class="material-icons">check</i>Password should contain one number </span>
+                        <span ng-hide="passwordHasNumber(password)"><i class="material-icons">close</i>Password should contain one number</span>
+
+                        <span ng-show="passwordHasUpperCase(password)" class="verify_list"><i class="material-icons">check</i>Password should one upper case letter </span>
+                        <span ng-hide="passwordHasUpperCase(password)"><i class="material-icons">close</i>Password should one upper case letter</span>
+
+                        <span ng-show="passwordHasSpecialCharacter(password)" class="verify_list"><i class="material-icons">check</i>Password should one special character </span>
+                        <span ng-hide="passwordHasSpecialCharacter(password)"><i class="material-icons">close</i>Password should one special character</span>
+                    </div>
+                </md-input-container>
+                <md-input-container class="form-group full-field flex-gt-sm md-input-has-value mobile-hide pa-mb-12">
+                    <label>City <span class="pa-required">*</span></label>
+                    <input ng-pattern="/^[a-zA-Z0-9 \\\/,-]+$/" md-no-asterisk type="text" name="city" class="form-control ob-color-input login-control pa-color-5B5B5B" googleplace ng-disabled="disableLocation" placeholder="" ng-model="location.city" ng-required="signupForm.city.$invalid">
+                    <div class="pass-show" ng-class="{'up': password != ''}" ng-click="getCurrentPos()">Detect</div>
+                    <div ng-messages="signupForm.city.$error" class="input-error">
+                        <div ng-message="required">This field is required.</div>
+                    </div>
+                </md-input-container>
+                <p class="pa-font-12 pa-color-666666 pa-mb-20">By knowing your city, we can provide you with better results.</p>
+                <div class="col-md-12 pa-mt-45 pa-pl-pr-0 text-right forgot-btn"><button type="submit" ng-disabled="!passwordHasNumber(password) || !passwordHasUpperCase(password) || !passwordHasSpecialCharacter(password) || password.length < 8 || password.length == null || disableLocation || !signupForm.$valid" class="btn btn-login ob-padding-0 h-48 ob-line-ht-48 pa-font-bold pa-font-16">Sign Up</button></div>
+            </form>
+            <p class="pa-font-12 pa-color-666666 mobile-hide text-center signup_bt_text">By Signing up, I agree to Promo’s <a ng-href="/terms_of_use">Terms of Service, Payments Terms of Service, Privacy Policy</a> and <a ng-href="/cookies_policy">Cookies Policy</a>.</p>
+        </div>
+        <div class="alrd_lg_wrp">Already have an account? <a ng-href="/login">Log In</a></div>
+    </div>
+    
+</div>

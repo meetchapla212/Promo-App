@@ -1,0 +1,48 @@
+<div class="popup-perent rewardtermspopup addBank-account custom-model-content requriedn add_new_admin">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Add New Admin User</span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+    <div class="modal-body pa-text-center pa-background-white">
+        <form name="admin_form">
+            <div class="rewardpopup-content form-poup-congratulations">
+                <div class="accout-details-form">
+                    <md-content>
+                        <div class="congratulations-form-filed">
+                                <p>You would like the following person to administrate your event on your behalf</p>
+                                <div class="row pa-mt-10" >
+                                    <div class="col-md-12">
+                                        <md-input-container>
+                                            <label>Name <p class="pa-required" style="display:inline-block; margin:0;">*</p></label>
+                                            <input ng-model="admin_name" type="text" required placeholder="e.g. John" required />
+                                            <div ng-messages="admin_form.admin_name.$error" class="input-error" >
+                                                <div ng-message="required">This field is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+
+                                <div class="row pa-mt-10" >
+                                    <div class="col-md-12">
+                                        <md-input-container>
+                                            <label>Email Address<p class="pa-required" style="display:inline-block; margin:0;">*</p></label>
+                                           
+                                            <input ng-model="admin_email" autocomplete="off" type="text" required placeholder="e.g. John@domain.com"   ng-pattern="/^[^+\s@]+@[^\s@]+\.[^\s@]{2,}$/" required  />
+                                            <div ng-messages="admin_form.admin_email.$error" class="input-error">
+                                                <div ng-message="required">This field is required.</div>
+                                                <div ng-message="pattern">Please Enter Valid Email.</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                        </div>
+                    </md-content>
+                </div>
+                <div class="btn-group">
+                    <md-button class="pa-pink-button pa-no-margin md-button md-ink-rippl md-button md-ink-ripple" ng-disabled="!admin_form.$valid"
+                        ng-click="addNewAdmin(admin_name,admin_email)">Add</md-button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

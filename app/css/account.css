@@ -1,0 +1,627 @@
+.account-wrapper.mobile-perent .back-btn-mobile i {
+    font-size: 26px;
+}
+
+.mobile-insta-login input[type="text"],
+.mobile-insta-login input[type="text"].ng-invalid.ng-dirty,
+.mobile-insta-login input[type="number"],
+.mobile-insta-login input[type="number"].ng-invalid.ng-dirty,
+.mobile-insta-login input[type="password"],
+.mobile-insta-login input[type="password"].ng-invalid.ng-dirty {
+    border: 1px solid #cbcbcb;
+    box-shadow: none !important;
+    height: 42px !important;
+    line-height: 42px;
+    padding: 6px 16px;
+    border-radius: 4px;
+}
+/* .mobile-insta-login input[type="text"] {
+    padding-right: 30px;
+} */
+
+.mobile-insta-login input[type="number"], 
+.mobile-insta-login input[type="number"].ng-invalid.ng-dirty {
+    padding-left: 115px;
+}
+
+.mobile-insta-login form {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+}
+
+.mobile-insta-login md-input-container {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.mobile-insta-login md-input-container label,
+.mobile-insta-login .otp-inp-container label{
+    position: absolute;
+}
+
+.mobile-insta-login md-input-container label,
+.mobile-insta-login .otp-inp-container label {
+    transform: none !important;
+    -webkit-transform: none !important;
+}
+
+.mobile-insta-login md-input-container label sup,
+.mobile-insta-login .otp-inp-container label sup {
+    font-size: 80%;
+}
+
+.mobile-insta-login md-input-container .pass-show,
+.mobile-insta-login .otp-inp-container .pass-show {
+    position: absolute;
+    right: 0;
+    top: -25px;
+    font-weight: 600;
+    color: #a02541;
+}
+
+md-input-container .md-errors-spacer,
+.otp-inp-container .md-errors-spacer {
+    min-height: auto;
+}
+
+.mobile-insta-login md-input-container .username-clear,
+.mobile-insta-login .otp-inp-container .username-clear {
+    top: 0;
+    color: #333333;
+    text-decoration: none !important;
+    height: 46px;
+}
+
+.forgot-tabs {
+    border: 1px solid #333333;
+    border-radius: 4px;
+    display: flex;
+}
+
+.forgot-tabs .rd_tab {
+    width: 50%;
+    display: block;
+    font-size: 15px;
+}
+
+.forgot-tabs .rd_tab label {
+    color: #333;
+    font-weight: normal;
+    padding: 7px 0;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+}
+
+.forgot-tabs .rd_tab input[disabled="disabled"] + label {
+    background-color: #EEEEEE;
+    color: #999999;
+    cursor: not-allowed;
+    border-radius: 4px;
+}
+
+.forgot-tabs .rd_tab label::before,
+.forgot-tabs .rd_tab label::after {
+    visibility: hidden;
+}
+
+.forgot-tabs .rd_tab input:checked + label {
+    background-color: #333;
+    color: #fff;
+}
+
+.phone_num .intl-tel-input.allow-dropdown .selected-flag {
+    border-right: 1px solid #cbcbcb;
+    width: 106px !important;
+    background-color: #fff;
+    border-radius: 5px 0 0 5px;
+    color: #a02740;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: -0.39px;
+    line-height: 22px;
+    padding-left: 0;
+}
+
+.phone_num .intl-tel-input.allow-dropdown .selected-flag .iti-flag {
+    left: 30px;
+}
+
+.phone_num .intl-tel-input.allow-dropdown .selected-flag .selected-dial-code {
+    padding-left: 58px;
+}
+
+.phone_num .intl-tel-input.allow-dropdown .selected-flag .iti-arrow {
+    display: none;
+}
+
+.phone_num {
+    padding-left: 60px;
+    position: relative;
+}
+
+.phone_num label {
+    left: 60px !important;
+}
+
+.alrd_lg_wrp {
+    border: 1px solid #e4e4e4;
+    text-align: center;
+    padding: 18px 0;
+    font-size: 16px;
+    width: 500px;
+    margin: 10px auto 0;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.alrd_lg_wrp a {
+    color: #a02740;
+    font-weight: 700;
+}
+
+.mobile-insta-login {
+    position: relative;
+    width: 500px;
+    margin-top: 50px;
+    border: 1px solid #e4e4e4;
+    padding: 40px;
+    display: table;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.login_lg {
+    margin: 0 auto 65px;
+    display: table;
+}
+
+.login_lg img {
+    height: 34px;
+}
+
+.otp-inp-container {
+    position: relative;
+}
+
+.forgotPass-Lg {
+    margin: -30px 0 20px;
+}
+
+.mobile-insta-login .otp-inp-container label {
+    color: #999;
+    font-weight: normal;
+}
+
+.mobile-insta-login .otp-inp-container label,
+.mobile-insta-login .otp-inp-container .pass-show {
+    top: 0 !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    bottom: auto !important;
+}
+
+.otp_bx {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.otp_bx input {
+    width: 48px;
+    order: 0;
+    text-align: center;
+}
+
+.otp_bx .md-errors-spacer {
+    display: none;
+}
+
+.mobile-insta-login .btn-login {
+    box-shadow: 0 2px 5px rgb(0 0 0 / 20%);
+}
+
+.forgot-para {
+    margin: 0 0 30px;
+    text-align: center;
+}
+
+.forgot-screen .mobile-insta-login {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 0;
+    padding-bottom: 30px;
+    padding-top: 36px;
+}
+
+.forgot-create-account {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    margin: 0 0 -10px;
+}
+
+.forgot-create-account .or {
+    border-top: 1px solid #e4e4e4;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+.forgot-create-account .or span {
+    font-weight: 700;
+    color: #8c8c8c;
+    display: table;
+    margin: -10px auto 0;
+    background: #fff;
+    padding: 0 20px;
+}
+
+.forgot-create-account a {
+    color: #a02541;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.mobile-hide.verify_em_ph_title {
+    font-size: 18px;
+    text-align: center;
+    border-bottom: 1px solid #979797;
+    padding: 0 0 25px;
+    margin: -30px 0 25px 0;
+    color: rgb(51 51 51 / 80%);
+}
+
+.otp-text {
+    text-align: center;
+}
+
+.signup_bt_text {
+    padding-top: 30px;
+    display: table;
+    margin: 0;
+}
+
+.signup_bt_text a {
+    color: #666;
+    font-weight: 700;
+}
+
+.mobile-insta-login .md-input-container .countryDropdown {
+    display: inline-block;
+    position: absolute;
+    margin: 0px !important;
+    border-right: 1px solid #c4c4c4;
+    padding: 8px 0;
+    width: 106px;
+    max-width: 106px;
+    height: 42px;
+    top: 20px;
+    left: 3px;
+    z-index: 1;
+}
+
+.mobile-insta-login .md-input-container.disabled .countryDropdown {
+    pointer-events: none;
+}
+
+.mobile-insta-login #signupFormId .md-input-container .countryDropdown,
+.mobile-insta-login #ResetFormMobile .md-input-container .countryDropdown,
+.mobile-insta-login #changeMobileNumber .md-input-container .countryDropdown {
+    top: 32px;
+}
+
+.mobile-insta-login .md-input-container .countryDropdown .md-select-value {
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: -0.39px;
+    line-height: 22px;
+    color: #a02740;
+    padding: 0;
+}
+
+.mobile-insta-login md-input-container input.padding-left-110 {
+    padding-left: 115px;
+}
+
+.mobile-insta-login .md-input-container .countryDropdown .md-select-value:after {
+    content: "";
+}
+
+.event-form-select md-content {
+    min-width: 150px;
+    /* padding-top: 55px !important; */
+}
+
+.event-form-select .demo-select-header {
+    box-shadow: 0 1px 0 0 rgb(0 0 0 / 10%), 0 0 0 0 rgb(0 0 0 / 14%), 0 0 0 0 rgb(0 0 0 / 12%);
+    padding-left: 0;
+    height: 48px;
+    cursor: pointer;
+    position: fixed;
+    display: flex;
+    width: 100%;
+    background-color: #fff;
+    z-index: 1;
+    top: 0;
+}
+
+.event-form-select .demo-header-searchbox {
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    padding: 0 14px;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.md-select-menu-container md-select-menu .country-iso2 {
+    width: 50px;
+    display: inline-block;
+    vertical-align: baseline;
+    text-align: center;
+}
+
+@media only screen and (min-width: 1024px) {
+    .interested_mob_wrap {
+        background-color: transparent;
+    }
+
+    .mobile-insta-login .add-mob-title {
+        font-size: 18px;
+        margin: -20px auto 10px !important;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .forgot-tabs {
+        margin-bottom: 30px;
+    }
+
+    .forgot-btn {
+        margin-top: 5px !important;
+    }
+
+    .forgot-alrd_lg_wrp {
+        background: #f4f4f4;
+        margin: 0 auto 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-color: #e4e4e4;
+    }
+
+    .ph-code::before {
+        top: 10px;
+    }
+
+    .ph-code {
+        left: 0;
+        top: 2px;
+        border: 1px solid #cbcbcb;
+        padding: 0 0 0 15px;
+        width: 82px;
+        height: 42px;
+        line-height: 42px;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .forgot-inp-wrp input {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .forgot-inp-wrp {
+        padding-left: 79px;
+    }
+
+    .phone_num.forgot-inp-wrp label {
+        left: 0 !important;
+    }
+
+    .otp_bx input {
+        width: 58px;
+    }
+
+    .mobile-insta-login .otp-inp-container label,
+    .mobile-insta-login .otp-inp-container .pass-show {
+        top: -30px !important;
+    }
+
+    .mobile-insta-login #OTP_verify_form {
+        padding: 0;
+    }
+
+    .mobile-insta-login .otp-inp-container label {
+        color: #333;
+        font-weight: 700;
+    }
+
+    .signup_em_ph_tit {
+        border: 0 !important;
+        padding: 0 !important;
+    }
+
+    .mobph_mrg {
+        margin-bottom: 5px !important;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .mobile-insta-login {
+        width: 100%;
+        padding: 15px 15px 120px !important;
+        border: 0;
+        margin: 0;
+    }
+
+    .mobile-insta-login .add-mob-title {
+        margin-bottom: 41px;
+    }
+
+    .mobile-insta-login input[type="text"],
+    .mobile-insta-login input[type="text"].ng-invalid.ng-dirty,
+    .mobile-insta-login input[type="number"],
+    .mobile-insta-login input[type="number"].ng-invalid.ng-dirty,
+    .mobile-insta-login input[type="password"],
+    .mobile-insta-login input[type="password"].ng-invalid.ng-dirty {
+        border: 0;
+        height: 48px !important;
+        line-height: normal;
+        border-bottom: 1px solid #cbcbcb;
+        border-radius: 0;
+    }
+
+    .mobile-insta-login md-input-container label,
+    .mobile-insta-login .otp-inp-container label {
+        position: absolute;
+        font-size: 15px;
+        letter-spacing: -0.24px;
+        line-height: 20px;
+    }
+
+    .mobile-insta-login md-input-container label,
+    .mobile-insta-login .otp-inp-container label {
+        transform: translate(0, 37px) !important;
+        -webkit-transform: translate(0, 37px) !important;
+        margin-bottom: 0;
+        color: rgb(51 51 51 / 70%);
+    }
+
+    .mobile-insta-login .otp-inp-container label, 
+    .mobile-insta-login .otp-inp-container .pass-show {
+        transform: translate(0, 0) !important;
+        -webkit-transform: translate(0, 0) !important;
+        top: -20px !important;
+    }
+
+    .mobile-insta-login md-input-container.md-input-focused label,
+    .mobile-insta-login md-input-container.md-input-focused-default label,
+    .mobile-insta-login md-input-container.md-input-has-value label {
+        transform: translate(0, 10px) !important;
+        -webkit-transform: translate(0, 10px) !important;
+    }
+
+    .mobile-insta-login md-input-container label sup,
+    .mobile-insta-login .otp-inp-container label sup {
+        font-size: 80%;
+    }
+
+    .mobile-insta-login #OTP_verify_form {
+        padding: 0;
+        width: 100%;
+    }
+
+    .mobile-insta-login md-input-container .username-clear,
+    .mobile-insta-login .otp-inp-container .username-clear {
+        height: 48px;
+    }
+
+    .mobile-insta-login md-input-container .pass-show,
+    .mobile-insta-login .otp-inp-container .pass-show {
+        position: absolute;
+        right: 2px;
+        top: 15px;
+        font-weight: 600;
+        color: #a02541;
+        transition: top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        font-size: 15px;
+        letter-spacing: -0.24px;
+        line-height: 20px;
+    }
+
+    .mobile-insta-login md-input-container .pass-show.up {
+        top: -10px;
+    }
+
+    .mobile-insta-login md-input-container .username-clear {
+        top: 15px;
+        color: #333333;
+        text-decoration: none !important;
+        height: 24px;
+    }
+
+    .phone_num .intl-tel-input {
+        margin-top: 10px;
+    }
+
+    .phone_num .intl-tel-input.allow-dropdown.separate-dial-code .selected-flag {
+        background-color: transparent;
+        height: 23px;
+        margin-top: 12px;
+        width: 81px !important;
+    }
+
+    .phone_num .intl-tel-input.allow-dropdown .selected-flag .selected-dial-code {
+        padding-left: 28px;
+    }
+
+    .phone_num .intl-tel-input.allow-dropdown .selected-flag .iti-flag {
+        left: 0;
+    }
+
+    .phone_num .intl-tel-input.allow-dropdown .phn-inp {
+        padding-left: 110px !important;
+    }
+
+    .mobile-insta-login md-input-container .padding-left-115-m {
+        padding-left: 115px !important;
+    }
+
+    .mobile-insta-login md-input-container.md-input-focused .padding-left-115-m,
+    .mobile-insta-login md-input-container.md-input-has-value .padding-left-115-m  {
+        padding-left: 0 !important;
+    }
+
+    .mobile-insta-login .md-input-container .countryDropdown {
+        position: absolute;
+        padding: 0;
+        height: 25px;
+        top: 31px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .mobile-insta-login #signupFormId .md-input-container .countryDropdown {
+        top: 43px;
+    }
+
+    .mobile-insta-login .md-input-container .countryDropdown .md-select-value,
+    .mobile-insta-login .md-input-container .countryDropdown .md-select-value * {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transform: none !important;
+    }
+
+    .mobile-insta-login .md-input-container .countryDropdown .md-select-value .country-iso2 {
+        margin-right: 4px;
+    }
+
+    .alrd_lg_wrp {
+        border: 0;
+        padding: 28px 0 40px;
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+        background: #f4f4f4;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    .account-wrapper {
+        position: relative;
+        min-height: 100vh;
+    }
+
+    .forgot-para {
+        text-align: left;
+    }
+
+    .otp-text {
+        text-align: left;
+    }
+}

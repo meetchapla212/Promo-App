@@ -1,0 +1,49 @@
+<div flex layout="column" layout-align="start stretch" class="bg-F6F6F6">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div flex layout-fill class="interested_mob_wrap account-wrapper mobile-perent pa-height-auto-imp">
+        <div class="mobile-header display-flex-mob desktop-hide">
+            <span class="back-btn-mobile">
+                <a back-to-history class="pa-cursor-pointer"><i class="material-icons">arrow_back</i></a>
+            </span>
+        </div>
+
+        <div class="container-wtd-1170 mobile-insta-login">
+            <h2 class="add-mob-title desktop-hide">Log In</h2>
+            <figure ng-click="goToPage('/')" class="login_lg mobile-hide"><img src="/img/logo-the-promo-app-red.png" alt="promoapp" class="img-responsive"></figure>
+            <form name="LoginForm" autocomplete="off" ng-submit="signIn(false , LoginForm)" id="login_form">
+                <div ng-if="switchFieldModel" class="md-input-container">
+                    <country-code-select ng-model="countryCode"></country-code-select>
+                </div>
+                <md-input-container ng-class="{'md-input-has-value': userName != null}" class="form-group full-field flex-gt-sm">
+                    <label>Email or Mobile Number <span class="pa-required">*</span></label>
+                    <input md-no-asterisk id="emailAddressField" ng-class="{'padding-left-110': switchFieldModel}" ng-model="userName" name="userName" class="form-control login-control ob-color-input tt-font-16 pa-border-cccccc" ng-change="usernameBlur(userName)" type="text"
+                        ng-focus="username=true" ng-blur="username=false" ng-required="LoginForm.userName.$invalid">
+                    <a class="username-clear" ng-hide="!userName" ng-click="clearUsername()"><span class="material-icons">close</span></a>
+                    <div ng-messages="LoginForm.userName.$error" class="input-error">
+                        <div ng-message="required">This field is required.</div>
+                    </div>
+                    <div ng-if="usernameError && !switchFieldModel" class="username-error">
+                        <div>Please Enter Valid Email Address.</div>
+                    </div>
+                    <div ng-if="mobileNumberError && switchFieldModel" class="username-error">
+                        <div>Please Enter Valid Mobile Number.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container ng-class="{'md-input-has-value': password != ''}" class="form-group full-field flex-gt-sm pa-no-bt-margin-imp">
+                    <label>Password <span class="pa-required">*</span></label>
+                    <input md-no-asterisk id="passwordField" ng-model="password" name="password" class="form-control login-control pa-pr-55 ob-color-input tt-font-16" ng-focus="Password=true" ng-blur="Password=false" type="{{inputType}}" ng-required="LoginForm.password.$invalid"
+                        required>
+                    <div class="pass-show" ng-class="{'up': password != ''}" ng-click="hideShowPassword()">{{inputType === 'password' ? 'Show' : 'Hide'}}</div>
+                    <a class="username-clear" ng-hide="!password" ng-click="clearPassword()"><span class="material-icons">close</span></a>
+                    <div ng-messages="LoginForm.password.$error" class="input-error">
+                        <div ng-message="required">This field is required.</div>
+                    </div>
+                </md-input-container>
+                <div class="col-md-12 pa-mb-20 pa-pl-pr-0 text-right mt-10"><a ng-click='forgotPassword(userName)' class="pa-color-pink pa-font-16 pa-font-600 forgot-pass">Forgot password</a></div>
+                <div class="col-md-12 pa-pl-pr-0 text-right"><button type="submit" ng-disabled="LoginForm.userName.$error.required || LoginForm.password.$error.required" class="btn btn-login ob-padding-0 h-48 ob-line-ht-48 pa-font-bold pa-font-16">Log In</button></div>
+            </form>
+        </div>
+        <div class="alrd_lg_wrp">Don’t have an account? <a ng-href="/signup">Sign Up</a></div>
+    </div>
+    
+</div>

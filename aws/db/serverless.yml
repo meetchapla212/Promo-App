@@ -1,0 +1,55 @@
+service: promo-db
+
+custom:
+  defaultStage: dev
+
+provider:
+  name: aws
+  stage: ${opt:stage}
+  description: jl db
+  runtime: node
+  region: eu-west-1
+
+resources:
+  Resources:
+    citiesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: locationaccess${file(../env-${self:provider.stage}.json):DB_PREFIX}
+        AttributeDefinitions:
+          - AttributeName: location
+            AttributeType: S
+        KeySchema:
+          - AttributeName: location
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+
+    citiesTillDateTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: locationaccesstilldate${file(../env-${self:provider.stage}.json):DB_PREFIX}
+        AttributeDefinitions:
+          - AttributeName: location
+            AttributeType: S
+        KeySchema:
+          - AttributeName: location
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+
+    citiesAccessTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: cityaccess${file(../env-${self:provider.stage}.json):DB_PREFIX}
+        AttributeDefinitions:
+          - AttributeName: location
+            AttributeType: S
+        KeySchema:
+          - AttributeName: location
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5

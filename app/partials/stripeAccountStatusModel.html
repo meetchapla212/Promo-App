@@ -1,0 +1,22 @@
+<div class="custom-model-content event_claim_confirmation">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Stripe Approvel Status</span>
+        <md-icon class="pa-float-right" ng-click="close()">close</md-icon>
+    </div>
+    <div class="modal-body pa-text-center pa-background-white">
+        <div class="rewardpopup-content pa-pt-15 pb-15">
+            <i ng-if="status=='approve'" class="material-icons" style="color: #3FB86B; font-size: 42px;">check_circle</i>
+            <i ng-if="status=='pending'" class="material-icons" style="color: #F5AF00; font-size: 42px;">info</i>
+            <i ng-if="status=='reject'"  class="material-icons" style="color: #C3231B; font-size: 42px;">cancel</i>
+
+            <h2  ng-if="status=='approve'" >Account Approved!</h2>
+            <h2  ng-if="status=='pending'" >Account Verification is Pending! </h2>
+            <h2  ng-if="status=='reject'"  >Account Verification is Rejected! </h2>
+
+            <span  ng-if="status=='approve'" >{{ message }} </span>
+            <span  ng-if="status=='pending'" >{{ message }} <span ng-if="stripe_link !='';">Click here to change your <a ng-href="{{stripe_link}}"> stripe information.</a></span></span>
+            <span  ng-if="status=='reject'"  >{{ message }}</span>
+        </div>
+    </div>
+</div>
+

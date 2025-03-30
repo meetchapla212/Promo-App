@@ -1,0 +1,27 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE fixed-layout-vh">
+    
+    <div flex layout-fill class="pa-bg-EEEEEE fixed-layout-vh">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content "></div>
+        <div class="layout_panel_mwrap">
+            <div ng-include="'partials/sidebar.html'"></div>
+            <div class="layout_right_panel fixed-layout-vh-auto">
+                <div class="report_header mr-bt-20 mt-10">
+                    <h2 class="pa-font-20 pa-mt-0 pa-bold-font">Payout Method</h2>
+                    <p class="pa-color-3333338 pa-font-14 pa-no-bt-margin-imp">Your payout method for this event is:</p>
+                </div>
+                <div class="row crad-detials-sec pa-mt-0 pa-pt-0-imp bt-none">
+                    <div class="col-md-7">
+                        <div class="card-number-sec">
+                            <b>XXXXXXXX{{event.bank_info.last4}}</b>
+                            <a ng-click="openChangePayoutModel()" ng-if="ticketLists.length == 0" class="card-link display-table">Change Payout Method</a>
+                            <p ng-if="event.bank_info.event_total > 0" class="panding pa-display-inline-flex pa-align-items-center pa-mt-20 ng-scope"><i class="material-icons">info</i> This payout method is already in use with other live events hence, cannot be changed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- hide this section in mobile End Here -->
+
+    
+</div>

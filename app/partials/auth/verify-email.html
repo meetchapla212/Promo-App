@@ -1,0 +1,35 @@
+<div ng-controller="VerifyEmailController" flex layout="column" ng-cloak class="ob-background-color">
+    <div loader working="loading" disable-background="true" class="loader-content"></div>
+    <div class="pa-container">
+        <md-toolbar class="pa-header-bg pa-header-height mobile-hide">
+            <div class="md-toolbar-tools pa-header-height pa-margin-auto">
+                <div flex md-truncate class="mr-lt-20">
+                    <img src="/img/logo-the-promo-app-red.png" class="img-responsive header-logo" ng-click="goToPage('#')">
+                </div>
+                <div class="pa-header-left-margin mobile-hide">
+                    <md-button class="pa-color-pink pa-login-button-header pa-font-14 pa-font-wt-500" ng-click="goToPage('/login')">
+                        Login
+                    </md-button>
+                </div>
+            </div>
+        </md-toolbar>
+        <md-toolbar class="pa-background-pink pa-header-height desktop-hide">
+            <div class="md-toolbar-tools pa-header-height">
+                <div flex md-truncate>
+                    <img src="/img/logo.png" class="img-responsive header-logo">
+                </div>
+            </div>
+        </md-toolbar>
+    </div>
+    <div class="ob-background-color pa-modal-font" flex layout="column" layout-align="start stretch">
+        <div class="margin-top-50 ob-background-color">
+            <div class="col-lg-4 ob-back-sec">
+                <md-button class="pa-color-pink ob-arrow" ng-click="goToPage('/login')">
+                    <md-icon class="pa-color-pink ">keyboard_arrow_left</md-icon>
+                    <span class="tt-font-16 pa-font-bold pa-color-pink pa-vertical-align">Back To Log In</span>
+                </md-button>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</div>

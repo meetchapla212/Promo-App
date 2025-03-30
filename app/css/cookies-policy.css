@@ -1,0 +1,142 @@
+.custom-cookies-policy {
+    box-shadow: 0 0 1px 0px #000000;
+    margin: 0 auto;
+    background: white;
+    margin-top: 5%;
+    margin-bottom: 25px;
+}
+
+.cookies-head {
+    color: #333333;
+    font-size: 34px;
+    font-weight: bold;
+    letter-spacing: 0.41px;
+    line-height: 41px;
+    margin-bottom: 10px;
+}
+
+.accordion-terms-head h3 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.35px;
+    line-height: 28px;
+    margin: 0;
+}
+
+.accordion-terms-body {
+    font-size: 17px;
+    letter-spacing: -0.41px;
+    line-height: 25px;
+    color: #666666;
+    padding: 15px 15px;
+    padding-bottom: 0;
+}
+
+.accordion-terms-body span {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
+    line-height: 26px;
+}
+
+.accordion-terms-body a {
+    color: #a02541;
+    text-decoration: none;
+}
+
+.accordion-terms-head {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    padding: 20px 15px;
+    background: rgba(160, 37, 65, 0.09);
+    color: #a02541;
+}
+
+.collapsed .accordion-terms-icon .up {
+    display: inline-block !important;
+}
+
+.collapsed .accordion-terms-icon .down {
+    display: none !important;
+}
+
+.accordion-terms-icon i {
+    color: #A02541;
+    float: right;
+}
+
+.accordion-terms-main {
+    border: solid 1px hsla(346, 62%, 39%, 0.13);
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.accordion-terms-body span ul {
+    display: block;
+    margin-top: 10px;
+}
+
+.accordion-terms-body span ul li {
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.coockies_lst {
+    margin: 20px 0 0;
+}
+
+.coockies_lst li {
+    line-height: 1.67;
+    margin-bottom: 15px;
+}
+
+.coockies_lst li a {
+    color: #a02541;
+    text-decoration: none;
+}
+
+.coockies_lst li a:hover {
+    color: #69182b;
+}
+
+@media only screen and (max-width: 1199px) {
+    .cookies-head {
+        margin-bottom: 30px;
+    }
+    .custom-cookies-policy {
+        border: none;
+        box-shadow: none;
+    }
+    .accordion-terms-head {
+        background: transparent;
+        color: #333333;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0;
+    }
+    .accordion-terms-body {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .accordion-terms-main {
+        border: none;
+        border-bottom: solid 1px #E4E4E4;
+    }
+    .accordion-terms-body span ul {
+        padding-left: 20px;
+    }
+    .accordion-terms-body span ul li {
+        margin-bottom: 0;
+        margin-top: 12px;
+    }
+}
+
+@media only screen and (max-width: 555px) {
+    .accordion-terms-head h3 {
+        font-size: 18px;
+    }
+    .coockies_lst li a {
+        word-break: break-all;
+    }
+}

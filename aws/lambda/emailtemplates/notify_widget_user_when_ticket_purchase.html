@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="telephone=no" name="format-detection">
+    <title></title>
+    <!--[if (mso 16)]>
+    <style type="text/css">
+    a {text-decoration: none;}
+    </style>
+    <![endif]-->
+    <!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]-->
+    <!--[if !mso]> -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto&amp;display=swap" rel="stylesheet">
+    <!--<![endif]-->
+    <style type="text/css">
+        .table a {
+            text-decoration: none;
+            color: #A02541;
+        }
+
+        @media screen and (max-width: 600px) {
+            .table {
+                width: 100% !important;
+                padding: 0 15px !important;
+            }
+
+            .footer td {
+                width: 100% !important;
+                display: block !important;
+                text-align: center !important;
+            }
+
+            .footer td p {
+                text-align: center !important;
+            }
+
+            td.mob_change_st table td {
+                display: block !important;
+                width: 100% !important;
+                text-align: left !important;
+                padding: 0 !important;
+                padding-top: 20px !important;
+            }
+
+            td.mob_change_st table {
+                padding-top: 0 !important;
+            }
+
+            td.green_bar td {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                font-size: 18px !important;
+            }
+
+            td.green_bar table {
+                padding: 0 15px !important;
+            }
+
+            body table,
+            tr,
+            td {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            body table td.main_td table.table table {
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+            }
+
+        }
+    </style>
+</head>
+
+<body style="margin: 0px; padding: 0px; font-family: 'Roboto', sans-serif;">
+    <div style="background: #f4f4f7;">
+
+        <table align="center" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td class="main_td">
+
+                        <table align="center" cellpadding="0" cellspacing="0" class="table" width="600">
+                            <tbody>
+                                <tr>
+                                    <td>
+
+                                        <table align="center" cellpadding="0" cellspacing="0" width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div
+                                                            style="padding-top: 30px; padding-bottom: 20px; display: block; text-align: center;">
+                                                            <a href="<%=organiserWebsiteUrl%>">
+                                                                <img src="<%=organiserWebsiteLogo%>" width="140px"
+                                                                    align="center">
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <table align="center" bgcolor="#ffffff" cellpadding="0" cellspacing="0"
+                                            style="  box-shadow: 0 2px 4px rgba(34, 34, 34, 0.15); border-radius: 4px; background: #fff; border: solid 1px rgba(34, 34, 34, 0.15); border: solid 1px  rgba(204, 204, 204, 0.36); padding-top: 0;padding-left: 10px;padding-right: 10px;"
+                                            width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+
+                                                        <table align="center" cellpadding="0" cellspacing="0"
+                                                            width="100%">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td align="left"
+                                                                        style="padding-top: 40px; padding-bottom: 28px; padding-left: 20px; padding-right: 20px; font-size: 16px;">
+                                                                        Hi <%=attendee_name%></td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td align="left"
+                                                                        style="padding-bottom: 20px; font-size: 16px; line-height: 24px; padding-left: 20px; padding-right: 20px;   color: #666666;">
+                                                                        You’ve just bought a ticket to event, <b>
+                                                                            <a href="<%=eventUrl%>"><%=event_name%></a>
+                                                                        </b>.
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td align="left"
+                                                                        style="padding-bottom: 20px; font-size: 16px; line-height: 24px; padding-left: 20px; padding-right: 20px;   color: #666666;">
+                                                                        Exciting stuff - looks like your calendar is
+                                                                        filling up with awesome things to do.
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td align="left"
+                                                                        style="padding-bottom: 20px; font-size: 16px; line-height: 24px; padding-left: 20px; padding-right: 20px;   color: #666666;">
+                                                                        Below, you'll find the order confirmation email
+                                                                        for order number<a href="<%=view_tickets_link%>"
+                                                                            style="font-weight: bold;"> #<%=order_id%>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left"
+                                                                        style="padding-bottom: 20px; font-size: 16px; line-height: 24px; padding-left: 20px; padding-right: 20px;">
+                                                                        Cheers,
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left"
+                                                                        style=" padding-left: 20px; padding-right: 20px; padding-bottom: 20px; font-size: 16px;">
+                                                                        The Promo App Team
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 0 20px;">
+                                                        <table style="border-top: solid 1px #eee;padding-top: 22px;">
+                                                            <tr>
+                                                                <td
+                                                                    style="color: #333333;font-size: 24px;font-weight: bold;line-height: 28px;">
+                                                                    <%=event_name%>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding: 10px 0;">
+                                                                    <img src="<%=categoryImg%>"
+                                                                        style="  height: 32px;width: 32px; float: left;">
+                                                                    <span
+                                                                        style="color: #333333;font-size: 16px;line-height: 30px;margin: 0 10px;font-weight: 500;"><%=event_category%></span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="<%=event_image%>"
+                                                                        style="height: auto;width: 100%;border-radius: 15px;">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 0 20px;" class="mob_change_st">
+                                                        <table style="padding-top: 20px;width: 100%;">
+                                                            <td align="left"
+                                                                style=" font-size: 16px; line-height: 24px;   color: #666666; width: 50%;     padding-right: 12px;">
+                                                                <span><img
+                                                                        src="https://www.startdesigns.com/html_demo/promo-images/event.png"
+                                                                        style="float: left;height: 24px; width: 24px;opacity: 0.6;padding-bottom: 10px;margin-top: 3px;margin-right: 10px;"></span>
+
+                                                                <span
+                                                                    style="opacity: 0.6;color: #333333;font-size: 12px;letter-spacing: 0;line-height: 14px;">EVENT
+                                                                    STARTS<b
+                                                                        style="color: #333333;font-size: 14px;font-weight: bold;letter-spacing: 0;line-height: 16px;display: block;     width: 250px;"><%=event_start_date%></b></span>
+
+                                                            </td>
+                                                            <td align="left"
+                                                                style=" font-size: 16px; line-height: 24px;color: #666666; width: 50%;">
+                                                                <span><img
+                                                                        src="https://www.startdesigns.com/html_demo/promo-images/event.png"
+                                                                        style="float: left;height: 24px; width: 24px;opacity: 0.6;padding-bottom: 10px;margin-top: 3px;margin-right: 10px;"></span>
+
+                                                                <span
+                                                                    style="opacity: 0.6;color: #333333;font-size: 12px;letter-spacing: 0;line-height: 14px;">EVENT
+                                                                    ENDS<b
+                                                                        style="color: #333333;font-size: 14px;font-weight: bold;letter-spacing: 0;line-height: 16px;display: block;     width: 250px;"><%=event_end_date%></b></span>
+                                                            </td>
+                                                        </table>
+
+
+                                                        <table style="padding-top: 20px;width: 100%;">
+                                                            <td align="left"
+                                                                style=" font-size: 16px; line-height: 24px;color: #666666; width: 50%;     padding-right: 12px;">
+                                                                <span><img
+                                                                        src="https://www.startdesigns.com/html_demo/promo-images/location.png"
+                                                                        style="float: left;height: 24px; width: 24px;opacity: 0.6;padding-bottom: 30px;margin-top: 3px;margin-right: 10px;"></span>
+
+                                                                <span
+                                                                    style="color: #333333;font-size: 12px;letter-spacing: 0;line-height: 14px;">
+                                                                    <i style="opacity: 0.6; font-style: normal; ">LOCATION
+                                                                    </i><b
+                                                                        style="color: #333333;font-size: 14px;font-weight: bold;letter-spacing: 0;line-height: 16px;display: block;     width: 250px;"><%=event_address%></b>
+                                                                    <a href="<%=event_location%>"
+                                                                        style="font-size: 14px;">View Location
+                                                                        on Map</a>
+                                                                </span>
+                                                            </td>
+                                                            <td align="left"
+                                                                style=" font-size: 16px; line-height: 24px;color: #666666; width: 50%;">
+
+                                                                <span><img
+                                                                        src="https://www.startdesigns.com/html_demo/promo-images/user.png"
+                                                                        style="float: left;height: 24px; width: 24px;opacity: 0.6;padding-bottom: 30px;margin-top: 3px;margin-right: 10px;"></span>
+
+                                                                <span
+                                                                    style="color: #333333;font-size: 12px;letter-spacing: 0;line-height: 14px;"><i
+                                                                        style="opacity: 0.6; font-style: normal;">ORGANIZER</i><b
+                                                                        style="color: #333333;font-size: 14px;font-weight: bold;letter-spacing: 0;line-height: 16px;display: block;     width: 250px;"><%=organiser_name%></b>
+                                                                    <a href="<%=organiser_chat_link%>"
+                                                                        style="font-size: 14px;">Chat With
+                                                                        Organizer</a>
+                                                                </span>
+                                                            </td>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table align="center" cellpadding="0" cellspacing="0"
+                                                            width="100%"
+                                                            style="margin-top: 30px; padding-bottom: 20px; border-bottom: solid 1px #eee;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="text-align: center; ">
+                                                                        <a href="<%=eventUrl%>" class="btns-view-event"
+                                                                            style="background-color: #A02541;color: #fff;text-decoration: none;font-weight: bold;font-size: 14px;padding: 15px 30px;   border-radius: 4px;text-align: center;display: inline-block;font-family: Arial, 'saan sarif';">View
+                                                                            Event Details</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <table
+                                                            style="width: 100%;text-align: center;margin-top: 20px;margin-bottom: 30px;">
+                                                            <tr>
+                                                                <td
+                                                                    style="  font-size: 16px;  color: #222222;letter-spacing: 0;line-height: 18px;">
+                                                                    Share this event with your friends:</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding-top: 15px;">
+                                                                    <a
+                                                                        href="https://www.facebook.com/sharer/sharer.php?u=<%=encodedEventUrl%>"><img
+                                                                            src="https://www.startdesigns.com/html_demo/promo-images/facebook.png"
+                                                                            style="width: 43px;margin-right: 14px;"></a>
+                                                                    <a href="https://wa.me/?text=<%=encodedEventUrl%>"><img
+                                                                            src="https://www.startdesigns.com/html_demo/promo-images/whatsapp.png"
+                                                                            style="width: 43px;margin-right: 14px;"></a>
+                                                                    <a
+                                                                        href="mailto:?subject=<%=mailtosubject%>&body=<%=eventUrl%>"><img
+                                                                            src="https://www.startdesigns.com/html_demo/promo-images/email.png"
+                                                                            style="width: 43px;margin-right: 14px;"></a>
+                                                                    <a href="<%=eventUrl%>"><img
+                                                                            src="https://www.startdesigns.com/html_demo/promo-images/link.png"
+                                                                            style="width: 43px;margin-right: 14px;"></a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+
+
+                                            </tbody>
+                                        </table>
+
+
+
+                                        <table align="center" bgcolor="#ffffff" cellpadding="0" cellspacing="0"
+                                            style="  box-shadow: 0 2px 4px rgba(34, 34, 34, 0.15); border-radius: 4px; background: #fff; border: solid 1px rgba(34, 34, 34, 0.15); border: solid 1px  rgba(204, 204, 204, 0.36); padding-top: 0; margin-top: 20px;"
+                                            width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+
+                                                        <table align="center" cellpadding="0" cellspacing="0"
+                                                            width="100%" style="padding-left: 10px;padding-right: 10px;"
+                                                            class="mob_change_st">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td align="left"
+                                                                        style="padding-top: 30px;padding-bottom: 15px;padding-left: 20px;padding-right: 20px;font-size: 24px;color: #333333;font-weight: bold;letter-spacing: 1px;">
+                                                                        Order Summary</td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td align="left"
+                                                                        style="padding-bottom: 20px; font-size: 16px; line-height: 24px; padding-left: 20px; padding-right: 20px;   color: #666666;">
+                                                                        <span
+                                                                            style="opacity: 0.6;color: #333333;font-size: 12px;letter-spacing: 0;line-height: 14px;">BOOKING
+                                                                            DATE & TIME<b
+                                                                                style="color: #333333;font-size: 14px;font-weight: bold;letter-spacing: 0;line-height: 16px;display: block;"><%=booking_date_time%></b></span>
+                                                                    </td>
+                                                                    <td align="right"
+                                                                        style="padding-bottom: 20px; font-size: 16px; line-height: 24px; padding-left: 20px; padding-right: 20px;   color: #666666;">
+                                                                        <span
+                                                                            style="opacity: 0.6;color: #333333;font-size: 12px;letter-spacing: 0;line-height: 14px;">ORDER
+                                                                            NO. <b><a href="<%=view_tickets_link%>"
+                                                                                    style="color: #A02541;font-size: 14px;font-weight: bold;letter-spacing: 0;line-height: 16px;display: block;">#<%=order_id%></a></b></span>
+                                                                    </td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 0 20px;" class="main_td_s">
+                                                        <% _.each(user_tickets, function(eachTicket, key) { %>
+                                                        <table align="center" cellpadding="0" cellspacing="0"
+                                                            width="100%"
+                                                            style="border-top: solid 1px #eee;padding-top: 30px;margin-top: 10px; padding-left: 10px;padding-right: 10px;">
+                                                            <tr>
+                                                                <td
+                                                                    style="color: #333333;font-size: 16px;font-weight: bold;letter-spacing: 0;line-height: 18px;padding-bottom: 15px;">
+                                                                    <%=eachTicket.type%>
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td
+                                                                    style="opacity: 0.6;color: #333333;font-size: 12px;line-height: 14px; padding-bottom: 10px;">
+                                                                    TICKET QTY.</td>
+
+                                                                <td
+                                                                    style="color: #333333;font-size: 14px;font-weight: bold;line-height: 16px;text-align: right; padding-bottom: 10px;">
+                                                                    <%=eachTicket.quantity%></td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td
+                                                                    style="opacity: 0.6;color: #333333;font-size: 12px;line-height: 14px; padding-bottom: 10px;">
+                                                                    PRICE PER TICKET</td>
+                                                                <td
+                                                                    style="color: #333333;font-size: 14px;font-weight: bold;line-height: 16px;text-align: right; padding-bottom: 10px;">
+                                                                    $<%=eachTicket.price%></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td
+                                                                    style="opacity: 0.6;color: #333333;font-size: 12px;line-height: 14px; padding-bottom: 10px;">
+                                                                    AMT. PAID</td>
+                                                                <td
+                                                                    style="color: #333333;font-size: 14px;font-weight: bold;line-height: 16px;text-align: right; padding-bottom: 10px;">
+                                                                    $<%=eachTicket.amount_paid%></td>
+                                                            </tr>
+                                                        </table>
+                                                        <% }); %>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="green_bar">
+                                                        <table align="center" cellpadding="0" cellspacing="0"
+                                                            width="100%"
+                                                            style="margin-top: 10px;height: 50px;padding: 0 30px;background-color: #38B968;text-align: center;">
+                                                            <tr>
+                                                                <td
+                                                                    style="color: #FFFFFF;font-size: 20px;font-weight: bold; text-align: left;">
+                                                                    Total</td>
+                                                                <td
+                                                                    style="color: #FFFFFF;font-size: 20px;font-weight: bold;    padding-right: 40px;">
+                                                                    <%=total_quantity%> Tickets</td>
+                                                                <td
+                                                                    style="color: #FFFFFF;font-size: 20px;font-weight: bold; text-align: right;">
+                                                                    $<%=total_amount%></td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table align="center" cellpadding="0" cellspacing="0"
+                                                            width="100%" style="margin-top: 30px; margin-bottom: 30px;">
+                                                            <tr>
+                                                                <td style="text-align: center; ">
+                                                                    <a href="<%=view_tickets_link%>"
+                                                                        class="btns-view-event"
+                                                                        style="background-color: #A02541;color: #fff;text-decoration: none;font-weight: bold;font-size: 14px;padding: 15px 30px;   border-radius: 4px;text-align: center;display: inline-block;font-family: Arial, 'saan sarif';">View
+                                                                        Tickets</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <table align="center" bgcolor="#ffffff" cellpadding="0" cellspacing="0"
+                                            style="  box-shadow: 0 2px 4px rgba(34, 34, 34, 0.15); border-radius: 4px; background: #fff; border: solid 1px rgba(34, 34, 34, 0.15); border: solid 1px  rgba(204, 204, 204, 0.36); padding-top: 0; margin-top: 20px;     padding: 0 10px;"
+                                            width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td align="left"
+                                                        style="padding-top: 30px;padding-bottom: 15px;padding-left: 20px;padding-right: 20px;font-size: 24px;color: #333333;font-weight: bold;letter-spacing: 1px;">
+                                                        QR Codes</td>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style="text-align: center;       padding-bottom: 30px;  padding-left: 10px;">
+                                                        <% _.each(QRCodes, function(QRCodeItem, key) { %>
+                                                        <span
+                                                            style="color: #333333;font-size: 14px;font-weight: bold;letter-spacing: 0;line-height: 20px; width: 96px; text-align: center; float: left; margin-right: 50px;">
+                                                            <img src="<%=QRCodeItem.QRCode%>"
+                                                                style=" height: 96px;width: 96px;">
+                                                            <%=QRCodeItem.ticket_name%>
+                                                        </span>
+                                                        <% }); %>
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table
+                                            style=" color: #222222;font-size: 16px;letter-spacing: 0;line-height:
+                                                                18px;width: 100%;text-align: center; font-weight: bold;
+                                                                border-bottom: solid 1px #e9e9ea;padding-bottom: 30px;">
+                                            <tr>
+                                                <td>
+                                                    <span
+                                                        style="display: block;color: #E49411;margin-bottom: 10px;margin-top: 30px;">Important
+                                                        Instruction:</span>
+                                                    Please present the QR code to enter the event premises.
+                                                </td>
+                                            </tr>
+                                        </table>
+
+
+
+                                        <table align="center" cellpadding="0" cellspacing="0" style="width: 100%;">
+                                            <tr>
+                                                <td>
+                                                    <div
+                                                        style="padding-top: 30px; padding-bottom: 0; display: block; text-align: center;">
+                                                        <span
+                                                            style="display: block;width: 100%;color: #999999;font-size: 16px;letter-spacing: 0;line-height: 18px;text-align: center;margin-bottom: 10px;">Powered
+                                                            By</span>
+                                                        <a href="<%=base_url%>">
+                                                            <img src="https://www.startdesigns.com/html_demo/promo-images/logo-promo.png"
+                                                                width="140px" align="center">
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="download-footer-sections"
+                                                        style="padding: 30px 30px 20px 30px;border-bottom: 1px solid #e4e4e4;text-align: center;">
+                                                        <h3
+                                                            style=" margin: 0px 0px 25px 0px;font-size: 20px;font-family: Arial, 'saan sarif';">
+                                                            Download the Promo App now</h3>
+
+                                                        <span> <a
+                                                                href="https://apps.apple.com/us/app/promo-see-whats-going-on-around/id1075964954"><img
+                                                                    src="https://www.startdesigns.com/img/1425.png"
+                                                                    style="width: 144px;"></a></span>
+                                                        <span> <a
+                                                                href="https://play.google.com/store/apps/details?id=com.thepromoapp.promo"><img
+                                                                    src="https://www.startdesigns.com/html_demo/promo-images/andriod.png"
+                                                                    style="width: 144px;"></a></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <table align="center" cellpadding="0" cellspacing="0" class="footer"
+                                            style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;"
+                                            width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+
+                                                        <p>
+                                                            <a href="http://www.facebook.com/promoappevents"
+                                                                style="display: inline-block;"> <img
+                                                                    src="https://www.startdesigns.com/html_demo/promo-images/facebook-icon.png"
+                                                                    style="margin-right:11px;width: 45px;display: block;"></a>&nbsp;
+                                                            &nbsp;
+                                                            <a href="https://www.instagram.com/georgepromo/"><img
+                                                                    src="http://startdesigns.com/Gpl_Email/insta.png"
+                                                                    width="42px;" target="_blank"></a>
+                                                        </p>
+                                                    </td>
+                                                    <td>
+
+                                                        <p style="text-align: right;">
+                                                            <a href="<%=base_url%>/about_us"
+                                                                style="font-size: 14px;font-weight: 400;color: rgba(51, 51, 51, 0.8);text-decoration: none;">About
+                                                                Us</a>&nbsp; &nbsp;
+                                                            <a href="<%=base_url%>/terms_of_use"
+                                                                style="font-size: 14px; color: #333333; text-decoration: none;"
+                                                                target="_blank">Terms &amp; Conditions</a>&nbsp;
+                                                            &nbsp;
+                                                            <a href="<%=base_url%>/cookies_policy"
+                                                                style="font-size: 14px; color: #333333; text-decoration: none;"
+                                                                target="_blank">Privacy &amp; Policy</a>
+                                                        </p>
+
+                                                        <p style="text-align: right; font-size: 12px; color: #666666;">
+                                                            Copyright@2020, Promo Application LLC. All Rights Reserved
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,214 @@
+.pa-web-filter-pos {
+    position: absolute;
+    z-index: 9999;
+    top: 40px;
+    right: 3px;
+}
+
+.gm-style .gm-style-iw-c {
+    background-color: transparent !important;
+    border: 1px solid #E4E4E4;
+    box-shadow: none !important;
+    max-width: 490px !important;
+    width: 490px !important;
+    padding: 0px;
+    overflow: hidden !important;
+}
+
+.gm-style .gm-style-iw-d {
+    max-height: unset !important;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.15);
+    width: 490px;
+    overflow: hidden !important;
+}
+
+.gm-ui-hover-effect {
+    display: none !important;
+}
+
+.pa-marker-icon-align {
+    padding-top: 2px;
+    padding-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.pa-desc-style {
+    font-size: 12px;
+    word-break: break-word;
+}
+
+.pa-marker-container {
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.15);
+}
+
+.pa-remove-icon-search {
+    position: absolute!important;
+    right: 8%;
+    top: 20%!important;
+    color: #333333;
+}
+
+.pa-map-event-details {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.map-marker-background-grad:after {
+    position: absolute;
+    background-image: linear-gradient(transparent 60%, #000000 90%);
+    width: 232px;
+    height: 175px;
+    top: 0px;
+    left: 0px;
+    content: '';
+}
+
+.mm-view {
+    color: #D0021B;
+    background: #FFFFFF;
+    width: 60px;
+    height: 26px;
+    border: 1px solid #E4E4E4;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 10px;
+    left: 162px;
+    align-items: center;
+}
+
+.margin-top-4 {
+    margin-top: -4px;
+}
+
+.info-custom-control {
+    position: fixed !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    bottom: 24% !important;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.info-custom-control .pa-center-div:not(.mm-view) {
+    justify-content: left;
+    margin-top: 5px;
+}
+
+.info-custom-control .pa-font-20 {
+    line-height: normal;
+}
+
+.info-custom-control .material-icons {
+    text-align: right;
+}
+
+@media screen and (max-width: 1024px) {
+    .pa-marker-container {
+        width: 100% !important;
+        border-radius: 8px;
+        width: 128px;
+        height: 128px;
+        overflow: hidden;
+        align-items: center;
+    }
+    .map-marker-background-grad>img {
+        width: 180px !important;
+    }
+    .map-marker-background-grad>img {
+        width: 180px !important;
+        height: 128px !important;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+    .map-marker-background-grad:after {
+        width: 128px !important;
+        height: 128px !important;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+    .info-custom-control .map-marker-background-grad>img {
+        width: 127px !important;
+        height: 128px !important;
+    }
+    .mm-view {
+        left: 65px;
+        width: 53px;
+    }
+    .mobile-info-custom .tt-padding-20 {
+        padding: 15px !important;
+    }
+    .info-custom-control.mobile-info-custom .tt-padding-20 {
+        padding: 9px !important;
+    }
+    .pt-8 {
+        padding-top: 8px;
+    }
+    .mobile-info-custom {
+        border-radius: 8px;
+        overflow: hidden;
+        width: 320px;
+    }
+    .mobile-info-custom .tt-padding-20 .pa-multiline-ellipse {
+        width: 140px;
+    }
+    .mobile-info-custom .tt-padding-20 .overflow-hidden {
+        overflow: hidden !important;
+    }
+    .pa-marker-container .map-marker-background-grad {
+        flex: 0 0 128px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .loader-home-left-map {
+        margin-top: 40px;
+    }
+    .prelogin.loader-home-left-map {
+        margin-top: 0;
+    }
+    .info-custom-control {
+        z-index: 99 !important;
+    }
+}
+
+.gm-style .gm-style-iw-t::after {
+    display: none !important;
+}
+
+.ng-map-info-window::after {
+    display: none !important;
+}
+
+.ng-map-info-window::before {
+    display: none !important;
+}
+
+.mobile-filters-list-view.mobile-view-filter {
+    margin-top: 15px;
+}
+
+.mobile-filters-list-view.mobile-view-filter .mobile-header {
+    display: inline-flex;
+    align-items: center;
+}
+
+.mobile-filters-list-view .mobile-header .back-btn-mobile,
+.mobile-filters-list-view .mobile-header .back-btn-mobile a {
+    display: inline-flex;
+}
+
+.mobile-filters-list-view .mobile-header .filter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}

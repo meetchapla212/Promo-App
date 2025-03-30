@@ -1,0 +1,69 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE">
+    
+
+    <div flex layout-fill class="mobile-hide pa-bg-EEEEEE" infinite-scroll="increaseLimit(notifications.length)" infinite-scroll-distance="1">
+        <div class="container-wtd-1170">
+            <div class="search-people-head" ng-if="!userProfileView">
+                <h1>Notifications</h1>
+            </div>
+            <div loader working="loading" disable-background="true" class="loader-content"></div>
+            <div class="notifications-box center">
+                <div ng-if="!notifications || notifications.length === 0" class="pa-padding-20">
+                    <span class="events-to-display-title">No current notifications!</span>
+                    <span class="events-to-display-content">Your recent purchases, events from organizers you follow, and other notifications will appear here.</span>
+                </div>
+                <div class="container-fluid margin-bottom-50">
+                    <section style="padding-left: 15px;" ng-repeat="notification in notifications | start: ((pagination.currentPage - 1) * pagination.numPerPage) | limitTo: pagination.numPerPage">
+                        <div ng-show="{{!(notifications[$index].updatedDate==notifications[ $index-1].updatedDate)}}">
+                            <div class="notifications-text" style="opacity:1;font-size:20px;">
+                                {{notification.date_created*1000 | date:'MMM d, y'}}
+                            </div>
+                            <hr class="row" style="background-color: #CCCCCC;height: 2px;" />
+                        </div>
+                        <a class="pa-cursor-default" ng-attr-href="{{notification.notif_type == 'UpdateProfile' ? notification.url:undefined}}" ng-attr-event-detail-modal="{{notification.notif_type != 'UpdateProfile' ? notification._parent_id:undefined }}" event="notification._parent_id">
+                            <div class="row notification-tab" style="padding:0px 0px 20px 10px;margin-right: -2px;">
+                                <div class="col-xs-1 col-sm-2 col-md-2 no-padding" style="top: 10px;">
+                                    <img ng-src="{{'/img/defaultProfilePic.png'}}" class="img-responsive notifications-image" />
+                                </div>
+                                <div class="col-xs-10 col-md-10 notifications-text" style="font-size:16px;">
+                                    {{notification.notify_text}}
+                                </div>
+                                <div class="col-xs-3 col-md-2 notifications-text text-right">
+                                    <em>{{notification.date_created | toMoment | momentFormatter:'MMM D, YYYY, hh:mm A'}}</em>
+                                </div>
+                            </div>
+                        </a>
+                    </section>
+                    <div class="text-center custom-pagination" ng-if="notifications.length > 30">
+                        <ul uib-pagination items-per-page="pagination.numPerPage" total-items="notifications.length" ng-model="pagination.currentPage" max-size="pagination.maxSize" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div layout="column" layout-align="start stretch" class="mobile-perent desktop-hide flex notifications-sec-mob">
+        <div class="mobile-header display-flex-mob">
+            <span class="back-btn-mobile">
+                <a back-to-history class="pa-cursor-pointer"><i class="material-icons">arrow_back_ios</i></a>
+            </span>
+        </div>
+        <div class="container notifications-sec-mob" infinite-scroll="increaseLimit(notifications.length)" infinite-scroll-distance="1">
+            <h2 class="add-mob-title">Notifications</h2>
+            <div loader working="loading" disable-background="true" class="loader-content"></div>
+            <div class="events-to-display notifications-display" ng-repeat="notification in notifications | start: ((paginationMobile.currentPage - 1) * paginationMobile.numPerPage) | limitTo: paginationMobile.numPerPage">
+                <div class="notifications-mobile">
+                    {{notification.notify_text}}
+                </div>
+            </div>
+            <div ng-if="!notifications || notifications.length === 0" class="events-to-display">
+                <span class="events-to-display-title">No current notifications!</span>
+                <span class="events-to-display-content">Your recent purchases, events from organizers you follow, and other notifications will appear here.</span>
+            </div>
+            <div class="text-center custom-pagination" ng-if="notifications.length > 10">
+                <ul uib-pagination items-per-page="paginationMobile.numPerPage" total-items="notifications.length" ng-model="paginationMobile.currentPage" max-size="paginationMobile.maxSize" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false"></ul>
+            </div>
+        </div>
+    </div>
+</div>

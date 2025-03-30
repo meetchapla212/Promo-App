@@ -1,0 +1,20 @@
+<div class="custom-model-content unpublish-popup">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Unpublish Event Confirmation</span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+    <div class="modal-body pa-text-center pa-background-white">
+        <div class="rewardpopup-content">
+            <span>All the purchased ticket would be refunded automatically. Would you still like to Unpublish this event?</span>
+
+            <label>Mention the Reason</label>
+            <textarea placeholder="Mention the Reason" class="w-400 form-control pa-border pa-color-333333 pa-mt-0 autosize pa-button-font-size" ng-model="unpublishReason" style="min-height: 48px;"></textarea>
+        </div>
+        <div class="profile-edit-form-btn">
+            <div class="btn-group">
+                <md-button ng-disabled="unpublishReason ==''" ng-click="publisUnpublishEvent('stop',event_id,unpublishReason )" class="pa-pink-button pa-no-margin md-button md-ink-rippl">Yes</md-button>
+                <md-button class="cancel-btn" ng-click="cancel()">No</md-button>
+            </div>
+        </div>
+    </div>
+</div>

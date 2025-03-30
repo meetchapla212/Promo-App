@@ -1,0 +1,62 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE fixed-layout-vh">
+    
+    <div flex layout-fill class="pa-bg-EEEEEE fixed-layout-vh">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content "></div>
+        <div class="layout_panel_mwrap">
+            <div ng-include="'partials/sidebar.html'"></div>
+            <div class="layout_right_panel fixed-layout-vh-auto">
+                <div class="report_header mr-bt-20 mt-10">
+                    <h2 class="pa-font-20 pa-mt-0 pa-bold-font">Download Reports</h2>
+                    <p class="pa-color-3333338 pa-font-14">Download reports to get advanced data on your attendees<br/> and your event finances.</p>
+                </div>
+                <!-- Report List -->
+                <div class="report_list_sec manage-report">
+                    <div class="report_list_box pa-background-white pa-padding-15 pa-mb-15 wht-show-content">
+                        <h4 class="pa-color-333333 pa-font-18 pa-mb-15 pa-bold-font">Guestlist report</h4>
+                        <p class="pa-color-3333338">A list of your attendee names. Ideal for checking people in at the door.</p>
+                        <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 pa-border-4" ng-click="guestsReport('csv');">
+                    <i class="material-icons">get_app</i> CSV</button>
+                        <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 pa-border-4" ng-click="guestsReport('xls');">
+                    <i class="material-icons">get_app</i> XLS</button>
+                    </div>
+                    <div class="report_list_box pa-background-white pa-padding-15 pa-mb-15 wht-show-content">
+                        <h4 class="pa-color-333333 pa-font-18 pa-mb-15 pa-bold-font">Orders report</h4>
+                        <p class="pa-color-3333338">A cost breakdown of each order. An order may include multiple tickets.</p>
+                        <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 pa-border-4" ng-click="ordersReport('csv');">
+                    <i class="material-icons">get_app</i> CSV</button>
+                        <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 pa-border-4" ng-click="ordersReport('xls');">
+                    <i class="material-icons">get_app</i> XLS</button>
+                    </div>
+                    <div class="report_list_box pa-background-white pa-padding-15 pa-mb-15 wht-show-content">
+                        <h4 class="pa-color-333333 pa-font-18 pa-mb-15 pa-bold-font">Tickets report</h4>
+                        <p class="pa-color-3333338">A cost breakdown of each ticket.</p>
+                        <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 pa-border-4" ng-click="ticketsReport('csv');">
+                    <i class="material-icons">get_app</i> CSV</button>
+                        <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 pa-border-4" ng-click="ticketsReport('xls');">
+                    <i class="material-icons">get_app</i> XLS</button>
+                    </div>
+                    <div class="report_list_box pa-background-white pa-padding-15 pa-mb-15 wht-show-content">
+                        <h4 class="pa-color-333333 pa-font-18 pa-mb-15 pa-bold-font">Check-ins report</h4>
+                        <p class="pa-color-3333338">A list of all check-ins at your event.</p>
+                        <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 pa-border-4" ng-click="checkInsReport('csv');">
+                    <i class="material-icons">get_app</i> CSV</button>
+                        <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 pa-border-4" ng-click="checkInsReport('xls');">
+                    <i class="material-icons">get_app</i> XLS</button>
+                    </div>
+                    <div class="report_list_box pa-background-white pa-padding-15 pa-mb-15 wht-show-content">
+                        <h4 class="pa-color-333333 pa-font-18 pa-mb-15 pa-bold-font">Cancellations and Refunds Report</h4>
+                        <p class="pa-color-3333338">A breakdown of all orders that have been cancelled or refunded.</p>
+                        <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 pa-border-4" ng-click="cancellationReport('csv');">
+                    <i class="material-icons">get_app</i> CSV</button>
+                        <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 pa-border-4" ng-click="cancellationReport('xls');">
+                    <i class="material-icons">get_app</i> XLS</button>
+                    </div>
+                </div>
+                <!-- Report List End -->
+            </div>
+        </div>
+    </div>
+    <!-- hide this section in mobile End Here -->
+
+    
+</div>

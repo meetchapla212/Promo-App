@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <span class="modal-title" id="link-modal-title"style="text-transform: capitalize;">Location of "{{eventMarkerForModal.title | limitTo:60}}{{eventMarkerForModal.event_name.length > 60?'...':''}}"</span>
+    <a ng-click="cancel()">
+            <span class="modal-close-button">
+               <i class="material-icons">close</i>
+            </span>
+    </a>
+</div>
+<div class="modal-body" id="link-modal-body">
+    <ng-map styles='[{ featureType: "poi",elementType: "labels",stylers: [{ visibility: "off" }]},{ featureType: "transit",stylers: [{ visibility: "off" }]},{"featureType": "road","elementType": "labels.icon","stylers": [{"visibility": "off"}]}]'
+            center="{{eventMarkerForModal.latitude}} , {{eventMarkerForModal.longitude }}">
+        <marker position="{{eventMarkerForModal.latitude}} , {{eventMarkerForModal.longitude }}"></marker>
+        <custom-marker position="{{eventMarkerForModal.latitude}} , {{eventMarkerForModal.longitude }}">
+            <div class="event-name-marker-modal">{{eventMarkerForModal.title}}</div>
+            <div class="event-marker-modal-address">
+                {{eventMarkerForModal.address}}
+            </div>
+        </custom-marker>
+    </ng-map>
+
+
+
+</div>

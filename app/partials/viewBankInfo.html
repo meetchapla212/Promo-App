@@ -1,0 +1,81 @@
+<div class="popup-perent rewardtermspopup addBank-account custom-model-content">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Update Bank Information</span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+    <div class="modal-body pa-text-center pa-background-white">
+        <div class="rewardpopup-content form-poup-congratulations">
+            <form>
+                <md-content>
+                    <div class="congratulations-form-filed">
+                        <div class="row pa-mt-10 pa-mb-12">
+                            <div class="col-md-6">
+                                <md-input-container>
+                                    <label>In Which Country Will You Be Paid? </label>
+                                    <input ng-model="bankAccountParams.country" type="text" placeholder="United States" disabled>
+                                </md-input-container>
+                            </div>
+                            <div class="col-md-6">
+                                <md-input-container>
+                                    <label>Currency </label>
+                                    <input ng-model="bankAccountParams.currency" type="text" placeholder="U.S. Dollar $" disabled>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div class="row pa-mt-10 pa-mb-12">
+                            <div class="col-md-12 group-de-radio-button">
+                                <md-radio-group ng-model="bankAccountParams.account_holder_type">
+                                    <label>Account Holder Information</label>
+                                    <md-radio-button value="individual" style="margin-top: 15px;">Individual</md-radio-button>
+                                    <md-radio-button value="company"> Company </md-radio-button>
+                                </md-radio-group>
+                            </div>
+                        </div>
+                        <div class="row pa-mt-10 pa-mb-12">
+                            <div class="col-md-6">
+                                <md-input-container>
+                                    <label>Name On Account </label>
+                                    <input ng-model="bankAccountParams.account_holder_first_name" type="text" placeholder="First Name">
+                                </md-input-container>
+                            </div>
+                            <div class="col-md-6">
+                                <md-input-container>
+                                    <label></label>
+                                    <input ng-model="bankAccountParams.account_holder_last_name" type="text" placeholder="Last Name">
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div class="row pa-mt-10 pa-mb-12">
+                            <div class="col-md-12">
+                                <md-input-container>
+                                    <label>Routing Number</label>
+                                    <input ng-model="bankAccountParams.routing_number" type="text" disabled>
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div class="row pa-mt-10 pa-mb-12">
+                            <div class="col-md-6">
+                                <md-input-container>
+                                    <label>Account Number </label>
+                                    <input ng-model="bankAccountParams.account_number" type="text" placeholder="Account Number" disabled>
+                                </md-input-container>
+                            </div>
+                            <div class="col-md-6">
+                                <md-input-container>
+                                    <label>Re-enter Account Number</label>
+                                    <input ng-model="bankAccountParams.account_number" type="text" placeholder="Re-enter Account Number" disabled>
+                                </md-input-container>
+                            </div>
+                        </div>
+                    </div>
+                </md-content>
+            </form>
+            <div class="btn-group">
+                <md-button ng-click="updateBankInfo(stripe_bank_id,bankAccountParams)">Update</md-button>
+                <md-button ng-click="cancel()" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit md-button  md-ink-ripple">No</md-button>
+            </div>
+        </div>
+    </div>
+</div>

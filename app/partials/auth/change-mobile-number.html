@@ -1,0 +1,77 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE" ng-if="!isMobile.matches">
+    
+    <div flex class="container-wtd-1170">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+        <div class="text-head">
+            <a ng-click="goToPage('/myprofile')" class="back-to-btn"><i class="material-icons">navigate_before</i> Back to My Profile</a>
+        </div>
+        <div class="organizer-profile pa-mb-15 pa-pb-0-imp">
+            <div ng-if="user.mobile_number" class="event-interested-sub br-bt-none"> Change Mobile Number</div>
+            <div ng-if="!user.mobile_number" class="event-interested-sub br-bt-none"> Add Mobile Number</div>
+            <div class="profile-edit-form mobile-insta-login">
+                <form ng-if="countryCodeValue" name="changeMobileNumberForm" id="changeMobileNumber" ng-submit="chngMobileNum(changeMobileNumberForm, mobileNumber)" class="pa-no-padding">
+                    <div class="md-input-container">
+                        <country-code-select ng-model="countryCode"></country-code-select>
+                    </div>
+                    <md-input-container class="form-group full-field pa-mt-30-imp flex-gt-sm md-input-has-value pa-mb-12">
+                        <label class="padding-left-115-m">Mobile Number <span class="pa-required">*</span></label>
+                        <input ng-model="mobileNumber" name="mobile_number" class="form-control login-control ob-color-input tt-font-16 padding-left-110" type="number" ng-pattern="/^\+?\d{10}$/" ng-change="signupBlur(mobileNumber)" ng-required="changeMobileNumberForm.mobile_number.$invalid"
+                        />
+                        <a class="username-clear" ng-hide="!mobileNumber" ng-click="mobileNumber = null"><span class="material-icons">close</span></a>
+                        <div ng-messages="changeMobileNumberForm.mobile_number.$error" class="input-error">
+                            <div ng-message="required">This field is required.</div>
+                        </div>
+                        <div ng-if="mobileNumberError" class="username-error">
+                            <div>Please Enter Valid Mobile Number.</div>
+                        </div>
+                    </md-input-container>
+
+                    <div class="profile-edit-form-btn pa-row-eq-height">
+                        <md-button class="pa-pink-button pa-no-margin" type="submit" ng-disabled="!changeMobileNumberForm.$valid || mobileNumberError">Save Changes</md-button>
+                        <button ng-click="goToPage('/myprofile')" class="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<!-- Mobile view -->
+<div flex layout="column" layout-align="start stretch" class="pa-background-white" ng-if="isMobile.matches">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div class="create-new-event pos-r mobile-edit" ng-show="!imageSelected">
+        <div class="mobile-header">
+            <span class="cancel-mobile">
+                <a back-to-history>Cancel</a>
+            </span>
+            <h2 class="pdt-right-30">{{user.mobile_number ? 'Change Mobile Number' : 'Add Mobile Number'}}</h2>
+        </div>
+        <div class="mobile-form pa-mt-30-imp pa-pl-0 pa-pr-0">
+            <form ng-if="countryCodeValue" name="changeMobileNumberForm" id="changeMobileNumber" class="event-form edit-user-profile-mob create-w-100 pa-no-padding">
+                <div class="mobile-insta-login">
+                    <div class="md-input-container">
+                        <country-code-select ng-model="countryCode"></country-code-select>
+                    </div>
+                    <md-input-container class="form-group full-field flex-gt-sm md-input-has-value pa-mb-12">
+                        <label class="padding-left-115-m">Mobile Number <span class="pa-required">*</span></label>
+                        <input ng-model="mobileNumber" name="mobile_number" class="form-control login-control ob-color-input tt-font-16 padding-left-110" type="number" ng-pattern="/^\+?\d{10}$/" ng-change="signupBlur(mobileNumber)" ng-required="changeMobileNumberForm.mobile_number.$invalid"
+                        />
+                        <a class="username-clear" ng-hide="!mobileNumber" ng-click="mobileNumber = null"><span class="material-icons">close</span></a>
+                        <div ng-messages="changeMobileNumberForm.mobile_number.$error" class="input-error">
+                            <div ng-message="required">This field is required.</div>
+                        </div>
+                        <div ng-if="mobileNumberError" class="username-error">
+                            <div>Please Enter Valid Mobile Number.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div class="pa-sticky-footer">
+                    <div class="mobile-full-btn-ft">
+                        <md-button class="pa-pink-button pa-no-margin" ng-class="!mobileNumberError ?'bg-theme-btn':'gray-btn'" type="submit" ng-disabled="!changeMobileNumberForm.$valid || mobileNumberError" ng-click="chngMobileNum(changeMobileNumberForm, mobileNumber)">Save</md-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE">
+    
+    <div flex class="container-wtd-1170 mobile-hide">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+        <div class="search-people pa-mb-15 row pa-bootstrap-row">
+            <div class="text-head">
+                <a href="/category" class="back-to-btn"><i class="material-icons">navigate_before</i> Back to the
+                    Categories</a>
+            </div>
+            <div class="search-people-head" ng-show='currentCategoryObj'>
+                <h1>{{currentCategoryObj}}</h1>
+            </div>
+            <div class="search-people-section">
+                <div class="pa-modal-font row hidden-xs pa-pl-pr-15">
+                    <div class="row pa-bootstrap-row">
+                        <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4 pa-mt13 h-40">
+                            <i class="material-icons pa-color-333333 pa-map-marker location_on _post_ovr">location_on</i>
+                            <div class="input-group recommended-sub-header">
+                                <input type="text" class="form-control pa-no-padding recommend-input-control pa-h-43 pa-color-333333 pa-pr-25 pa-border-E4E4E4 pa-font-16 bg-F6F6F6" googleplace placeholder="{{locationPlaceholder}}" ng-disabled="disableLocation" ng-model="chosenPlace"
+                                    required="" aria-invalid="false" autocomplete="off">
+                                <span class="input-group-addon pa-input-addon recommend-input-addon catogery-page">
+                                    <a ng-click="getCurrentPos()">
+                                        <md-icon class="pa-color-pink material-icons" role="img" aria-label="gps_fixed">
+                                            gps_fixed</md-icon>
+                                    </a>
+                                    <a ng-click="clearLocation();" ng-show="chosenPlace" class="gps-current remove-location-icon"><i class="material-icons pa-color-333333">close</i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="separator" style="margin-bottom: 0px;"></div>
+
+                <div class="suggested-people">
+                    <div class="people-list pa-no-bt-margin-imp pa-bootstrap-row row" infinite-scroll="increaseLimit(ev.length)">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" id="event_box_{{x.event_id}}" ng-repeat="x in events =( ev |unique:'event_id' | orderBy:'claimed_on' | orderBy:'start_date_time_ms') track by x.event_id" ng-init="updateShowEventListLoader(events.length,$index)"
+                            ng-if="$index < eventPerPage">
+                            <event-overview event="x" read-only="true" hide-description="true"></event-overview>
+                        </div>
+                    </div>
+
+                    <div class="people-list" ng-if="ev.length === 0 && !loading">No events found</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

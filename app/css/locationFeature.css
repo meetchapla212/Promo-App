@@ -1,0 +1,110 @@
+.location-div {
+    padding: 10px 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.ht-40 {
+    height: 40px;
+}
+
+.location-search-icon {
+    left: 10px !important;
+}
+
+.location-input {
+    box-sizing: border-box;
+    border: 1px solid #E4E4E4;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.location_lst:last-child div:last-child {
+    border: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.search-location-label::placeholder {
+    color: #999999 !important;
+    font-size: 16px !important;
+}
+
+.pa-pl-38 {
+    padding-left: 38px;
+}
+
+.location-form md-input-container .md-input {
+    height: 40px;
+    border-radius: 4px;
+    color: #333333;
+    font-size: 16px !important;
+    position: relative;
+    top: -3px;
+    border: 2px solid transparent;
+}
+
+.location-section-flow {
+    max-height: 375px;
+    overflow: auto;
+    display: inline-block;
+    width: 100%;
+}
+
+@supports (-moz-appearance:none) {
+    .location-form md-input-container .md-input {
+        height: auto;
+        top: 8px;
+        line-height: normal;
+    }
+}
+
+.location-form md-input-container .md-input::placeholder {
+    line-height: 16px !important;
+}
+
+.pa-color-1D1A20 {
+    color: #1D1A20;
+}
+
+.pa-font-28 {
+    font-size: 28px;
+}
+
+.pick-city {
+    height: 48px;
+    width: 100%;
+    border: 0;
+    border-radius: 5px;
+    background-color: #A02541;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.pa-color-161718 {
+    color: #161718;
+}
+
+.pa-ht-40 {
+    height: 40px !important;
+}
+
+.pa-font-22 {
+    font-size: 22px;
+}
+
+.bg-ee {
+    background: #EEEEEE !important;
+}
+
+.pickcity_section .custom-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+@media only screen and (max-width: 1440px) {
+    .location-section-flow {
+        max-height: 335px;
+    }
+}

@@ -1,0 +1,201 @@
+<div ng-controller="SignupController">
+    <div layout="column" layout-align="start stretch" class="mobile-hide pa-bg-EEEEEE">
+        <div class="pa-bg-EEEEEE mobile-hide">
+            <div class="container-wtd-1170">
+                <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+            </div>
+            <div class="tc_selection_main">
+                <div class="text-head">
+                    <a ng-href="/widget/ticket_list?ev={{event.event_id}}" class="back-to-btn"><i class="material-icons">navigate_before</i> Back to Ticket Selection</a>
+                </div>
+                <div class="tc_selection_wrap">
+                    <!---------------- step 1 ---------------->
+                    <div class="tc_selection_left_section" ng-show="!showOTPForm">
+                        <div class="custom_section_check_seat with_timer_check secure_sec_chek">
+                            <div class="secure_sec">Your Details</div>
+                            <div class="secure_sec_green"> <i class="material-icons">lock</i> Secure Checkout</div>
+                        </div>
+                        <div class="profile-edit-form">
+                            <form name="signupFormEmail" ng-submit="signUp()" id="signup_form" class="event-form create-w-100 pa-no-padding checkout_from">
+                                <md-input-container class="form-group">
+                                    <label>Full Name <span class="pa-required">*</span></label>
+                                    <input md-no-asterisk ng-model="full_name" name="" uib-tooltip="Full name is required." tooltip-placement="top-right" tooltip-trigger="'focus'" placeholder="e.g. John doe" type="text" class="form-control" required>
+                                    <div ng-messages="signupFormEmail.full_name.$error" class="input-error">
+                                        <div ng-message="required">This field is required.</div>
+                                    </div>
+                                </md-input-container>
+
+                                <md-input-container class="form-group">
+                                    <label>Email Address <span class="pa-required">*</span></label>
+                                    <input md-no-asterisk ng-model="Email" name="Email" uib-tooltip="Email is required." tooltip-placement="top-right" tooltip-trigger="'focus'" tooltip-enable="signupFormEmail.Email.$touched && signupFormEmail.Email.$invalid" placeholder="Enter Email Address"
+                                        type="text" class="form-control" ng-focus="email=true" ng-blur="email=false" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email Address'" ng-pattern="/^[^+\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+
+                                    <div ng-messages="signupFormEmail.Email.$error" class="input-error">
+                                        <div ng-message="required">This field is required.</div>
+                                        <div ng-message="pattern">Please Enter Valid Email.</div>
+                                    </div>
+
+                                </md-input-container>
+
+                                <md-input-container class="form-group mr-bt-20">
+                                    <label>City <span class="pa-required">*</span> <a ng-click="getCurrentPos()" class="input-link pa-pointer-events-all"> Detect My City</a></label>
+                                    <input type="text" ng-pattern="/^[a-zA-Z0-9 \\\/,-]+$/" md-no-asterisk placeholder="Enter Your City" name="city" class="form-control" ng-model="city" required>
+                                    <div ng-messages="signupFormEmail.city.$error" class="input-error">
+                                        <div ng-message="required">This field is required.</div>
+                                    </div>
+                                </md-input-container>
+
+                                <div class="verify_check_btn">
+                                    <button type="submit" class="pa-no-margin" ng-disabled="!signupFormEmail.$valid">Verify Email</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!---------------- step 2 ---------------->
+                    <div class="tc_selection_left_section" ng-show="showOTPForm">
+                        <div class="custom_section_check_seat with_timer_check secure_sec_chek">
+                            <div class="secure_sec">Verify Your Details</div>
+                            <div class="secure_sec_green"> <i class="material-icons">lock</i> Secure Checkout</div>
+                        </div>
+                        <div class="verify_details_checkout">
+                            <div class="verify_details_list">
+                                <div class="verify_details_list_inner">
+                                    <i class="material-icons">account_circle</i>
+                                    <span>
+                                        FULL NAME
+                                        <b>{{full_name}}</b>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="verify_details_list">
+                                <div class="verify_details_list_inner">
+                                    <i class="material-icons">location_on</i>
+                                    <span>
+                                    CITY
+                                    <b>{{city}}</b>
+                                </span>
+                                </div>
+                            </div>
+                            <div class="verify_details_list">
+                                <div class="verify_details_list_inner">
+                                    <i class="material-icons">email</i>
+                                    <span>
+                                    EMAIL ADDRESS
+                                    <b>{{Email}}</b>
+                                </span>
+                                </div>
+                            </div>
+                            <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit md-button" type="button" ng-click="showOTPForm = false">Change Details & Resend One Time Password</button>
+
+                            <div class="checkout_otp_section">
+                                <div class="organizer-profile pa-mb-15">
+                                    <div class="checkout_head_otp">
+                                        Your One Time Password will be sent to the email address mentioned above.
+                                    </div>
+                                    <md-content layout-padding class="">
+                                        <form name="OTPVerifyForm" ng-submit="verifyOTP()" id="OTP_verify_form" class="event-form">
+                                            <md-input-container class="form-group full-field pa-mt-30-imp flex-gt-sm md-input-has-value mobile-hide input-code">
+                                                <label class="pa-color-333333 pa-font-14 pa-font-600 margin-bottom-13 mt-bt-14 mobile-hide">Enter One Time Password (One Time Password)  <span class="pa-required">*</span></label>
+                                                <div class=""></div>
+                                                <div class="input_otp_col">
+                                                    <input md-no-asterisk ng-model="otp_1" name="otp_1" maxlength="1" id="otp_1" ng-paste="optProcessSignupPast($event)" ng-change="optProcessSignup()" class="form-control login-control ob-color-input tt-font-16 pa-border-cccccc otpProcessClass" type="text"
+                                                        required>
+                                                </div>
+                                                <div class="input_otp_col">
+                                                    <input md-no-asterisk ng-model="otp_2" name="otp_2" maxlength="1" id="otp_2" ng-change="optProcessSignup()" class="form-control login-control ob-color-input tt-font-16 pa-border-cccccc otpProcessClass" type="text" required>
+                                                </div>
+                                                <div class="input_otp_col">
+                                                    <input md-no-asterisk ng-model="otp_3" name="otp_3" maxlength="1" id="otp_3" ng-change="optProcessSignup()" class="form-control login-control ob-color-input tt-font-16 pa-border-cccccc otpProcessClass" type="text" required>
+                                                </div>
+                                                <div class="input_otp_col">
+                                                    <input md-no-asterisk ng-model="otp_4" name="otp_4" maxlength="1" id="otp_4" ng-change="optProcessSignup()" class="form-control login-control ob-color-input tt-font-16 pa-border-cccccc otpProcessClass" type="text" required>
+                                                </div>
+                                                <div class="input_otp_col">
+                                                    <input md-no-asterisk ng-model="otp_5" name="otp_5" maxlength="1" id="otp_5" ng-change="optProcessSignup()" class="form-control login-control ob-color-input tt-font-16 pa-border-cccccc otpProcessClass" type="text" required>
+                                                </div>
+                                                <div class="input_otp_col">
+                                                    <input md-no-asterisk ng-model="otp_6" name="otp_6" maxlength="1" id="otp_6" ng-change="optProcessSignup()" class="form-control login-control ob-color-input tt-font-16 pa-border-cccccc otpProcessClass" type="text" required>
+                                                </div>
+
+                                                <div ng-messages="OTPVerifyForm.otp_1.$error" class="input-error"></div>
+                                                <div ng-messages="OTPVerifyForm.otp_2.$error" class="input-error"></div>
+                                                <div ng-messages="OTPVerifyForm.otp_3.$error" class="input-error"></div>
+                                                <div ng-messages="OTPVerifyForm.otp_4.$error" class="input-error"></div>
+                                                <div ng-messages="OTPVerifyForm.otp_5.$error" class="input-error"></div>
+                                                <div ng-messages="OTPVerifyForm.otp_6.$error" class="input-error"></div>
+
+                                                <div class="pa-text-align-right mt-10 pa-pr-10 timer_otp">
+                                                    <span class="resendOTP_CL" ng-show="counter == 0" ng-click=signUp()>Resend One Time Password</span>
+                                                    <span>{{counter | counter | date:'mm:ss'}} </span>
+                                                </div>
+                                            </md-input-container>
+                                            <div class="btn_checkout_otp">
+                                                <button ng-disabled="!OTPVerifyForm.$valid " type="submit" class="btn btn-login ob-padding-0 h-48 ob-line-ht-48 pa-font-bold pa-font-16">Verify Email 
+                                            </button>
+                                            </div>
+                                        </form>
+                                    </md-content>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tc_selection_right_section checkout_overview">
+                        <div class="tc_head_img_sec">
+                            <img ng-src="{{event.event_image}}" />
+                            <span class="check_title_dec">
+                                    <b>{{ event.event_name}} <span ng-if="event.city != ''">- {{event.city}}<span></b>
+                                    {{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY hh:mm a"}}
+                                </span>
+                        </div>
+                        <div class="order_summary">
+                            <div class="order_summary_strip">
+                                <span class="order_summary_head">Order Summary</span>
+                                <button ng-if="layoutDetails !== false" class="order_sum_link" ng-click="openTicketPreview()">Map Preview</button>
+                            </div>
+                            <div class="order_summary_checkout">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Tickets</th>
+                                            <th>Unit Price</th>
+                                            <th>Total Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-if="price_calculation.length > 0" ng-repeat="ticke_Details in price_calculation">
+                                            <td><span ng-if="ticke_Details._tier_id > 0" style="background-color: {{ ticke_Details.tire_color  }};"></span> {{ ticke_Details.qty }} x {{ticke_Details.name }}</td>
+                                            <td>${{ticke_Details.unit_price }}</td>
+                                            <td>${{ticke_Details.total_price }}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="top_order_summary_space">
+                                            <td>Sub Total</td>
+                                            <td></td>
+                                            <td><b>${{sub_total}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fees</td>
+                                            <td></td>
+                                            <td>${{total_fee}}</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="total_checkout">
+                                <span>Total</span>
+                                <b>${{total_amt}}</b>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="power_by">
+                Powered by The Promo App
+            </div>
+        </div>
+    </div>
+    
+</div>

@@ -1,0 +1,50 @@
+<div ng-controller="EmbedModalController">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-24 pa-color-333333 pa-bold-font pa-modal-font" id="modal-title">
+            Show this map with event locations on your site:
+        </span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+    <div class="modal-body" id="modal-body" style="text-align:justify;">
+        <form class="event-form">
+            <md-input-container class="form-group full-field">
+                <label class="pa-font-14 pa-color-333333 pa-modal-font pa-no-margin">City</label>
+                <input ng-pattern="/^[a-zA-Z0-9 \\\/,-]+$/" type="text" googleplace class="form-control ep pa-border-4 tt-font-16 embedded-input" ng-model="embedDetails.city"
+                    placeholder="Type city name here">
+            </md-input-container>
+            <div class="form-group">
+                <label class="pa-font-14 pa-color-333333 pa-modal-font mt-5">Please select Dimension of the Map:</label>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-3 col-sm-3 col-lg-3 col-3 form-group">
+                    <label class="pa-font-14 pa-color-333333 pa-modal-font pa-mb-12">Width</label>
+                    <div class="input-group tt-form-input pa-lh-03 width-100 pa-border-4 embedded-input">
+                        <input type="number" ng-change="setCode(false)" ng-model="embedDetails.width" placeholder="560" class="pa-text-indent-15 me-border-none-imp">
+                        <span class="input-group-addon pa-background-E5E5E5 pa-vertical-align-top pa-font-16 pa-pt-12">px</span>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-1 col-lg-1 col-1 mt-35">
+                    <md-icon class="pa-position-relative right-12">close</md-icon>
+                </div>
+                <div class="col-md-3 col-sm-3 col-lg-3 col-3 form-group">
+                    <label class="pa-font-14 pa-color-333333 pa-modal-font pa-mb-12">Height</label>
+                    <div class="input-group tt-form-input width-100 pa-lh-03 pa-border-4 embedded-input">
+                        <input type="number" ng-change="setCode(false)" ng-model="embedDetails.height" placeholder="560" class="pa-text-indent-15 me-border-none-imp">
+                        <span class="input-group-addon pa-background-E5E5E5 pa-vertical-align-top pa-font-16 pa-pt-12">px</span>
+                    </div>
+                </div>
+            </div>
+            <md-input-container class="form-group full-field">
+                <label class="pa-font-14 pa-color-333333 pa-modal-font pa-no-margin-imp">Embed Code</label>
+                <textarea class="form-control pa-padding-12 pa-border-4" rows="3" id="embedMapCode" ng-model="embedDetails.code"></textarea>
+            </md-input-container>
+            <div class="form-group tt-alignform-center">
+                <md-button ng-disabled="buttonText !== 'COPY CODE'" ngclipboard data-clipboard-target="#embedMapCode"
+                    class="md-raised pa-background-pink me-height-48 width-164 pa-font-16 ml-1 pa-no-margin" ng-click="copy();">
+                    <md-icon class="pa-font-20">{{buttonText === 'COPIED'? 'check':'file_copy'}}</md-icon>
+                    {{buttonText}}
+                </md-button>
+            </div>
+        </form>
+    </div>
+</div>

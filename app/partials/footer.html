@@ -1,0 +1,100 @@
+<!--New Web Footer Starts-->
+<footer class="mobile-hide pa-footer pa-color-FFFFFF-imp">
+    <div class="cookies_policy_bar" ng-show="popupOpen">
+        <div class="cookies_policy_child_bar">
+            <div class="cookies_policy_content">
+                By using this website, you agree to our use of cookies. We use cookies to provide you with a great experience and to help our website run effectively. For more information, please read our <a href="/cookies_policy">Cookie Policy</a>
+            </div>
+            <div class="cookies_policy_btn" ng-click="closeCookiesPopup()"><button class="pa-pl-pr-30 pa-pink-button ht-48 pa-no-margin">Ok</button></div>
+        </div>
+    </div>
+    <div>
+        <div class="row pt-13">
+            <div class="col-md-12 col pd-ryt-o">
+                <div class="col-md-7 col ft-rytAlign">
+                    <div class="footer-menu">
+                        <ul>
+                            <li><a href="/event_organiser">Event Organiser</a></li>
+                            <li><a href="/pricing">Pricing</a></li>
+                            <li><a href="/blog">Blog</a></li>
+                            <li><a href="/about_us">About Us</a></li>
+                            <li><a target="_blank" rel="noopener" href="https://promo.helpdocs.com/">Help</a></li>
+                            <li><a href="/site_map">Site Map</a></li>
+                            <li><a href="/terms_of_use">Terms of Use</a></li>
+                            <li><a href="/cookies_policy">Cookie Policy</a></li>
+                        </ul>
+                        <div class="copyright-sec">Copyright @ {{date | date:'yyyy'}}, Promo Application LLC. All Rights Reserved.</div>
+                    </div>
+                </div>
+                <div class="col-md-5 col ft-leftbox">
+                    <div class="pa-display-inline cursor-pointer ft-circle ft-mr-14">
+                        <a rel="noopener" target="_blank" ng-href="https://www.facebook.com/Thepromoapp-106051260937370/">
+                            <i class="fa fa-facebook-f ft-opacity8 ft-fa-class"></i>
+                        </a>
+                    </div>
+                    <div class="pa-display-inline cursor-pointer ft-circle ft-mr-14 pa-mr-40">
+                        <a rel="noopener" target="_blank" ng-href="https://www.instagram.com/thepromoapp/">
+                            <i class="fa fa-instagram ft-opacity8 ft-fa-class"></i>
+                        </a>
+                    </div>
+                    <div ng-show="showAppStoreLink">
+                        <a class="forgot-pass cursor-pointer" rel="noopener" target="_blank" ng-click="goToAppStore()">
+                            <img src="../img/apple-store-logo.svg" alt="Apple Store" class="googlepay-appstore-img app-store" />
+                        </a>
+                    </div>
+                    <div class="pl-10" ng-show="showAppStoreLink">
+                        <a class="forgot-pass cursor-pointer" rel="noopener" target="_blank" ng-click="goToAndroidStore()">
+                            <img src="../img/google-play-badge.svg" alt="Play Store" class="googlepay-appstore-img play-store" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!--New Web Footer Ends-->
+
+<!--after log in footer-->
+<footer class="custom-footer for-mobile" style="z-index:10;">
+    <div class="cookies_policy_bar" ng-show="popupOpen">
+        <div class="cookies_policy_child_bar">
+            <div class="cookies_policy_content">
+                By using this website, you agree to our use of cookies. We use cookies to provide you with a great experience and to help our website run effectively. For more information, please read our <a href="/cookies_policy">Cookie Policy</a>
+            </div>
+            <div class="cookies_policy_btn" ng-click="closeCookiesPopup()"><button class="pa-pl-pr-30 pa-pink-button ht-48 pa-no-margin">Ok</button></div>
+        </div>
+    </div>
+    <div class="desktop-hide pull-right responsive-header-content responsive-footer-content js-mobile-footer pa-width-100p pa-background-white">
+        <div class="mb-view-div" layout="row" layout-align="space-around center">
+            <div class="text-center no-padding mb-foot-oldiv" ng-class="{'active': (isSelectedPage('/',true))}">
+                <a href="/" class="pa-color-333333 a-clr">
+                    <i class="material-icons" ng-class="{'pa-color-pink':(isSelectedPage('/',true)),'eo-opacity':!(isSelectedPage('/',true))}">home</i>
+                    <div class="pa-font-line pa-modal-font pa-bold-font" ng-class="{'pa-color-pink':(isSelectedPage('/',true)), 'eo-opacity':!(isSelectedPage('/',true))}">Home</div>
+                </a>
+            </div>
+            <div class="text-center no-padding mb-foot-oldiv">
+                <a ng-click="searchMethod()" class="pa-color-333333 a-clr">
+                    <i class="material-icons" ng-class="isSelectedPage('/searchuser')?'pa-color-pink':'eo-opacity'">search</i>
+                    <div class="pa-font-line pa-modal-font pa-bold-font" ng-class="{'pa-color-pink':isSelectedPage('/searchuser'), 'eo-opacity':!isSelectedPage('/searchuser')}">Search</div>
+                </a>
+            </div>
+            <div class="text-center no-padding mb-foot-oldiv" ng-click="addMethod()">
+                <md-button class="md-fab pa-center-div pa-align-items-center pa-background-pink ft-addSize pa-no-margin " aria-label="Eat cake"><i class="material-icons">add</i></md-button>
+            </div>
+            <div class="text-center no-padding mb-foot-oldiv">
+                <a ng-click="notificationMethod()" class="pa-color-333333 a-clr">
+                    <i class="material-icons icon-roted" ng-class="isSelectedPage('/tickets')?'pa-color-pink':'eo-opacity'">confirmation_number</i>
+                    <div class="pa-font-line pa-modal-font pa-bold-font" ng-class="{'pa-color-pink':isSelectedPage('/tickets'), 'eo-opacity':!isSelectedPage('/tickets')}">Tickets</div>
+                </a>
+            </div>
+            <div class="text-center no-padding mb-foot-oldiv">
+                <a ng-click="showProfile()" class="pa-color-333333 a-clr">
+                    <i class="material-icons" ng-class="isSelectedPage('/myprofile')?'pa-color-pink':'eo-opacity'">account_circle</i>
+                    <div class="pa-font-line pa-modal-font pa-bold-font" ng-class="{'pa-color-pink':isSelectedPage('/myprofile'), 'eo-opacity':!isSelectedPage('/myprofile')}">Profile <span ng-if="user.is_email_verified == 0 && !user.mobile_number" class="notification_dot"></span></div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- mobile view ends -->
+</footer>

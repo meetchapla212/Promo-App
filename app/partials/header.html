@@ -1,0 +1,182 @@
+<div class="container pa-container ft-width100 pd-none" ng-controller="LoggedHeaderController">
+    <div class="notification_appget desktop-hide">
+        <md-toolbar class="free-on-the-App-div visible-xs hidden-sm " ng-class="{'sticky-free-div':showAppStoreLink}" ng-show="closeGetAppBanner && showAppStoreLink && !isCreateEvent">
+            <div class="md-toolbar-tools">
+                <div flex md-truncate class="pa-modal-font pa-font-bold tt-font-16 pa-color-FFFFFF">
+                    Find it for free on the App Store
+                </div>
+                <button class="pa-cursor-pointer pa-get-btn get-btn-ht pa-cursor-pointer" ng-click="goToAppStore()">GET</button>
+                <i class="material-icons pa-color-FFFFFF pa-cursor-pointer" ng-click="getcloseFn();closeAppBanner();">close</i>
+            </div>
+        </md-toolbar>
+        <md-toolbar class="pa-background-pink pa-header-height desktop-hide" ng-class="{'zero-top':closeGetAppBanner==false, 'notifications-top':notificationsclose==true}">
+            <div class="md-toolbar-tools pa-header-height">
+                <div flex md-truncate>
+                    <a class="pa-display-inline-block" ng-click="goToPage('#')">
+                        <img src="/img/logo.png" alt="promoapp" class="img-responsive header-logo">
+                        <div class="jump tooltip fade bottom" ng-class="isSelectedPage('/about_us')? '':'in'">
+                            <div class="tooltip-arrow" style="left: 50%;"></div>
+                            <div class="tooltip-inner">Filters</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </md-toolbar>
+    </div>
+
+    <!--Find it for free on the App Store Div Ends-->
+    <!--Add City Name Div Starts-->
+    <md-toolbar class="pa-bg-FFFFFF js-web-banner pa-banner-height hidden-xs visible-sm visible-md visible-lg" ng-show="closeBanner && !modalCity">
+        <div class="md-toolbar-tools pa-banner-height pa-margin-auto pa-add-heading-div">
+            <div flex md-truncate class="pa-color-3B373C pa-font-16 pa-modal-font pa-font-bold new-opacity">
+                <i class="material-icons md-36 pa-exclamation">info</i>
+                <span>Please add your city name in your profile to get customised recommendations</span>
+                <a ng-href="/settings" class="pa-text-decoration"><span
+                        class="pa-color-pink pa-cursor-pointer pa-ml-10">Add City Name</span></a>
+            </div>
+            <i class="material-icons pa-cursor-pointer pa-font-20" ng-click="closeWebBanner();">close</i>
+        </div>
+    </md-toolbar>
+
+    <!--Add City Name Div  -->
+
+    <md-toolbar class="pa-bg-FFFFFF js-web-banner pa-banner-height verfiy_email_mob mobile-hide" ng-show="(user.is_email_verified ==0) && !modalEmailVerify && closeBanner && !verifcationEmailSend && !user.mobile_number">
+        <div class="md-toolbar-tools pa-banner-height pa-margin-auto pa-add-heading-div">
+            <div flex md-truncate class="pa-color-3B373C pa-font-16 pa-modal-font pa-font-bold new-opacity">
+                <i class="material-icons md-36 pa-exclamation">info</i>
+                <span>Please click the verification link we sent to {{user.email}}.</span>
+                <a ng-click="verifyEmail();" class="pa-text-decoration"><span
+                        class="pa-color-pink pa-cursor-pointer pa-ml-10">Resend Email </span></a>
+            </div>
+            <i class="material-icons pa-cursor-pointer pa-font-20" ng-click="closeWebBanner();">close</i>
+        </div>
+    </md-toolbar>
+
+    <!--Vrifiy email-->
+
+    <md-toolbar class="pa-bg-FFFFFF js-web-banner pa-banner-height hidden-xs visible-sm visible-md visible-lg mobile-hide" ng-show="closeBanner && verifcationEmailSend">
+        <div class="md-toolbar-tools pa-banner-height pa-margin-auto pa-add-heading-div">
+            <div flex md-truncate class="pa-color-3B373C pa-font-16 pa-modal-font pa-font-bold new-opacity">
+                <i class="material-icons md-36 pa-exclamation">info</i>
+                <span>Please click the verification link we sent to {{user.email}}. </span>
+                <a ng-click="verifyEmail();" class="pa-text-decoration"><span
+                        class="pa-color-pink pa-cursor-pointer pa-ml-10">Resend Email</span></a>
+            </div>
+            <i class="material-icons pa-cursor-pointer pa-font-20" ng-click="closeWebBanner();">close</i>
+        </div>
+    </md-toolbar>
+
+    <!--Vrifiy email  -->
+
+    <md-toolbar class="pa-header pa-header-bg pa-header-height mobile-hide pa-border-E4E4E4">
+        <div class="md-toolbar-tools pa-header-height-toolbar pa-margin-auto">
+            <div class="pa-display-inline-flex" flex md-truncate>
+                <a href="/">
+                    <img src="/img/logo-the-promo-app-red.png" alt="promoapp" class="img-responsive header-logo">
+                </a>
+            </div>
+            <div class="pa-header-padding" ng-show="!isCreateEvent">
+                <md-button ng-class="isSelectedPage('/',true)?'pa-heading-selected':''" class="pa-color-333333 pa-font-16 pa-font-wt-500 pa-font-Lato pa-no-padding pa-no-margin" href="/">
+                    Browse Events
+                </md-button>
+            </div>
+            <div class="pa-header-padding" ng-show="!isCreateEvent">
+                <md-button ng-class="isSelectedPage('/searchuser')?'pa-heading-selected':''" class="pa-color-333333 pa-font-16 pa-font-wt-500 pa-font-Lato pa-no-padding pa-no-margin pa-width-auto" href="/searchuser" ng-click="hradRefresh()">
+                    Search
+                </md-button>
+            </div>
+            <div class="pa-header-padding margin-right-30 create-event-button" ng-show="!isCreateEvent">
+                <md-button class="pa-add-event pa-font-14" href="/createevent">Create Event</md-button>
+            </div>
+            <div class="pa-header-bell-border line-ht-60" ng-show="!isCreateEvent">
+                <md-button href="/notifications">
+                    <md-icon class="pa-color-333333 pa-opacity8">notifications_none</md-icon>
+                </md-button>
+            </div>
+            <div class="pa-header-padding pa-header-padding-right margin-rt-0 pa-cursor-pointer drop_main_section_prof" ng-class="{'line-ht-60': isCreateEvent,'pa-header-create-event':isCreateEvent ,'open':showMenu}">
+                <div data-toggle="dropdown" style="cursor: pointer;" aria-expanded="{{showMenu}}" ng-click="showMenu = !showMenu">
+                    <md-button class="md-fab md-mini md-hue-3 header-profile-img pa-no-padding">
+                        <img ng-src="{{user.imgUrl}}" alt="{{showMenu}}" ng-if="user.imgUrl != null" class="img-circle header-profile-img" />
+                        <img src="../img/defaultProfilePic.png" alt="{{showMenu}}" ng-if="user.imgUrl == null" class="img-circle header-profile-img" />
+                    </md-button>
+                    <div class="cursor-pointer drop_cart">
+                        <md-icon class="pa-custome-down-arrow pa-color-333333 pa-opacity8 cursor-pointer">
+                            keyboard_arrow_down</md-icon>
+                    </div>
+                </div>
+                <ul class="dropdown-menu pa-login-dropdown drop_down_header">
+                    <li class="pa-dropdown-item pa-pl-12 pa-lh-15 profile_drop_sec" layout="row">
+                        <md-button class="md-fab md-mini md-hue-3 header-profile-img pa-no-padding" data-toggle="dropdown">
+                            <img ng-src="{{user.imgUrl}}" alt="{{username}}" ng-if="user.imgUrl != null" class="img-circle header-profile-img" />
+                            <img src="../img/defaultProfilePic.png" alt="{{showMenu}}" ng-if="user.imgUrl == null" class="img-circle header-profile-img" />
+                        </md-button>
+                        <span class="pa-vertical-align-sub pa-font-bold pa-font-16" layout="column">
+                            <span ng-if="user.first_name">{{user.first_name}}&nbsp;{{user.last_name}}</span>
+                        <span ng-if="!user.first_name">{{username}}</span>
+                        <span class="pa-font-14 pa-color-666666 pa-font-wt-500 header-profile-city">{{user.city}}</span>
+                        </span>
+                    </li>
+                    <li class="pa-dropdown-item">
+                        <a ng-href="/myprofile">
+                            <i class="material-icons pa-img-height pa-vertical-align pa-color-pink">account_circle</i>
+                            <span class="pa-vertical-align-sub"> My Profile</span>
+                        </a>
+                    </li>
+                    <li class="pa-dropdown-item" ng-if="user.is_zone_owner">
+                        <a ng-href="/myzone">
+                            <i class="material-icons pa-img-height pa-vertical-align pa-color-pink">explore</i>
+                            <span class="pa-vertical-align-sub"> My Zone</span>
+                        </a>
+                    </li>
+                    <li class="pa-dropdown-item pa-position-relative myticket">
+                        <a ng-href="/tickets">
+                            <i class="material-icons pa-img-height pa-vertical-align pa-color-pink icon-roted">confirmation_number</i>
+                            <span class="pa-vertical-align-sub">My Tickets</span>
+                        </a>
+                    </li>
+                    <li class="pa-dropdown-item">
+                        <a ng-href="/manageevent">
+                            <i class="material-icons pa-img-height pa-vertical-align pa-color-pink">event</i>
+                            <span class="pa-vertical-align-sub">Manage Events</span>
+                        </a>
+                    </li>
+                    <li class="pa-dropdown-item">
+                        <a ng-href="/manage_rewards_live">
+                            <i class="material-icons pa-img-height pa-vertical-align pa-color-pink">favorite</i>
+                            <span class="pa-vertical-align-sub">Manage Promotions</span>
+                        </a>
+                    </li>
+                    <li class="pa-dropdown-item">
+                        <a ng-href="/recommend_events">
+                            <i class="material-icons pa-img-height pa-vertical-align pa-color-pink pa-mt-minus-10">star_rate</i>
+                            <span class="pa-vertical-align-sub">Recommend Events</span>
+                        </a>
+                    </li>
+                    <!-- <li class="pa-dropdown-item"><a ng-href="/account_history">
+                                    <i class="material-icons pa-img-height pa-vertical-align pa-color-pink">attach_money</i>
+                                    <span class="pa-vertical-align-sub">My Account</span>
+                            </a></li> -->
+                    <li class="pa-dropdown-item">
+                        <a ng-href="/my_payout">
+                            <i class="material-icons pa-img-height pa-vertical-align pa-color-pink">attach_money</i>
+                            <span class="pa-vertical-align-sub">My Payout</span>
+                        </a>
+                    </li>
+                    <li class="pa-dropdown-item">
+                        <a ng-href="/chat.html" target="_blank">
+                            <i class="material-icons pa-img-height pa-vertical-align pa-color-pink">chat</i>
+                            <span class="pa-vertical-align-sub">My Messages</span></a>
+                        <div class="message-unread-mark" ng-if="userUnreadMessageCount !=0" style="top: 39px;right: 15%;"></div>
+                    </li>
+                    <li class="pa-dropdown-item">
+                        <a ng-href="https://promo.helpdocs.com" target="_blank">
+                            <i class="material-icons pa-img-height pa-vertical-align pa-color-pink  pa-mt-minus-12">help</i>
+                            <span class="pa-vertical-align-sub">Help</span>
+                        </a>
+                    </li>
+                    <li class="pa-dropdown-item pa-logout"><a ng-click="logout()">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </md-toolbar>
+</div>

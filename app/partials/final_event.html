@@ -1,0 +1,214 @@
+<div class="final_event" style="background:rgb(249, 249, 249);"
+    ng-show="showHide.template == 'partials/final_event.html'">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 pb-100">
+                <div class="final_create_event" ng-show="currentInfoSection.includes('final_event')">
+                    <md-card class="pa-bg-FFFFFF">
+                        <md-card-header class="md-padding">
+                            <md-card-header-text>
+                                <span
+                                    class="md-headline pa-color-333333 pa-bold-font pa-modal-font pa-font-28 line-ht-1">{{displayEvent.event_name}}</span>
+                                <span
+                                    class="md-subhead d-flex pa-align-items-center pa-font-18 pa-color-333333 pa-mt-20"
+                                    ng-repeat="item in displayEvent.selectedCategory">
+                                    <img ng-class="displayEvent.highlighted || sponsoredPaymentDone ? 'img-highlight': ''"
+                                        ng-src="{{displayEvent.highlighted || sponsoredPaymentDone ? 'img/'+ item.id +'_highlight.svg' : item.icon}}" />
+                                    <span class="pa-capitalize">{{item.name}}</span>
+                                </span>
+                            </md-card-header-text>
+                        </md-card-header>
+                        <md-card-content>
+                            <div class="row  concert_row h-474">
+                                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 pd-none">
+                                    <md-card-avatar>
+                                        <img ng-src="{{displayEvent.files}}" class="img-responsive concert-guitar"
+                                            alt="concert-guitar">
+                                    </md-card-avatar>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 pd-none pa-position-relati h-474">
+                                    <div class="event_det">
+                                        <div>
+                                            <div class="pa-color-333333 opacity-6">
+                                                <md-icon>event_available</md-icon><span class="pa-font-13">EVENT
+                                                    STARTS</span>
+                                            </div>
+                                            <div class="pa-color-333333 tt-font-16 pa-bold-font lh-1">
+                                                {{displayEvent.start.date | momentFormatter:"dddd, MMMM D"}} at
+                                                {{displayEvent.start.time }}</div>
+                                        </div>
+                                        <div>
+                                            <div class="pa-color-333333 opacity-6">
+                                                <md-icon>event_available</md-icon><span class="pa-font-13">EVENT
+                                                    ENDS</span>
+                                            </div>
+                                            <div class="pa-color-333333 tt-font-16 pa-bold-font lh-1">
+                                                {{displayEvent.end.date| momentFormatter:"dddd, MMMM D"}} at
+                                                {{displayEvent.end.time }}</div>
+                                        </div>
+                                        <div>
+                                            <div class="pa-color-333333 opacity-6">
+                                                <md-icon>room</md-icon><span class="pa-font-13">LOCATION</span>
+                                            </div>
+                                            <div class="pa-color-333333 tt-font-16 pa-bold-font lh-1">
+                                                {{displayEvent.address.streetAddress}}, {{displayEvent.address.state}},
+                                                {{displayEvent.address.city}}, {{displayEvent.address.country}}
+                                                {{displayEvent.address.zipcode}}</div>
+                                            <div class="tt-font-16 final_map"><a target="_blank"
+                                                    href="https://maps.google.com/maps?hl=en&q={{ event.latitude }},{{ event.longitude }}"
+                                                    class="date-detail-para pa-color-pink tt-font-16 pa-mb-100 pa-cursor-pointer">View
+                                                    Location on Map</a></div>
+                                        </div>
+                                    </div>
+
+                                    <div ng-if="((action === 'Create' || action === 'create') && eventPlanType == 'paid')" class="event_price tt-font-16" ng-init="displayEvent.ticket_type = eventPlanType "><span class="pa-font-24 pa-bold-font lh-29"> {{eventPrice}} </span> </div>
+                                    <div ng-if="((action === 'Create' || action === 'create') && eventPlanType == 'free')" class="event_price tt-font-16"><span class="pa-font-24 pa-bold-font lh-29">Free</span> </div>
+                                    <div ng-if="( ( action === 'edit' || action === 'claim' ) && eventPlanType == 'paid')" class="event_price tt-font-16" ng-init="displayEvent.ticket_type = eventPlanType "><span class="pa-bold-font pa-font-24" event="displayEvent" event-ticket-price></span></div>
+                                    <div ng-if="(( action === 'edit' || action === 'claim' ) && eventPlanType == 'free' )" class="event_price tt-font-16"><span class="pa-font-24 pa-bold-font lh-29">Free</span> </div>
+                                </div>
+                            </div>
+                            <div class="row pd-3">
+                                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                    <div class="left_cont row">
+                                        <div class="col-lg-4 col-md-4 pd-none">
+                                            <div class="dropdown">
+                                                <button
+                                                    class="dropdown-toggle pa-background-white pa-bold-font lh-19 tt-font-16 pa-text-align-left"
+                                                    type="button" ng-disabled="true" data-toggle="dropdown">Are you
+                                                    going?
+                                                    <span data-toggle="dropdown" class="cursor-pointer"
+                                                        aria-expanded="true">
+                                                        <md-icon
+                                                            class="pa-custome-down-arrow pa-opacity8 cursor-pointer material-icons"
+                                                            role="img" aria-label="keyboard_arrow_down">
+                                                            keyboard_arrow_down</md-icon>
+                                                    </span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a>Yes</a></li>
+                                                    <li><a>No</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 pd-none scoial-icon-create-eve">
+                                            <div class="ft-fb ft-end shareevent_mob">
+                                                <span class="pa-display-inline cursor-pointer ft-circle ft-mr-14"
+                                                    role="button" tabindex="0">
+                                                    <i class="fa fa-facebook-f  ft-fa-class"></i>
+                                                </span>
+                                                <span class="pa-display-inline cursor-pointer ft-circle ft-mr-14"
+                                                    role="button" tabindex="0">
+                                                    <i class="fa fa-snapchat-ghost  ft-fa-class"></i>
+                                                </span>
+                                                <span class="pa-display-inline cursor-pointer ft-circle ft-mr-14"
+                                                    target="_blank" role="button" tabindex="0">
+                                                    <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                                                </span>
+                                                <span class="pa-display-inline cursor-pointer ft-circle ft-mr-14"
+                                                    role="button" tabindex="0">
+                                                    <i class="fa fa-envelope pa-color-pink" aria-hidden="true"></i>
+                                                </span>
+                                                <span class="pa-display-inline cursor-pointer ft-circle ft-mr-14"
+                                                    role="button" tabindex="0">
+                                                    <i class="material-icons  pa-color-pink">link</i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 pd-none pa-pl-15">
+                                    <button ng-if="displayEvent.event_type == 'paid'"
+                                        class="btn pa-border-4 pa-background-pink ht-48 tt-media-font-16 pa-cursor-default w-83 ml-11 pa-font-16 pa-bold-font lh-19 pa-modal-font buy-margin pa-color-FFFFFF-imp">BUY
+                                        TICKET</button>
+                                    <button
+                                        ng-if="displayEvent.event_type == 'free' && displayEvent.admission_event_type == '1'"
+                                        class="btn pa-border-4 pa-cursor-default pa-background-pink ht-48 tt-media-font-16 w-83 ml-11 pa-font-16 pa-bold-font lh-19 pa-modal-font buy-margin pa-color-FFFFFF-imp">Register</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 p-3">
+                                    <div class="tt-font-16 pa-color-666666 ls-2_5 pa-mb-12" ta-bind
+                                        ng-model="displayEvent.description"></div>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                    <md-card class="margin event-create-info">
+                                        <md-card-header
+                                            class="col-md-12 pa-color-grey align-items-center pa-border-EEEEEE tt-margin-bottom-0">
+                                            <md-card-header-text>
+                                                <span
+                                                    class="md-title .pa-font-13 mr-5 pa-color-333333 pa-font-bold">Event
+                                                    Contact Details</span>
+                                            </md-card-header-text>
+                                        </md-card-header>
+                                        <md-card-content class="col-lg-12 pa-bg-FFFFFF" md-theme="docs-dark"
+                                            layout-padding>
+                                            <div class="profile-top">
+                                                <md-icon class="material-icons pa-color-333333 opacity-6" role="img"
+                                                    aria-label="insert_photo">account_circle</md-icon>
+                                                <span ng-if="user.first_name"
+                                                    class="pa-font-18 pa-bold-font color-A02740 ml-10 pa-capitalize">{{user.first_name+' '+user.last_name}}</span>
+                                                <span ng-if="!user.first_name"
+                                                    class="pa-font-18 pa-bold-font color-A02740 ml-10 pa-capitalize">{{user.full_name}}</span>
+                                                <div class="color-A02740 pa-bold-font pa-text-center final_follow">
+                                                    FOLLOW</div>
+
+                                            </div>
+                                            <div ng-class="{'with-create-event-organize-box': !displayEvent.email && !displayEvent.website }" class="profile-bottom">
+                                                <div class="congratulations-content-text" ng-if="displayEvent.website">
+                                                    <md-icon class="material-icons pa-color-333333 opacity-6" role="img" aria-label="insert_photo">web</md-icon>
+                                                    <span class="tt-font-16 pa-pink-font-color pa-ml-10">{{displayEvent.website}}</span>
+                                                </div>
+                                                <div class="pa-mar-top-20 congratulations-content-text" ng-if="displayEvent.email">
+                                                    <md-icon class="material-icons pa-color-333333 opacity-6" role="img" aria-label="insert_photo">email</md-icon>
+                                                    <span class="tt-font-16 pa-pink-font-color pa-ml-10">{{displayEvent.email}}</span>
+                                                </div>
+                                                <div class="pa-mar-top-20 congratulations-content-text" ng-if="displayEvent.phone">
+                                                    <md-icon class="material-icons pa-color-333333 opacity-6" role="img" aria-label="insert_photo">phone</md-icon>
+                                                    <span class="tt-font-16 pa-pink-font-color pa-ml-10">{{displayEvent.phone}}</span>
+                                                </div>
+                                            </div>
+                                        </md-card-content>
+                                    </md-card>
+                                </div>
+                            </div>
+
+                        </md-card-content>
+                    </md-card>
+
+                    <div class="row last_step_check">
+                        <div ng-if="displayEvent.guest_user.length > 0 || (displayEvent.event_admin.length > 0 && adminDisplayView) || selectedAdminData.length > 0 || selectedPlan || ( eventPlanType === 'paid' && displayEvent.bank_id ) || displayEvent.highlighted || sponsoredPaymentDone"
+                            class="col-lg-12 col-md-12 col-sm-12 col-xs-12 checklist_final">
+                            <div ng-if="displayEvent.bank_id" class="checklist_final_list">
+                                <md-icon class="material-icons" role="img" aria-label="delete">done_all</md-icon>
+                                <span class="tt-font-16 lh-19">Your selected payout method for this event is
+                                    <b>XXXXXXXX{{defalutBank.last4}}</b> </span>
+                            </div>
+                            <div ng-if="displayEvent.guest_user.length > 0" class="checklist_final_list">
+                                <md-icon class="material-icons" role="img" aria-label="delete">done_all</md-icon>
+                                <span class="tt-font-16 lh-19">You have <b>invited {{displayEvent.guest_user[0].group.members.length > 0 ? displayEvent.guest_user[0].group.members.length : displayEvent.guest_user.length}} guests</b> to this event.</span>
+                            </div>
+                            <div ng-if="action != 'Create' && selectedAdminData.length === 0 && displayEvent.event_admin.length > 0"
+                                class="checklist_final_list">
+                                <md-icon class="material-icons" role="img" aria-label="delete">done_all</md-icon>
+                                <span class="tt-font-16 lh-19 admin-list-name">You have administrator this event to <b
+                                        ng-repeat="admin in displayEvent.event_admin">{{admin.email === '' ? admin.username : admin.email}}<b
+                                            ng-if="displayEvent.event_admin.length > 1" class="">,</b> </b></span>
+                            </div>
+                            <div ng-if="selectedAdminData.length > 0" class="checklist_final_list">
+                                <md-icon class="material-icons" role="img" aria-label="delete">done_all</md-icon>
+                                <span class="tt-font-16 lh-19 admin-list-name">You have administrator this event to <b
+                                        ng-repeat="admin in selectedAdminData">{{admin.email === '' ? admin.username : admin.email}}<b
+                                            ng-if="selectedAdminData.length > 1" class="">,</b> </b></span>
+                            </div>
+                            <div ng-if="sponsoredPaymentDone || displayEvent.highlighted" class="checklist_final_list">
+                                <md-icon class="material-icons" role="img" aria-label="delete">done_all</md-icon>
+                                <span class="tt-font-16 lh-19">You have agreed to <b>pay $2.99 to highlight</b> your
+                                    event</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="create_event_success pa-h-100 successfully-event">
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <div class="event_success">
+                <md-card class="margin pa-bg-FFFFFF pa-height-100p pa-event-success-box">
+                    <md-card-content class="pa-text-center pd-none">
+                        <div class="mt-45">
+                            <md-button class="pa-green-button md-fab pa-cursor-default" aria-label="Event created Successfully">
+                                <md-icon class="material-icons">check</md-icon>
+                            </md-button>
+                        </div>
+                        <div class="pa-font-24 pa-bold-font lh-29 mt-32 mb-32">
+                            Event Published Successfully.
+                        </div>
+                        <div class="pa-background-E h-40 tt-font-16 lh-35">Share your event on</div>
+                        <div class="ft-fb mt-32 mb-32">
+                            <span class="ft-mr-14 ht-48 width-48 line-ht-48 br-50 pa-border-CBCBCB success-icon" ng-click="socialShare('facebook')" role="button">
+                                <i class="fa fa-facebook-f  ft-fa-class"></i>
+                            </span>
+
+                            <span class="ft-mr-14 ht-48 width-48 line-ht-48 br-50 pa-border-CBCBCB success-icon snapchat-share-button" data-share-url="{{getSocialShareURL()}}" ng-click="socialShare('snapchat')">
+                                <i class="fa fa-snapchat-ghost pa-font-24 snapchat-right-top"></i>
+                            </span>
+
+                            <a target="_blank" ng-click="socialShare('whatsapp')" class="pa-color-darkgrey" style="text-decoration: none;" target="_blank" data-action="share/whatsapp/share">
+                                <span class="ft-mr-14 ht-48 width-48 line-ht-48 br-50 pa-border-CBCBCB success-icon" role="button">
+                                    <i class="fa fa-whatsapp  ft-fa-class"></i>
+                                </span>
+                            </a>
+
+                            <span class="ft-mr-14 ht-48 width-48 line-ht-48 br-50 pa-border-CBCBCB success-icon" ng-click="emailShare()" role="button">
+                               <i class="material-icons mail-left-right pa-font-24 pa-color-pink">mail</i>
+                            </span>
+
+                            <span data-dismiss="modal" social-share-link="{{otherUrl}}" ng-click="socialShare('other')" class="ft-mr-14 ht-48 width-48 line-ht-48 br-50 pa-border-CBCBCB success-icon" role="button">
+                                <i class="material-icons mail-left-right pa-font-24 pa-color-pink">insert_link</i>
+                            </span>
+
+                        </div>
+                        <div class="bannerBtnGroup">
+                            <button class="tt-font-16 pa-pl-pr-30 pa-white-with-br-button ht-48 pa-no-margin md-button md-ink-ripple pa-color-pink pa-border-4" ng-click="gotoUserExperienceRate()"><b>Done</b></button>
+                            <a ng-click="addPromotionRoute(displayEvent.event_id)" ng-if="addPromotionDisabled"><button class="pa-pl-pr-30 pa-pink-button ht-48 pa-no-margin md-button md-ink-ripple"><b>Add Promotion</b></button></a>
+                            <button class="pa-pl-pr-30 pa-pink-button ht-48 pa-no-margin md-button md-ink-ripple" ng-if="!addPromotionDisabled" uib-tooltip="Promotion can be created for an event before 48 hours of the event start time and Promotion ends before 2 hours of event starting."><b>Add Promotion</b></button></a>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+</div>

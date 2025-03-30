@@ -1,0 +1,196 @@
+<div class="pa-bg-FFFFFF invited-guest-pr" ng-show="showHide.template == 'partials/invite_guest.html'">
+    <div class="col-lg-2 col-md-2 col-sm-0 col-xs-0"></div>
+    <div class="col-md-7 pb-100 invite_guest">
+        <section class="pa-mt-30" ng-show="currentInfoSection.includes('invite_guest_list')">
+            <md-card>
+                <md-card-header class="col-md-12 pa-bg-F9 align-items-center create-header-style pa-border-EEEEEE tt-margin-bottom-0">
+                    <md-card-header-text>
+                        <span class="md-title"><span class="pa-bold-font pa-font-20 pa-color-333333">Invite Guests
+                                </span><span class="pa-font-16 ml-10">(Optional)</span></span>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-content class="pa-bg-FFFFFF pa-pt-30 pb-30">
+                    <form class="event-form pa-no-padding" name="createEventForms.invite_guest_list">
+                        <div class="col-md-12">
+                            <span class="pa-font-16 pa-color-333333 pa-lh-3">You have invited {{guestUserList.length}} guests</span>
+                            <div class="pa-float-right">
+                                <button type="btn" class="add-more-guest-btn pa-border-4" ng-click="addGuestlModal()">
+                                    <md-icon class="pa-font-24 pa-color-666666">add_circle</md-icon>&nbsp;&nbsp;&nbsp;
+                                    <span class="pa-font-16 pa-color-pink">Add More Guests</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class=" col-md-12 table-responsive pa-mt-10 pa-border-none">
+                            <table>
+                                <tr class="row follower-table" ng-repeat="guest in guestUserList track by $index">
+                                    <td>
+                                        <md-checkbox md-no-ink="" class="pa-no-margin pa-color-333333" ng-disabled="guest.selected" ng-model="guest.selected">
+                                        </md-checkbox>
+                                    </td>
+                                    <td class="col-md-6 col-sm-5 col-xs-5">
+                                        <span class="material-icons follower-img" ng-if="guest.profile_pic === null || guest.type === 'mail'">account_circle</span>
+                                        <img ng-src="{{guest.profile_pic}}" ng-if="guest.profile_pic != null && guest.type != 'mail'" class="follower-img  rounded" /> &nbsp;&nbsp;
+                                        <span class="pa-font-15 pa-color-333333 pa-bold-font" ng-if="guest.email != ''">{{guest.email}} </span>
+                                        <span class="pa-font-15 pa-color-333333 pa-bold-font" ng-if="guest.email === ''">{{guest.first_name}} {{guest.last_name}} </span>
+                                    </td>
+                                    <td class="col-md-3 col-sm-3 col-xs-3">
+                                        <span class="pa-float-right pa-font-15 pa-color-666666" ng-if="guest.first_name">{{guest.first_name}} {{guest.last_name}} </span>
+                                    </td>
+                                    <td class="col-md-3 col-sm-4 col-xs-4">
+                                        <span class="pa-float-right pa-position-relative l-15 pa-font-15 pa-color-666666">{{guest.type}}
+                                            &nbsp;&nbsp;&nbsp;
+                                            <span>
+                                                <md-icon class="cancelled-clor" ng-click="deleteGuest($index, guest.guest_id)">delete</md-icon>
+                                            </span>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                </md-card-content>
+            </md-card>
+        </section>
+
+        <section class="pa-mt-30" ng-show="currentInfoSection.includes('add_administrator')">
+            <form name="createEventForms.add_administrator" class="event-form pa-no-padding">
+                <md-card>
+                    <md-card-header class="col-md-12 pa-bg-F9 align-items-center create-header-style pa-border-EEEEEE tt-margin-bottom-0">
+                        <md-card-header-text>
+                            <span class="md-title"><span class="pa-bold-font pa-font-20 pa-color-333333">Add Event Administrator
+                                </span><span class="pa-font-16 ml-10">(Optional)</span></span>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <md-card-content class="pa-bg-FFFFFF pb-30 pa-pt-30-imp">
+                        <div class="col-md-12">
+                            <p class="pa-font-16 pa-color-333333">You would like the following person to administrate your event on your behalf: <a class="pull-right pa-color-A02541 pa-cursor-pointer pa-bold-font" ng-click="viewInvitedAdminModal()" ng-if="visibleinvitedHistory">View Administrator History</a></p>
+                        </div>
+                        <div class="col-md-12">
+                            <a ng-click="OpenAddExistingUserAsAdminModel('Add')" class="primary-btn md-button" style="margin-left: 0px; margin-bottom: 20px !important;">Add Admin</a>
+                        </div>
+                        <div ng-if="displayEvent.event_admin.length > 0" class=" col-md-12 table-responsive pa-mt-30 pa-border-none">
+                            <table>
+                                <tr class="row follower-table" ng-repeat="admin in displayEvent.event_admin | unique:'email'" ng-init="admin.selected = true;">
+                                    <td>
+                                        <md-checkbox md-no-ink="" class="pa-no-margin pa-color-333333" ng-model="admin.selected" ng-disabled="admin.selected">
+                                        </md-checkbox>
+                                    </td>
+                                    <td class="col-md-6 col-sm-5 col-xs-5">
+                                        <span ng-if="admin.profile_pic == null" class="material-icons follower-img">account_circle</span>
+                                        <img ng-src="{{admin.profile_pic}}" ng-if="admin.profile_pic != null" class="follower-img  rounded" /> &nbsp;&nbsp;
+
+                                        <span class="pa-font-15 pa-color-333333 pa-bold-font">{{ admin.email}}</span>
+                                    </td>
+
+                                    <td class="col-md-3 col-sm-3 col-xs-3">
+                                        <span class="first_name_sec"> {{ admin.first_name ? admin.first_name +' '+admin.last_name : admin.username }}</span>
+                                    </td>
+                                    <td class="col-md-4 col-sm-4 col-xs-4">
+                                        <span class="first_admin">Administrator</span>
+                                        <span ng-click="deleteAdmin($index, admin.administrator_id)" class="pa-float-right pa-position-relative l-15 pa-font-15 pa-color-666666">
+                                            <span>
+                                                <md-icon class="cancelled-clor">delete</md-icon>
+                                            </span>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </form>
+        </section>
+
+        <section class="pa-mt-30" ng-show="currentInfoSection.includes('promote_event')">
+            <form name="createEventForms.promote_event">
+                <md-card>
+                    <md-card-header class="col-md-12 pa-bg-F9 align-items-center create-header-style pa-border-EEEEEE tt-margin-bottom-0">
+                        <md-card-header-text>
+                            <span class="md-title"><span class="pa-bold-font pa-font-20 pa-color-333333">Highlight Event 
+                            </span><span class="pa-font-16 ml-10">(Optional)</span></span>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <md-card-content class="pa-bg-FFFFFF pa-pt-30-imp pb-30">
+                        <div ng-repeat="plan in plans">
+                            <div class="col-md-12">
+                                <p class="pa-font-16 pa-color-333333">{{plan.subtitle}} <span class="pa-color-38B968 pa-font-24 pa-bold-font">{{plan.currency}}
+                                        {{plan.amount}} Only</span></p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-check highlight-div pa-border-4" id="highlight-checkbox" ng-class="{'checked-highlight-div':plan.checked, 'checked-highlight-disable': sponsoredPaymentDone}">
+                                    <md-checkbox md-no-ink="" ng-change="selectPlan(plan)" ng-disabled="sponsoredPaymentDone" class="pa-no-margin ml-mt-12 pa-color-999999 checbox-highlight" ng-model="plan.checked">
+                                        {{plan.title}}
+                                    </md-checkbox>
+                                </div>
+                                <div class="pa-padding-20 pa-highlight highlight-list" ng-if="!plan.checked">
+                                    <div ng-repeat="description in plan.description" class="pb-30">
+                                        <md-icon class="pa-color-333333 tt-mr-10">done_all</md-icon>{{description}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 pa-mt-45" ng-show="showHide.showCardDetails">
+                            <form name="createEventForms.card_details" id="payment-form">
+                                <div class="col-md-7 mr15">
+                                    <md-input-container class="pa-no-margin pa-mt-30-imp flex-gt-sm pa-width-100p" flex-gt-sm>
+                                        <label class="pa-font-14 pa-color-333333 pa-bold-font pa-modal-font">Credit Card Number</label>
+                                        <div name="card" id="card-element" class="form-control link-input w-90"></div>
+
+                                    </md-input-container>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <md-input-container class="pa-no-margin pa-mt-30-imp flex-gt-sm pa-mb-0 pa-width-100p" flex-gt-sm>
+                                                <label class="pa-font-14 pa-color-333333 pa-bold-font pa-modal-font">Expiry Date</label>
+                                                <div id="card-expiry" class="form-control link-input w-88" placeholder="MM/YY"></div>
+                                            </md-input-container>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <md-input-container class="pa-no-margin pa-mt-30-imp flex-gt-sm pa-width-100p" flex-gt-sm>
+                                                <label class="pa-font-14 pa-color-333333 pa-bold-font pa-modal-font">CVC</label>
+                                                <div id="card-cvc" class="form-control link-input w-88" placeholder="012"></div>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!--Don't remove the below commented portion: it will be use during integration:- -->
+                            <div class="col-md-5 promotional-coupon-div">
+                                <div class="pa-width-100p" ng-if="!couponValid">
+                                    <md-input-container class="pa-no-margin pa-mt-30-imp flex-gt-sm" flex-gt-sm>
+                                        <label class="pa-font-14 pa-color-333333 pa-bold-font pa-modal-font">Promotional Coupon Code</label>
+                                        <input ng-change="resetCoupon()" name="coupon" class="form-control" placeholder="Enter Code" ng-model="displayEvent.coupon_name">
+                                        <div ng-messages="createEventForms.promote_event.coupon.$error">
+                                            <div ng-message="invalid">Invalid coupon</div>
+                                        </div>
+                                    </md-input-container>
+                                    <div>
+                                        <md-button ng-click="validateCoupon()" ng-disabled="!displayEvent.coupon_name" class="pa-pink-button">Apply</md-button>
+                                    </div>
+                                </div>
+                                <div class="promotional-coupon-div" align="center" ng-if="couponValid">
+                                    <div>
+                                        <md-icon class="pa-color-38B968 font-64 mt-10">check_circle</md-icon>
+                                    </div>
+                                    <div class="pa-font-16 pa-color-333333 pa-bold-font mt-10">
+                                        <span>Promotion coupon code</span>
+                                        <p>applied successfully</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 pa-mt-30">
+                            <div class="invitation-send multiline-info padding-8">
+                                <i class="material-icons color-F5AF00 pa-font-24 tt-mr-10">info</i>
+                                <span class="pa-font-16 pa-vertical-align-top">When you click "Pay & Continue" you will be asked to verify your payment method. If a credit card has been saved to your profile, simply select this option. If no card has been added previously, you will be asked to add new payment details.</span>
+                            </div>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </form>
+        </section>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-0 col-xs-0"></div>
+</div>

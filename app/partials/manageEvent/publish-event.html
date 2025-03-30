@@ -1,0 +1,104 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE fixed-layout-vh">
+    
+    <div flex layout-fill class="pa-bg-EEEEEE fixed-layout-vh">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content "></div>
+        <div class="layout_panel_mwrap">
+            <div class="pa-bg-FFFFFF layout_left_panel">
+                <div ng-include="'partials/sidebar.html'" ng-if="sidebarBlock"></div>
+            </div>
+            <div class="layout_right_panel fixed-layout-vh-auto">
+                <div class="flex_justify">
+                    <div class="report_header pa_Width_auto">
+                        <h2 class="pa-font-24 pa-mt-0 pa-bold-font">Publish Event</h2>
+                        <p class="pa-color-3333338 pa-font-16 pa-no-bt-margin-imp">View event details and publish/unpublish the event.</p>
+                    </div>
+                    <md-button ng-if="displayEvent.is_draft && !publishActionDisable && displayEvent.is_publish_ready" ng-click="publishTicketEventConfirmation('active',displayEvent.event_id,displayEvent.ticket_type)" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 wht_bx_btn pa-pl-pr-20 md-button with-icons">
+                        <md-icon class="material-icons">check</md-icon> Publish Event</md-button>
+                    <md-button ng-if="displayEvent.is_draft && publishActionDisable && displayEvent.is_publish_ready && displayEvent.status == 'active'" uib-tooltip="Event start date is old, for publish event update a start date of the event." tooltip-placement="bottom"
+                        class="disabled pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 wht_bx_btn pa-pl-pr-20 md-button with-icons">
+                        <md-icon class="material-icons">check</md-icon> Publish Event</md-button>
+                    <md-button ng-if="displayEvent.is_draft && (!publishActionDisable || publishActionDisable) && !displayEvent.is_publish_ready" uib-tooltip="To publish this event, please complete the required information." tooltip-placement="bottom" class="disabled pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 wht_bx_btn pa-pl-pr-20 md-button with-icons">
+                        <md-icon class="material-icons">check</md-icon> Publish Event</md-button>
+                    <md-button ng-if="!displayEvent.is_draft && displayEvent.status == 'active'" ng-click="startStopEvent('stop',displayEvent.event_id,displayEvent.ticket_type)" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 wht_bx_btn pa-pl-pr-20 md-button with-icons">
+                        <md-icon class="material-icons">close</md-icon> Unpublish Event</md-button>
+                    <md-button ng-if="!displayEvent.is_draft && displayEvent.status == 'inactive'" uib-tooltip="Now, event has been expired. You just can see the information." tooltip-placement="bottom" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-14 wht_bx_btn pa-pl-pr-20 md-button with-icons disabled">
+                        <md-icon class="material-icons">close</md-icon> Unpublish Event</md-button>
+                </div>
+                <hr />
+                <div class="publish_event_list px-15" ng-if="displayEvent.event_name">
+                    <div class="row pa-mb-30 pa-bootstrap-row">
+                        <div class="upgrade-colum col-md-10 pa-bootstrap-container">
+                            <div class="row upgrade-manage-events-list wht_bx_sd pa-bootstrap-row pa-mt-0">
+                                <div class="banner-tag-div upcoming-event-box-img">
+                                    <img ng-src="{{displayEvent.files}}" alt="{{displayEvent.event_name}}" class="object-cover">
+                                    <span class="pa-color-pink" ng-if="displayEvent.ticket_type === 'paid'" event="displayEvent" event-ticket-price></span>
+                                    <span class="pa-color-pink" ng-if="displayEvent.ticket_type === 'free'" event="displayEvent" event-ticket-price></span>
+                                </div>
+                                <div class="tt-rec-left ">
+                                    <div class="upgrade-manage-events-list-head pa-row-eq-height">
+                                        <div class="upgrade-manage-events-title pa-break-word tt-text-head pa-md-8 pa-capitalize">{{displayEvent.event_name}}</div>
+                                    </div>
+                                    <div ng-if="displayEvent.ticket_type === 'paid' || (displayEvent.ticket_type === 'free' && displayEvent.tickets_list.length > 0)" class="tt-triangle-flex pa-mb-12">
+                                        <div class="tt-left-triangle tt-left-triangle-{{displayEvent.ticket_type}} ">
+                                            <i class="fa fa-circle tt-circle-center"></i>
+                                        </div>
+                                        <div class="tt-triangle tt-triangle-{{displayEvent.ticket_type}}">
+                                            <i class="material-icons" aria-hidden="true">confirmation_number</i>
+                                            <span class="pa-pl-2 pa-text-uppercase" event="displayEvent" event-remain-qty ng-class="(displayEvent.ticket_type =='free') ? 'pa-padding-10': ''"></span>
+                                        </div>
+                                    </div>
+                                    <div class="tt-row-margin pa-pl-0 pa-center-div pa-align-items-center">
+                                        <div class="widget_list_infrom pa-mt-0">
+                                            <div class="widget_list_infolist">
+                                                <i class="material-icons">location_on</i>
+                                                <span ng-if="displayEvent.venue_is != 'tobeannoun'">{{displayEvent.address.streetAddress}}, {{displayEvent.address.city}}, {{displayEvent.address.state}}, {{displayEvent.address.country}}, {{displayEvent.address.zipcode}}</span>
+                                                <span ng-if="displayEvent.venue_is == 'tobeannoun'">{{displayEvent.address.city}}, {{displayEvent.address.state}}, {{displayEvent.address.country}}, {{displayEvent.address.zipcode}}</span>
+                                            </div>
+                                            <div class="widget_list_infolist pa-mt-0">
+                                                <i class="material-icons ">date_range</i>
+                                                <span>{{displayEvent.start.date | momentFormatter:"ddd, MMM D, YYYY"}}, {{displayEvent.start.time}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="widget_list_btn pa-mt-0">
+                                        <a ng-href="/eventdetails/{{displayEvent.event_name | purger}}/{{displayEvent.event_id}}" target="_blank" ng-show="!displayEvent.is_draft"><i class="material-icons">open_in_new</i> View Event Detail</a>
+                                        <a ng-href="/eventdetails/{{displayEvent.event_name | purger}}/{{displayEvent.event_id}}" target="_blank" ng-show="displayEvent.is_draft"><i class="material-icons">open_in_new</i> Preview Event Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pa-bootstrap-row">
+                        <div class="col-md-10">
+                            <div ng-if="displayEvent.guest_user.length > 0 || (displayEvent.event_admin.length > 0 && adminDisplayView) || selectedAdminData.length > 0 || selectedPlan || ( eventPlanType === 'paid' && displayEvent.bank_id ) || displayEvent.highlighted || sponsoredPaymentDone"
+                                class="last_step_check">
+                                <div class="checklist_final ">
+                                    <div ng-if="displayEvent.bank_id" class="checklist_final_list">
+                                        <md-icon class="material-icons" role="img" aria-label="delete">done_all</md-icon>
+                                        <span class="tt-font-14 lh-19">Your selected payout method for this event is <b>XXXXXXXX{{defalutBank.last4}}</b> </span>
+                                    </div>
+                                    <div ng-if="displayEvent.guest_user.length > 0" class="checklist_final_list">
+                                        <md-icon class="material-icons" role="img" aria-label="delete">done_all</md-icon>
+                                        <span class="tt-font-14 lh-19">You have <b>invited {{displayEvent.guest_user[0].group.members.length > 0 ? displayEvent.guest_user[0].group.members.length : displayEvent.guest_user.length}} guests</b> to this event.</span>
+                                    </div>
+                                    <div ng-if="action != 'Create' && selectedAdminData.length === 0 && displayEvent.event_admin.length > 0" class="checklist_final_list">
+                                        <md-icon class="material-icons" role="img" aria-label="delete">done_all</md-icon>
+                                        <span class="tt-font-14 lh-19 admin-list-name">You have invited <b ng-repeat="admin in displayEvent.event_admin">{{admin.email === '' ? admin.username : admin.email}}<b ng-if="displayEvent.event_admin.length > 1" class="">,</b> </b></span>
+                                    </div>
+                                    <div ng-if="sponsoredPaymentDone || displayEvent.highlighted" class="checklist_final_list">
+                                        <md-icon class="material-icons" role="img" aria-label="delete">done_all</md-icon>
+                                        <span class="tt-font-14 lh-19" ng-show="!displayEvent.is_draft">You have highlighted your event by <b>paying $2.99</b>.</span>
+                                        <span class="tt-font-14 lh-19" ng-show="displayEvent.is_draft">You have agreed to highlight your event by <b>paying $2.99</b>.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- hide this section in mobile End Here -->
+
+    
+</div>

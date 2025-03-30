@@ -1,0 +1,145 @@
+.tt-add-event-div {
+    height: 55px;
+}
+
+.tt-margin-left-none {
+    margin-left: 0px;
+}
+
+.tt-dropdown-add-admin {
+    border: 1px solid #C4C4C4;
+}
+
+.tt-mb-20 {
+    margin-bottom: 20px;
+}
+
+.tt-custom-dropdown .multiSelect>button {
+    width: 100%;
+    border: 0px;
+    color: #5B5B5B !important;
+    font-family: lato;
+    font-size: 18px;
+    background: #fff;
+    min-height: 55px !important;
+    text-align: left;
+}
+
+.tt-custom-dropdown.tt-event-custom-dropdown {
+    height: auto;
+    border-radius: 4px;
+    border: 2px solid #CBCBCB;
+    background: #fff;
+    color: #333;
+    font-size: 16px!important;
+}
+
+.tt-custom-dropdown .multiSelect .line {
+    max-height: none;
+}
+
+.tt-custom-dropdown .multiSelect .helperButton {
+    margin-bottom: 5px;
+}
+
+.tt-custom-dropdown .multiSelect .inputFilter {
+    height: 36px;
+    margin-bottom: 5px;
+}
+
+.tt-custom-dropdown .multiSelect .clearButton {
+    font-size: 20px;
+    width: 32px;
+    height: 32px;
+}
+
+.tt-custom-dropdown {
+    padding-bottom: 0px !important;
+}
+
+.tt-custom-dropdown .multiSelect>button:hover {
+    background: #fff !important;
+}
+
+.tt-custom-dropdown .multiSelect .caret {
+    float: right;
+    border-top: 5px solid #5B5B5B;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    margin: -3px 0 0 !important;
+    top: 50%;
+}
+
+.tt-custom-dropdown .multiSelect .tickMark {
+    top: 13px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.tt-custom-dropdown .multiSelect .checkBoxContainer {
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.multiSelect .checkboxLayer {
+    width: 100% !important;
+}
+
+.tt-custom-dropdown .multiSelect img {
+    border-radius: 50%;
+    max-height: 40px;
+    max-width: 35px;
+    margin: 2px 2px 2px 2px;
+    border: 1px solid #C4C4C4;
+}
+
+.tt-close-position {
+    right: -25px !important;
+    top: -28px !important;
+}
+
+.tt-cross-close {
+    left: 6px;
+    top: 5px!important;
+}
+
+.pa-info-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.pa-info-tooltip .pa-info-tooltiptext {
+    visibility: hidden;
+    width: 350px;
+    background-color: #3B373C;
+    color: #fff;
+    border-radius: 6px;
+    padding: 10px 15px;
+    position: absolute;
+    z-index: 99999;
+    top: -65px;
+    left: 158%;
+}
+
+.pa-info-tooltip .pa-info-tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 25%;
+    right: 99%;
+    margin-top: -5px;
+    border-width: 15px;
+    border-style: solid;
+    border-color: transparent #3B373C transparent transparent;
+}
+
+.pa-info-tooltip:hover .pa-info-tooltiptext {
+    visibility: visible;
+}
+
+.pa-ml-20 {
+    margin-left: 20px;
+}
+
+.pa-display-font {
+    display: initial;
+}

@@ -1,0 +1,334 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE">
+    
+    <div flex class="container-wtd-1170 mobile-hide">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+        <section class="analytics-section">
+            <div class="row pa-bootstrap-row">
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    <h1 class="section-title">Analytics Dashboard</h1>
+                    <div class="zone-dropdown-section">
+                        <select class="zone-dropdown" ng-model="selectedItem" ng-change="getEventZoneWise(selectedItem)">
+                            <option selected value="">Promo Global Events</option>
+                            <option value="{{list.zone_id}}" ng-repeat="list in zoneList">{{list.name}}</option>
+                        </select>
+                        <i class="material-icons">keyboard_arrow_down</i>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <a href="/analytics_report" class="download-action"><i class="material-icons">file_download</i> Download Reports</a>
+                </div>
+            </div>
+
+            <div class="row pa-bootstrap-row">
+                <div class="col-md-12 col-sm-12 col-xs-12 filter-section">
+                    <div class="btn-group" role="group" aria-label="filter-calender">
+                        <button type="button" class="btn btn-default" ng-click="get7DaysData()" ng-class="past7Selected ? 'btn-active': ''">Past 7 Days</button>
+                        <button type="button" class="btn btn-default" ng-click="get30DaysData()" ng-class="past30Selected ? 'btn-active': ''">Past 30 Days</button>
+                        <span class="material-icons btn-arrow-down pa-vertical-align" ng-click="webDateRangePicker.toggle()">keyboard_arrow_down</span>
+                        <button md-no-asterisk name="endDate" date-range-picker readonly ng-class="dateSelected ? 'btn-active': ''" class="date-picker btn btn-default" type="button" placeholder="Custom Date" ng-model="webDateRangePicker.selectedDate" ng-required="true" picker="webDateRangePicker.picker"
+                            options="webDateRangePicker.options" autocomplete="off">{{webDateRangePicker.customText}}</button>
+                    </div>
+                    <div class="btn-group pa-ml-20" role="group" aria-label="filter-events">
+                        <button type="button" ng-click="getAllEventData()" class="btn btn-default" ng-class="eventAllData ? 'btn-active': ''">Show All Events</button>
+                        <button type="button" ng-click="getUpcomingEventData()" class="btn btn-default" ng-class="eventUpcomingData ? 'btn-active': ''">Upcoming Events</button>
+                        <button type="button" ng-click="getPastEventData()" class="btn btn-default" ng-class="eventPastData ? 'btn-active': ''">Past Events</button>
+                        <button type="button" ng-click="getEventListModal()" class="btn btn-default" ng-class="eventSelectedData ? 'btn-active': ''">Filter Events <span class="material-icons btn-filter pa-vertical-align">filter_list</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pa-bootstrap-row">
+                <div class="col-md-12 col-sm-12 col-xs-12 count-section-details">
+                    <div class="row pa-bootstrap-row row-sm">
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <div class="section-detail-view">
+                                <div class="detail-title-section">
+                                    <h4>Revenue <i class="material-icons pa-cursor-pointer" uib-tooltip="Only the profit that you make on your tickets will be shown here as revenue during the selected date range." tooltip-placement="bottom">info_outline</i></h4>
+                                    <h3 class="green"><b ng-if="user.stripe_country == 'US'">$</b> <b ng-if="user.stripe_country == 'UK'">£</b> {{totalRevenue.total}} <sup>{{insight.currency}}</sup></h3>
+                                </div>
+                                <div class="detail-subtel-section">
+                                    <p>Web: <b><b ng-if="user.stripe_country == 'US'">$</b><b ng-if="user.stripe_country == 'UK'">£</b>{{totalRevenue.web}}</b>
+                                    </p>
+                                    <p>Mobile: <b><b ng-if="user.stripe_country == 'US'">$</b><b ng-if="user.stripe_country == 'UK'">£</b>{{totalRevenue.mobile}}</b>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <div class="section-detail-view">
+                                <div class="detail-title-section">
+                                    <h4>Tickets Sold <i class="material-icons pa-cursor-pointer" uib-tooltip="Only tickets sold during the selected date range will be shown here." tooltip-placement="bottom">info_outline</i></h4>
+                                    <h3 class="orange">{{totalSoldTickets.total}}</h3>
+                                </div>
+                                <div class="detail-subtel-section">
+                                    <p>Web: <b>{{totalSoldTickets.web}}</b></p>
+                                    <p>Mobile: <b>{{totalSoldTickets.mobile}}</b></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <div class="section-detail-view">
+                                <div class="detail-title-section">
+                                    <h4>Page Views <i class="material-icons pa-cursor-pointer" uib-tooltip="Only page views an event has received during the selected date range will be shown here." tooltip-placement="bottom">info_outline</i></h4>
+                                    <h3 class="blue">{{totalPageViews.total | number : 0}}</h3>
+                                </div>
+                                <div class="detail-subtel-section">
+                                    <p>Web: <b>{{totalPageViews.web | number : 0}}</b></p>
+                                    <p>Mobile: <b>{{totalPageViews.mobile | number : 0}}</b></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <div class="section-detail-view">
+                                <div class="detail-title-section">
+                                    <h4>Promotion by Users <i class="material-icons pa-cursor-pointer" uib-tooltip="Only the number of shares an event has had during the selected date range will be shown below." tooltip-placement="bottom">info_outline</i></h4>
+                                    <h3 class="purpel">{{promotionByUsers.total | number : 0}} <sup>Shares</sup></h3>
+                                </div>
+                                <div class="detail-subtel-section">
+                                    <p>Web: <b>{{promotionByUsers.web}}</b></p>
+                                    <p>Mobile: <b>{{promotionByUsers.mobile}}</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pa-bootstrap-row row-sm">
+                <div class="col-md-9 col-sm-12 col-xs-12">
+                    <div id="timelineSection" class="timeline-section">
+                        <div class="row pa-bootstrap-row row-sm">
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <div class="section-padding pa-pr-0">
+                                    <div class="row pa-bootstrap-row row-sm">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <h4>Timeline - Total Revenue by Event <i class="material-icons pa-cursor-pointer" uib-tooltip="Only events with revenue during the selected date range will be shown below." tooltip-placement="bottom">info_outline</i></h4>
+                                        </div>
+                                    </div>
+                                    <canvas id="line" class="chart chart-line" chart-data="lineData" chart-colors='chartColors.colors' chart-labels="labels" chart-series="eventData" width="560" height="299" chart-options="chartOptions" chart-dataset-override="datasetOverride" chart-click="onClick"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <div class="section-padding left">
+                                    <h4>My Events</h4>
+                                    <div class="event-list" ng-if="eventstBreakDown.length > 0">
+                                        <div class="event-list-item" ng-repeat="eventData in eventstBreakDown" ng-style="{'border-color': eventData.color}">
+                                            <a ng-href="/eventOverview?ev={{eventData.event_id}}" class="event-name">{{eventData.event_name}}</a>
+                                            <div ng-if="eventData.status == 'active'" class="event-status">Live</div>
+                                            <div ng-if="eventData.status != 'active'" class="event-status expired">Expired</div>
+                                            <p><span ng-if="user.stripe_country == 'US'">$</span><span ng-if="user.stripe_country == 'UK'">£</span>{{eventData.net_sales}} <sup ng-if="user.stripe_country == 'US'">USD</sup><sup ng-if="user.stripe_country == 'UK'">GBP</sup></p>
+                                        </div>
+                                    </div>
+                                    <div class="event-list text-center" ng-if="eventstBreakDown.length == 0"><b>No Record Found</b></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12 col-xs-12 extra-section">
+                    <ul class="extra-section-list">
+                        <li class="extra-section-item item-payout">
+                            <h4>Total Payout <i class="material-icons pa-cursor-pointer" uib-tooltip="Only the total payout during the selected date range will be shown below." tooltip-placement="bottom">info_outline</i></h4>
+                            <div class="extra-subtel blue"><b ng-if="user.stripe_country == 'US'">$</b> <b ng-if="user.stripe_country == 'UK'">£</b> {{totalPayout}} <sup>{{insight.currency}}</sup></div>
+                            <a href="/my_payout" class="extra-action">Go to Payout Reports</a>
+                        </li>
+                        <li class="extra-section-item item-guest-invited">
+                            <h4>Guests Invited</h4>
+                            <div class="extra-subtel yellow">{{guestsInvited | number: 0}}</div>
+                        </li>
+                        <li class="extra-section-item item-refunds-cancellation">
+                            <h4>Refunds & Cancellations</h4>
+                            <div class="extra-subtel red">{{totalRefund + totalCancellation | number : 2}}</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row pa-bootstrap-row row-sm">
+                <div class="col-md-9 col-sm-12 col-xs-12">
+                    <div class="tickets-section">
+                        <h4>Tickets Breakdown <i class="material-icons pa-cursor-pointer" uib-tooltip="A breakdown of live or expired event tickets during the selected date range will be shown below." tooltip-placement="bottom">info_outline</i></h4>
+                        <div class="table-responsive collapse-table">
+                            <table id="accordion1" class="table" ng-if="eventstBreakDown.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width:245px;">Event</th>
+                                        <th scope="col" style="width:150px;">Net Sales</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Sold</th>
+                                        <th scope="col">Available</th>
+                                        <th scope="col" style="width: 210px;"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="eventDatas in eventstBreakDown track by $index">
+                                    <tr>
+                                        <td>
+                                            <div class="event-section">
+                                                <img ng-src="{{eventDatas.event_image}}" alt="img" />
+                                                <div class="event-name">
+                                                    <h4 class="pa-capitalize">{{eventDatas.event_name}}</h4>
+                                                    <p>{{eventDatas.start_date_time | toMoment | momentFormatter:"MMM D, YYYY hh:mm a"}}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="event-sales"><span ng-if="user.stripe_country == 'US'">$</span><span ng-if="user.stripe_country == 'UK'">£</span> {{eventDatas.net_sales}} <sup ng-if="user.stripe_country == 'US'">USD</sup><sup ng-if="user.stripe_country == 'UK'">GBP</sup></div>
+                                        </td>
+                                        <td>
+                                            <div class="event-total">{{eventDatas.total_tickets}}</div>
+                                        </td>
+                                        <td>
+                                            <div class="event-sold">{{eventDatas.total_sold_tickets}}</div>
+                                        </td>
+                                        <td>
+                                            <div class="event-available">{{eventDatas.total_available_tickets}}</div>
+                                        </td>
+                                        <td ng-if="eventDatas.total_tickets > 0" ng-init="eventPercentageCount = eventDatas.total_sold_tickets / eventDatas.total_tickets * 100">
+                                            <progress value="{{eventPercentageCount}}" max="100"></progress>
+                                            <span ng-if="eventPercentageCount < '100'">{{eventPercentageCount | number : 1}}%</span>
+                                            <span ng-if="eventPercentageCount == '100'">{{eventPercentageCount | number : 0}}%</span>
+                                        </td>
+                                        <td ng-if="eventDatas.total_tickets == 0">
+                                            <progress value="0" max="100"></progress> <span>0.0%</span>
+                                        </td>
+                                        <td class="expand-button accordion-toggle collapsed" id="accordion{{$index}}" data-toggle="collapse" data-parent="#accordion1" href="#collapse{{$index}}">
+                                            <i class="material-icons down">keyboard_arrow_down</i>
+                                            <i class="material-icons up">keyboard_arrow_up</i>
+                                        </td>
+                                    </tr>
+                                    <tr class="hide-table-padding">
+                                        <td colspan="7" class="collapse" id="collapse{{$index}}">
+                                            <table class="sub-table" ng-if="eventDatas.ticketBreakDown.length > 0">
+                                                <tr ng-repeat="ticketBreakData in eventDatas.ticketBreakDown">
+                                                    <td style="width: 245px;">
+                                                        <div class="ticket-section">
+                                                            {{ticketBreakData.ticket_name}} (<span class="pa-capitalize">{{ticketBreakData.ticket_type == undefined ? 'Free' : ticketBreakData.ticket_type}}</span>)
+                                                        </div>
+                                                    </td>
+                                                    <td style="width:130px;">
+                                                        <div class="event-sales"><span ng-if="user.stripe_country == 'US'">$</span><span ng-if="user.stripe_country == 'UK'">£</span>{{ticketBreakData.net_sales}}</div>
+                                                    </td>
+                                                    <td style="width: 8.4%;">
+                                                        <div class="event-total">{{ticketBreakData.total_ticket}}</div>
+                                                    </td>
+                                                    <td style="width: 8%;">
+                                                        <div class="event-sold">{{ticketBreakData.total_sold_tickets}}</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="event-available">{{ticketBreakData.total_available_tickets}}</div>
+                                                    </td>
+                                                    <td style="width: 187px;" ng-if="ticketBreakData.total_ticket > 0" ng-init="ticketBreakData = ticketBreakData.total_sold_tickets / ticketBreakData.total_ticket * 100">
+                                                        <progress value="{{ticketBreakData}}" max="100"></progress>
+                                                        <span ng-if="ticketBreakData < '100'">{{ticketBreakData | number : 1}}%</span>
+                                                        <span ng-if="ticketBreakData == '100'">{{ticketBreakData | number : 0}}%</span>
+                                                    </td>
+                                                    <td style="width: 187px;" ng-if="ticketBreakData.total_ticket == 0">
+                                                        <progress value="0" max="100"></progress> <span>0.0%</span>
+                                                    </td>
+                                                    <td style="width: 64px;">&nbsp;</td>
+                                                </tr>
+                                            </table>
+                                            <b class="pa-center-div pa-height-34 pa-align-items-center" ng-if="eventDatas.ticketBreakDown.length == 0">You'll be able to see your events and ticket types after creating them.</b>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table" ng-if="eventstBreakDown.length == 0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width:35%;">Event</th>
+                                        <th scope="col">Net Sales</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Sold</th>
+                                        <th scope="col">Available</th>
+                                        <th scope="col" style="width:163px;"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="7" class="text-center"><strong>You'll be able to see your events and ticket types after creating them.</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12 col-xs-12 extra-event-section">
+                    <div class="extra-detail-section">
+                        <h4>Event attendance <i class="material-icons pa-cursor-pointer" uib-tooltip="Only event attendance during the selected date range will be shown below." tooltip-placement="bottom">info_outline</i></h4>
+                        <div class="pa-center-div">
+                            <ui-knob value="not_attendee" class="knob-style" options="pieOptions"></ui-knob>
+                        </div>
+                        <ul class="know-list">
+                            <li class="know-list-item"><span class="blue"></span> Attended</li>
+                            <li class="know-list-item"><span class="orange"></span> Not Attended</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pa-bootstrap-row">
+                <div class="col-md-9 col-sm-12 col-xs-12 location-insights-section">
+                    <div class="row pa-bootstrap-row row-sm">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="location-section">
+                                <h4>Top Locations</h4>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Location (City)</th>
+                                            <th>Unique Buyers</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-if="mostPopularCity.length > 0">
+                                        <tr ng-repeat="city in mostPopularCity">
+                                            <td>{{city.city}}</td>
+                                            <td>{{city.buyers}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody ng-if="mostPopularCity.length == 0">
+                                        <tr>
+                                            <td class="text-center" colspan="2"><strong>No Record Found</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="insights-section">
+                                <h4>Interesting Insights</h4>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div><b ng-if="user.stripe_country == 'US'">$</b> <b ng-if="user.stripe_country == 'UK'">£</b> {{insight.averageTicketPrice}} <sup>{{insight.currency}}</sup></div>
+                                                <p>Average Ticket Price</p>
+                                            </td>
+                                            <td>
+                                                <div><b ng-if="user.stripe_country == 'US'">$</b> <b ng-if="user.stripe_country == 'UK'">£</b> {{insight.averageOrderPrice}} <sup>{{insight.currency}}</sup></div>
+                                                <p>Average Order Price</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div>{{insight.ticketPerorder}}</div>
+                                                <p>Tickets Per Order</p>
+                                            </td>
+                                            <td>
+                                                <div>{{insight.popularTimeOfPurchase}}</div>
+                                                <p>Popular Time of Purchase</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+</div>

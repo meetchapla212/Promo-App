@@ -1,0 +1,231 @@
+.organizer-profile {
+    border: 1px solid #EEEEEE;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+    padding: 20px 30px 30px 30px;
+}
+
+.organizer-profile:last-child {
+    margin-bottom: 30px;
+}
+
+.organizer-profile .pa-tabs .md-tab {
+    text-transform: none!important;
+}
+
+.manageRewardsLive .upgrade-manage-events-list {
+    margin-bottom: 0;
+}
+
+.upgrade-manage-events-list {
+    border: 1px solid #EEEEEE;
+    box-shadow: none;
+    transition: box-shadow .24s cubic-bezier(.4, 0, .3, 1), background-color .24s cubic-bezier(.4, 0, .3, 1), -webkit-box-shadow .24s cubic-bezier(.4, 0, .3, 1) !important;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.upgrade-manage-events-list:hover {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+    transition: box-shadow .24s cubic-bezier(.4, 0, .3, 1), background-color .24s cubic-bezier(.4, 0, .3, 1), -webkit-box-shadow .24s cubic-bezier(.4, 0, .3, 1) !important;
+}
+
+.upgrade-manage-events-list .tt-rec-left {
+    background-color: #ffffff;
+    width: 70% !important;
+    padding: 16px 15px;
+    position: relative;
+    float: right;
+    padding-left: 10px;
+    padding-bottom: 0;
+    border-top-right-radius: 8px;
+}
+
+.manageRewardsLive .upgrade-manage-events-list.manageRewardsLive-tablist .upcoming-event-box-img,
+.manageRewardsLive .upgrade-manage-events-list.manageRewardsLive-tablist .upcoming-event-box-img img {
+    width: 200px;
+}
+
+.manageRewardsLive .upgrade-manage-events-list.manageRewardsLive-tablist .upcoming-event-box-img img {
+    height: 150px;
+}
+
+.manageRewardsLive .upgrade-manage-events-list .tt-rec-left {
+    padding-right: 20px;
+}
+
+.manageRewardsLive .upgrade-manage-events-title .pa-break-word {
+    white-space: nowrap;
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.manageRewardsLivebtn button {
+    border: 1px solid #CBCBCB;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    float: right;
+    padding: 6px 20px;
+    color: #A02740;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.manageRewardsLivebtn button:disabled {
+    background-color: #EEEEEE !important;
+    color: #999999 !important;
+    border-color: #eee;
+}
+
+.addPaypal {
+    float: right;
+    margin-top: 6px;
+}
+
+.addPaypal i {
+    float: left;
+    margin-right: 5px;
+}
+
+.addPaypal a {
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.upgrade-manage-events-list-head {
+    display: inline-block;
+    width: 100%;
+}
+
+.moremenu-upgrade {
+    float: right;
+    display: inline-flex;
+    align-items: center;
+}
+
+.moremenu-upgrade a {
+    text-decoration: none;
+    color: #333333;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+}
+
+.morevert-menu ul {
+    width: 173px;
+    position: absolute;
+    right: 40px;
+    top: -40px;
+    border: 1px solid #EEEEEE;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 8px 0 rgb(0 0 0 / 28%);
+    list-style: none;
+    padding: 0;
+    z-index: 9;
+}
+
+.morevert-menu.dropdown-menu {
+    position: relative;
+    top: 14px;
+    left: 20px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    min-width: auto;
+    padding: 0;
+    margin: 0;
+    float: none;
+}
+
+.morevert-menu li a {
+    height: 40px;
+    line-height: 40px;
+    padding: 0;
+    padding-left: 19px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+
+.morevert-menu li a:hover {
+    background-color: rgb(176 61 88);
+    color: #fffdfd !important;
+}
+
+.upgrade-manage-events-main {
+    padding: 10px 15px;
+}
+
+.upgrade-manage-events-main .upgrade-manage-events .upgrade-colum {
+    width: calc(100% - 370px);
+}
+
+.upgrade-manage-events-main .upgrade-manage-events .upgrade-colum+div.embedwidget {
+    width: 370px;
+}
+
+.upgrade-manage-eventsdate {
+    display: flex;
+}
+
+.upgrade-manage-eventsdate md-icon {
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 21px;
+    line-height: normal;
+}
+
+.upgrade-manage-eventsdate label {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+    color: #666666;
+    margin-bottom: 0;
+    margin-top: 1px;
+    margin-left: 3px;
+}
+
+.rebecca-head {
+    color: #333333;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 26px;
+}
+
+.organizer-profile-desktop-view {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.organizer-profile-desktop-view .profile-img img {
+    width: 180px;
+    height: 180px;
+}
+
+.organizer-profile-desktop-view .profile-edit-img {
+    margin-top: 15px;
+}
+
+.organizer-profile-desktop-view .edit-photo {
+    display: flex;
+    padding: 0;
+    justify-content: center;
+    margin-top: 15px;
+}
+@media (max-width:479px)
+{
+    .myeventMobile .morevert-menu.dropdown-menu {
+        top: 30px;
+        left: 20px;;
+    }
+}

@@ -1,0 +1,770 @@
+
+<section flex layout-fill ng-controller="viewAnalyticsAttendeeRegularUserController" class="analytics-attendeeregularuser pa-bg-EEEEEE">
+
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content">
+    </div>
+    <!-- desktop  -->
+    <div class="container modal-body mobile-hide ">
+        <div class="row pa-mb-20 pa-mt-20">
+            <div class="col-md-12">
+                <a back-to-history class="pa-color-pink pa-font-bold pa-modal-font pa-font-16 pa-cursor-pointer">
+                    <p class="pa-mb-0">
+                        <i class="material-icons pa-vertical-align tt-mr-8">keyboard_arrow_left</i> Back to Profile
+                    </p>
+                </a>
+            </div>
+        </div>
+
+        <div class="notification-attende attendewin" ng-if='!analytics.is_reward_active && analytics.is_winner'>
+            <div class="notification-attende-bar wtd-50">
+                <img src="img/congrats.svg"> <span>Congratulations {{userDetails.full_name}}! You have won this
+               promotion.</span>
+            </div>
+            <div class="notification-attende-btn-group">
+                <div ng-if="!analytics.filled_info">
+                    <a ng-if="rewardDetail.reward_type == 'deliver'" data-toggle="modal" data-target="#rewardDeliver" class="pa-color-pink"><i class="material-icons">add</i>Add Required Information</a>
+                    <a ng-if="rewardDetail.reward_type == 'at_venue'" data-toggle="modal" data-target="#atVenue" class="pa-color-pink"><i class="material-icons">add</i>Add Required Information</a>
+                    <a ng-if="rewardDetail.reward_type == 'by_email'" data-toggle="modal" data-target="#byEmail" class="pa-color-pink"><i class="material-icons">add</i>Add Required Information</a>
+                    <a href="/chat.html?userId={{organizer.quickblox_id}}" target="_blank" class="pa-color-pink"><i
+                     class="material-icons">chat</i> Chat with Event Organizer</a>
+
+                </div>
+                <div ng-if="analytics.filled_info">
+                    <a class="pa-color-pink"><i class="material-icons">check</i>Information Send</a>
+                    <a href="/chat.html?userId={{organizer.quickblox_id}}" target="_blank" class="pa-color-pink"><i
+                     class="material-icons">chat</i> Chat with Event Organizer</a>
+                </div>
+            </div>
+        </div>
+        <!-- ---------notification bar--------- -->
+        <div class="notification-attende" ng-if="analytics.is_eligible && analytics.is_reward_active">
+            <div class="notification-attende-bar">
+                <img src="img/thumbs up.svg"> <span>Well done, {{userDetails.full_name}}! You are now eligible to win this
+               promotion.</span>
+            </div>
+        </div>
+        <div class="rewards-analytics attendeeregularuser-details">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="attende-header">
+                        <h2>{{rewardDetail.event_details.event_name}}</h2>
+                        <span class="chec-category"><img ng-src="{{getCatName(rewardDetail.event_details.category,categoriesMap).icon}}"
+                        class="pa-w-26 pa-icon-event " alt="{{rewardDetail.event_details.event_name}}">
+                     {{ getCatName(rewardDetail.event_details.category,categoriesMap).name }}
+                     {{categoriesMap[rewardDetail.event_details.category].name}}</span>
+                    </div>
+                    <div class="ticket-details">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="ticket-date">
+                                    <i class="material-icons">event_available</i>
+                                    <span>EVENT STARTS
+                              <b>{{rewardDetail.event_details.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}
+                                 at
+                                 {{ rewardDetail.event_details.start_date_time | toMoment | momentFormatter:"hh:mm A"}}</b>
+                           </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="ticket-date">
+                                    <i class="material-icons">event_available</i>
+                                    <span>EVENT ENDS
+                              <b>{{rewardDetail.event_details.end_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}
+                                 at
+                                 {{rewardDetail.event_details.end_date_time | toMoment | momentFormatter:"hh:mm A"}}</b>
+                           </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mr-top-20">
+                            <div class="col-sm-6">
+                                <div class="ticket-date">
+                                    <i class="material-icons">location_on</i>
+                                    <span class="wtd-85">LOCATION
+                              <b>{{rewardDetail.event_details.address}}</b>
+                              <a target="_blank"
+                                 href="https://maps.google.com/maps?hl=en&q={{ rewardDetail.event_details.latitude }},{{ rewardDetail.event_details.longitude }}"
+                                 class="pa-color-pink view-location-on-map" ng-if="rewardDetail.event_details.address"
+                                 event="event">View Location on Map</a>
+                           </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="ticket-date">
+                                    <i class="material-icons">account_circle</i>
+                                    <span>ORGANIZER
+                              <b ng-if="organizer.first_name">{{organizer.first_name+' '+organizer.last_name}}</b>
+                              <b ng-if="!organizer.first_name">{{organizer.username}}</b>
+                              <a href="/eventdetails/{{urlEventName}}/{{rewardDetail.event_details.event_id}}"><strong>View Event
+                                    Listing</strong></a>
+                           </span>
+                                </div>
+                                <div class=""><a ng-href="/chat.html?userId={{organizer.quickblox_id}}" target="_blank" class="chat-btn"><i
+                                 class="material-icons">chat</i>Chat</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 pa-pr-0">
+                    <div class="reward-Info with-attendeeregularuser">
+                        <div class="reward-Info-head">
+                            <div class="event-share">
+                                <h3>Promotion Details</h3>
+                                <div class="med-social-icons">
+                                    <div class="social-circle pa-cursor-pointer" ng-click="socialShare('facebook')">
+                                        <i class="fa fa-facebook-f pa-font-24"></i>
+                                    </div>
+                                    <div class="social-circle pa-cursor-pointer pa-ml-10 snapchat-share-button" data-share-url="{{getSocialShareURL('snapchat')}}" ng-click="socialShare('snapchat')">
+                                        <i class="fa fa-snapchat-ghost pa-font-20 snapchat-right-top "></i>
+                                    </div>
+                                    <div class="social-circle pa-cursor-pointer pa-ml-10" ng-click="socialShare('whatsapp')"><i class="fa fa-whatsapp pa-font-20 whatsapp-right-top"></i>
+                                    </div>
+                                    <div class="social-circle pa-cursor-pointer pa-ml-10" ng-click="emailShare('email')">
+                                        <i class="material-icons mail-left-right pa-font-20 pa-color-pink">mail</i>
+                                    </div>
+                                    <div class="social-circle pa-cursor-pointer pa-ml-10" data-dismiss="modal" social-share-link="{{otherUrl}}" ng-click="socialShare('other')">
+                                        <i class="material-icons pa-font-20 mail-left-right pa-color-pink">insert_link</i>
+                                    </div>
+                                </div>
+                                <div class="reward-Info-img with-attendee">
+                                    <div class="reward-Info-atten-sub-head">
+                                        <h4>{{ rewardDetail.title }}</h4>
+                                        <span>Valid Until:
+                                 {{rewardDetail.end_date | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} at
+                                 {{rewardDetail.end_date | toMoment | momentFormatter:"hh:mm A"}}</span>
+                                    </div>
+                                    <div class="view-temrs-attendee">
+                                        <div class="temrs-attendee-img">
+                                            <img ng-src="{{rewardDetail.image}}" alt="{{ rewardDetail.title }}">
+                                        </div>
+                                        <div class="event-share-imgdecrption">
+                                            <p>{{rewardDetail.description}}</p>
+                                            <a class="mt-10 pa-color-pink pa-font-14 pa-bold-font pa-display-block" data-toggle="modal" data-target="#RewardTerms">View Promotion Terms Conditions</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="rewards-analytics basic-analytics-attendeeregularuser mr-top-20 pa-mb-30">
+            <div class="small-tab-vr">
+                <div class="rewards-analytics-view-head">
+                    <h2>Basic Analytics Report <a href="javascript:void(0)" class="customtooltip"><i
+                        class="material-icons">help_outline</i> <span class="customtooltiptext">View where your event
+                        has been shared on social media and by whom.</span></a></h2>
+                </div>
+
+                <div class="row" ng-if="socialInfo.length == 0">
+                    <div class="col-md-12">
+                        <h2 class="no-data-found">No data found!</h2>
+                    </div>
+                </div>
+
+                <div class="row" ng-if="socialInfo.length > 0">
+                    <div class="col-md-6">
+                        <md-content>
+                            <md-tabs class="pa-tabs" md-dynamic-height md-border-bottom>
+                                <md-tab ng-repeat="social in socialInfo" label="{{social.type}}" class="pa-padding-20 pa-font-18" ng-class="{active: (page =={{social.type}}) }" ng-click="changeTab(social.type,social.clicks)">
+                                    <md-content class="upcoming-past-tab-tabs-content">
+                                        <div class="analytics-view-winners-list">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="sr-number">S.No</th>
+                                                        <th>Name</th>
+                                                        <th style=" width: 180px;">Date & Time of Visit</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="(key, user) in social.users">
+                                                        <td>{{key + 1}}</td>
+                                                        <td class="winners-user-pro-list">
+                                                            <img ng-if='user.image' ng-src="{{user.image}}">
+                                                            <img ng-if='!user.image' src="../img/defaultProfilePic.png">
+                                                            <span class="winners-name">
+                                                <b ng-if="user.first_name">{{user.first_name+' '+user.last_name}}</b>
+                                                <b ng-if="!user.first_name">{{user.name}}</b>
+                                             </span>
+                                                        </td>
+                                                        <td>
+                                                            {{user.date | toMoment | momentFormatter:"DD/MM/YYYY, hh:mm A"}}
+                                                            <!-- {{02/10/2020, 4:30pm UTC}} -->
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                            </md-tabs>
+                        </md-content>
+                    </div>
+                    <div class="col-md-6" ng-if="socialInfo.length > 0">
+
+                        <div class="generate-click">
+                            <span>
+                        Promotion Eligibility Requirement:
+                        <b>Generate {{rewardDetail.no_of_click}} Clicks </b>
+                        <canvas id="doughnut" class="chart chart-doughnut" chart-data="[totalClick,no_of_click]"
+                           style="margin: 0 auto;" chart-labels="labels" width="300px" height="300px">
+                        </canvas>
+                        <p style="position: absolute;
+                           top: 50%;
+                           left: 50%;
+                           font-size: 42px;
+                           transform: translate(-40%,30%);">{{totalClick}} / {{rewardDetail.no_of_click}}</p>
+                        <p>{{clicks}} clicks generated from link shared on {{page_type}}</p>
+                     </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- mobile -->
+    <!-- ---------notification bar--------- -->
+    <div class="desktop-hide">
+        <div class="notification-attende attendewin mobile-notification" ng-if='!analytics.is_reward_active && analytics.is_winner'>
+            <div class="notification-attende-bar wtd-50">
+                <img src="img/congrats.svg"> <span>Congratulations {{userDetails.full_name}}! You have won this
+               promotion.</span>
+            </div>
+            <div class="notification-attende-btn-group pa-mt-20">
+                <a href="#" class="pa-color-pink"><i class="material-icons">add</i>Add Required Information</a>
+                <a href="/chat.html?userId={{organizer.quickblox_id}}" class="pa-color-pink chat-orgEvent-btn"><i
+                  class="material-icons">chat</i> Chat with Event
+               Organsier</a>
+            </div>
+        </div>
+
+        <div class="notification-attende  mobile-notification" ng-if="analytics.is_eligible">
+            <div class="notification-attende-bar">
+                <img src="img/thumbs up.svg"> <span>Well done, {{userDetails.full_name}}! You have become eligible to stand
+               a chance to win
+               this reward.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container modal-body desktop-hide attend-mobile">
+        <div class="mobile-header mange-title-head">
+            <span class="back-btn-mobile">
+            <a href="/events/shared" style="font-size: 14px;"><i class="material-icons">arrow_back_ios</i></a>
+         </span>
+            <h2 class="ng-binding">View Analytics</h2>
+            <span class="share-link">
+                <a href="#" ng-click="emailShare('email')">Share</a>
+            </span>
+        </div>
+
+
+        <div class="rewards-analytics attendeeregularuser-details">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="attende-header">
+                        <h2>{{rewardDetail.event_details.event_name}}</h2>
+                        <span class="chec-category"><img ng-src="{{getCatName(rewardDetail.event_details.category,categoriesMap).icon}}"
+                        class="pa-w-26 pa-icon-event " alt="{{rewardDetail.event_details.event_name}}">
+                     {{ getCatName(rewardDetail.event_details.category,categoriesMap).name }}
+                     {{categoriesMap[rewardDetail.event_details.category].name}}</span>
+                    </div>
+                    <div class="attendee_event_detial_mobile">
+                        <a ng-click="showCalendar()" class="pa-color-pink tt-font-16 pa-bold-font"> View General Event
+                     Details <i class="material-icons">keyboard_arrow_down</i></a>
+                    </div>
+                    <div class="ticket-details" ng-show="showEDetials">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="ticket-date">
+                                    <i class="material-icons">event_available</i>
+                                    <span>EVENT STARTS
+                              <b>{{rewardDetail.event_details.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}
+                                 at
+                                 {{ rewardDetail.event_details.start_date_time | toMoment | momentFormatter:"hh:mm A"}}</b>
+                           </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="ticket-date">
+                                    <i class="material-icons">event_available</i>
+                                    <span>EVENT ENDS
+                              <b>{{rewardDetail.event_details.end_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}
+                                 at
+                                 {{rewardDetail.event_details.end_date_time | toMoment | momentFormatter:"hh:mm A"}}</b>
+                           </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="ticket-date">
+                                    <i class="material-icons">location_on</i>
+                                    <span class="wtd-85">LOCATION
+                              <b>{{rewardDetail.event_details.address}}</b>
+                              <a target="_blank"
+                                 href="https://maps.google.com/maps?hl=en&q={{ rewardDetail.event_details.latitude }},{{ rewardDetail.event_details.longitude }}"
+                                 class="pa-color-pink view-location-on-map" ng-if="rewardDetail.event_details.address"
+                                 event="event">View Location on
+                                 Map</a>
+                           </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 chat-btn-group-mob">
+                                <div class="ticket-date">
+                                    <i class="material-icons">account_circle</i>
+                                    <span>ORGANISER
+                              <b>{{organizer.username}}</b>
+                              <a href="/manageevent"><strong>View Event Listing</strong></a>
+                           </span>
+                                    <div class="ticket-date-chat"><a ng-href="/chat.html?userId={{organizer.quickblox_id}}" class="chat-btn"><i class="material-icons">chat</i>Chat</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reward-Info mobile-reward-Info">
+                    <div class="mobile-sub-head pa-mt-20">
+                        Promotion Details
+                    </div>
+                    <div class="reward-Info-head">
+                        <div class="event-share">
+                            <h3>{{ rewardDetail.title }}</h3>
+                            <span>Valid Until:{{rewardDetail.end_date | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} at
+                        {{rewardDetail.end_date | toMoment | momentFormatter:"hh:mm A"}}</span>
+                            <div class="row ">
+                                <div class="col-sm-12">
+                                    <img ng-src="{{rewardDetail.image}}" alt="{{ rewardDetail.title }}">
+                                </div>
+                                <div class="col-md-12 med-social-icons pa-mt-20">
+
+                                    <div class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer" ng-click="socialShare('facebook')">
+                                        <i class="fa fa-facebook-f pa-font-24"></i>
+                                    </div>
+
+                                    <div class="social-circle pa-cursor-pointer pa-ml-15 snapchat-share-button" data-share-url="{{getSocialShareURL('snapchat')}}" ng-click="socialShare('snapchat')">
+                                        <i class="fa fa-snapchat-ghost pa-font-24 snapchat-right-top "></i>
+                                    </div>
+
+                                    <div class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-15" ng-click="socialShare('whatsapp')">
+                                        <i class="fa fa-whatsapp pa-font-24 whatsapp-right-top"></i>
+                                    </div>
+
+                                    <div class="col-md-2 social-circle pa-cursor-pointer pa-ml-15" ng-click="emailShare('email')">
+                                        <i class="material-icons mail-left-right pa-font-24 pa-color-pink">mail</i>
+                                    </div>
+
+                                    <div class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-15" data-dismiss="modal" social-share-link="{{otherUrl}}" ng-click="socialShare('other')">
+                                        <i class="material-icons pa-font-24 mail-left-right pa-color-pink">insert_link</i>
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12 event-share-imgdecrption">
+                                        <p>{{rewardDetail.description}}</p>
+                                        <a class="mt-10 pa-color-pink pa-font-14 pa-bold-font pa-display-block" data-toggle="modal" data-target="#RewardTermsmobile">View Promotion Terms &amp; Conditions</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pa-mt-40 mb-62">
+            <div class="row">
+                <div class="small-tab-vr">
+                    <div class="rewards-analytics-view-head">
+                        <h2 class="mobile-sub-head">Basic Analytics Report {{socialInfo.length}}<a href="javascript:void(0)" class="customtooltip"><i class="material-icons">help_outline</i> <span
+                           class="customtooltiptext">View where your event has been shared on social media and by
+                           whom.</span></a></h2>
+                    </div>
+                    <md-content ng-if='socialInfo.length'>
+                        <md-tabs class="pa-tabs" md-dynamic-height md-border-bottom>
+                            <md-tab ng-repeat="social in socialInfo" label="{{social.type}}" class="pa-padding-20 pa-font-18" ng-class="{active: (page =='{{social.type}}') }" ng-click="changeTab(social.type)">
+                                <md-content class="upcoming-past-tab-tabs-content pa-mt-30">
+                                    <div class="">
+                                        <div class="col-md-6">
+                                            <div class="analytics-view-winners-list">
+                                                <table>
+                                                    <tbody>
+                                                        <tr ng-repeat="(key, user) in social.users">
+                                                            <td class="winners-user-pro-list">
+                                                                <img ng-if='user.image' ng-src="{{user.image}}">
+                                                                <img ng-if='!user.image' src="../img/defaultProfilePic.png">
+                                                                <span class="winners-name">
+                                                   <b>{{user.name}}</b>
+                                                   {{user.date | toMoment | momentFormatter:"DD/MM/YYYY, hh:mm A"}}
+                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                        </md-tabs>
+                    </md-content>
+                    <md-content ng-if='socialInfo.length <= 0' class="no-data-found"> No Data Found</md-content>
+                    <div class="col-md-6 generate-link" ng-if='socialInfo.length'>
+                        <div class="generate-click" ng-repeat="social in socialInfo" ng-show="page === '{{social.type}}'">
+                            <span>
+                        Promotion Eligibility Requirement:
+                        <b>Generate {{rewardDetail.no_of_click}} Clicks </b>
+                        <canvas id="doughnut" class="chart chart-doughnut" chart-data="[totalClick,no_of_click]"
+                           style="margin: 0 auto;" chart-labels="labels" width="200px" height="200px">
+                        </canvas>
+                        <p style="position: absolute;
+                                                          top: 50%;
+                                                          left: 50%;
+                                                          font-size: 22px;
+                                                          transform: translate(-44%,41%);">{{totalClick}} /
+                           {{rewardDetail.no_of_click}}</p>
+                        <p>{{social.clicks}} clicks generated from link shared on {{social.type}}</p>
+                     </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<!-- destop popup -->
+<!--  -->
+<!-- popup 1 -->
+<div class="modal fade popup-perent congratulations-reward-popup" id="byEmail" tabindex="-1" role="dialog" aria-labelledby="congratulationsPopup" aria-hidden="true">
+    <div class="modal-dialog login-modal">
+        <div class="modal-header">
+            <md-icon class="pa-float-right pa-cursor-pointer" id="close-icon" data-dismiss="modal">close</md-icon>
+        </div>
+
+        <div class="modal-body pa-text-center pa-background-white">
+            <div class="congratulations-head">
+                <img src="img/congrats.svg">
+                <h3>Congratulations {{userDetails.full_name}}!</h3>
+                <span>You have won {{rewardDetail.reward_item}} </span>
+            </div>
+
+            <div class="congratulations-content">
+                <div class="congratulations-content-head">
+                    To make sure the organizer sends the promotion to the right place, please provide the following information:
+                </div>
+                <md-content>
+                    <div class="congratulations-form-filed">
+                        <form ng-submit="addWinnerInfo()">
+                            <md-input-container>
+                                <label>Email Address <span class="pa-required">*</span></label>
+                                <input type="email" ng-model="userEmail" value="">
+                            </md-input-container>
+                            <md-input-container class="terms-check">
+                                <md-checkbox ng-model="userMyEmail" value="1" ng-change="checkEmail()" name="tos">
+                                    Use my registered email address with the Promo App
+                                </md-checkbox>
+                            </md-input-container>
+                            <div class="congrats-btn">
+                                <button type="submit" class="pa-bold-font pa-border-4 tt-font-16 md-button  md-ink-ripple">Share
+                           This Info With the organizer</button>
+                                <a href="#" class="pa-bold-font tt-font-16 pa-color-pink" data-dismiss="modal"> Do It Later</a>
+                            </div>
+                    </div>
+                    </form>
+                </md-content>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- popup 2 -->
+
+<div class="modal fade popup-perent congratulations-reward-popup" id="atVenue" tabindex="-1" role="dialog" aria-labelledby="congratulationsPopup" aria-hidden="true">
+    <div class="modal-dialog login-modal">
+        <div class="modal-header">
+            <md-icon class="pa-float-right pa-cursor-pointer" id="close-icon" data-dismiss="modal">close</md-icon>
+        </div>
+
+        <div class="modal-body pa-text-center pa-background-white">
+            <div class="congratulations-head">
+                <img src="img/congrats.svg">
+                <h3>Congratulations {{userDetails.full_name}}!</h3>
+                <span>You have won a voucher for free 5 drinks </span>
+            </div>
+
+            <div class="congratulations-content">
+                <div class="congratulations-content-head">
+                    You would receive the promotion at the event venue. Please make sure that you reach at the venue on time. For more information, please contact the organizer through chat.
+                </div>
+                <md-content>
+                    <div class="congratulations-form-filed">
+                        <div class="congrats-btn">
+                            <a href="/chat.html?userId={{organizer.quickblox_id}}" class="pa-bold-font pa-border-4 tt-font-16 md-button md-ink-ripple" type="button">Chat With
+                        Organizer</a>
+                            <a href="https://maps.google.com/maps?hl=en&q={{ rewardDetail.event_details.latitude }},{{ rewardDetail.event_details.longitude }}" class="pa-bold-font pa-border-4 tt-font-16 md-button  md-ink-ripple" type="button">
+                        View Event Location on Map
+                     </a>
+                        </div>
+                    </div>
+                </md-content>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- popup 2 -->
+<div class="modal fade popup-perent congratulations-reward-popup" id="rewardDeliver" tabindex="-1" role="dialog" aria-labelledby="congratulationsPopup" aria-hidden="true">
+    <div class="modal-dialog login-modal">
+        <div class="modal-header">
+            <md-icon class="pa-float-right pa-cursor-pointer" id="close-icon" data-dismiss="modal">close</md-icon>
+        </div>
+        <div class="modal-body pa-text-center pa-background-white formPopupCongrats">
+            <div class="congratulations-head">
+                <img src="img/congrats.svg">
+                <h3>Congratulations {{userDetails.full_name}}!</h3>
+                <span>You have won {{rewardDetail.reward_item}} </span>
+            </div>
+            <div class="congratulations-content">
+                <div class="congratulations-content-head">
+                    You will receive your promotion at the venue. Please make sure that you get to the venue on time. For more information, please contact the organizer via the chat function.
+                </div>
+                <div class="form-poup-congratulations">
+                    <form ng-submit="addWinnerInfo()">
+                        <md-content>
+                            <div class="congratulations-form-filed">
+                                <div class="row pa-mb-12">
+                                    <div class="col-md-12">
+                                        <md-input-container>
+                                            <label>Address <span class="pa-required">*</span></label>
+                                            <input ng-model="userAddress" type="text" value="" placeholder="e.g. 12.2 4th Street, Apartment, Suite, Building" class="form-control">
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                                <div class="row pa-mt-10 pa-mb-12">
+                                    <div class="col-md-6">
+                                        <md-input-container>
+                                            <label>City <span class="pa-required">*</span></label>
+                                            <input ng-model="userCity" type="text" value="">
+                                        </md-input-container>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <md-input-container>
+                                            <label>State <span class="pa-required">*</span></label>
+                                            <input ng-model="userState" type="text" value="" placeholder="New york">
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                                <div class="row pa-mt-10 pa-mb-12">
+                                    <div class="col-md-6">
+                                        <md-input-container>
+                                            <label>Zip Code <span class="pa-required">*</span></label>
+                                            <input ng-model="userZipcode" type="text" value="" placeholder="e.g. 94103">
+                                        </md-input-container>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <md-input-container>
+                                            <label>Country <span class="pa-required">*</span></label>
+                                            <input ng-model="userCountry" type="text" value="" placeholder="United State">
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                                <div class="congrats-btn">
+                                    <button class="pa-bold-font pa-border-4 tt-font-16 md-button  md-ink-ripple" type="submit">Share This Info With Organizer</button>
+                                    <a href="#" class="pa-bold-font tt-font-16 pa-color-pink" data-dismiss="modal"> Do It
+                              Later</a>
+                                </div>
+                            </div>
+                        </md-content>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Mobile popup -->
+<!-- <a data-toggle="modal" data-target="#congratulationsPopup">Cancel</a> 
+ -->
+<!-- popup 1 -->
+<!-- <div class="modal fade popup-perent congratulations-reward-popup mobile-congratulations" id="congratulationsPopup" tabindex="-1" role="dialog" aria-labelledby="congratulationsPopup" aria-hidden="true">
+   <div class="modal-dialog login-modal">
+         <div class="modal-header">
+             <md-icon class="pa-float-right pa-cursor-pointer" id="close-icon" data-dismiss="modal">close</md-icon>
+         </div>
+   
+         <div class="modal-body pa-text-center pa-background-white">
+             <div class="congratulations-head">
+               <img src="img/congrats.svg">
+               <h3>Congratulations {{userDetails.full_name}}!</h3>
+               <span>You have won a voucher for free 5 drinks  </span>
+             </div>
+   
+             <div class="congratulations-content">
+              <div class="congratulations-content-head">
+                Just to make sure the organiser send the reward at the right place, please provide the following information in order to receive the reward.
+              </div> 
+              <md-content >
+                 <div class="congratulations-form-filed">
+                   <md-input-container>
+                     <label>Email Address</label>
+                     <input type="text" value="{{userDetails.full_name}}.wallace@gmail.com">
+                   </md-input-container>
+                     <md-input-container class="terms-check">
+                       <md-checkbox name="tos" >
+                        Use my registered email address with the promo app
+                       </md-checkbox>
+                     </md-input-container>
+                     <div class="congrats-btn">
+                     <button class="pa-bold-font pa-border-4 tt-font-16 md-button  md-ink-ripple" type="button">Share This Info With Organizer</button>
+                     <a href="#" class="pa-bold-font tt-font-16 pa-color-pink"> Do It Later</a>
+                     </div>
+                 </div>
+               </md-content>
+             </div>
+         </div>
+   
+     </div>
+</div> -->
+<!-- popup 2 -->
+
+<!--   <div class="modal fade popup-perent congratulations-reward-popup  mobile-congratulations" id="congratulationsPopup" tabindex="-1" role="dialog" aria-labelledby="congratulationsPopup" aria-hidden="true">
+     <div class="modal-dialog login-modal">
+           <div class="modal-header">
+               <md-icon class="pa-float-right pa-cursor-pointer" id="close-icon" data-dismiss="modal">close</md-icon>
+           </div>
+   
+           <div class="modal-body pa-text-center pa-background-white">
+               <div class="congratulations-head">
+                 <img src="img/congrats.svg">
+                 <h3>Congratulations {{userDetails.full_name}}!</h3>
+                 <span>You have won a voucher for free 5 drinks  </span>
+               </div>
+   
+               <div class="congratulations-content">
+                <div class="congratulations-content-head">
+                  You would receive the reward at the event venue. Please make sure that you reach at the venue on time. For more information, please contact the organizer through chat.
+                </div> 
+                <md-content >
+                   <div class="congratulations-form-filed">
+                       <div class="congrats-btn">
+                        <button class="pa-bold-font pa-border-4 tt-font-16 md-button  md-ink-ripple" type="button">View Event Location on Map</button>
+                       <button class="pa-bold-font pa-border-4 tt-font-16 md-button  md-ink-ripple pa-background-white pa-color-pink chat-with-org" type="button">Chat With Organizer</button>
+                       </div>
+                   </div>
+                 </md-content>
+               </div>
+           </div>
+   
+       </div>
+   </div> -->
+<!-- popup 2 -->
+<!-- <div class="modal fade popup-perent congratulations-reward-popup mobile-congratulations" id="congratulationsPopup" tabindex="-1" role="dialog" aria-labelledby="congratulationsPopup" aria-hidden="true">
+   <div class="modal-dialog login-modal">
+      <div class="modal-header">
+         <md-icon class="pa-float-right pa-cursor-pointer" id="close-icon" data-dismiss="modal">close</md-icon>
+      </div>
+      <div class="modal-body pa-text-center pa-background-white formPopupCongrats">
+         <div class="congratulations-head">
+            <img src="img/congrats.svg">
+            <h3>Congratulations {{userDetails.full_name}}!</h3>
+            <span>You have won a voucher for free 5 drinks  </span>
+         </div>
+         <div class="congratulations-content">
+            <div class="congratulations-content-head">
+               To make sure the organizer sends the reward to the right place, please provide the following information:
+            </div>
+            <div class="form-poup-congratulations">
+               <form>
+                  <md-content>
+                     <div class="congratulations-form-filed">
+                        <div class="row">
+                           <div class="col-md-12  pa-mt-20">
+                              <md-input-container>
+                                 <label>Address</label>
+                                 <input type="text" value="" placeholder="e.g. 12.2 4th Street, Apartment, Suite, Building"  class="form-control">
+                              </md-input-container>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6  pa-mt-20">
+                              <md-input-container>
+                                 <label>City</label>
+                                 <input type="text" value="Miami">
+                              </md-input-container>
+                           </div>
+                           <div class="col-md-6  pa-mt-20">
+                              <md-input-container>
+                                 <label>State</label>
+                                 <select class="form-control">
+                                    <option>Florida</option>
+                                 </select>
+                              </md-input-container>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6  pa-mt-20">
+                              <md-input-container>
+                                 <label>Zip Code</label>
+                                 <input type="text" value="Miami" placeholder="e.g. 94103">
+                              </md-input-container>
+                           </div>
+                           <div class="col-md-6  pa-mt-20">
+                              <md-input-container>
+                                 <label>Country</label>
+                                 <select class="form-control">
+                                    <option>United States</option>
+                                 </select>
+                              </md-input-container>
+                           </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-12">
+                        <div class="congrats-btn">
+                           <button class="pa-bold-font pa-border-4 tt-font-16 md-button  md-ink-ripple" type="button">Share This Info With the Organizer</button>
+                           <a href="#" class="pa-bold-font tt-font-16 pa-color-pink"> Do It Later</a>
+                        </div>
+                        </div>
+                        </div>
+                     </div>
+                  </md-content>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div> -->
+<!-- Reward Terms Popup -->
+<div class="modal fade popup-perent rewardtermspopup" id="RewardTerms" tabindex="-1" role="dialog" aria-labelledby="RewardTerms" aria-hidden="true">
+    <div class="modal-dialog login-modal">
+        <!-- Modal content-->
+        <div class="modal-body pa-text-center pa-background-white">
+            <div class="rewardpopup-content">
+                <i class="material-icons">info</i>
+                <h2>Promotion Terms & Conditions</h2>
+                <span>{{ rewardDetail.terms_condition }}</span>
+                <md-button data-dismiss="modal">Ok, I understand.</md-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade popup-perent rewardtermspopup rewardtermspopup-mob-popup " id="RewardTermsmobile" tabindex="-1" role="dialog" aria-labelledby="RewardTerms" aria-hidden="true">
+    <div class="modal-dialog login-modal">
+        <!-- Modal content-->
+        <div class="modal-body pa-text-center pa-background-white">
+            <div class="rewardpopup-content">
+                <i class="material-icons">info</i>
+                <h2>Promotion Terms & Conditions</h2>
+                <span>{{ rewardDetail.terms_condition }}</span>
+                <md-button data-dismiss="modal">Ok, I understand.</md-button>
+            </div>
+        </div>
+    </div>
+</div>

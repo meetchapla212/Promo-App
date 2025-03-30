@@ -1,0 +1,97 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE fixed-layout-vh">
+    
+    <div flex layout-fill class="pa-bg-EEEEEE fixed-layout-vh">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content "></div>
+        <div class="layout_panel_mwrap">
+            <div ng-include="'partials/sidebar.html'"></div>
+            <div class="layout_right_panel fixed-layout-vh-auto">
+                <div class="event_overv_top">
+                    <p class="pa-font-20 pa-no-bt-margin-imp pa-mr-20 pa-bold-font pa-color-333333">Event Overview</p>
+                    <div class="red_selct">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle pa-width-100 flex_bx_mwrp pa-cursor-pointer" data-toggle="dropdown">{{selectedItemvalue}}
+                                <i class="material-icons pa-vertical-align" aria-hidden="true">keyboard_arrow_down</i>
+                            </div>
+                            <ul class="dropdown-menu pa-font-14 pa-width-100">
+                                <li ng-class="eventID == list.event_id ? 'active': ''" ng-click="changeEventData(list.event_id, list.event_name)" ng-repeat="list in eventList"><a>{{list.event_name}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="wht_bx_sd pa-mt-30 flex_bx_mwrp tt-padding-25">
+                    <div class="bx_30">
+                        <p class="pa-color-3333336">Net Sales</p>
+                        <span class="val pa-font-20 pa-color-38B968"><b ng-if="user.stripe_country == 'US'">$</b><b ng-if="user.stripe_country == 'UK'">£</b><b>{{getEventInfo.ticket_net_sales | number: 2 }}</b> {{getEventInfo.currency_code}}</span>
+                    </div>
+                    <span class="hr"></span>
+                    <div class="bx_30">
+                        <p class="pa-color-3333336">Ticket Sales</p>
+                        <span class="val pa-font-20"><span ng-if="user.stripe_country == 'US'">$</span><span ng-if="user.stripe_country == 'UK'">£</span>{{getEventInfo.ticket_sales}} {{getEventInfo.currency_code}}</span>
+                    </div>
+                    <span class="hr"></span>
+                    <div class="bx_30">
+                        <p class="pa-color-3333336">Fees</p>
+                        <span class="val pa-font-20">(-<span ng-if="user.stripe_country == 'US'">$</span><span ng-if="user.stripe_country == 'UK'">£</span>{{getEventInfo.total_fees}} {{getEventInfo.currency_code}})</span>
+                    </div>
+                </div>
+                <div class="pa-mt-30 flex_bx_mwrp">
+                    <div class="wht_bx_sd bx_30 tt-padding-25">
+                        <p class="pa-color-3333336">Total Orders</p>
+                        <span class="val pa-font-20 pa-bold-font">{{getEventInfo.total_order}}</span>
+                    </div>
+                    <div class="wht_bx_sd bx_30 tt-padding-25">
+                        <p class="pa-color-3333336">Total Check-Ins</p>
+                        <span class="val pa-font-20 pa-bold-font">{{getEventInfo.tickets_checked_in}}</span>
+                    </div>
+                    <div class="wht_bx_sd bx_30 tt-padding-25">
+                        <p class="pa-color-3333336">Promotion by Users</p>
+                        <span class="val pa-font-20"><b class="pa-bold-font">{{getEventInfo.promotionByUsers}}</b> Shares</span>
+                    </div>
+                </div>
+
+                <div class="pa-mt-30 wht_bx_sd">
+                    <p class="wht_head pa-font-20 pa-color-333333 tt-padding-20 pa-font-bold">Ticket Types Breakdown</p>
+                    <div class="responsive_table">
+                        <table class="cus_tb" width="100%">
+                            <tr>
+                                <th>Ticket Type</th>
+                                <th>Net Sales</th>
+                                <th>Total</th>
+                                <th>Sold</th>
+                                <th width="250">Available</th>
+                            </tr>
+                            <tr ng-if="getEventInfo.ticketBreakDown.length > 0" ng-repeat="ticket in getEventInfo.ticketBreakDown">
+                                <td><span class="pa-bold-font">{{ticket.ticket_name}}</span></td>
+                                <td>$ {{ticket.net_sales | number : 2}} <sup>{{getEventInfo.currency_code}}</sup></td>
+                                <td>{{ticket.total_ticket}}</td>
+                                <td>{{ticket.total_sold_tickets}}</td>
+                                <td>{{ticket.total_available_tickets}}
+                                    <div ng-if="ticket.total_ticket > 0" class="progressbar" ng-init="ticketBreakData = ticket.total_sold_tickets / ticket.total_ticket * 100">
+                                        <progress value="{{ticketBreakData | number : 1}}" max="100"></progress>
+                                        <span ng-if="ticketBreakData < '100'">{{ticketBreakData | number : 1}} %</span>
+                                        <span ng-if="ticketBreakData == '100'">{{ticketBreakData | number : 0}} %</span>
+                                    </div>
+                                    <div ng-if="ticket.total_ticket == 0">
+                                        <progress value="0" max="100"></progress> <span>0.0%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-if="getEventInfo.ticketBreakDown.length == 0">
+                                <td colspan="5" class="text-center pa-font-bold">You'll be able to see your events and ticket types after creating them.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="pa-mt-30 wht_bx_sd" ng-show="eventDataInfo.event_type == 'paid'">
+                    <p class="wht_head pa-font-20 pa-color-333333 tt-padding-20 pa-font-bold">Net Tickets Sales (Revenue)</p>
+                    <div class="chart_bx tt-padding-20 pa-font-bold text-center" id="netTicketSale">No Record Found</div>
+                </div>
+                <div class="pa-mt-30 wht_bx_sd">
+                    <p class="wht_head pa-font-20 pa-color-333333 tt-padding-20 pa-font-bold">Tickets Sold</p>
+                    <div class="chart_bx tt-padding-20 pa-font-bold text-center" id="ticketSold">No Record Found</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

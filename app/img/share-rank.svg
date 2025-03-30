@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="366.087" height="354.087" viewBox="0 0 366.087 354.087">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_6" data-name="Path 6" d="M189.579,0V165.341l-87.44,165.341L0,254.719,8.722,92.325Z" transform="translate(0 8)" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_10" data-name="Group 10" transform="translate(5938 11900.5)">
+    <g id="Oval_2_Copy_4" data-name="Oval 2 Copy 4" transform="translate(-5824.107 -11900.5) rotate(22)" fill="none" stroke="#f5a623" stroke-miterlimit="10" stroke-width="70">
+      <circle cx="136" cy="136" r="136" stroke="none"/>
+      <circle cx="136" cy="136" r="101" fill="none"/>
+    </g>
+    <g id="Group" transform="translate(-5938 -11900.5)" clip-path="url(#clip-path)">
+      <g id="Oval_2_Copy_3" data-name="Oval 2 Copy 3" transform="translate(113.893 0) rotate(22)" fill="none" stroke="#e4e4e4" stroke-miterlimit="10" stroke-width="70">
+        <circle cx="136" cy="136" r="136" stroke="none"/>
+        <circle cx="136" cy="136" r="101" fill="none"/>
+      </g>
+    </g>
+    <text id="_8_15" data-name="8/15" transform="translate(-5748 -11719.5)" fill="#333" font-size="32" font-family="Lato-Bold, Lato" font-weight="700"><tspan x="-34.032" y="0">8/15</tspan></text>
+    <text id="Clicks" transform="translate(-5748.5 -11694.5)" fill="#666" font-size="16" font-family="Lato-Regular, Lato"><tspan x="-20.976" y="0">Clicks</tspan></text>
+  </g>
+</svg>

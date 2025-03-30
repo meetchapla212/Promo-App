@@ -1,0 +1,640 @@
+<div flex layout="column" layout-align="start stretch" class="js-create-event mobile-hide">
+    <div class="bg-F9F9F9 js-top-header" layout-align="start stretch" id="top-header">
+        
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+        <div layout='row' class="border-top-E4E4E4 subheader-height" ng-if="!createEventSuccess">
+            <div flex='20' layout='row' layout-align='center center' class="pt-0 flex-unset">
+                <md-button ng-href="/" class="pa-color-pink ob-arrow">
+                    <md-icon class="pa-color-pink ">keyboard_arrow_left</md-icon>
+                    <span class="tt-font-16 pa-font-bold pa-color-pink pa-vertical-align">Back To Home</span>
+                </md-button>
+            </div>
+            <div ng-if="redirectFormStripe" flex="80" layout='column' layout-align='center center' class="pa-font-24 pa-bold-font pt-0 js-create-new-event pa-capitalize">
+                Create New Event
+            </div>
+            <div ng-if="!redirectFormStripe" flex="80" layout='column' layout-align='center center' class="pa-font-24 pa-bold-font pt-0 js-create-new-event pa-capitalize">
+                {{action == 'Create' || action == 'create'? defaultTitle : (action + ' Event')}}
+            </div>
+        </div>
+    </div>
+    <div ng-if="false" layout="column" class="bg-F9F9F9 js-sub-sec progress-header" layout-align="start stretch">
+
+        <div class="col-md-12 col-lg-12 col-sm-12 col-12 wrapper pa-pl-0 pa-pr-0" id="create-event-header">
+
+            <div class="step-section">
+                <div>
+                    <div class="row">
+                        <ul class="step-type">
+                            <li ng-class="isStepComplete(1) || validateIsStepCompleted ?'completed':'active'">
+                                <a ng-click="goToStepWithHeaderNew(1)" ng-class="{'current':currentInfoSection.includes('create_event_form_1')}">
+                                    <span class="bgimg-arrow bgimg-right"><img src="img/s1-2.svg"></span>
+                                    <div class="step-inner-bx">
+                                        <span class="step-icon">
+                                            <i class="material-icons" ng-if="isStepComplete(1) || validateIsStepCompleted">check_circle</i>
+                                            <i class="material-icons" ng-if="!isStepComplete(1) && !validateIsStepCompleted">subject</i>
+                                        </span>
+
+                                        <span class="step-content">
+                                            <h3>STEP 1</h3>
+                                            <b>Basic Info</b>
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li ng-class="{'completed':(isStepComplete(2) || validateIsStepCompleted),'active':(isStepComplete(1) || validateIsStepCompleted)}">
+                                <a ng-click="goToStepWithHeaderNew(2)" ng-class="{'current':currentInfoSection.includes('create_event_detail_1')}">
+                                    <span class="bgimg-arrow bgimg-left">
+                                        <img ng-if="isStepComplete(1) || validateIsStepCompleted" src="img/s1-1.svg">
+                                        <img ng-if="!isStepComplete(1) && !validateIsStepCompleted" src="img/s2-1.svg">
+                                    </span>
+                                    <span class="bgimg-arrow bgimg-right">
+                                        <img ng-if="isStepComplete(1) || validateIsStepCompleted" src="img/s1-2.svg">
+                                        <img ng-if="!isStepComplete(1) && !validateIsStepCompleted" src="img/s2-2.svg">
+                                    </span>
+                                    <div class="step-inner-bx">
+                                        <span class="step-icon">
+                                            <i ng-if="!isStepComplete(2) && !validateIsStepCompleted" class="material-icons">description</i>
+                                            <i ng-if="isStepComplete(2) || validateIsStepCompleted" class="material-icons">check_circle</i>
+                                        </span>
+                                        <span class="step-content">
+                                            <h3>STEP 2</h3>
+                                            <b>Details</b>
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li ng-class="{'completed':(isStepComplete(3) || validateIsStepCompleted),'active':(isStepComplete(2) || validateIsStepCompleted)}">
+                                <a ng-click="goToStepWithHeaderNew(3)" ng-class="{'current':currentInfoSection.includes('create_event_form_admissions_1')}">
+                                    <span class="bgimg-arrow bgimg-left">
+                                        <img ng-if="isStepComplete(2) || validateIsStepCompleted" src="img/s1-1.svg">
+                                        <img ng-if="!isStepComplete(2) && !validateIsStepCompleted" src="img/s2-1.svg">
+                                    </span>
+                                    <span class="bgimg-arrow bgimg-right">
+                                        <img ng-if="isStepComplete(2) || validateIsStepCompleted" src="img/s1-2.svg">
+                                        <img ng-if="!isStepComplete(2) && !validateIsStepCompleted" src="img/s2-2.svg">
+                                    </span>
+                                    <div class="step-inner-bx">
+                                        <span class="step-icon">
+                                            <i class="material-icons" ng-if="!isStepComplete(3) && !validateIsStepCompleted">local_activity</i>
+                                            <i class="material-icons" ng-if="isStepComplete(3) || validateIsStepCompleted">check_circle</i>
+                                        </span>
+                                        <span class="step-content">
+                                            <h3>STEP 3</h3>
+                                            <b>Admission</b>
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li ng-class="{'active':(isStepComplete(3) || validateIsStepCompleted)}">
+                                <a ng-click="goToStepWithHeaderNew(4)">
+                                    <span class="bgimg-arrow bgimg-left">
+                                        <img ng-if="isStepComplete(3) || validateIsStepCompleted" src="img/s1-1.svg">
+                                        <img ng-if="!isStepComplete(3) && !validateIsStepCompleted" src="img/s2-1.svg">
+                                    </span>
+                                    <div class="step-inner-bx">
+                                        <span class="step-icon">
+                                            <i class="material-icons">thumb_up_alt</i>
+                                        </span>
+                                        <span class="step-content">
+                                            <h3>STEP 4</h3>
+                                            <b>Finalize and Publish</b>
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-12 pa-pl-0 pa-pr-0">
+            <md-progress-linear md-mode="determinate" class="progressbar" value="{{progress}}"></md-progress-linear>
+        </div>
+    </div>
+
+    <md-content class="pa-background-f9f9f9 hideScrollbar" flex ng-show="!createEventSuccess">
+        <div ng-include="'partials/basic-info.html'"></div>
+        <div ng-include="'partials/create-event-details.html'"></div>
+        <div ng-include="'partials/create-event-admission.html'"></div>
+        <div ng-include="'partials/add-guest-page.html'"></div>
+        <div ng-include="'partials/invite_guest.html'"></div>
+        <div ng-include="'partials/final_event.html'"></div>
+    </md-content>
+
+    <md-content class="pa-background-f9f9f9" flex ng-if="createEventSuccess && !showHide.feedbackSection">
+        <div ng-include="'partials/event-success.html'"></div>
+    </md-content>
+
+    <md-content class="pa-background-f9f9f9" flex ng-if="createEventSuccess && showHide.feedbackSection">
+        <div ng-include="'partials/userExperienceRate.html'"></div>
+    </md-content>
+
+    <!--footer section start-->
+    <footer ng-if="!createEventSuccess" class="create-event-footer pa-background-white">
+        <div class="section-wrapper">
+            <div class="row pa-bg-FFFFFF">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 pa-cursor-pointer">
+
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-xs-8 col-sm-8 text-right">
+                            <md-button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit" ng-if="showCancel" ng-click="goToPage('/manageevent')">Cancel</md-button>
+                            <md-button ng-if="!showHide.imageSelected && !descriptionLengthLess " ng-click='continue()' class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue" ng-disabled="disableContinue() || showHide.savingDraft">{{showHide.savingDraft? 'Saving..':saveButtonText}}</md-button>
+                            <md-button ng-if="descriptionLengthLess" ng-click='continue()' class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue" ng-disabled="true">Save & Continue</md-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<div flex layout="column" layout-align="start stretch" class="create-new-event desktop-hide pos-r">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+
+    <div ng-show="showHide.mobile.createnewevent && !showHide.imageSelected">
+        <div class="mobile-header">
+            <span class="cancel-mobile" ng-if="(displayEvent.event_name || displayEvent.selectedCategory.length > 0 || displayEvent.files || displayEvent.description)">
+                <a data-toggle="modal" data-target="#cancelevent">Cancel</a>
+            </span>
+            <span class="cancel-mobile" ng-if="!(displayEvent.event_name || displayEvent.selectedCategory.length > 0 || displayEvent.files || displayEvent.description)">
+                <a ng-href="/">Cancel</a>
+            </span>
+            <h2 class="pdt-right-48 pa-capitalize">{{action == 'Create'?'Create New Event':(action + ' Event')}}</h2>
+        </div>
+
+        <div ng-show="!showHide.imageSelected && displayEvent.files" class="add-event-mobile-filed ">
+            <div class="img-bg-to pa-center-div" style="height: 240px;">
+                <img ngf-thumbnail="!displayEvent.files.$error && displayEvent.files" class="pa-img-fluid">
+                <a ng-click="editImage('ce-file-upload-mobile')" class="po-edit-image">
+                    <input type="file" name="pic" accept="image/*" />
+                    <span class="edit-img-mobile"><i class="material-icons">mode_edit</i> Edit Image</span>
+                </a>
+            </div>
+        </div>
+
+        <div id="ce-file-upload-mobile" class="add-event-mobile" ngf-drop ngf-select ngf-accept="'image/*'" ng-model="displayEvent.files" ngf-min-width="350" ngf-min-height="200" ngf-change="handleFileSelect($file,$event,$invalidFiles)" ng-show="!showHide.imageSelected && !displayEvent.files">
+            <a href="#"> <i class="material-icons">image</i> <b>Add Event Image</b></a>
+        </div>
+
+        <div class="mobile-form">
+            <form class="event-form pa-no-padding" name="createEventForms.create_event_mobile_form">
+                <md-input-container class="form-group full-field pa-mt-30-imp" style="margin-bottom:10px">
+                    <label>Event Name</label>
+                    <input name="event_name" type="text" md-maxlength="50" ng-minlength="10" ng-model="displayEvent.event_name" md-no-asterisk class="form-control event-name-mob" placeholder="Event Title" ng-required="createEventForms.create_event_mobile_form.event_name.$invalid"></textarea>
+                    <div ng-messages="createEventForms.create_event_mobile_form.event_name.$error" class="input-error">
+                        <div ng-message="required">This field is required.</div>
+                        <div ng-message="md-maxlength">Event name must be less than 50 characters long.
+                        </div>
+                        <div ng-message="minlength">Event name must be greater than 10 characters.
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="form-group full-field margin-bottom-50">
+                    <label>Event Category </label>
+                    <select name="category" class="form-control" ng-model="displayEvent.selectedCategory" required>
+                        <option value="{{categoriesMap[key].id}}" ng-repeat="(key, value) in categoriesMap" ng-selected="displayEvent.selectedCategory == categoriesMap[key].id">{{categoriesMap[key].name}}</option>
+                    </select>
+                    <span class="caret"></span>
+                    <div ng-messages="createEventForms.create_event_mobile_form.category.$error" class="input-error">
+                        <div ng-message="required">This field is required.</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="form-group full-field pa-mt-30-imp">
+                    <label>Venue is</label>
+                    <div class="form-control ht-48 categorydropdown" isteven-multi-select selection-mode="single" input-model="newVenues" translation="dropdowns.venueLang" output-model="displayEvent.venue_is" button-label="value" item-label="value" tick-property="selected"
+                        helper-elements="none" tooltip-trigger="'none'" uib-tooltip="Venue is required." required name="venueIs" on-item-click="saveDataLocal();venueIsFinialised()">
+                    </div>
+                    <div class="input-error" ng-messages="createEventForms.create_event_form_2.venueIs.$error">
+                        <div ng-message="required">This field is required.</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="form-group full-field pa-mt-30-imp" ng-if="showHide.searchVenueOptions">
+                    <label>Location </label>
+                    <input md-no-asterisk name="searchAddress" ng-model="displayEvent.chosenPlace" type="text" class="form-control" placeholder="Location" ng-click="navigate('addlocation')" required />
+                    <div ng-messages="createEventForms.create_event_mobile_form.searchAddress.$error">
+                        <div ng-message="required">This field is required.</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="form-group full-field pa-mt-30-imp" ng-if="!showHide.searchVenueOptions">
+                    <label>City</label>
+                    <input ng-pattern="/^[a-zA-Z0-9 \\\/,-]+$/" md-no-asterisk name="searchAddress" ng-model="displayEvent.chosenPlace" type="text" class="form-control" placeholder="Location" googleplace required />
+                    <div ng-messages="createEventForms.create_event_mobile_form.searchAddress.$error">
+                        <div ng-message="required">This field is required.</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="form-group full-field pa-mt-30-imp">
+                    <label>Event Time Zone</label>
+                    <select class="form-control" ng-model="displayEvent.timezone" required name="timezone">
+                        <option value="{{item.key}}" ng-repeat="item in dropdowns.timezones.options">{{item.value}}</option>
+                    </select>
+                    <span class="caret"></span>
+                    <div ng-messages="createEventForms.create_event_mobile_form.timezone.$error">
+                        <div ng-message="required">This field is required.</div>
+                    </div>
+                </md-input-container>
+
+                <div class="m_row">
+                    <md-input-container class="form-group full-field mfield-wtd-100 pa-mt-30-imp" md-is-error="createEventForms.create_event_mobile_form.startDate.$invalid">
+                        <label>Start Date</label>
+                        <input md-no-asterisk name="startDate" type="text" class="form-control" ng-click="navigate('selectdates')" ng-model="displayEvent.startDateInString" required />
+                    </md-input-container>
+                    <md-input-container class="form-group full-field mfield-wtd-100 pa-mt-30-imp">
+                        <label>End Date</label>
+                        <input md-no-asterisk type="text" class="form-control" ng-click="navigate('selectdates')" placeholder="" value="{{displayEvent.end.date | momentFormatter:'ddd, MMM DD, YYYY'}}" required />
+                    </md-input-container>
+                </div>
+                <div class="m_row">
+                    <md-input-container class="form-group mfield-wtd-50 pa-mt-30-imp">
+                        <label>Start Time</label>
+                        <md-select ng-change="validateTime(displayEvent.start.date,displayEvent.start.time,displayEvent.end.date,displayEvent.end.time,'create_event_mobile_form','startDate')" md-container-class="event-form-select md-icon-float md-icon-right" name="startTime"
+                            class="form-control input-height" ng-model="displayEvent.start.time">
+                            <md-option ng-repeat="item in dropdowns.times.options" ng-value="item.key">
+                                {{item.value}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="form-group mfield-wtd-50 pa-mt-30-imp">
+                        <label>End Time</label>
+                        <md-select ng-change="validateTime(displayEvent.start.date,displayEvent.start.time,displayEvent.end.date,displayEvent.end.time,'create_event_mobile_form','startDate')" name="endTime" md-container-class="event-form-select md-icon-float md-icon-right" class="form-control input-height"
+                            ng-model="displayEvent.end.time">
+                            <md-option ng-repeat="item in dropdowns.times.options" ng-value="item.key">
+                                {{item.value}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="form-group full-field md-input-invalid pa-no-margin" ng-if="createEventForms.create_event_mobile_form.startDate.$invalid" md-is-error="createEventForms.create_event_mobile_form.startDate.$invalid">
+                        <div ng-messages="createEventForms.create_event_mobile_form.startDate.$error">
+                            <div ng-message="required">This field is required.</div>
+                            <div ng-message="minDate">Start date cannot take place after end date.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <md-input-container class="form-group full-field pa-mt-30-imp event-description-error md-block">
+                    <label>Event  Description</label>
+                    <textarea md-no-asterisk name="eventDescription" ng-model="displayEvent.mdescription" ng-minlength="50" class="form-control" placeholder="Add description here" ng-required="required" ng-change="displayEvent.description = displayEvent.mdescription"></textarea>
+                    <div ng-messages="createEventForms.create_event_mobile_form.eventDescription.$error" class="input-error">
+                        <div ng-message="required">This field is required.</div>
+                        <div ng-message="minlength">Event description should be greater than 50 characters and more.</div>
+                    </div>
+                </md-input-container>
+
+                <div class="form-group full-field optional-guest-list pa-pb-0">
+                    <label>Guest List <span>(Optional)</span></label>
+                    <a ng-if="displayEvent.guest_user.length > 0" class="pa-cursor-pointer" ng-click="navigate('inviteguests')">Add More</a>
+                    <span ng-if="displayEvent.guest_user.length > 0" class="invited-guests-mob">You have invited {{displayEvent.guest_user.length}} guests.</span>
+                    <a ng-if="displayEvent.guest_user.length ==0" ng-click="navigate('inviteguests')" class="guest-list-mob blank-list-guest-mob pa-cursor-pointer">+</a>
+
+                    <div class="guests-list-mob" ng-repeat="guest in displayEvent.guest_user | limitTo : dropdowns.totalGuests">
+                        <div class="guests-listed">
+                            <span class="guest-mob-view"><img ng-src="../img/defaultProfilePic.png" alt="{{guest.name || guest.email}}"></span>
+                            <span class="guest-name-lco-view"><b>{{guest.name || guest.email}}</b>
+                                <p>{{guest.type}}</p>
+                            </span>
+                        </div>
+                        <a ng-click="deleteGuest($index)" class="delete-invite cancelled-clor"><i class="material-icons">delete</i></a>
+                    </div>
+
+                    <a ng-if="displayEvent.guest_user.length > dropdowns.totalGuests" ng-click="dropdowns.totalGuests=displayEvent.guest_user.length" class="view-all-guest-mob">View All</a>
+                </div>
+            </form>
+        </div>
+        <div class="sticky-footer w-100 desktop-hide row pa-bootstrap-row">
+            <div class="mobile-full-btn-ft pa-center-div">
+                <md-button ng-disabled="displayEvent.event_name == '' || displayEvent.selectedCategory.length == 0 || !displayEvent.files || displayEvent.description == ''" class="tt-font-16 pa-bold-font pa-pink-border pa-border-4 save-exit-mobile" ng-click="saveExit()">Save & Exit</md-button>
+                <md-button ng-click="saveEvent(false,true)" ng-disabled="!(createEventForms.create_event_mobile_form.$valid && displayEvent.selectedCategory.length > 0 && displayEvent.files && displayEvent.description)" class="pa-pink-button pa-no-margin pa-capitalize-important">{{action == 'Create'?'Publish': 'Update Event'}}</md-button>
+            </div>
+        </div>
+    </div>
+
+    <div flex layout-fill class="mobile-ticket-details" ng-show="showHide.imageSelected">
+        <div class="mobile-header">
+            <span class="back-btn-mobile">
+                <a ng-click="discardCroppedImage()"><i class="material-icons">arrow_back_ios</i></a>
+            </span>
+            <h2 class="pd-right-32">Crop Image</h2>
+        </div>
+        <div class="crop-background-img-mob">
+            <div class="md-dialog-content border-crop">
+                <ui-cropper class="pa-pos-fixed" image="imageForCropping" result-image="displayEvent.croppedImage" area-type="rectangle" aspect-ratio="2.1" result-image-size="800" result-image-quality="100" area-min-size="100" area-init-size="200"></ui-cropper>
+            </div>
+        </div>
+
+        <div class="crop-btn-group">
+            <div class="draft-cancel-btn">
+                <a ng-click="discardCroppedImage()" class="border-btn">Cancel</a>
+                <a ng-click="setCroppedImageAsFinalImage()" class="theme-bg-btn">Save</a>
+            </div>
+        </div>
+    </div>
+
+    <div flex layout-fill class="mobile-perent vh-scroll" ng-show="showHide.mobile.addlocation">
+        <div class="mobile-header display-flex-mob">
+            <span class="back-btn-mobile">
+                <a ng-click="navigate('createnewevent')"><i class="material-icons">arrow_back_ios</i></a>
+            </span>
+        </div>
+        <div class="container-wtd-1170  pa-background-white location-event-mob-sec">
+            <h2 class="add-mob-title">Add Location</h2>
+            <div class="form-group search-mobile-strip">
+                <div class="input-group">
+                    <i class="material-icons">search</i>
+                    <input googleplace ng-model="displayEvent.chosenPlace" type="text" id="locationInput" name="chosenPlace" placeholder="Search City or Location" class="form-control">
+                </div>
+                <a use-current-location input-box="locationInput" class="current-location-mob"><i class="material-icons">my_location</i>
+                    Use My Currect Location
+                </a>
+            </div>
+
+            <div class="serch-histroy-mob popular-loc">
+                <h2 class="sub-title-mob">Popular Location</h2>
+                <div ng-click="selectPopularLocation(location)" class="history-list-mob popular-list-mob" ng-repeat="location in popularCities"><i class="material-icons">location_on</i> <span><b>{{location.name}}</b> {{location.address}}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div flex layout-fill class="mobile-perent" ng-show="showHide.mobile.addaddress">
+        <div class="mobile-header br-bt-show">
+            <span class="back-btn-mobile">
+                <a ng-click="navigate('addlocation')"><i class="material-icons">arrow_back_ios</i></a>
+            </span>
+            <h2>Add Location</h2>
+
+            <span class="share-link">
+                <a ng-class="{'disabled':!createEventForms.create_event_mobile_form_address.$valid}" ng-click="navigate('createnewevent')">Save</a>
+            </span>
+        </div>
+        <div class="container-wtd-1170 pa-mt-50">
+            <div class="selected-location">
+                <span>Selected Location</span>
+                <b>{{displayEvent.chosenPlace}}</b>
+            </div>
+            <h2 class="sub-title-mob mr-bt-20">Street Address</h2>
+
+            <div class="mobile-form fill-form-mob">
+                <form class="event-form pa-no-padding" name="createEventForms.create_event_mobile_form_address">
+                    <md-input-container class="form-group full-field mr-top-20">
+                        <label>Address</label>
+                        <textarea md-no-asterisk class="form-control event-name-mob pa-normal-font-imp" name="fullAddress" ng-model="displayEvent.address.streetAddress" required></textarea>
+                        <div ng-messages="createEventForms.create_event_mobile_form_address.fullAddress.$error">
+                            <div ng-message="required">This field is required.</div>
+                        </div>
+                    </md-input-container>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>City</label>
+                            <md-input-container class="form-group full-field pa-mt-0">
+                                <input md-no-asterisk name="addressCity" type="text" class="form-control" ng-model="displayEvent.address.city" required>
+                                <div ng-messages="createEventForms.create_event_mobile_form_address.addressCity.$error">
+                                    <div ng-message="required">This field is required.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div class="col-sm-12">
+                            <label>State</label>
+                            <md-input-container class="form-group full-field pa-mt-0">
+                                <md-select md-container-class="event-form-select md-icon-float md-icon-right" md-no-asterisk ng-required="true" name="addressState" class="input-height" ng-model="displayEvent.address.state">
+                                    <md-option ng-repeat="item in dropdowns.states.options" ng-value="item.key">
+                                        {{item.value}}
+                                    </md-option>
+                                </md-select>
+                                <span class="caret"></span>
+                                <div ng-messages="createEventForms.create_event_mobile_form_address.addressState.$error">
+                                    <div ng-message="required">This field is required.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Zip Code</label>
+                            <md-input-container class="form-group full-field pa-mt-0">
+                                <input md-no-asterisk name="addressZip" ng-model="displayEvent.address.zipcode" required type="text" class="form-control">
+                                <div ng-messages="createEventForms.create_event_mobile_form_address.addressZip.$error">
+                                    <div ng-message="required">This field is required.</div>
+                                    <div ng-message="pattern">Invalid Zip Code.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Country</label>
+                            <md-input-container class="form-group full-field pa-mt-0">
+                                <md-select md-container-class="event-form-select md-icon-float md-icon-right" md-no-asterisk ng-required="true" name="addressCountry" class="input-height" ng-model="displayEvent.address.country">
+                                    <md-option ng-repeat="item in dropdowns.countries.options" ng-value="item.key">
+                                        {{item.value}}
+                                    </md-option>
+                                </md-select>
+                                <span class="caret"></span>
+                                <div ng-messages="createEventForms.create_event_mobile_form_address.addressCountry.$error">
+                                    <div ng-message="required">This field is required.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div flex layout-fill class="mobile-perent" ng-show="showHide.mobile.inviteguests">
+        <div class="mobile-header br-bt-show">
+            <span class="back-btn-mobile">
+                <a ng-click="navigate('createnewevent')"><i class="material-icons">arrow_back_ios</i></a>
+            </span>
+            <h2 class="pd-right-32">Invite Guests</h2>
+        </div>
+        <div class="container-wtd-1170 ">
+            <div class="invite-mobile">
+                <div class="invite-mobile-list" ng-click="navigate('invitebyfollowers')">
+                    <span class="invite-mobile-icon">
+                        <i class="material-icons">group</i>
+                    </span>
+                    <span class="invite-mobile-content">
+                        <b>My Followers</b>
+                        Invite the people who are following me.
+                    </span>
+                </div>
+
+                <div class="invite-mobile-list " ng-click="navigate('invitebyemail')">
+                    <span class="invite-mobile-icon">
+                        <i class="material-icons">email</i>
+                    </span>
+                    <span class="invite-mobile-content">
+                        <b>Invite Through Email</b>
+                        Invite people by adding their email addresses.
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="info-notes fixed-bt">
+            <i class="material-icons">info</i>
+            <span>Your invitations will be sent when the event is published.</span>
+        </div>
+    </div>
+
+    <div flex layout-fill class="mobile-perent invite-my-followers pos-r" ng-show="showHide.mobile.invitebyfollowers">
+        <div class="mobile-header br-bt-show">
+            <span class="back-btn-mobile">
+                <a ng-click="navigate('inviteguests')"><i class="material-icons">arrow_back_ios</i></a>
+            </span>
+            <h2 class="pd-right-32">Invite My Followers</h2>
+        </div>
+
+        <div class="container-wtd-1170 ">
+            <div class="form-group search-mobile-strip mr-bt-80">
+                <div class="input-group" ng-if="userFollowers.length > 0">
+                    <i class="material-icons">search</i>
+                    <input type="text" ng-model="search.full_name" placeholder="Search followers by username" class="form-control">
+                </div>
+                <span ng-if="userFollowers.length === 0"> You do have any followers.</span>
+                <a ng-show="userFollowers && userFollowers.length > 0 && selectedFollowers > 0" ng-click="clearAll(false)" class="current-location-mob pa-cursor-pointer">Clear Selection</a>
+                <a ng-show="userFollowers && userFollowers.length > 0 && selectedFollowers == 0" ng-click="clearAll(true)" class="current-location-mob pa-cursor-pointer">Select All {{userFollowers.length}} Followers</a>
+                <div class="people-list" ng-repeat="follower in userFollowers | filter:search">
+                    <div class="people-box">
+                        <div class="people-box-inner">
+                            <div class="chek-with-follow">
+                                <label class="check-promo">
+                                    <input ng-change="calculateFollowers()" class="checkhour" type="checkbox" ng-model="follower.selected">
+                                    <span class="check-ui"></span>
+                                    <span class="people-profile"><img pa-user-img="{{follower.user_id}}" alt="{{follower.email}}"></span>
+                                    <span class="people-name-lco"><b>{{follower.email}}</b>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fixed-footer" ng-if="selectedFollowers">
+            <div class="mobile-full-btn-ft">
+                <a ng-click="saveFollowersSelection()" class="bg-theme-btn pa-cursor-pointer">Invite {{selectedFollowers}} Followers</a>
+            </div>
+        </div>
+    </div>
+
+    <div flex layout-fill class="mobile-perent invite-my-followers pos-r" ng-show="showHide.mobile.invitebyemail">
+        <div class="mobile-header br-bt-show">
+            <span class="back-btn-mobile">
+                <a ng-click="navigate('inviteguests')"><i class="material-icons">arrow_back_ios</i></a>
+            </span>
+            <h2 class="pd-right-32">Invite My Followers</h2>
+        </div>
+
+        <div class="container-wtd-1170 ">
+            <div class="invite-follow-op pa-mt-100">
+                <form name="createEventForms.inviteThroughEmail" class="event-form pa-pl-0 pa-pr-0">
+                    <md-input-container class="form-group full-field">
+                        <label>Enter the email addresses you'd like to send your invitation to:</label>
+                        <input md-no-asterisk ng-keyup="addEmailToGuest($event)" name="email" ng-model="emailFrom" type="text" class="form-control" placeholder="name@domain.com">
+                        <div ng-messages="createEventForms.inviteThroughEmail.email.$error">
+                            <div ng-message="pattern">Invalid email!</div>
+                        </div>
+                    </md-input-container>
+                    <div class="add-btn-mob">
+                        <a ng-click="saveEmailGuest()" class="pa-cursor-pointer" ng-class="(dropdowns.guestsEmails && dropdowns.guestsEmails.length > 0)?'bg-theme-btn':'gray-btn'">Add</a>
+                    </div>
+                    <div class="added-list-mob">
+                        <a class="pa-truncate" ng-repeat="email in dropdowns.guestsEmails">{{email.email}} <i ng-click="removeEmailGuest($index)" class="material-icons">close</i></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div flex layout-fill class="mobile-perent" ng-show="showHide.mobile.selectdates">
+        <div class="mobile-header br-bt-show">
+            <span class="back-btn-mobile">
+                <a ng-click="navigate('createnewevent')"><i class="material-icons">arrow_back_ios</i></a>
+            </span>
+            <h2 class="pd-right-32">Select date range</h2>
+        </div>
+        <div class="mobile-form ">
+            <form class="event-form pa-no-padding">
+                <md-input-container class="form-group field-wtd-60 pa-mt-30-imp mob-date-range">
+                    <label>Start Date</label>
+                    <input id="startDateRangePicker" md-no-asterisk name="startDate" readonly date-range-picker class="form-control" type="text" ng-model="dropdowns.startDateRangePicker.selectedDate" picker="dropdowns.startDateRangePicker.mobilePicker" min="dropdowns.startDateRangePicker.minDate"
+                        options="dropdowns.startDateRangePicker.mobileOptions" />
+                </md-input-container>
+            </form>
+        </div>
+    </div>
+
+    <div flex layout-fill class="mobile-perent desktop-hide pos-r success-event-mob-list" ng-show="showHide.mobile.eventsuccess">
+        <div class="mobile-header display-flex-mob">
+            <span class="back-btn-mobile">
+                <a ng-click="goBackMobile()"><i class="material-icons">arrow_back_ios</i></a>
+            </span>
+        </div>
+        <div class="container-wtd-1170">
+            <h2 class="add-mob-title">Event {{displayEvent.is_draft ? 'Saved':'Published'}} <span class="success-span">Successfully </span>!</h2>
+            <span class="event-success-mob">You can add more features to this event from the web app. To do this, you need to follow these steps:</span>
+            <div class="successfully-terms-mob">
+                <div class="successfully-terms-list-mob">
+                    <span>1</span>Log in to the web app
+                </div>
+
+                <div class="successfully-terms-list-mob">
+                    <span>2</span>Go to the "manage event" section to view your {{displayEvent.is_draft ? 'draft':'live'}}
+                </div>
+
+                <div class="successfully-terms-list-mob">
+                    <span>3</span>Edit this event
+                </div>
+                <div class="successfully-terms-list-mob">
+                    <span>4</span>Add ticket to the event
+                    <div class="optional-span">(if applicable)</div>
+                </div>
+
+                <div class="successfully-terms-list-mob">
+                    <span>5</span>Add event administrator
+                    <div class="optional-span">(optional)</div>
+                </div>
+
+                <div class="successfully-terms-list-mob">
+                    <span>6</span>Promote event
+                    <div class="optional-span">(optional)</div>
+                </div>
+
+                <div class="successfully-terms-list-mob">
+                    <span>7</span>Review and publish event
+                </div>
+
+            </div>
+        </div>
+        <div class="fixed-footer">
+            <div class="mobile-full-btn-ft">
+                <a ng-click="goToPage('/')" class="bg-theme-btn">Ok, got it.</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade popup-perent" id="cancelevent" tabindex="-1" role="dialog" aria-labelledby="cancelevent" aria-hidden="true">
+        <div class="modal-dialog login-modal">
+            <div class="modal-header bg-F9F9F9">
+                <md-icon class="pa-font-28 icon-close" style="float: left;">warning</md-icon>
+                <span style="margin-left: 5px;" class="pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">
+                    Warning!
+                </span>
+                <md-icon class="pa-float-right pa-cursor-pointer" id="close-icon" data-dismiss="modal">close</md-icon>
+            </div>
+            <!-- Modal content-->
+            <div class="modal-body pa-text-center pa-background-white">
+                <p class="pa-color-333333 pa-font-16 pa-font-Lato">If you cancel event creation, you will lose all the information you have filled in.</p>
+                <div class="pa-mt-45" layout="column">
+                    <md-button class="pa-pink-button pa-save-draft" ng-click="saveExit()">Save Draft</md-button>
+                    <md-button ng-click="closeBSModal('/')" data-dismiss="modal" class="pa-color-pink tt-font-16 pa-bold-font pa-save-draft pa-pink-border pa-border-4">Cancel Event</md-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

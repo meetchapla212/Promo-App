@@ -1,0 +1,66 @@
+<style>
+    .noPadding a:hover {
+        text-decoration: none !important;
+    }
+</style>
+<div class="col-md-12 custom-events eo-event eo-border-radius" ng-controller="EventOverviewController">
+    <div>
+        <div class="row tt-row-margin tt-tbox " in-view="eventInView($index, $inview, $inviewpart)">
+            <div class="eo-rel eo-flexalign">
+                <a ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}">
+                    <div class="background-grad pa-cursor-pointer animated fadeIn">
+                        <img ng-src="{{event.event_image || event.image_url}}" on-error="/img/unnamed.png" alt='{{event.event_name}}' class="event-img-helper eo-width">
+                    </div>
+                </a>
+                <div ng-if="!readOnly" class="mobile-action-section">
+                    <div class="pa-edit-eo pa-cursor-pointer" edit-event-modal="" event="event" action="'Edit'">
+                        <md-icon>edit</md-icon>Edit Event
+                    </div>
+                    <div class="pa-edit-eo pa-cursor-pointer" ng-click="duplicateEventAction(event)">
+                        <md-icon>content_copy</md-icon>Duplicate Event
+                    </div>
+                </div>
+
+                <div class="eo-tag" ng-if="event._user_id === user.user_id">My Event</div>
+                <div class="eo-tag" ng-if="event.claimed_by === user.user_id">Claimed</div>
+                <div class="eo-tag eo-tag-sponsored" ng-if="event.claimed_by !== user.user_id && event.highlighted">
+                    Sponsored</div>
+                <div ng-hide="!event.event_type" class="eo-view eo-price eo-top-right pa-font-12 pa-modal-font">
+                    <span ng-show="event.event_type === 'paid' || event.event_type === 'private'" class="eo-opacity7" event="event" event-ticket-price></span>
+                    <span ng-show="event.event_type === 'free' || event.event_type === 'public'" class="green-colr-imp eo-opacity7" event="event" event-ticket-price></span>
+                </div>
+                <div class="pa-width-100p tt-row-margin eo-bottom-left eo-colorF4F4F7 pa-font-14 pa-modal-font eo-flexes">
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-6 pa-pl-10 pa-pr-0 eo-flexes eo-align">
+                        <i class="material-icons pa-font-20">date_range</i>
+                        <span class="eo-leftspace eo-font-size">{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}</span>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-6 tt-display-start eo-flexes eo-align pa-pr-10 pa-justify-flex-end">
+                        <i class="material-icons pa-font-20">access_time</i><span class="eo-leftspace eo-font-size pa-white-space-nowwrap">{{event.start_date_time | toMoment | momentFormatter:"hh:mm a"}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- extra   -->
+        <div class="event_overview_content_section">
+            <div class="row tt-row-margin">
+                <div class="event-row col-sm-12 col-xs-12" ng-if="event">
+                    <div class="event-description-bubble col-sm-12 col-xs-12">
+                        <a ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}" class="retaincolor">{{event.event_name}}</a>
+                    </div>
+                </div>
+            </div>
+            <a ng-show="event.address" event="event" style="text-decoration: none;" class="pa-cursor-default">
+                <div class="row tt-row-margin eo-clr eo-flexes tt-outlinebtn">
+                    <i class="material-icons eo-color-333333 pa-font-20 eo-space">location_on</i>
+                    <span class="pa-font-15 pa-modal-font eo-leftspace eo-loc">{{event.city +", "+ event.country}} </span>
+                </div>
+            </a>
+            <a target="_blank" href="" ng-show="!event.address" event="event" style="text-decoration: none;">
+                <div class="row tt-row-margin eo-clr eo-flexes tt-outlinebtn">
+                    <i class="material-icons eo-color-333333 pa-font-20 eo-space">location_on</i>
+                    <span class="pa-font-15 pa-modal-font eo-leftspace eo-loc">Loading Address...</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

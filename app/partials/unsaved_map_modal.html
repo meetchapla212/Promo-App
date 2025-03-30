@@ -1,0 +1,19 @@
+<div class="custom-model-content">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Unsaved Changes Detected</span>
+        <md-icon ng-click="cancel()" class="pa-float-right">close</md-icon>
+    </div>
+    <div class="modal-body pa-no-padding">
+        <span class="detected_changes_sec">
+            You are about to exit the venue designer with unsaved changes. Confirm that you would like to discard the changes, or return to venue designer and save the changes.
+        </span>
+    </div>
+    <div class="modal-footer pa-border-EEEEEE">
+        <md-toolbar class="pa-modal-footer-height-toolbar tc_new_free_event">
+            <div class="md-toolbar-tools">
+                <button ng-click="cancel()" class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit" type="button">Back To Venue Designer</button>
+                <button ng-click="goToEdit()" class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue md-button" type="button">Discard Changes</button>
+            </div>
+        </md-toolbar>
+    </div>
+</div>

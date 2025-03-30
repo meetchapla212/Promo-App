@@ -1,0 +1,124 @@
+<style type="text/css">
+    .md-select-menu-container,
+    md-backdrop {
+        z-index: 1051 !important;
+    }
+</style>
+<div class="custom-model-content deleteBankconfirmation leave_check">
+    <div class="modal-header bg-F9F9F9 mobile-hide">
+        <span class="pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Duplicate Event</span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+    <div class="mobile-header modal-header desktop-hide bg-F9F9F9">
+        <span class="cancel-mobile ng-scope">
+            <a ng-click="cancel()">Cancel</a>
+        </span>
+        <h2 class="pdt-right-48 ng-binding">Duplicate Event</h2>
+    </div>
+    <div class="modal-body pa-background-white">
+        <div class="rewardpopup-content duplicate-event">
+            <form novalidate class="event-form pd-none create-w-100 pa-mt-40" ng-submit="rePublishEventConfirmation(event.event_id, createEventForms.duplicateEventForm)" name="createEventForms.duplicateEventForm">
+                <md-input-container ng-class="{'md-input-invalid': createEventForms.duplicateEventForm.eventName.$error.required }" class="md-block pa-mt-20-imp pa-mb-30" flex-gt-sm>
+                    <label class="pa-color-333333">Event Name <span class="pa-required">*</span></label>
+                    <input type="text" name="eventName" md-maxlength="50" maxlength="50" ng-minlength="10"
+                        ng-model="duplicateEvent.event_name" md-no-asterisk class="form-control card-color"
+                        placeholder="e.g. Masquerade Ball: Charity Fundraiser"
+                        ng-required="createEventForms.duplicateEventForm.eventName.$invalid">
+
+                    <div ng-messages="createEventForms.duplicateEventForm.eventName.$error" class="input-error">
+                        <div ng-message="required">This field is required.</div>
+                        <div ng-message="md-maxlength">Event name must be less than 50 characters long.</div>
+                        <div ng-message="minlength">Event name must be greater than 10 characters.</div>
+                    </div>
+                </md-input-container>
+
+                <div class="row pa-bootstrap-row">
+                    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6">
+                        <div class="form-group pa-mt-20 pa-mb-0">
+                            <div class="row pa-bootstrap-row">
+                                <div class="col-lg-6 col-md-6 mb-991 event_from_date">
+                                    <md-input-container ng-class="{'md-input-invalid': createEventForms.duplicateEventForm.startDate.$error.required, 'md-input-invalid': createEventForms.duplicateEventForm.startDate.$error.minDate}" class="create-w-100 md-icon-float md-icon-left pa-no-margin pa-mb-30" flex-gt-sm md-is-error="createEventForms.duplicateEventForm.startDate.$invalid">
+                                        <label class="pa-color-333333">Event Start Date <span
+                                                class="pa-required">*</span></label>
+                                        <md-icon>date_range</md-icon>
+                                        <input md-no-asterisk name="startDate" readonly date-range-picker
+                                            class="form-control date-picker input-height card-color md-input-with-icon"
+                                            type="text" ng-required="createEventForms.duplicateEventForm.startDate.$invalid" ng-model="duplicateEvent.eventStartDate"
+                                            ng-attr-min="dropdowns.startDateRangePicker.minDate"
+                                            options="dropdowns.startDateRangePicker.options" id="eventStartDate" />
+                                        <div ng-messages="createEventForms.duplicateEventForm.startDate.$error">
+                                            <div ng-message="required">This field is required.</div>
+                                            <div ng-message="minDate">Please enter correct date.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div class="col-lg-6 col-md-6 mb-991">
+                                    <md-input-container ng-class="{'md-input-invalid': createEventForms.duplicateEventForm.startTime.$error.required}" class="create-w-100 md-icon-float md-icon-left pa-no-margin pa-mb-30" flex-gt-sm
+                                        md-is-error="createEventForms.duplicateEventForm.startTime.$invalid">
+                                        <label class="pa-color-333333">Event Start Time <span
+                                                class="pa-required">*</span></label>
+                                        <md-icon>query_builder</md-icon>
+                                        <md-select ng-change="validateTime(duplicateEvent.eventStartDate,duplicateEvent.eventStartTime,duplicateEvent.eventEndDate,duplicateEvent.eventEndTime,'duplicateEventForm','endDate');" md-container-class="event-form-select md-icon-float md-icon-right pa-mb-30" name="startTime"
+                                            class="form-control ht-48 md-select-with-icon" ng-required="createEventForms.duplicateEventForm.startTime.$invalid" ng-model="duplicateEvent.eventStartTime">
+                                            <md-option ng-repeat="item in dropdowns.times.options" ng-disabled="currentHour24 > item.param && currentDateDuplicate" ng-value="item.key"> {{item.value}} </md-option>
+                                        </md-select>
+                                        <div ng-messages="createEventForms.duplicateEventForm.startTime.$error">
+                                            <div ng-message="required">This field is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6">
+                        <div class="form-group pa-mt-20 pa-mb-0">
+                            <div class="row event_from_date_start pa-bootstrap-row">
+                                <div class="col-lg-6 col-md-6 mb-991 pa-position-relative">
+                                    <md-input-container ng-class="{'md-input-invalid': createEventForms.duplicateEventForm.endDate.$error.required, 'md-input-invalid': createEventForms.duplicateEventForm.endDate.$error.minDate }" class="create-w-100 pa-no-margin md-icon-float md-icon-left md-input-invalid pa-mb-30" flex-gt-sm>
+                                        <label class="pa-color-333333">Event End Date <span class="pa-required">*</span></label>
+                                        <md-icon>date_range</md-icon>
+                                        <input md-no-asterisk name="endDate" readonly date-range-picker
+                                            class="form-control date-picker ht-48 card-color md-input-with-icon" type="text"
+                                            ng-required="createEventForms.duplicateEventForm.endDate.$invalid" ng-model="duplicateEvent.eventEndDate"
+                                            ng-attr-min="dropdowns.endDateRangePicker.minDate"
+                                            options="dropdowns.endDateRangePicker.options" id="eventEndDate" />
+                                        <div ng-messages="createEventForms.duplicateEventForm.endDate.$error">
+                                            <div ng-message="required">This field is required.</div>
+                                            <div ng-message="minDate">End date must be after start date.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div class="col-lg-6 col-md-6 mb-991 pa-position-relative">
+                                    <md-input-container ng-class="{'md-input-invalid': createEventForms.duplicateEventForm.endTime.$error.required}" class="create-w-100 md-icon-float md-icon-left pa-no-margin pa-mb-30" flex-gt-sm>
+                                        <label class="pa-color-333333">Event End Time <span class="pa-required">*</span></label>
+                                        <md-icon>query_builder</md-icon>
+                                        <md-select
+                                            ng-change="validateTime(duplicateEvent.eventStartDate,duplicateEvent.eventStartTime,duplicateEvent.eventEndDate,duplicateEvent.eventEndTime,'duplicateEventForm','endDate');"
+                                            name="endTime" md-container-class="event-form-select md-icon-float md-icon-right" ng-required="createEventForms.duplicateEventForm.endTime.$invalid"
+                                            class="form-control ht-48 md-select-with-icon" ng-model="duplicateEvent.eventEndTime">
+                                            <md-option ng-repeat="item in dropdowns.times.options" ng-disabled="currentHour24 > item.param && currentDateEndDuplicate" ng-value="item.key">
+                                                {{item.value}}
+                                            </md-option>
+                                        </md-select>
+                                        <div ng-messages="createEventForms.duplicateEventForm.endTime.$error">
+                                            <div ng-message="required">This field is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-group pa-mb-15 pa-width-100 text-center mobile-hide">
+                    <md-button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 md-button md-ink-ripple" ng-click="cancel()">Cancel</md-button>
+                    <md-button type="submit" ng-disabled="createEventForms.duplicateEventForm.endDate.$error.minDate || !duplicateEvent.event_name" class="pa-pink-button pa-no-margin pa-capitalize-important"> Confirm</md-button>
+                </div>
+                <div class="fixed-footer desktop-hide row pa-bootstrap-row">
+                    <div class="mobile-full-btn-ft pa-center-div">
+                        <md-button type="submit" ng-disabled="createEventForms.duplicateEventForm.endDate.$error.minDate || !duplicateEvent.event_name" class="pa-pink-button pa-no-margin pa-capitalize-important">Confirm</md-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,158 @@
+.terms_head {
+    font-size: 50px;
+    font-weight: 600;
+    padding: 40px 0;
+    color: #333333;
+}
+
+.terms_side_menu_head a {
+    font-size: 22px;
+    text-decoration: none;
+    color: #a02541;
+}
+
+.terms_side_menu ul {
+    padding: 20px 0 0 32px;
+    margin: 0;
+}
+
+.terms_side_menu ul li {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.terms_side_menu ul li a {
+    text-decoration: none;
+    color: #333333;
+    font-size: 16px;
+}
+
+.terms_side_menu ul li a.activetab {
+    color: #a02541;
+}
+
+.terms_content_head {
+    font-size: 35px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.terms_content_post {
+    font-size: 16px;
+    color: #333;
+}
+
+.terms_content_post {
+    display: block;
+    width: 100%;
+    margin-bottom: 2em;
+}
+
+.terms_content_post b {
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.terms_content_post_single h3 {
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.terms_content_post_single {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}
+
+.terms_content_post_single ul {
+    margin: 0;
+    padding-left: 15px;
+    margin-top: 10px;
+}
+
+.terms_content_post_single ul li {
+    list-style: none;
+    display: block;
+    margin-bottom: 9px;
+}
+
+.terms_content_post_single span {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.new_terms_ui {
+    margin-bottom: 40px;
+}
+
+.terms_side_menu {
+    display: block;
+    margin-bottom: 40px;
+}
+
+.tersm._mobileheade {
+    display: none;
+}
+
+@media screen and (min-width: 1370px) {
+    .terms_head {
+        font-size: 40px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .terms_head {
+        padding: 30px 20px 10px;
+        font-size: 36px;
+    }
+    .site_map_wrap,
+    .terms_main_row {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .terms_side_menu ul {
+        padding: 20px 0 0 15px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .new_terms_ui {
+        padding: 0 30px;
+    }
+    .terms_side_menu {
+        display: none;
+    }
+    .terms_content_post_single ul {
+        padding-left: 0;
+    }
+    .terms_head {
+        font-size: 32px;
+        padding-bottom: 0;
+    }
+    .tersm._mobileheade {
+        display: block;
+    }
+    .terms_content_head {
+        font-size: 26px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .terms_head {
+        font-size: 24px;
+    }
+    .terms_content_head {
+        font-size: 22px;
+    }
+    .terms_content_post_single h3 {
+        font-size: 18px;
+    }
+    .new_terms_ui {
+        padding: 0;
+    }
+}

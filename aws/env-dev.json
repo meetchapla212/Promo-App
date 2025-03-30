@@ -1,0 +1,22 @@
+{
+  "QB_APP_ID": 63188,
+  "QB_AUTH_KEY": "sjj3LrCFvQRUauO",
+  "QB_AUTH_SECRET": "UBSV3ZbsenbnyK-",
+  "QB_LOGIN": "promoappadmin",
+  "QB_PASSWORD": "promo123$",
+  "PROMO_ADMIN_ID":"37732523",
+  "LIST_ID": "fdf15170-c1ed-11e7-8825-026f7644009e",
+  "API_KEY": "7a072944-c21a-11e7-8825-026f7644009e",
+  "DB_PREFIX": "",
+  "STRIPE_KEY": "sk_live_UiHZneTbliorSnZ4JYugDJ4c",
+  "PEXEL_KEY":"563492ad6f91700001000001c3889e0305804da7893d4ea878a86c6a",
+  "API_PREFIX": "",
+  "FROM": "Donotreply@thepromoapp.com",
+  "GPL_BASE_URL":"https://api.gopinleads.com/v1",
+  "GPL_API_KEY":"CgFarSCSjr2QTkCWNJNwc7Lfn32L1Qaf9focuIV8",
+  "UI_BASE_URL":"https://thepromoapp.com",
+  "SHARED_SECRET": "secret",
+  "REGION": "eu-west-1",
+  "TICKET_MASTER_EVENTS_BASE_URL": "http://app.ticketmaster.com",
+  "TICKET_MASTER_KEY": "PlBbB6LACZm0B8qLFuOc0AT3ZZbSFkfu"
+}

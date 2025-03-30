@@ -1,0 +1,186 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE" ng-controller="SearchController">
+    <div flex class="container mobile-hide">
+        <div loader working="loading" message="loaderMessage" disable-background="true"
+            class="loader-content"></div>
+        <div class="search-people pa-mb-15">
+            <!-- Page Heading -->
+            <div class="search-people-head">
+                <h1>Recommend Events</h1>
+            </div>
+
+            <div class="search-people-section">
+                <div class="pa-modal-font pa-bootstrap-row row hidden-xs">
+                    <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4 h-40">
+                        <i class="material-icons pa-color-333333 pa-map-marker location_on
+                    _post_ovr">location_on</i>
+                        <div class="input-group recommended-sub-header">
+                            <input ng-pattern="/^[a-zA-Z0-9 \\\/,-]+$/" type="text"
+                                class="form-control pa-no-padding recommend-input-control pa-h-43 pa-color-333333 pa-border-E4E4E4 pa-font-16 bg-F6F6F6"
+                                googleplace placeholder="{{locationPlaceholder}}" ng-disabled="disableLocation"
+                                ng-model="chosenPlace" required="" aria-invalid="false" autocomplete="off">
+                            <span class="input-group-addon pa-input-addon recommend-input-addon">
+                                <a ng-click="getCurrentPos()">
+                                    <md-icon class="pa-color-pink material-icons" role="img" aria-label="gps_fixed">
+                                        gps_fixed</md-icon>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 col-lg-4 pa-pr-0 h-40">
+                        <md-input-container class="md-datepicker">
+                            <div style="width: 50%;">
+                                <div class="pa-width-100p " id="pa-custom-filter-dd-responsive">
+                                    <input id="startWebDateRangePicker" md-no-asterisk name="endDate" readonly
+                                        date-range-picker
+                                        class="recommended-sub-header-date-left form-control date-picker pa-font-16 pa-modal-font pa-color-333333"
+                                        type="text" ng-required="true" ng-model="webDateRangePicker.selectedDate"
+                                        picker="webDateRangePicker.picker" min="webDateRangePicker.minDate"
+                                        options="webDateRangePicker.options" />
+                                </div>
+                                <md-icon class="pa-color-333333 date-range-icon">date_range</md-icon>
+                            </div>
+                            <div class="recommended-sub-header-date-right">
+                                <div class="pa-sub-header-dropdown pa-width-100p pa-color-333333 web-date-range login-group-sub-header pa-font-16 pa-pl-10"
+                                    id="pa-custom-filter-dd-responsive" ng-click="webDateRangePicker.toggle()">
+                                    <md-icon class="pa-color-333333 new-calendar-icon">date_range</md-icon>
+                                    <span>{{endDate}}</span>
+                                </div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-4 col-xs-2 col-lg-4">
+                        <div>
+                            <div class="pa-custom-btn pa-center-div pa-float-right pa-map-white-bg pa-filter-button  pa-filters-responsive-dropdown-parent"
+                                ng-disabled="preventUnselect" ng-click="openNav($event);">
+                                <md-icon class="pa-map-unselected">filter_list</md-icon>
+                            </div>
+                            <div class="pa-filters-responsive-dropdown-container hidden-xs pa-web-filter-pos" id="categoriesList" style="right: 10px;" ng-show="toggleFilters">
+                                <div class="category-list">
+                                    <button type="button" ng-click="toggleCategorySelection()"
+                                        class="checkall">{{categorySelectionButton}}</button>
+                                    <p class="category-warning" ng-if="preventUnselect">Select at least one category
+                                        to view events <span>*</span></p>
+                                    <label ng-repeat="(key, value) in categoriesMap">
+                                        <input class="checkhour" type="checkbox"
+                                            ng-change="changeCategorySelection()"
+                                            ng-model="categoriesMap[key].selected">
+                                        <span class="check-ui"></span>
+                                        <span class="chec-category"><img ng-src="{{value.icon}}" alt="concerts" />
+                                            {{categoriesMap[key].name}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Separator-->
+                <div class="separator" style="margin-bottom: 0px;"></div>
+                <!--Separator End Here-->
+
+                <div class="suggested-people events-container">
+                    <div class="people-list pa-no-bt-margin-imp pa-bootstrap-row row" infinite-scroll="increaseLimit(ev.length)">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" id="event_box_{{x.event_id}}"
+                            ng-repeat="x in events =( ev |unique:'event_id' | orderBy:'claimed_on' | orderBy:'start_date_time_ms') track by x.event_id"
+                            ng-init="updateShowEventListLoader(events.length,$index)" ng-if="$index < eventPerPage">
+                            <event-overview event="x" read-only="true" hide-description="true"></event-overview>
+                        </div>
+                    </div>
+                    <div class="people-list" ng-if="ev.length === 0 && !loading">No events found</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div flex layout-fill class="container-wtd-1170 desktop-hide pa-no-padding-imp"
+        ng-class="{'pa-bg-F9':showhide.results,'pa-background-white':showhide.filters}">
+        <!-- Page Heading -->
+        <div class="mobile-perent mobile-perent-search" ng-show="showhide.results">
+            <div class="mobile-header recommended-header-mobile">
+                <div class="clearfix">
+                    <span class="back-btn-mobile">
+                        <a back-to-history class="pa-cursor-pointer"><i class="material-icons">arrow_back_ios</i></a>
+                    </span>
+
+                    <span class="share-link">
+                        <a class="pa-cursor-pointer" ng-click="showFilters()">Filters</a>
+                    </span>
+                </div>
+                <div class="pa-text-align-left pa-mt-16 mr-15 clearfix">
+                    <h2 style="font-size: 24px;">Recommended</h2>
+                </div>
+            </div>
+            <div class="container-wtd-1170">
+                <div class="suggested-people mt-100">
+                    <div class="people-list pa-pb-60">
+                        <div class="col-lg-4 col-md-4 col-xs-12 col-sm-6" id="event_box_{{x.id}}" ng-repeat="x in ev">
+                            <event-overview event="x" read-only="true" hide-description="true"></event-overview>
+                        </div>
+                    </div>
+                    <div class="people-list" ng-if="ev.length === 0 && !loading">No events found</div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Filter div starts -->
+        <div class="mobile-perent desktop-hide mobile-filters-list-view" ng-show="showhide.filters">
+            <div class="mobile-header display-flex-mob" ng-if="!showhide.selectdates">
+                <span class="back-btn-mobile">
+                    <a ng-click="showResults()"><i class="material-icons">arrow_back_ios</i></a>
+                </span>
+            </div>
+            <div class="mobile-header display-flex-mob" style="border-bottom: 1px solid #CBCBCB;"
+                ng-if="showhide.selectdates" layout="row" layout-align="space-between center">
+                <div>
+                    <a ng-click="showFilters()"><i class="material-icons">arrow_back_ios</i></a>
+                </div>
+                <div class="pa-font-16 pa-font-bold" style="flex: 1;">Select date range</div>
+            </div>
+            <div class="container-wtd-1170">
+                <h2 class="add-mob-title" style="margin-bottom: 20px;">Filters</h2>
+
+                <div class="mobile-form">
+                    <form class="event-form create-w-100 pa-no-padding">
+                        <md-input-container class="form-group full-field pa-mt-30-imp" flex-gt-sm>
+                            <label>Location <span ng-click="getCurrentPos()" class="pa-pointer-events-all"><a
+                                        class="mob-detect-city">Detect My City</a></span></label>
+                            <input type="text" googleplace ng-pattern="/^[a-zA-Z0-9 \\\/,-]+$/" ng-model="chosenPlace" class="form-control"
+                                placeholder="{{locationPlaceholder}}">
+                        </md-input-container>
+
+                        <md-input-container class="form-group full-field pa-mt-30-imp mob-date-range">
+                            <label>Select Date Range</label>
+                            <input id="startDateRangePicker" md-no-asterisk name="endDate" readonly date-range-picker
+                                class="recommended-sub-header-date-left-mobile form-control date-picker card-color pa-font-16 pa-modal-font pa-color-333333"
+                                type="text" ng-model="webDateRangePicker.selectedDate"
+                                picker="webDateRangePicker.mobilePicker" min="webDateRangePicker.minDate"
+                                options="webDateRangePicker.options" />
+                            <div type="text"
+                                class="form-control end-date-search recommended-sub-header-date-right-mobile"
+                                ng-click="webDateRangePicker.toggle()"><span>{{endDate}}</span></div>
+
+                        </md-input-container>
+
+                        <md-input-container
+                            class="form-group full-field pa-position-relative pa-mt-30-imp search-reco-cate cate_event drop-multi-sec"
+                            flex-gt-sm>
+                            <label>Event Category</label>
+                            <div class="form-control ht-48 categorydropdown" isteven-multi-select selection-mode="multi"
+                                input-model="categoriesMap" output-model="selectedCategory" button-label="iconImg name"
+                                item-label="iconImg name" tick-property="selected" helper-elements="none"
+                                tooltip-trigger="'none'" uib-tooltip="Category is required." max-labels="1" required
+                                name="event_category">
+                            </div>
+                        </md-input-container>
+
+                    </form>
+                </div>
+            </div>
+            <div class="mobile-filters-apply-btn">
+                <md-button ng-disabled="!chosenPlace && !selectedCategory && !endDate"
+                    class="apply-btn-mob pa-pink-button ht-48" ng-click="applyFilters()">Apply</md-button>
+                <a ng-click="clearFilters()" class="link-mob">Clear Filters</a>
+            </div>
+        </div>
+    </div>
+</div>

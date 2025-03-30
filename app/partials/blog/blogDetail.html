@@ -1,0 +1,180 @@
+
+<div ng-class="{'full-vh-scroll': loading}">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div ng-hide="value" class="mobile-header display-flex-mob tersm _mobileheade">
+        <span class="back-btn-mobile">
+            <a href="/blog"><i class="material-icons">arrow_back_ios</i></a>
+        </span>
+    </div>
+
+    <!-- Blog Search Popup -->
+    <div class="blg_search_section_wrp" ng-class="{'open': openSearchView}">
+        <div ng-include="'partials/blog/blogSearch.html'"></div>
+        <button class="srch_close" ng-click="openSearchView=false;"><span class="material-icons">close</span></button>
+    </div>
+    <!-- Blog Search Popup End -->
+
+    <!-- Blog Container -->
+    <div class="blog_container" ng-show="singlePostDetail" ng-class="{'openSearchBlog': openSearchView}">
+        <!-- Blog Top bar -->
+        <div class="blog_top_bar">
+            <div class="blog_top_bar_lt">
+                <ul class="blg_nv">
+                    <li ng-repeat="item in categoryData">
+                        <a ng-href="/blog/{{item.slug}}?cat={{item.id}}" ng-bind-html="item.name"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blog_top_bar_rt">
+                <button class="blg_searchbar" ng-click="openSearchView=true;"><span class="material-icons">search</span></button>
+            </div>
+        </div>
+
+        <div class="blog_del_tp_section">
+            <a href="/blog" class="backt_blg"><span class="material-icons">arrow_back</span> Back to the Blog</a>
+            <!-- Single Blog -->
+            <div class="srch_blg_ins_list full single_blog_section_wrp blg_details_tp">
+                <figure class="img">
+                    <img ng-src="{{singlePostDetail.image}}" alt="">
+                </figure>
+                <div class="rc_stories_lt">
+                    <span class="srch_blg_hd"><span ng-repeat="cat in singlePostDetail.catName">{{cat.name}}</span></span>
+                    <h1 class="srch_blg_title" ng-bind-html="singlePostDetail.title.rendered"></h1>
+                    <div class="dt_com_lit">
+                        <div class="blog-date"><span class="material-icons">calendar_today</span> {{singlePostDetail.date | toMoment | momentFormatter:"MMMM DD, YYYY"}}</div>
+                        <div class="blog-date"><span class="material-icons">person</span> {{singlePostDetail.userName}}</div>
+                        <!-- <div class="blog-date"><span class="material-icons">question_answer</span> <a href="#">Comments</a></div> -->
+                        <div class="blog-date" ng-if="tagInfo.length > 0"><span class="material-icons">local_offer</span> <a ng-href="/blog/tag/{{tag.slug}}/{{tag.id}}" class="pa-capitalize" ng-repeat="tag in tagInfo">{{tag.name}}</a></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Blog End -->
+        </div>
+        3.
+        <!-- Details BLog -->
+        <div class="blog_mdetails_dwn" ng-bind-html="singlePostDetail.content.rendered"></div>
+        <div class="blog_mdetails_dwn" ng-if="false">
+            <p>A virtual happy hour is a social event that is held over video and social media platforms. You can use platforms like Zoom or Google Meet, or even more casual relaxed platforms like Facebook rooms.</p>
+            <p>The point of a virtual happy hour is really to have fun and to facilitate engagement between attendees. You can host a virtual happy hour for friends and family, but also for colleagues, or members of a team or club. Whoever you’re hosting
+                the virtual happy hour for, there are a variety of fun activities you can come up with to boost engagement. By keeping everyone busy and entertained you will ensure that your virtual happy hour is absorbing and fun.</p>
+            <p>Virtual happy hours are usually very appropriate team-building activities. With working from home now being commonplace, and also teams working together from different locations, using virtual happy hours in this way is important to keep teams
+                connected.
+            </p>
+            <p>If you’re new to hosting virtual happy hours, and need a bit of guidance when it comes to planning out activities, and keeping the flow going, you have come to the right place.</p>
+            <figure class="wp-block-image"><img src="https://lh3.googleusercontent.com/lE_jVn_nP7Nm-OhlPKZI-bWz0fIMikWrGcFuUHueXQLPsg01M8BSgl2VKvDcgmY281nxehVjiLk7Sh4kyK7piXcQ3PN8WETJX2aPRhZQY-Ed76cfu6DKADrE4IR_nKWGlp04CCBf" alt=""></figure>
+            <h2>Get the Ball Rolling </h2>
+            <p>First things first. When you’re setting up a virtual happy hour, you have to give your potential attendees enough time in advance. They need to be able to clear their calendar or make sure that another meeting does not pop up.</p>
+            <p>The most effective way to ensure that everyone will be able to attend your virtual happy hour will be to send out an invitation that is linked to a calendar. One of the easiest ways to do this is to send a Zoom or google meet link via email.
+                Your attendees will be able to RSVP and automatically save the information on their calendar. They will be reminded about the meeting in advance and you can make sure you have a full house in attendance.</p>
+            <p>If you fail to send your invitations in due time or fail to remind your attendees about the event, they may forget about it. Virtual happy hours are all about inclusion and building team spirit, so to have your attendees miss the event would
+                be a real shame.</p>
+            <figure class="wp-block-image"><img src="https://lh3.googleusercontent.com/g3GUBCXDdg6hZkkIpDEjctVXb1E7rbfNOi0Ft03glc_P9Z0-y4ImBPh_rjjueXDcv0Yd3efyQ6-yEd05Ug5uD5NWk2xPanDe35D9jelYWg4xOX3FR2kyudoFtQH2XHmNke1wggTG" alt=""></figure>
+            <h2>Happy Happy Hour!</h2>
+            <p>First things first. When you’re setting up a virtual happy hour, you have to give your potential attendees enough time in advance. They need to be able to clear their calendar or make sure that another meeting does not pop up.</p>
+            <p>The most effective way to ensure that everyone will be able to attend your virtual happy hour will be to send out an invitation that is linked to a calendar. One of the easiest ways to do this is to send a Zoom or google meet link via email.
+                Your attendees will be able to RSVP and automatically save the information on their calendar. They will be reminded about the meeting in advance and you can make sure you have a full house in attendance.</p>
+            <p>If you fail to send your invitations in due time or fail to remind your attendees about the event, they may forget about it. Virtual happy hours are all about inclusion and building team spirit, so to have your attendees miss the event would
+                be a real shame.</p>
+            <ul>
+                <li>Your pet walks in front of your camera</li>
+                <li>You tried to speak but you were still on mute</li>
+                <li>You have a sip of your drink at the exact same time as someone else&nbsp;</li>
+                <li>Your family member walks across the screen</li>
+                <li>You talk at the same time as someone else&nbsp;</li>
+            </ul>
+            <h2>Happy Happy Hour!</h2>
+            <p>First things first. When you’re setting up a virtual happy hour, you have to give your potential attendees enough time in advance. They need to be able to clear their calendar or make sure that another meeting does not pop up.</p>
+            <p>The most effective way to ensure that everyone will be able to attend your virtual happy hour will be to send out an invitation that is linked to a calendar. One of the easiest ways to do this is to send a Zoom or google meet link via email.
+                Your attendees will be able to RSVP and automatically save the information on their calendar. They will be reminded about the meeting in advance and you can make sure you have a full house in attendance.</p>
+            <p>If you fail to send your invitations in due time or fail to remind your attendees about the event, they may forget about it. Virtual happy hours are all about inclusion and building team spirit, so to have your attendees miss the event would
+                be a real shame.</p>
+            <h2>Happy Happy Hour!</h2>
+            <p>First things first. When you’re setting up a virtual happy hour, you have to give your potential attendees enough time in advance. They need to be able to clear their calendar or make sure that another meeting does not pop up.</p>
+            <p>The most effective way to ensure that everyone will be able to attend your virtual happy hour will be to send out an invitation that is linked to a calendar. One of the easiest ways to do this is to send a Zoom or google meet link via email.
+                Your attendees will be able to RSVP and automatically save the information on their calendar. They will be reminded about the meeting in advance and you can make sure you have a full house in attendance.</p>
+            <p>If you fail to send your invitations in due time or fail to remind your attendees about the event, they may forget about it. Virtual happy hours are all about inclusion and building team spirit, so to have your attendees miss the event would
+                be a real shame.</p>
+            <ol>
+                <li>Your pet walks in front of your camera</li>
+                <li>You tried to speak but you were still on mute</li>
+                <li>You have a sip of your drink at the exact same time as someone else&nbsp;</li>
+                <li>Your family member walks across the screen</li>
+                <li>You talk at the same time as someone else&nbsp;</li>
+            </ol>
+            <h2>Happy Happy Hour!</h2>
+            <p>First things first. When you’re setting up a virtual happy hour, you have to give your potential attendees enough time in advance. They need to be able to clear their calendar or make sure that another meeting does not pop up.</p>
+            <p>The most effective way to ensure that everyone will be able to attend your virtual happy hour will be to send out an invitation that is linked to a calendar. One of the easiest ways to do this is to send a Zoom or google meet link via email.
+                Your attendees will be able to RSVP and automatically save the information on their calendar. They will be reminded about the meeting in advance and you can make sure you have a full house in attendance.</p>
+            <p>If you fail to send your invitations in due time or fail to remind your attendees about the event, they may forget about it. Virtual happy hours are all about inclusion and building team spirit, so to have your attendees miss the event would
+                be a real shame.</p>
+        </div>
+        <!-- Details BLog End -->
+        <!-- <div class="nxt_prev_btn">
+            <a href="#">← Previous</a>
+            <a href="#">Next →</a>
+        </div> -->
+
+        <div class="likesec_sec">
+            <h3 class="hd_lk"><span class="material-icons">sentiment_very_satisfied</span> You May Also Like</h3>
+            <div class="blog_verticle_list">
+                <div class="srch_blg_ins_list hm_blglst" data-ng-show="catblogList.length > 0" ng-repeat="item in catblogList | limitTo:3">
+                    <figure class="img">
+                        <a ng-href="/blog/{{item.id}}/{{item.slug}}"><img ng-src="{{item.image}}" alt=""></a>
+                    </figure>
+                    <div class="rc_stories_lt">
+                        <span class="srch_blg_hd" ng-bind-html="item.catName"></span>
+                        <a ng-href="/blog/{{item.id}}/{{item.slug}}" class="srch_blg_title" ng-bind-html="item.title.rendered"></a>
+                        <div class="dt_com_lit">
+                            <div class="blog-date"><span class="material-icons">calendar_today</span> {{item.date | toMoment | momentFormatter:"MMMM DD, YYYY"}}</div>
+                            <div class="blog-date"><span class="material-icons">question_answer</span> <a href="#">0</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loader-container h-200" data-ng-show="catblogList.length == 0">
+                    <div class="loader" style="position: absolute;top: 0px;bottom: 0px;left: 0px;right: 0px;height: 100% !important;width: 100% !important;">
+                        <div style="position: absolute;top: 50%;left: 50%;line-height: 1;max-width: 50%;padding: 0;color: #333333;text-transform: uppercase;text-align: center;word-break: break-word;z-index: 1;display: inline-flex;flex-flow: column;align-items: center;margin-left: -50px;">
+                            <div class="gradient-spinner"></div>
+                            <p>Loading Post...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="leave_reply_sec">
+            <h3 class="hd">Leave a Reply</h3>
+            <p>Your email address will not be published. Required fields are marked <sup>*</sup></p>
+            <form name="commentForm" autocomplete="{{autoFlag}}" ng-submit="blogCommentSubmit(commentForm)">
+                <label>Comment <sup>*</sup></label>
+                <textarea name="authContent" ng-model="blogForm.content" cols="30" rows="10" ng-required="commentForm.authContent.$invalid"></textarea>
+                <div ng-messages="commentForm.authContent.$error" class="input-error">
+                    <div class="text-danger" ng-message="required">This field is required.</div>
+                </div>
+                <label>Name <sup>*</sup></label>
+                <input type="text" ng-model="blogForm.name" name="authName" ng-required="commentForm.authName.$invalid" />
+                <div ng-messages="commentForm.authName.$error" class="input-error">
+                    <div class="text-danger" ng-message="required">This field is required.</div>
+                </div>
+                <label>Email <sup>*</sup></label>
+                <input type="email" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/" ng-model="blogForm.email" name="authEmail" ng-required="commentForm.authEmail.$invalid" />
+                <div ng-messages="commentForm.authEmail.$error" class="input-error">
+                    <div class="text-danger" ng-message="required">This field is required.</div>
+                    <div class="text-danger" ng-message="pattern">Invalid Email!</div>
+                </div>
+                <label>Website</label>
+                <input type="url" ng-pattern="/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi" ng-model="blogForm.website"
+                    name="authUrl" />
+                <div ng-messages="commentForm.authUrl.$error" class="input-error">
+                    <div class="text-danger" ng-message="pattern">Invalid URL!</div>
+                </div>
+                <div class="sv_allfld">
+                    <input type="checkbox" ng-model="saveValue" ng-Change="autoCompleteFlag(saveValue)" name="saveBrowser" id="svgalfld" /><label for="svgalfld">Save my name, email, and website in this browser for the next time I comment.</label>
+                </div>
+                <button type="submit" class="submit">Post Comment</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Blog Container End -->
+</div>

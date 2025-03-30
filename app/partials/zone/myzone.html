@@ -1,0 +1,43 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE">
+    
+    <div flex class="container-wtd-1170 mobile-hide">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+        <div class="search-people-head">
+            <h1>My Zones</h1>
+        </div>
+        <div class="my_zone">
+            <div class="row" ng-if="zoneList == 0 || zoneList.length === 0">
+                <h4 class="no-data-found">No Zone to display!</h4>
+            </div>
+            <div class="row" ng-if="zoneList.length > 0">
+                <div class="col" ng-repeat="list in zoneList">
+                    <div class="box">
+                        <div class="zone_user_img">
+                            <img ng-src="{{list.logo == '' ? 'img/default-zone.png': list.logo}}" alt="promoapp" />
+                        </div>
+                        <div class="zone_user_content">
+                            <span class="zone_user_title text-ellipsis" ng-class="{'width-100': list.name.length > 20}" uib-tooltip="{{list.name}}" tooltip-placement="top">{{list.name}}</span>
+                            <span class="zone_user_sub_title">{{list.location}}</span>
+                        </div>
+                        <div class="zone_user_icon">
+                            <div class="zone_user_list">
+                                <i class="material-icons">insert_invitation</i>{{list.zone_events_count}} Event<span ng-if="list.zone_events_count > 1">s</span>
+                            </div>
+                            <div class="zone_user_list">
+                                <i class="material-icons">group</i>{{list.zone_member_count}} Member<span ng-if="list.zone_member_count > 1">s</span>
+                            </div>
+                            <div class="zone_user_list">
+                                <i class="material-icons">group</i>{{list.zone_owner_count}} Owner<span ng-if="list.zone_owner_count > 1">s</span>
+                            </div>
+                            <div class="zone_user_list">
+                                <i class="material-icons">group</i>{{list.zone_organizer_count}} Event Organizer<span ng-if="list.zone_organizer_count > 1">s</span>
+                            </div>
+                        </div>
+                        <a href="/zoneDashboard/{{list.zone_id}}" class="view_zone">View Zone</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

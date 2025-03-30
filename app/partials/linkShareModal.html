@@ -1,0 +1,18 @@
+
+<div class="modal-header bg-F6F6F6">
+    <span class="modal-title pa-color-333333 pa-font-17 pa-bold-font" id="link-modal-title">Share link with Friends and colleagues </span>
+    <md-icon ng-click="cancel()" class="pa-float-right pa-color-333333">close</md-icon>
+</div>
+
+<div class="modal-body" id="link-modal-body">
+    <md-container class="md-block">
+        <input type="text" id="linkToShare" value="{{scopeURL}}" readonly class="ht-48 pa-br-999999 pa-background-white pa-border-4 form-control link-input">
+    </md-container>
+    <md-button class="h-48 pa-background-pink pa-border-4 pa-font-16 pa-mt-20 w-23 pa-bold-font" ng-init="item.Action = 'Copy Link'" ng-click="linkShareCounter(item)" ngclipboard data-clipboard-target="#linkToShare">{{item.Action}}</md-button>
+
+</div>
+
+<!--<input ng-click="linkShareCounter()" type="button" ngclipboard data-clipboard-target="#linkToShare" class="h-48 pa-border-4 pa-background-pink pa-font-16 pa-mt-20 w-23 pa-border-none"
+       ng-class="{'color-copied':isCopied}" value="{{isCopied ? 'Copied' :'Copy Link'}}"
+       style="margin-bottom: 3%;margin-left: 3%;">-->
+

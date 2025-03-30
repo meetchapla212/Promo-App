@@ -1,0 +1,173 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE mobile-hide">
+    
+    <div flex class="container-wtd-1170">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+        <div class="text-head mobile-hide">
+            <a ng-if="!user.first_name" back-to-history class="back-to-btn"><i class="material-icons">navigate_before</i> Back to {{loggedInUser.user_id === user.user_id?"My":(user.full_name || user.login)}} Profile</a>
+            <a ng-if="user.first_name" back-to-history class="back-to-btn"><i class="material-icons">navigate_before</i> Back to {{loggedInUser.user_id === user.user_id?"My":(user.first_name + ' ' + user.last_name)}} Profile</a>
+        </div>
+
+        <div class="organizer-profile mobile-with-desk pa-background-white">
+            <div class="rebecca-event my-followers">
+                <div class="upcoming-past-event">
+                    <div class="search-people-zone-list" ng-if="user.is_zone_member && memberZoneList.length > 0">
+                        <md-input-container class="form-group" flex-gt-sm>
+                            <select class="form-control" ng-disabled="memberZoneList.length == 0" ng-change="searchUsersByZone(selectedItem)" ng-model="selectedItem">
+                                <option selected value="">Select Zone</option>
+                                <option value="{{list.zone_id}}" ng-repeat="list in memberZoneList">{{list.name}}</option>
+                            </select>
+                        </md-input-container>
+                    </div>
+                    <md-tabs md-dynamic-height md-border-bottom class="pa-tabs" md-selected="selectedTab">
+                        <md-tab label="Followers ({{followers.length}})" class="pa-padding-20">
+                            <div class="upcoming-past-tab-tabs-content" ng-class='{"margin-top": user.is_zone_member}' id="tab1C">
+                                <div class="people-list" ng-show="!loading">
+                                    <div ng-if="user.first_name" class="rebecca-head w-100">View {{ (user.first_name + ' ' + user.last_name) }} Followers</div>
+                                    <div ng-if="!user.first_name" class="rebecca-head w-100">View {{ (user.username || user.login) }} Followers</div>
+                                    <div class="people-box" ng-repeat="follow in followers track by follow.user_id">
+                                        <div class="people-box-inner">
+                                            <div ng-click="goToPage('/userprofile/',follow.user_id )"><img class="people-profile" ng-src="{{follow.profile_pic == null ? '/img/defaultProfilePic.png': follow.profile_pic}}" alt="{{follow.username}}" /></div>
+                                            <span ng-if="follow.first_name" class="people-name-lco">
+                                                <b>{{follow.first_name + ' ' + follow.last_name}}</b>
+                                                <div class="pa-truncate">{{follow.city}}</div>
+                                            </span>
+                                            <span ng-if="!follow.first_name" class="people-name-lco">
+                                                <b>{{follow.username || follow.first_name}}</b>
+                                                <div class="pa-truncate">{{follow.city}}</div>
+                                            </span>
+                                            <div class="people-follow">
+                                                <a class="follow-hide pa-color-A02541" ng-show="loggedInUser.user_id != follow.user_id" pa-follow-button="{followByUser: {{ loggedInUser.user_id }} , toFollowUser: {{ follow.user_id }}}" reload-on="checkFollow" ng-click="doFollowUserInDirective(follow,loggedInUser)">
+                                                    <span><i id="followTextIcon" class="material-icons"></i><span class="pa-font-bold" id="followText">Follow</span></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-if="followers.length == 0 && user.first_name " class="people-list">You {{user.first_name+' '+user.last_name}} don't have any followers. In future, people who follow {{user.first_name+' '+user.last_name}} will be shown here.</div>
+                                <div ng-if="followers.length == 0 && !user.first_name" class="people-list">You {{user.full_name || user.login}} don't have any followers. In future, people who follow {{user.full_name || user.login}} will be shown here.</div>
+                            </div>
+                        </md-tab>
+
+                        <md-tab label="Following ({{following.length}})" class="pa-padding-20">
+                            <div class="upcoming-past-tab-tabs-content" ng-class='{"margin-top": user.is_zone_member}' id="tab2C">
+                                <div class="people-list" ng-show="!loading">
+                                    <div ng-if="!user.first_name" class="rebecca-head w-100">View People {{ (user.username || user.login)}} Following</div>
+                                    <div ng-if="user.first_name" class="rebecca-head w-100">View People {{ (user.first_name+' '+user.last_name) }} Following</div>
+                                    <div class="people-box" ng-repeat="follow in following track by follow.user_id">
+                                        <div class="people-box-inner" ng-show="follow.user_id">
+                                            <div ng-click="goToPage('/userprofile/',follow.user_id )"><img class="people-profile" ng-src="{{ follow.profile_pic || '../img/defaultProfilePic.png'}}" alt="{{follow.username}}" /></div>
+                                            <span ng-if="follow.first_name != null" class="people-name-lco">
+                                                <b>{{(follow.first_name+' '+follow.last_name) }}</b>
+                                                <div class="pa-truncate">{{follow.city}}</div>
+                                            </span>
+                                            <span ng-if="follow.first_name === null" class="people-name-lco">
+                                                <b>{{follow.username}}</b>
+                                                <div class="pa-truncate">{{follow.city}}</div>
+                                            </span>
+                                            <div class="people-follow">
+                                                <a class="follow-hide pa-color-A02541" ng-show="loggedInUser.user_id != follow.user_id" pa-follow-button="{followByUser: {{ loggedInUser.user_id }} , toFollowUser: {{ follow.user_id }}}" reload-on="checkFollow" ng-click="doFollowUserInDirective(follow,loggedInUser)">
+                                                    <span><i id="followTextIcon" class="material-icons"></i><span class="pa-font-bold" id="followText">Follow</span></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-if="following.length === 0 && user.first_name" class="people-list pa-color-333333">You {{user.first_name+' '+user.last_name}} are not following anyone. In future, people {{user.first_name+' '+user.last_name}} follow will be shown here.</div>
+                                <div ng-if="following.length === 0 && !user.first_name" class="people-list pa-color-333333">You {{user.full_name || user.login}} are not following anyone. In future, people {{user.full_name || user.login}} follow will be shown here.</div>
+                            </div>
+                        </md-tab>
+                    </md-tabs>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<div flex layout="column" layout-align="start stretch" class="pa-background-white desktop-hide">
+    <div loader working="loading" template="4" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div flex layout-fill class="profile_mob_wrap mobile-perent desktop-hide ">
+        <div class="mobile-header d-hide desktop-hide mconnection_header">
+            <span class="back-btn-mobile">
+                <a back-to-history><i class="material-icons">arrow_back</i></a>
+            </span>
+            <h2 class="pd-right-32">Connections</h2>
+        </div>
+        <!--  Events -->
+        <div class="nn_events_list tt-padding-20 myconnections">
+            <div class="tabs_mob_upc">
+                <a ng-click="currentTab = true;" ng-class="{'active': currentTab}">Followers ({{followers.length}})</a>
+                <a ng-click="currentTab = false;" ng-class="{'active': !currentTab}">Following ({{following.length}})</a>
+            </div>
+
+            <!-- Post List -->
+            <div class="search-people-section myconnect_search pa-mb-15">
+                <!--Search Field-->
+                <div class="form-group">
+                    <div class="input-group">
+                        <i _ngcontent-xqa-c19="" class="material-icons">search</i>
+                        <input ng-model="searchText" type="text" ng-keyup="$event.keyCode == 13" name="searchuser" placeholder="Search People" class="form-control search-hover-focus" ng-model-options="{debounce: 1000}" />
+                        <i class="material-icons close" ng-if="searchText" ng-click="clearSearch()">cancel</i>
+                    </div>
+                    <span>Search by name, city, or description</span>
+                </div>
+                <!--Separator-->
+                <div class="separator"></div>
+                <!--Separator  End Here-->
+                <div ng-show="currentTab">
+                    <div class="suggested-people" ng-show="followers && followers.length > 0">
+                        <!-- People List -->
+                        <div class="people-list">
+                            <div class="people-box pa-mb-15" ng-repeat="follow in followers | filter:searchText track by follow.user_id">
+                                <div class="people-box-inner">
+                                    <div ng-click="goToPage('/userprofile/',follow.user_id )">
+                                        <img class="people-profile" ng-src="{{ follow.profile_pic || '../img/defaultProfilePic.png'}}" alt="{{follow.username}}" />
+                                    </div>
+                                    <div ng-click="goToPage('/userprofile/',follow.user_id)" class="people-name-lco">
+                                        <b ng-if="follow.first_name != null">{{(follow.first_name+' '+follow.last_name) }}</b>
+                                        <b ng-if="follow.first_name === null">{{follow.username}}</b>
+                                        <div class="pa-truncate">{{follow.city}}</div>
+                                    </div>
+                                    <div class="people-follow">
+                                        <a class="pa-color-A02541 follow-hide" ng-show="loggedInUser.user_id != follow.user_id" pa-follow-button="{followByUser: {{ loggedInUser.user_id }} , toFollowUser: {{ follow.user_id }}}" reload-on="checkFollow" ng-click="doFollowUserInDirective(follow,loggedInUser)">
+                                            <span><i id="followTextIcon" class="material-icons"></i><span class="pa-font-bold" id="followText">Follow</span></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="followers.length === 0" class="people-list pa-color-333333">People who follow you will appear here.</div>
+                </div>
+                <div ng-show="!currentTab">
+                    <div class="suggested-people" ng-show="following && following.length > 0">
+                        <!-- People List -->
+                        <div class="people-list">
+                            <div class="people-box pa-mb-15" ng-repeat="follow in following | filter:searchText track by follow.user_id">
+                                <div class="people-box-inner">
+                                    <div ng-click="goToPage('/userprofile/',follow.user_id )">
+                                        <img class="people-profile" ng-src="{{ follow.profile_pic || '../img/defaultProfilePic.png'}}" alt="{{follow.username}}" />
+                                    </div>
+                                    <div ng-click="goToPage('/userprofile/',follow.user_id)" class="people-name-lco">
+                                        <b ng-if="follow.first_name != null">{{(follow.first_name+' '+follow.last_name) }}</b>
+                                        <b ng-if="follow.first_name === null">{{follow.username}}</b>
+                                        <div class="pa-truncate">{{follow.city}}</div>
+                                    </div>
+                                    <div class="people-follow">
+                                        <a class="pa-color-A02541 follow-hide" ng-show="loggedInUser.user_id != follow.user_id" pa-follow-button="{followByUser: {{ loggedInUser.user_id }} , toFollowUser: {{ follow.user_id }}}" reload-on="checkFollow" ng-click="doFollowUserInDirective(follow,loggedInUser)">
+                                            <span><i id="followTextIcon" class="material-icons"></i><span class="pa-font-bold" id="followText">Follow</span></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="following.length === 0" class="people-list pa-color-333333">People you follow will appear here.</div>
+                </div>
+            </div>
+
+            <!-- Post List End -->
+        </div>
+        <!--  Events End  -->
+    </div>
+</div>

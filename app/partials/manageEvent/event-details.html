@@ -1,0 +1,190 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE fixed-layout-vh">
+    
+    <div flex layout-fill class="pa-bg-EEEEEE fixed-layout-vh">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content "></div>
+        <div class="layout_panel_mwrap">
+            <div class="pa-bg-FFFFFF layout_left_panel">
+                <div ng-include="'partials/sidebar.html'" ng-if="sidebarBlock"></div>
+            </div>
+            <div class="layout_right_panel fixed-layout-vh-auto">
+                <div class="flex_justify pa-mb-30">
+                    <div class="report_header">
+                        <h2 class="pa-font-24 pa-mt-0 pa-bold-font">Event Details</h2>
+                        <p class="pa-color-3333338 pa-font-14 pa-no-bt-margin-imp">Update event details like, event cover image, description, and contact details.</p>
+                        <flash-message-template ng-show="flashMessage"></flash-message-template>
+                    </div>
+                </div>
+                <!-- start-first-screen -->
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="create_event_detail event_details_mwrp">
+                            <md-card>
+                                <md-card-header class="col-md-12 pa-color-grey align-items-center pa-border-EEEEEE tt-margin-bottom-0">
+                                    <md-card-header-text>
+                                        <span class="md-title pa-font-16"><span class="mr-5 pa-color-333333 pa-font-bold">Event Image</span><span class="pa-font-14 card-color">(Required)</span></span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <md-card-content class="col-lg-12 pa-bg-FFFFFF pa-no-padding-imp" layout-padding>
+
+                                    <form class='event-form' name="createEventForms.create_event_detail_1">
+                                        <div class="pa-font-14 mt-10 pb-15 card-color">
+                                            This is the first image attendees will see at the top of your listing. Use a high quality image: 2160x1080px (2:1 ratio).
+                                        </div>
+                                        <div id="ce-file-upload" name="eventImage" class="pa-background-E pa-border-4 border-3px pa-position-relative pa-cursor-pointer" ngf-drop ngf-select ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-accept="'image/*'" ng-model="displayEvent.files"
+                                            ngf-min-width="350" ngf-min-height="200" ngf-change="handleFileSelect($file,$event,$invalidFiles)" ng-show="!showHide.imageSelected && !displayEvent.files">
+                                            <div class="absolute">
+                                                <div class="insert-photo-icon pa-display-block">
+                                                    <md-icon class="material-icons" role="img" aria-label="insert_photo">insert_photo</md-icon>
+                                                </div>
+                                                <div class="pa-text-center pa-color-333333 pa-font-20 pa-mt-20">Drag & drop or click to add main event image.</div>
+                                                <div class="pa-text-center pa-color-999999 pa-font-18 font-italic lh-22 mt-10">JPEG or PNG, Not larger than 10MB. Dimensions should be greater than 350 x 200 px</div>
+                                            </div>
+                                        </div>
+
+                                        <md-card-avatar ng-show="!showHide.imageSelected && displayEvent.files">
+                                            <img alt='promoapp' class="md-user-avatar img-responsive pa-width-100p" ng-show="createEventForms.create_event_detail_1.file.$valid && displayEvent.files" ngf-thumbnail="!displayEvent.files.$error && displayEvent.files">
+                                        </md-card-avatar>
+                                        <md-card-icon-actions ng-show="!showHide.imageSelected && displayEvent.files" class="position-absolute creat-event-action">
+                                            <md-icon class="material-icons pa-cursor-pointer" role="img" aria-label="edit" ng-click="editImage('ce-file-upload')">edit</md-icon>
+                                            <md-icon class="material-icons pa-cursor-pointer cancelled-clor" role="img" aria-label="delete" ng-click="deleteImage()">delete</md-icon>
+                                        </md-card-icon-actions>
+
+                                        <md-input-container class="md-block pa-mb-0 pa-no-margin event-description-error" flex-gt-sm md-is-error="createEventForms.create_event_detail_1.eventImage.$invalid">
+                                            <div ng-messages="createEventForms.create_event_detail_1.eventImage.$error" class="input-error">
+                                                <div ng-message="required">Event Image is required</div>
+                                                <div ng-message="maxSize">Event Image cannot be greater than 10MB</div>
+                                            </div>
+                                        </md-input-container>
+                                    </form>
+                                </md-card-content>
+                            </md-card>
+                        </div>
+                    </div>
+                </div>
+                <!-- end-first-screen -->
+
+                <!-- start-second-screen -->
+                <script type="text/ng-template" id="cropImage.html">
+                    <md-dialog aria-label="Crop Image" class="pa-crop-dialog">
+                        <md-toolbar class="pa-bg-FFFFFF">
+                            <div class="md-toolbar-tools">
+                                <div class="pa-font-24 pa-color-333333 pa-bold-font text-center" flex>Crop Image</div>
+                                <md-button class="md-icon-button" ng-click="closeDialog('close')">
+                                    <md-icon aria-label="Close dialog">close</md-icon>
+                                </md-button>
+                            </div>
+                        </md-toolbar>
+
+                        <md-dialog-content class="pa-bg-FFFFFF border-top-E4E4E4" style="height:480px;">
+                            <ui-cropper class="pa-pos-fixed" image="imageForCropping" result-image="croppedImage" area-type="rectangle" aspect-ratio="2.1" result-image-size="{w: 800,h: 650}" result-image-quality="100" area-min-size="200" area-init-size="350"></ui-cropper>
+                        </md-dialog-content>
+
+                        <md-dialog-actions class="pa-pt-25" layout="row">
+                            <span flex="30">   
+                                <md-button class="pa-float-right" ng-click="closeDialog('close')"> 
+                                    <md-icon class="pa-font-16 pa-color-pink pa-vertical-align-sub">arrow_back_ios</md-icon> 
+                                    <span class="pa-font-16 pa-color-pink pa-bold-font">Back</span>
+                            </md-button>
+                            </span>
+                            <span flex="45"></span>
+                            <span flex>
+                                <md-button class="pa-pink-button ht-48 pa-bold-font pa-pl-pr-30" ng-click="closeDialog('save')">
+                                    Save & Continue
+                                </md-button>
+                            </span>
+                        </md-dialog-actions>
+                    </md-dialog>
+                </script>
+                <!-- end-second-screen -->
+
+                <!-- start-third-screen -->
+                <div class="row event-form-description create_event_detail_2">
+                    <div class="col-lg-8">
+                        <div class="create_event_detail">
+                            <md-card class="card-color">
+                                <md-card-header class="col-md-12 pa-color-grey align-items-center pa-border-EEEEEE tt-margin-bottom-0">
+                                    <md-card-header-text>
+                                        <span class="md-title pa-font-16"><span class="mr-5 pa-color-333333 pa-font-bold">Event Description</span><span class="pa-font-14 card-color">(Required)</span></span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <md-card-content class="padding-30 position-relative pa-bg-FFFFFF">
+                                    <form class='event-form event-form-description-per' name="createEventForms.create_event_detail_2">
+                                        <p class="pa-font-14 pa-pb-15">
+                                            Add more details to your event like your schedule, sponsors, or featured guests.
+                                        </p>
+                                        <div class="description_filed_info">
+                                            <p> Characters Count : {{ characters_count}}</p>
+                                        </div>
+                                        <text-angular ng-model="displayEvent.description" ta-text-editor-class="text-editor pa-border-CBCBCB" ta-html-editor-class="text-editor pa-border-CBCBCB" name="eventDescription" ng-change="flashMessage = true;" ng-blur="editorblur=true">
+                                        </text-angular>
+                                        <!-- <md-input-container class="md-block pa-mb-0 pa-no-margin event-description-error" flex-gt-sm>
+                                            <div ng-messages="createEventForms.create_event_detail_2.eventDescription.$error" class="input-error">
+                                                <div class="pa-required" ng-if="displayEvent.description.length == null ? true : false">Event description must be 50 characters or more.</div>
+                                            </div>
+                                        </md-input-container>
+                                        <span ng-if="(editorblur && characters_count < 50 ) ? true : false" class="pa-color-red">Event description must be 50 characters or more.</span>
+                                        <span ng-if="(characters_count >=50 ) ? true : false">Event description must be 50 characters or more.</span> -->
+                                    </form>
+                                </md-card-content>
+                            </md-card>
+                            <md-card class="card-color pa-mt-35 _md organiser-info-card organiser-info-sec">
+                                <md-card-header class="col-md-12 pa-color-grey align-items-center pa-border-EEEEEE tt-margin-bottom-0">
+                                    <md-card-header-text>
+                                        <span class="md-title pa-font-16"><span class="mr-5 pa-color-333333 pa-font-bold">Event Organiser's Info</span><span class="pa-font-14 card-color">(Optional)</span></span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <md-card-content class="layout-padding pa-background-white pa-no-padding-imp mobile-insta-login event-organiser-detail">
+                                    <div class="event_org_note invitation-send padding-8">
+                                        <i class="material-icons color-F5AF00 pa-font-24">info</i><span class="pa-font-16 pa-vertical-align-top">The information shared here will be public</span>
+                                    </div>
+                                    <form class='event-form event-form-description-per' autocomplete="off" novalidate name="createEventForms.create_event_detail_2">
+                                        <div class="form-group padding-30 pa-no-bt-margin-imp">
+                                            <md-input-container class="create-w-100 md-icon-float md-icon-left">
+                                                <label for="website">Website</label>
+                                                <md-icon>website</md-icon>
+                                                <input md-no-asterisk name="website" type="text" ng-model="displayEvent.website" class="form-control pa-border md-input-with-icon" id="website" placeholder="e.g. http://www.thepromoapp.com" ng-pattern="/^(https?:\/\/)?(www\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\.)+[\w]{2,}(\/\S*)?$/"
+                                                    ng-blur="saveDataLocal();" ng-change="flashMessage = true;">
+                                                <div ng-messages="createEventForms.create_event_detail_2.website.$error">
+                                                    <div ng-message="required">This field is required</div>
+                                                    <div ng-message="pattern">Invalid url!</div>
+                                                </div>
+                                            </md-input-container>
+
+                                            <md-input-container class="create-w-100 md-icon-float md-icon-left pa-mt-30-imp">
+                                                <label for="email">Email</label>
+                                                <md-icon>email</md-icon>
+                                                <input md-no-asterisk name="email" ng-model="displayEvent.email" type="email" class="form-control pa-border md-input-with-icon" id="email" placeholder="e.g. info@thepromoap" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-change="flashMessage = true;"
+                                                    ng-blur="saveDataLocal();">
+                                                <div ng-messages="createEventForms.create_event_detail_2.email.$error">
+                                                    <div ng-message="required">This field is required</div>
+                                                    <div ng-message="pattern">Invalid email!</div>
+                                                </div>
+                                            </md-input-container>
+                                            <div class="phn-info">
+                                                <div ng-if="countryCodeValue" class="md-input-container">
+                                                    <country-code-select ng-model="countryCode"></country-code-select>
+                                                    </0div>
+                                                    <md-input-container class="form-group full-field pa-mt-30-imp pa-mt-sm-18-imp flex-gt-sm md-input-has-value pa-mb-12">
+                                                        <label for="phone">Phone</label>
+                                                        <input md-no-asterisk type="text" class="form-control pa-border md-input-with-icon" name="phone" placeholder="786-430-9140" ng-model="displayEvent.phone" ng-pattern="/^\d{9,13}$/" ng-change="flashMessage = true;" ng-blur="saveDataLocal();">
+                                                        <div ng-messages="createEventForms.create_event_detail_2.phone.$error">
+                                                            <div ng-message="required">This field is required</div>
+                                                            <div ng-message="pattern">Invalid phone</div>
+                                                        </div>
+                                                    </md-input-container>
+                                                </div>
+                                            </div>
+                                    </form>
+                                </md-card-content>
+                            </md-card>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end-third-screen -->
+                </div>
+            </div>
+        </div>
+        <!-- hide this section in mobile End Here -->
+
+        
+    </div>

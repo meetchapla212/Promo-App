@@ -1,0 +1,89 @@
+<div ng-show="selectedState.id=='add' || selectedState.id=='change'" class="pa-modal-font">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content "></div>
+
+    <div class="modal-header bg-F9F9F9">
+        <span class="custom-row pa-ml-10 pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">{{selectedState.title}}</span>
+        <md-icon class="pa-float-right" ng-click="close()">close</md-icon>
+    </div>
+    <div class="pa-padding-15">
+        <div class="row tt-margin-left-none">
+            <div class="col-md-12">
+                <p class="pa-color-5B5B5B pa-modal-font pa-font-16  pa-display-font">An event administrator will be able to manage your event, keep an eye on tickets and payments, and keep things running smoothly.<br> They will have access to your event until the event is marked as "closed" on The Promo App .</p>
+                <span class="pa-info-tooltip"><i class="material-icons pa-vertical-align pa-color-pink pa-font-20 pa-ml-10 pa-cursor-pointer">help</i>
+                    <span class="pa-info-tooltiptext pa-modal-font">
+                        <div class="pa-modal-font pa-color-FFFFFF">
+                            <p class="pa-ml-20 pa-bold-font pa-color-FFFFFF">Any event administrator you add will be able to :</p>
+                           <ul class="pa-color-FFFFFF">
+                               <li>View the event in their "manage events" list</li>
+                               <li>Edit/view/add new ticket types</li>
+                               <li>Edit/delete the event</li>
+                               <li>Add new administrators to the event</li>
+                               <li>Scan attendees' tickets</li>
+                               <li>View and change all ticket types (Both Paid and Free options)</li>
+                           </ul>
+                        </div>
+                    </span>
+                </span>
+            </div>
+
+        </div>
+        <div class="row pa-mt-20 tt-margin-left-none">
+            <div class="col-md-12">
+                <p class="pa-font-18 pa-color-5B5B5B pa-modal-font pa-bold-font">Event Administrator</p>
+            </div>
+        </div>
+        <div class="row tt-margin-left-none">
+            <div class="col-md-12">
+                <div class="dropdown pa-color-5B5B5B pa-modal-font pa-font-16 pa-cursor-pointer tt-dropdown-add-admin" ng-show="displayAdmins.length > 0">
+                    <div>
+                        <div>
+                            <div class="pa-input-padding tt-custom-dropdown" isteven-multi-select input-model="displayAdmins" output-model="selectedAdmins" button-label="iconImage username || full_name" item-label="iconImage username || full_name" tick-property="ticked" translation="addAdminLang"
+                                selection-mode="multiple" disable-property="disabled" helper-elements="filter none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pa-mt-20 tt-margin-left-none ">
+            <div class="col-md-12 pa-text-center ">
+                <div ng-click="addAndMoveToChangeState()" ng-disabled="loading" CLASS="pa-background-pink pa-font-18 pa-modal-font pa-bold-font tt-padding-20 pa-mt-20 tt-mb-20 pa-cursor-pointer">{{selectedState.buttonText}}</div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!--View Event Administrator Modal Starts-->
+<div ng-show="selectedState.id=='view'" class="pa-modal-font">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content "></div>
+    <div class="modal-header bg-F9F9F9">
+        <span class="custom-row pa-ml-10 pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">{{selectedState.title}}</span>
+        <md-icon class="pa-float-right" ng-click="close()">close</md-icon>
+    </div>
+    <div class="pa-padding-15">
+        <div class="row tt-margin-left-none">
+            <div class="col-md-12">
+                <p class="pa-color-5B5B5B pa-modal-font pa-font-16">Current Event Administrator</p>
+            </div>
+
+        </div>
+        <div class="row tt-margin-left-none">
+            <div class="col-md-12">
+                <p class="pa-font-18 pa-color-5B5B5B pa-modal-font pa-bold-font">{{adminList}}</p>
+            </div>
+        </div>
+        <div class="row tt-margin-left-none pa-mt-20 tt-mb-20">
+            <div class="col-md-12">
+                <p ng-click="moveToChangeState()" ng-disabled="loading" class="pa-font-18 pa-color-pink pa-modal-font pa-cursor-pointer"><u>Change Admin</u></p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!--View Event Administrator Modal ends-->

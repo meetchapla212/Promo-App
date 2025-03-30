@@ -1,0 +1,37 @@
+<div class="container row-left-space " ng-class="{'tt-text-left':$ctrl.size=='large'}" style="text-align: center;" ng-if="(!$ctrl.size || $ctrl.size != 'large') && $ctrl.ticket && $ctrl.event.ticketType && $ctrl.event.ticketType === 'paid'">
+    <div class="row row-left-space pa-font-16" ng-if="$ctrl.event && !$ctrl.event.closed && $ctrl.ticket.event_status === 'approved'">
+        <img ng-src="{{$ctrl.ticket.qrcode}}" class="qrcode-size-{{$ctrl.size || 'small'}}">
+    </div>
+    <div class="row row-left-space pa-color-5B5B5B  pa-capitalize" style="padding: 8px 0px; font-family: lato" ng-if="$ctrl.event && !$ctrl.event.closed" ng-class="{'approved-text-large':($ctrl.size=='large' && $ctrl.ticket.event_status === 'approved')}">
+        <b ng-repeat="ticket in $ctrl.ticket.tickets">{{ticket.quantity}} {{ticket.type}}{{($index !== $ctrl.ticket.tickets.length-1)?', ':''}} </b>
+    </div>
+    <div class="row row-left-space pa-color-5B5B5B pa-modal-font" style="padding-bottom: 45px;" ng-if="$ctrl.event && $ctrl.event.closed">
+        <b ng-repeat="ticket in $ctrl.ticket.tickets">{{ticket.quantity}} {{ticket.type}}{{($index !== $ctrl.ticket.tickets.length-1)?', ':''}} </b>
+    </div>
+    <div class="row row-left-space" ng-if="$ctrl.ticket.event_status === 'approved' && !$ctrl.event.closed"></div>
+    <div class="row row-left-space" ng-if="$ctrl.ticket.event_status === 'pending' && !$ctrl.event.closed" style="color: #EF9F2C; padding: 13px 0px; font-size: 30px;" ng-class="{$ctrl.size=='large' && 'pending-large':$ctrl.size=='large'}">
+        <b>PENDING</b>
+    </div>
+    <div class="row row-left-space" style="padding-bottom: 5px" ng-class="{'booked-text-large':($ctrl.size=='large'), 'pending-text-approved':($ctrl.size=='large' && $ctrl.ticket.event_status === 'approved')}">
+        {{$ctrl.ticket.event_status === 'pending'?'Booked':'Purchased'}} on {{$ctrl.ticket.purchased_on | toMoment | momentFormatter:"MMMM D"}}
+    </div>
+</div>
+<div class="qr-code-scanner-event" ng-if="($ctrl.size && $ctrl.size == 'large') && $ctrl.ticket && $ctrl.event.ticketType && $ctrl.event.ticketType === 'paid'">
+    <div class="row">
+        <div class="col-md-5 pa-no-padding-imp" ng-if="$ctrl.event && !$ctrl.event.closed && $ctrl.ticket.event_status === 'approved'">
+            <div>
+                <img ng-src="{{$ctrl.ticket.qrcode}}" class="qrcode-size-{{$ctrl.size || 'small'}}">
+            </div>
+        </div>
+        <div class="row row-left-space" ng-if="$ctrl.ticket.event_status === 'pending' && !$ctrl.event.closed" style="color: #EF9F2C; padding: 13px 0px; font-size: 30px;" ng-class="{$ctrl.size=='large' && 'pending-large':$ctrl.size=='large'}">
+            <b>PENDING</b>
+        </div>
+        <div class="col-md-7" ng-if="$ctrl.event && !$ctrl.event.closed">
+            <div class="pa-color-333333 pa-font-24 pa-bold-font">
+                <b ng-repeat="ticket in $ctrl.ticket.tickets">{{ticket.quantity}} {{ticket.type}}{{($index !== $ctrl.ticket.tickets.length-1)?', ':''}} </b>
+            </div>
+            <div class="pa-color-666666 pa-font-16">{{$ctrl.ticket.event_status === 'pending'?'Booked':'Purchased'}} on {{$ctrl.ticket.purchased_on | toMoment | momentFormatter:"MMM DD,YYYY"}} (latest)</div>
+            <div class="pa-cursor-pointer pa-font-16 pa-mt-12"><a class="pa-color-pink" ng-href="/tickets">View All Tickets</a></div>
+        </div>
+    </div>
+</div>

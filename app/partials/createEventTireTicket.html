@@ -1,0 +1,293 @@
+<style type="text/css">
+    .md-select-menu-container,
+    md-backdrop {
+        z-index: 1051 !important;
+    }
+
+</style>
+<div class="custom-model-content" id="myModal">
+
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">{{modelAction}}
+            Ticket</span>
+        <md-icon ng-click="cancel()" class="pa-float-right">close</md-icon>
+    </div>
+    <div class="modal-body" style="padding: 0;">
+        <form class="create-w-100 event-form buyer-TC-Sec" name="createEventForms.create_event_form_admissions_3"
+            style="padding-top: 18px;">
+            <div class="tc-new-phase">
+                <div class="row ">
+                    <div class="col-md-12">
+                        <md-input-container class="md-block pa-mt-30-imp pa-mb-0" flex-gt-sm sty>
+                            <label class="pa-color-333333">Ticket Name <span class="pa-required">*</span></label>
+                            <input type="text" name="ticketName" ng-model="displayEvent.tickets.ticket_name"
+                                md-no-asterisk class="form-control input-height card-color"
+                                placeholder="e.g. General Admission" maxlength="60" md-maxlength="60" ng-minlength="1"
+                                required>
+                            <div ng-messages="createEventForms.create_event_form_admissions_3.ticketName.$error">
+                                <div ng-message="required">This field is required.</div>
+                                <div ng-message="md-maxlength">Ticket name must be less than 60 characters long.</div>
+                                <div ng-message="minlength">Ticket name must be greater than 1 characters.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+                <input type="hidden" name="tier_details" ng-model="displayEvent.tier" ng-value="5">
+                <div ng-if="displayEvent.tickets.ticket_type == 'paid' "
+                    ng-repeat="tier in displayEvent.layout_details.tiers track by $index"
+                    ng-init="displayEvent.free[$index]=false">
+                    <div class="row price_tier">
+                        <input type="hidden" name="_tier_id">
+                        <div class="col-md-4 col_price_t">
+                            <label class="pa-color-333333">Price Tier</label>
+                            <div class="tier_sub">
+                                <span class="oval_tier" ng-style="{background: tier.color}"></span>
+                                <p> {{tier.name}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4" ng-if="displayEvent.ticketsArr.length == 0">
+                            <md-input-container
+                                class="md-block  md-icon-float md-icon-left md-input-has-placeholder price-filed-new"
+                                flex-gt-sm style="margin-top: 25px !important; margin-bottom: 10px !important;">
+                                <label class="pa-color-333333">Price </label>
+                                <md-icon class="input-icon-with-bg">attach_money</md-icon>
+                                <input
+                                    ng-change="get_tire_calculate_price(is_absorb,displayEvent.tickets.tier_details);"
+                                    md-no-asterisk type="number" mousewheel="true" name="ticketPrice"
+                                    ng-model="displayEvent.tickets.tier_details[$index].price"
+                                    class="form-control input-height card-color pl-9 md-input-with-icon" min="0"
+                                    ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"
+                                    ng-disabled="displayEvent.free[$index]" only-number-with-limit max-value="999999"
+                                    placeholder="" />
+                                <div ng-messages="createEventForms.create_event_form_admissions_3.ticketPrice.$error">
+                                    <div ng-message="pattern">Price can be upto 2 decimal points long.</div>
+                                </div>
+                            </md-input-container>
+                            <div class="buyer_md_con" ng-if="!displayEvent.free[$index]">
+                                <a class="buyer_tc_seat" ng-show="displayEvent.tickets.tier_details[$index].price > 0">Buyer Total:
+                                    ${{buyer_total[$index]}}</a>
+                                <a class="buyer_tc_seat" ng-hide="displayEvent.tickets.tier_details[$index].price > 0">Buyer Total: $0.00</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4" ng-if="tier.tier_id == ticket._tier_id"
+                            ng-repeat="ticket in displayEvent.ticketsArr track by $index">
+                            <md-input-container
+                                class="md-block  md-icon-float md-icon-left md-input-has-placeholder price-filed-new"
+                                flex-gt-sm style="margin-top: 25px !important; margin-bottom: 10px !important;">
+                                <label class="pa-color-333333">Price </label>
+                                <md-icon class="input-icon-with-bg">attach_money</md-icon>
+                                <input
+                                    ng-change="get_tire_calculate_price(is_absorb,displayEvent.tickets.tier_details);"
+                                    md-no-asterisk type="number" mousewheel="true" name="ticketPrice"
+                                    ng-model="displayEvent.tickets.tier_details[$index].price"
+                                    class="form-control input-height card-color pl-9 md-input-with-icon" min="0"
+                                    ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"
+                                    ng-disabled="displayEvent.free[$index]" only-number-with-limit max-value="999999"
+                                    placeholder="" />
+                                <div ng-messages="createEventForms.create_event_form_admissions_3.ticketPrice.$error">
+                                    <div ng-message="pattern">Price can be upto 2 decimal points long.</div>
+                                </div>
+                            </md-input-container>
+                            <div class="buyer_md_con" ng-if="!displayEvent.free[$index]">
+                                <a class="buyer_tc_seat" ng-show="displayEvent.tickets.tier_details[$index].price > 0">Buyer Total:
+                                    ${{buyer_total[$index]}}</a>
+                                <a class="buyer_tc_seat" ng-hide="displayEvent.tickets.tier_details[$index].price > 0">Buyer Total: $0.00</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 make_it_free">
+                            <div class="custom_section_check_seat">
+                                <div class="form-group">
+                                    <label class="check-promo">
+                                        <input class="checkhour" ng-model="displayEvent.free[$index]" type="checkbox"
+                                            ng-checked="displayEvent.free[$index]"
+                                            ng-click="(displayEvent.free[$index] == true)?displayEvent.tickets.tier_details[$index].price=0:displayEvent.tickets.tier_details[$index].price=''">
+                                        <span class="check-ui"></span>
+                                        <span class="chec-category">Make it free</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buyer-total-price" ng-if="displayEvent.event_type == 'paid'">
+                    <div class="form-group">
+                        <label class="check-promo">
+                            <input class="checkhour" type="checkbox" ng-model="is_absorb"
+                                ng-change="get_tire_calculate_price(is_absorb,displayEvent.tickets.tier_details)"
+                                ng-checked="is_absorb">
+                            <span class="check-ui"></span>
+                            <span class="chec-category">Absorb fees: Ticketing fees are deducted from your ticket
+                                revenue</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div ng-if="displayEvent.tickets.ticket_type == 'free' "
+                    ng-repeat="tier in displayEvent.layout_details.tiers track by $index">
+                    <div class="row price_tier">
+                        <input type="hidden" name="_tier_id">
+                        <div class="col-md-4 col_price_t">
+                            <label class="pa-color-333333">Price Tier</label>
+                            <div class="tier_sub">
+                                <span class="oval_tier" ng-style="{background: tier.color}"></span>
+                                <p> {{tier.name}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <md-input-container
+                                class="md-block  md-icon-float md-icon-left md-input-has-placeholder price-filed-new"
+                                flex-gt-sm style="margin-top: 25px !important; margin-bottom: 10px !important;">
+                                <label class="pa-color-333333">Price</label>
+                                <md-icon class="input-icon-with-bg">attach_money</md-icon>
+                                <input ng-disabled="true" md-no-asterisk type="text" disable-it mousewheel="true" name="ticketPrice" ng-model="displayEvent.tickets.disaply_price" class="form-control input-height card-color pl-9 md-input-with-icon" placeholder="Free" only-number-with-limit
+                                    max-value="999999" />
+                                <div ng-messages="calculate_pricecreateEventForms.create_event_form_admissions_3.ticketPrice.$error">
+                                    <div ng-message="required">This field is required.</div>
+                                    <div ng-message="pattern">Price can be upto 2 decimal points long.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pa-pt-35-imp">
+                    <div class="col-lg-6 col-md-6 mb-991 pa-position-relative date-picker-start">
+                        <md-input-container class="create-w-100 md-icon-float md-icon-left pa-no-margin" flex-gt-sm
+                            md-is-error="createEventForms.create_event_form_admissions_3.saleStartDate.$invalid">
+                            <label class="pa-color-333333">Sale Start Date</label>
+                            <md-icon>date_range</md-icon>
+                            <input md-no-asterisk id="ticketSaleStartDate" name="saleStartDate" date-range-picker
+                                class="form-control date-picker input-height card-color md-input-with-icon" type="text"
+                                ng-required="true" ng-model="displayEvent.tickets.saleStartDate.date"
+                                min="(modelAction=='Edit')?displayEvent.tickets.saleStartDate.date:minDate"
+                                options="dropdowns.startDateRangePicker.options" max="displayEvent.end.date" />
+
+                            <div ng-messages="createEventForms.create_event_form_admissions_3.saleStartDate.$error">
+                                <div ng-message="required">This field is required.</div>
+                                <div ng-message="minDate">Start date cannot take place after end date.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <md-input-container class="create-w-100 md-icon-float md-icon-left  pa-no-margin" flex-gt-sm>
+                            <label class="pa-color-333333">Sale Start Time</label>
+                            <md-icon>query_builder</md-icon>
+                            <md-select
+                                ng-change="validateTime(displayEvent.tickets.saleStartDate.date,displayEvent.tickets.saleStartDate.time,displayEvent.tickets.saleEndDate.date,displayEvent.tickets.saleEndDate.time,'create_event_form_admissions_3','saleendDate')"
+                                name="endTime" md-container-class="event-form-select md-icon-float md-icon-right"
+                                class="form-control input-height md-select-with-icon"
+                                ng-model="displayEvent.tickets.saleStartDate.time">
+                                <md-option ng-repeat="item in dropdowns.times.options" ng-value="item.key">
+                                    {{item.value}}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="createEventForms.create_event_form_admissions_3.saleStartTime.$error">
+                                <div ng-message="required">This field is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div class="row pa-pt-30">
+                    <div class="col-lg-6 col-md-6 pa-position-relative date-picker-end">
+                        <md-input-container class="create-w-100 md-icon-float md-icon-left" flex-gt-sm>
+                            <label class="pa-color-333333">Sale End Date</label>
+                            <md-icon>date_range</md-icon>
+
+                            <input md-no-asterisk id="ticketSaleEndDate" name="saleendDate" date-range-picker
+                                class="form-control date-picker input-height card-color md-input-with-icon" type="text"
+                                ng-required="true" ng-model="displayEvent.tickets.saleEndDate.date"
+                                min="displayEvent.tickets.saleStartDate.date || dropdowns.endDateRangePicker.minDate"
+                                max="displayEvent.end.date" options="dropdowns.endDateRangePicker.options" />
+                            <div ng-messages="createEventForms.create_event_form_admissions_3.saleendDate.$error">
+                                <div ng-message="required">This field is required.</div>
+                                <div ng-message="minDate">End date must be after start date.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div class="col-lg-6 col-md-6 pa-position-relative">
+                        <md-input-container class="create-w-100 md-icon-float md-icon-left" flex-gt-sm>
+                            <label class="pa-color-333333">Sale End Time</label>
+                            <md-icon>query_builder</md-icon>
+                            <md-select
+                                ng-change="validateTime(displayEvent.tickets.saleStartDate.date,displayEvent.tickets.saleStartDate.time,displayEvent.tickets.saleEndDate.date,displayEvent.tickets.saleEndDate.time,'create_event_form_admissions_3','saleendDate')"
+                                name="endTime" md-container-class="event-form-select md-icon-float md-icon-right"
+                                class="form-control input-height md-select-with-icon"
+                                ng-model="displayEvent.tickets.saleEndDate.time">
+                                <md-option ng-repeat="item in dropdowns.times.options" ng-value="item.key">
+                                    {{item.value}}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="createEventForms.create_event_form_admissions_3.saleendTime.$error">
+                                <div ng-message="required">This field is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div class="advanced_settings" ng-class="{'advanced-filed': clicked}" ng-click="clicked = !clicked">
+                    <h2>Advanced Settings</h2> <i class="material-icons">expand_more</i>
+                </div>
+
+                <div class="advanced_sec" ng-class="{'row_advanced_show': clicked}" ng-show="clicked">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <md-input-container style="margin-bottom: 10px;" class="create-w-100" flex-gt-sm>
+                                <label class="pa-color-333333">Description (Optional)</label>
+                                <textarea name="ticket_description" class="md-input card-color pa-bt-CBCBCB pa-border-4 pa-mt-0 pa-br-C4C4C4" ng-model="displayEvent.tickets.description" rows="6" md-maxlength="200" maxlength="200" placeholder="Tell attendees more about this ticket" style="text-align: left;"> </textarea>
+                                <div ng-messages="createEventForms.create_event_form_admissions_3.ticket_description.$error" class="md-input-messages-animation input-error">
+                                    <div ng-message="md-maxlength">Ticket Description must be less than 200 characters long.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="pa-color-333333 pa-font-14 pa-font-bold ">
+                            Tickets Per Order
+                        </div>
+                    </div>
+                    <div class="row mt-10">
+                        <div class="col-md-6">
+                            <md-input-container class="create-w-100 pa-mt-30-imp pa-mb-0" flex-gt-sm>
+                                <label class="pa-color-333333">Minimum Quantity <span
+                                        class="pa-required">*</span></label>
+                                <input md-no-asterisk numbers-only type="number" disable-it mousewheel="true" name="orderMinQuantity" class="form-control input-height card-color " ng-model="displayEvent.tickets.ticketPerOrderMinQuant" required min="0" max="{{displayEvent.tickets.quantity}}">
+                                <div ng-messages="createEventForms.create_event_form_admissions_3.orderMinQuantity.$error">
+                                    <div ng-message="required">This field is required.</div>
+                                    <div ng-message="max">This should be &lt;= Total Quantity</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+
+                        <div class="col-md-6">
+                            <md-input-container class="create-w-100 pa-mt-30-imp pa-mb-0" flex-gt-sm>
+                                <label class="pa-color-333333">Maximum Quantity <span
+                                        class="pa-required">*</span></label>
+                                <input md-no-asterisk numbers-only type="number" disable-it mousewheel="true" name="orderMaxQuantity" class="form-control input-height card-color" ng-model="displayEvent.tickets.ticketPerOrderMaxQuant" placeholder="e.g. 10" required min="{{displayEvent.tickets.ticketPerOrderMinQuant}}"
+                                    max="{{displayEvent.tickets.quantity}}">
+                                <div ng-messages="createEventForms.create_event_form_admissions_3.orderMaxQuantity.$error">
+                                    <div ng-message="required">This field is required.</div>
+                                    <div ng-message="min">This should be greater or equal to the Minimum Quantity.</div>
+                                    <div ng-message="max">This should be &lt;= Total Quantity</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer pa-border-EEEEEE ">
+        <md-toolbar class="pa-modal-footer-height-toolbar tc_new_free_event">
+            <div class="md-toolbar-tools">
+                <md-button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit md-button" ng-if="saveAnother" ng-disabled="displayEvent.tickets.ticket_name == '' && (createEventForms.create_event_form_admissions_3.$error)"
+                    ng-click="createEventTireTicket(true,displayEvent.tickets.ticket_id)">Save & Add Another</md-button>
+                <button class="btn pa-border-CBCBCB pa-color-pink pa-background-white h-48 pa-bold-font pa-font-16" ng-if="!saveAnother" ng-click="cancel()">Cancel</button>
+                <md-button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit md-button" ng-disabled="displayEvent.tickets.ticket_name == '' && (createEventForms.create_event_form_admissions_3.$error)" ng-click="createEventTireTicket(false,displayEvent.tickets.ticket_id)">Save</md-button>
+            </div>
+        </md-toolbar>
+    </div>
+</div>

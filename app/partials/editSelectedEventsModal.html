@@ -1,0 +1,30 @@
+<div class="modal-paypal pa-border-4 pa-f6f6f6-border pa-modal-font pa-pb-20 custom-model-content">
+    <div class="modal-header bg-F9F9F9 pa-center-div pa-align-items-center pa-pt-12 pb-10">
+        <span class="modal-title pa-width-100p-imp pa-no-padding pa-font-bold" id="modal-title">Edit Selected Event</span>
+        <a ng-click="close();">
+            <span class="modal-close-button"><i class="material-icons">close</i></span>
+        </a>
+    </div>
+    <div class="modal-body eventListView">
+        <div class="event-list">
+            <div class="widget_list select_eventSingle" ng-class="{'listactive' : selectedEventlist === event.event_id || event.selected === true}" ng-repeat="event in eventsLists | filter:{ privacy_type: 1 }" ng-click="selecteEventFromList(eventSelectionType, event.event_id)">
+                <span class="icon_widget"><img ng-src="{{event.event_image || '/img/unnamed.png'}}" alt="{{event.event_name}}"></span>
+                <span class="widget_list_content">
+                    <b>{{event.event_name}}</b>
+                    <ul>
+                        <li><i class="material-icons">location_on</i> <p>{{event.state +", "+ event.country}}</p></li>
+                        <li><i class="material-icons">date_range</i> <p>{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY, hh:mm a"}}</p></li>
+                    </ul>
+                </span>
+                <span class="widget_check material-icons">check_circle</span>
+            </div>
+        </div>
+    </div>
+    <div class="widget_footer">
+        <!-- Cance Action-->
+        <button class="pa-font-Lato pa-bold-font pa-color-pink pa-background-white tt-font-16 pa-border-4 save-exit" ng-click="close();" type="button">Cancel</button>
+
+        <!-- Continue Steps-->
+        <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue" ng-disabled="optionDisableFlag" ng-click="chooseOption(option, eventSelectionType);" type="button">Continue</button>
+    </div>
+</div>

@@ -1,0 +1,280 @@
+<div class="tt-modal-paypal pa-modal-font custom-model-content">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">{{selectedState.title}}</span>
+        <md-icon class="pa-float-right" ng-click="close()">close</md-icon>
+    </div>
+
+    <div class="modal-body" ng-show="selectedState.id != 'view'">
+        <form class="create-w-100 event-form" name="createEventForms.ticketType">
+            <md-input-container class="md-block pa-mt-30-imp pa-mb-0 w-98" flex-gt-sm>
+                <label class="pa-color-333333">Ticket Name</label>
+                <input type="text" name="ticketName" ng-model="ticketType.name" md-no-asterisk class="form-control input-height card-color" placeholder="e.g. General Admission" md-maxlength="60" ng-minlength="1" maxlength="60" required ng-disabled="selectedState.id == 'edit'">
+                <div ng-messages="createEventForms.ticketType.ticketName.$error">
+                    <div ng-message="required">This field is required.</div>
+                    <div ng-message="md-maxlength">Ticket name must be less than 60 characters long.</div>
+                    <div ng-message="minlength">Ticket name must be greater than 1 characters.</div>
+                </div>
+            </md-input-container>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <md-input-container class="create-w-100 pa-mt-30-imp" flex-gt-sm>
+                        <label class="pa-color-333333">Quantity</label>
+                        <input md-no-asterisk type="number" only-number="" disable-it mousewheel="true" name="ticketQuantity" class="form-control input-height card-color pl-9" ng-model="ticketType.quantity" placeholder="e.g. 100" required min="0" max="100000">
+                        <div ng-messages="createEventForms.ticketType.ticketQuantity.$error">
+                            <div ng-message="required">This field is required.</div>
+                            <div ng-message="max">This can be maximum 100000</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div class="col-md-12">
+                    <md-input-container class="create-w-100 pa-mt-30-imp md-icon-float md-icon-left md-input-has-placeholder" flex-gt-sm>
+                        <label class="pa-color-333333">Price</label>
+                        <md-icon class="input-icon-with-bg">attach_money</md-icon>
+                        <input ng-change="buyer_total = get_calculate_price(is_absorb,ticketType.price);" ng-readonly="event.event_details.ticket_type == 'free'? true : false" md-no-asterisk type="number" disable-it mousewheel="true" name="ticketPrice" ng-model="ticketType.price"
+                            class="form-control input-height card-color pl-9 md-input-with-icon" required ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
+                        <div ng-messages="createEventForms.ticketType.ticketPrice.$error">
+                            <div ng-message="required">This field is required.</div>
+                            <div ng-message="pattern">Price can be upto 2 decimal points long.</div>
+                        </div>
+                        <div ng-show="ticketType.price > 0" class="buyer-lable">Buyer Total: ${{buyer_total}} <span class="buyer-link"><a ng-click="openTicketDetailsModel(ticketType);">View Details</a></span>
+                        </div>
+                    </md-input-container>
+                    <div class="buyer-total-price" ng-show="ticketType.price > 0">
+                        <div class="form-group">
+                            <label class="check-promo">
+                                <input class="checkhour" type="checkbox" ng-model="is_absorb" ng-change="buyer_total = get_calculate_price(is_absorb,ticketType.price)" ng-checked="is_absorb" />
+                                <span class="check-ui"></span>
+                                <span class="chec-category">Absorb fees: Ticketing fees are deducted from your ticket revenue</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row ce-sa pa-mt-30-imp">
+                <div class="col-lg-6 col-md-6 mb-991">
+                    <md-input-container class="create-w-100 md-icon-float md-icon-left pa-no-margin date-picker-start" flex-gt-sm md-is-error="createEventForms.ticketType.saleStartDate.$invalid">
+                        <label class="pa-color-333333">Sale Start Date</label>
+                        <md-icon>date_range</md-icon>
+
+                        <input md-no-asterisk name="saleStartDate" readonly date-range-picker class="form-control date-picker input-height card-color md-input-with-icon" type="text" ng-required="true" ng-model="ticketType.saleStartDate.date" min="dropdowns.startDateRangePicker.minDate"
+                            options="dropdowns.startDateRangePicker.options" />
+
+                        <div ng-messages="createEventForms.ticketType.saleStartDate.$error">
+                            <div ng-message="required">This field is required.</div>
+                            <div ng-message="minDate">Start date cannot take place after end date.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <md-input-container class="create-w-100 md-icon-float md-icon-left pa-no-margin" flex-gt-sm>
+                        <label class="pa-color-333333">Sale Start Time</label>
+                        <md-icon>query_builder</md-icon>
+                        <md-select ng-change="validateTime(ticketType.saleStartDate.date,ticketType.saleStartDate.time,ticketType.saleEndDate.date,ticketType.saleEndDate.time,'ticketType','saleStartDate')" name="saleStartTime" md-container-class="event-form-select md-icon-float md-icon-right z-9999"
+                            class="form-control input-height md-select-with-icon" ng-model="ticketType.saleStartDate.time">
+                            <md-option ng-repeat="item in dropdowns.times.options" ng-value="item.key">
+                                {{item.value}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="createEventForms.ticketType.saleStartTime.$error">
+                            <div ng-message="required">This field is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 pa-position-relative mb-991">
+                    <md-input-container class="create-w-100 md-icon-float md-icon-left date-picker-end" flex-gt-sm>
+                        <label class="pa-color-333333">Sale End Date</label>
+                        <md-icon>date_range</md-icon>
+
+                        <input md-no-asterisk name="saleendDate" readonly date-range-picker class="form-control date-picker input-height card-color md-input-with-icon" type="text" ng-required="true" ng-model="ticketType.saleEndDate.date" min="ticketType.saleStartDate.date || dropdowns.endDateRangePicker.minDate"
+                            options="dropdowns.endDateRangePicker.options" max="event.event_details.end_date_time" />
+                        <div ng-messages="createEventForms.ticketType.saleendDate.$error">
+                            <div ng-message="required">This field is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div class="col-lg-6 col-md-6 pa-position-relative">
+                    <md-input-container class="create-w-100 md-icon-float md-icon-left" flex-gt-sm>
+                        <label class="pa-color-333333">Event End Time</label>
+                        <md-icon>query_builder</md-icon>
+                        <md-select ng-change="validateTime(ticketType.saleStartDate.date,ticketType.saleStartDate.time,ticketType.saleEndDate.date,ticketType.saleEndDate.time,'ticketType','saleStartDate')" name="saleendTime" md-container-class="event-form-select md-icon-float md-icon-right z-9999"
+                            class="form-control input-height md-select-with-icon" ng-model="ticketType.saleEndDate.time">
+                            <md-option ng-repeat="item in dropdowns.times.options" ng-value="item.key">
+                                {{item.value}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="createEventForms.ticketType.saleendTime.$error">
+                            <div ng-message="required">This field is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+
+            <md-input-container class="create-w-100 pa-mt-30-imp" flex-gt-sm>
+                <label class="pa-color-333333">Description (Optional)</label>
+                <textarea name="ticket_description" class="md-input card-color pa-bt-CBCBCB pa-border-4 pa-mt-0 pa-br-C4C4C4" ng-model="ticketType.description" rows="6" maxlength="200" md-maxlength="200" placeholder="Tell attendees more about this ticket" style="text-align: left;"> </textarea>
+                <div ng-messages="createEventForms.ticketType.ticket_description.$error" class="md-input-messages-animation input-error">
+                    <div ng-message="md-maxlength">Ticket Description must be less than 200 characters long.</div>
+                </div>
+            </md-input-container>
+
+            <div class="pa-color-333333 pa-font-14 pa-font-bold ">
+                Tickets Per Order
+            </div>
+
+            <div class="row mt-10">
+                <div class="col-md-6">
+                    <md-input-container class="create-w-100 pa-mt-30-imp pa-mb-0" flex-gt-sm>
+                        <label class="pa-color-333333">Minimum Quantity</label>
+                        <input md-no-asterisk numbers-only type="number" only-number="" disable-it mousewheel="true" name="orderMinQuantity" class="form-control input-height card-color pl-9" ng-model="ticketType.ticketPerOrderMinQuant" placeholder="e.g. 10" required min="0" max="{{ticketType.quantity}}">
+                        <div ng-messages="createEventForms.ticketType.orderMinQuantity.$error">
+                            <div ng-message="required">This field is required.</div>
+                            <div ng-message="max">This should be &lt;= Total Quantity</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div class="col-md-6">
+                    <md-input-container class="create-w-100 pa-mt-30-imp pa-mb-0" flex-gt-sm>
+                        <label class="pa-color-333333">Maximum Quantity</label>
+                        <input md-no-asterisk numbers-only type="number" only-number="" disable-it mousewheel="true" name="orderMaxQuantity" class="form-control input-height card-color pl-9" ng-model="ticketType.ticketPerOrderMaxQuant" placeholder="e.g. 10" required min="{{ticketType.ticketPerOrderMinQuant}}"
+                            max="{{ticketType.quantity}}">
+                        <div ng-messages="createEventForms.ticketType.orderMaxQuantity.$error">
+                            <div ng-message="required">This field is required.</div>
+                            <div ng-message="min">This should be greater or equal to the Minimum Quantity.</div>
+                            <div ng-message="max">This should be &lt;=T otal Quantity</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="row pa-pt-30 mb-30">
+                <div class="col-md-12">
+                    <md-button class="pa-pink-button h-48 pa-bold-font pa-font-16 pa-no-margin" ng-disabled="!createEventForms.ticketType.$valid" ng-click="save()">{{buttonText}}</md-button>
+                    <span class="pa-ml-20" ng-show="ticketType.ticketsArr && ticketType.ticketsArr.length > 0">
+                        <button class="btn pa-border-CBCBCB pa-color-pink pa-background-white h-48 pa-bold-font pa-font-16" ng-click="resetTicketForm()">Cancel</button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-body" ng-show="selectedState.id == 'view'">
+        <div class="progress tt-progress-height">
+            <div class="progress-bar tt-statusbar" ng-if="!seatMapCreated" role="progressbar" aria-valuenow="{{event.ticket_counts.sold_tickets / event.ticket_counts.total_tickets * 100}}" aria-valuemin="0" aria-valuemax="100" style="width: {{event.ticket_counts.sold_tickets / event.ticket_counts.total_tickets * 100}}%">
+            </div>
+            <div class="progress-bar tt-statusbar" ng-if="seatMapCreated" role="progressbar" aria-valuenow="{{event.ticket_counts.sold_tickets / displayEvent.layout_details.total_seating_capacity * 100}}" aria-valuemin="0" aria-valuemax="100" style="width: {{event.ticket_counts.sold_tickets / displayEvent.layout_details.total_seating_capacity * 100}}%">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 pa-text-center">
+                <p class="pa-modal-font pa-color-5B5B5B pa-font-18 pa-font-bold tt-bottom-border-tt pb-10 pa-no-bt-margin-imp" ng-if="!seatMapCreated">{{event.ticket_counts.sold_tickets}} tickets sold out of {{event.ticket_counts.total_tickets}}</p>
+                <p class="pa-modal-font pa-color-5B5B5B pa-font-18 pa-font-bold tt-bottom-border-tt pb-10 pa-no-bt-margin-imp" ng-if="seatMapCreated">{{event.ticket_counts.sold_tickets}} tickets sold out of {{displayEvent.layout_details.total_seating_capacity}}</p>
+            </div>
+        </div>
+
+        <!--View Event Ticket Type Modal Ends-->
+        <div class="pa-mt-20" ng-if="event.ticket_details && event.ticket_details.length > 0 && !seatMapCreated">
+            <div class="event-form create-w-100 pb-5 pa-pl-pr-0" ng-repeat="tickets in event.ticket_details track by $index">
+                <div class="pa-color-333333 pa-font-16 pa-font-600">Ticket Type #{{$index + 1}}</div>
+                <div class="ticket-border pt-10 pa-border-4 mt-10">
+                    <div class="ticket_top clearfix p-17p">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pa-pl-0">
+                            <div class="pa-color-333333 pa-font-18 pa-font-bold lh-22">{{tickets.ticket_name}}</div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
+                            <div class="pa-text-center pa-float-right">
+                                <div class="pa-display-inline-block mr-29 pa-cursor-pointer ng-hide" ng-click="edit(tickets)">
+                                    <md-icon class="material-icons tt-mr-10">edit
+                                    </md-icon><span class="pa-font-15 lh-18 pa-color-pink">Edit</span>
+                                </div>
+                                <div class="pa-display-inline-block mr-29 pa-cursor-pointer" ng-if="tickets.quantity === tickets.remaining_qty" ng-click="deleteTicketConfirmation(tickets)">
+                                    <md-icon class="material-icons tt-mr-10 cancelled-clor">delete</md-icon><span class="pa-font-15 lh-18 cancelled-clor">Delete</span>
+                                </div>
+                                <div class="pa-display-inline-block pa-cursor-pointer ng-hide" ng-click="toggleStatusOfTicket(tickets)">
+                                    <p> <i class="fa fa-toggle-on pa-font-18 pa-cursor-pointer" ng-class="(tickets.status && tickets.status == 'inactive')?'tt-ban-color-inactive':'tt-ban-color-active'"></i></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ticket_mid clearfix">
+                        <div class="col-lg-12 clo-md-12 col-sm-12 pa-background-E h-30p">
+                            <div class="">
+                                <md-icon class="material-icons tt-font-16 add-tick">brightness_1</md-icon>
+                                <span class="pa-color-333333 lh-30">Sale ends on {{tickets.sale_end_date | toMoment | momentFormatter:"dddd, MMMM D"}} at {{ tickets.sale_end_time | momentTimeFormatter:"12"}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ticket_bottom clearfix tt-padding-20">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 pd-none">
+                                    <div class="pa-font-13 lh-16 mb-5">PRICING</div>
+                                    <div class="color-3FB86B tt-font-16 pa-font-bold">${{tickets.price}}</div>
+                                </div>
+                                <div class="col-lg-3 pd-none">
+                                    <div class="pa-font-13 lh-16 mb-5">QUANTITY</div>
+                                    <div class="pa-color-333333 tt-font-16 pa-font-bold">{{tickets.quantity}}</div>
+                                </div>
+                                <div class="col-lg-3 pd-none">
+                                    <div class="pa-font-13 lh-16 mb-5">SOLD TICKETS</div>
+                                    <div class="pa-color-333333 tt-font-16 pa-font-bold">{{tickets.quantity - tickets.remaining_qty}}</div>
+                                </div>
+                                <div class="col-lg-3 pd-none">
+                                    <div class="pa-font-13 lh-16 mb-5">REMAINING TICKETS</div>
+                                    <div class="pa-color-333333 tt-font-16 pa-font-bold">{{tickets.remaining_qty}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="seatMapCreated">
+            <div class="event-form create-w-100 pb-5 pa-pl-pr-0" ng-repeat="tier in displayEvent.layout_details.tiers track by $index">
+                <div class="tiers_title_head pa-pt-20">
+                    <span ng-style="{background: tier.color}"></span> {{tier.name}} - {{tier.reserved_seats.length}}/{{tier.seating_capacity}} tickets sold
+                </div>
+                <div ng-repeat="ticket in tier.tickets track by $index">
+                    <div class="ticket-border pt-10 pa-border-4 mt-10" ng-if="tier.tier_id == ticket._tier_id">
+                        <div class="ticket_top clearfix p-17p">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pa-pl-0">
+                                <div class="pa-color-333333 pa-font-18 pa-font-bold lh-22 ng-binding">{{ticket.ticket_name}}</div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
+                                <div class="pa-text-center pa-float-right">
+                                    <div class="pa-display-inline-block pa-cursor-pointer ng-scope" ng-if="ticket.quantity == ticket.remaining_qty" ng-click="deleteTicketConfirmation(ticket)" role="button" tabindex="0">
+                                        <md-icon class="material-icons cancelled-clor tt-mr-10" role="img" aria-label="delete">delete</md-icon>
+                                        <span class="pa-font-15 lh-18 cancelled-clor">Delete</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ticket_mid clearfix">
+                            <div class="col-lg-12 clo-md-12 col-sm-12 pa-background-E h-30p">
+                                <div class="">
+                                    <md-icon class="material-icons tt-font-16 add-tick">brightness_1</md-icon>
+                                    <span class="pa-color-333333 lh-30">Sale ends on {{ ticket.sale_end_date | toMoment | momentFormatter:"dddd, MMM D, YYYY" }} at {{ticket.sale_end_time }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ticket_bottom clearfix tt-padding-20">
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6 pd-none">
+                                        <div class="pa-font-13 lh-16 mb-5">PRICING</div>
+                                        <div class="color-3FB86B tt-font-16 pa-font-bold">{{ (ticket.price > 0)? '$'+ticket.price : 'Free' }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 pd-none"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

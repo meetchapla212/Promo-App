@@ -1,0 +1,21 @@
+<div class="custom-model-content unpublish-popup change_payout_method">
+    <div class="modal-header bg-F9F9F9">
+        <span class="pa-bootstrap-container pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">Change Payout Method</span>
+        <md-icon class="pa-float-right" ng-click="cancel()">close</md-icon>
+    </div>
+    <div class="modal-body pa-text-center pa-background-white">
+        <div class="rewardpopup-content">
+            <span>Please select your payout method for this event</span>
+            <select class="w-400 form-control pa-border pa-color-333333 pa-mt-0 autosize pa-button-font-size" ng-model="bank_id">
+                <option ng-repeat="bank in userBankList" ng-selected="bank.is_default" ng-value="bank.bank_id">XXXXXXXX{{bank.last4}}</option>
+            </select>
+            <br/>
+        </div>
+        <div class="profile-edit-form-btn">
+            <div class="btn-group">
+                <md-button class="cancel-btn" ng-click="cancel()">Cancel</md-button>
+                <md-button ng-click="makeBankDefault(bank_id)" class="pa-pink-button pa-no-margin md-button md-ink-rippl">Save</md-button>
+            </div>
+        </div>
+    </div>
+</div>

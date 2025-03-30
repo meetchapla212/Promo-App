@@ -1,0 +1,108 @@
+<div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE pickcity_section pa-height-100p">
+    <div flex class="background-div-col bg-F6F6F6 pa-pb-20 pa-pt-20 pa-pl-pr-15 pa-modal-font mobile-hide pa-height-auto-imp">
+        <div class="container pa-color-333333 pa-modal-font pa-font-bold pa-font-24">
+            Pick a City
+        </div>
+        <div class="container pa-mt-25 pa-mb-80" layout="row" layout-align="center center">
+            <div flex>
+                <div class="location-div pa-bg-FFFFFF br-EEEEEE pa-width-100p">
+                    <form class="location-form pa-no-padding">
+                        <md-input-container class="md-block pa-pl-0 pa-border-CBCBCB ht-40 username md-input-has-placeholder location-input pa-border-4 bg-F6F6F6 pa-position-relative">
+                            <label></label>
+                            <md-icon class="location-search-icon pa-opacity8 pa-font-24 pa-color-333333">search</md-icon>
+                            <input ng-pattern="/^[a-zA-Z0-9 \\\/,-]+$/" googleplace type="text" ng-disabled="disableLocation" ng-model="city" class="pl-40-imp pa-font-16 pa-font-Lato pa-color-999999 search-location-label" placeholder="{{locationPlaceholder}}">
+                        </md-input-container>
+                        <div class="pa-color-pink" ng-click="getCurrentPos();">
+                            <md-icon class="material-icons tt-mr-10 pa-cursor-pointer ">my_location</md-icon>
+                            <span class="pa-bold-font tt-font-16 pa-lh-3 pa-vertical-align pa-cursor-pointer ">Use My Current Location</span>
+                        </div>
+                        <div class="pa-bold-font pa-color-333333 pa-font-24 pa-mb-18 pa-mb-15">
+                            Popular Location
+                        </div>
+                        <div class="pa-cursor-pointer location-section-flow">
+                            <div class="pa-padding-10 location_lst" ng-click="select(location)" ng-repeat="location in popularCities">
+                                <md-icon class="material-icons tt-mr-10 pa-cursor-pointer pa-color-666666 ">location_on</md-icon>
+                                <span class="pa-color-333333 tt-font-15 pa-bold-font pa-vertical-align ">{{location.city}}</span>
+                                <div class="pa-color-666666 pa-font-14 pa-pl-38 pb-10 br-btm-E4E4E4">{{location.address}}</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="flex">
+                <div class="pa-text-center pa-modal-font">
+                    <div ng-if="user.first_name" class="pa-color-333333 pa-bold-font pa-font-24 pa-mt-20" ng-if="user">
+                        Welcome {{user.first_name}} {{user.last_name}}!
+                    </div>
+                    <div ng-if="!user.first_name" class="pa-color-333333 pa-bold-font pa-font-24 pa-mt-20" ng-if="user">
+                        Welcome {{user.full_name}}!
+                    </div>
+                    <div class="pa-color-666666 pa-font-wt-500 pa-font-20 pa-mt-12">
+                        Choose a location below to get started.
+                    </div>
+                    <div class="pa-mt-20"><img src="../img/cityscape.svg" alt="cityscape"></div>
+                    <div class="pa-color-666666 pa-font-18 pa-mt-20">Having your location or a city of your choice would help</div>
+                    <div class="pa-color-666666 pa-font-18">us provide you a better experience.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile View Starts -->
+    <div flex layout-fill class="pa-bg-FFFFFF desktop-hide">
+        <div class="tt-padding-20 pa-modal-font " ng-if="showhide.welcome">
+            <div class="welcome-mob hide-desktop">
+                <div class="welcome-mob-head">
+                    <h1 ng-if="!user.first_name">Welcome {{user.full_name}}!</h1>
+                    <h1 ng-if="user.first_name">Welcome {{user.first_name}} {{user.last_name}}!</h1>
+                    <span>Choose a location below to get started.</span>
+                </div>
+                <span class="welcome-mob-img">
+                  <img src="img/cityscape.svg" alt="cityscape" />
+                </span>
+
+                <div class="pick-city-mob-welcome">
+                    <div class="pick-citymob">
+                        <a ng-click="selectCity()" class="pick-city-btn">Pick a City</a>
+                        <span class="pick-city-link">
+                            <a ng-click="getCurrentPos();"><i class="material-icons">my_location</i> Use My Current Location</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tt-padding-20 pa-modal-font pa-pb-60" ng-show="showhide.pickcity">
+            <div class="pa-mb-15">
+                <md-icon ng-click="selectWelcome()" class="material-icons pa-color-161718 ">keyboard_arrow_left</md-icon>
+            </div>
+            <div class="pa-color-1D1A20 pa-bold-font pa-font-28 pa-mb-15">
+                Pick a City
+            </div>
+            <div class="pa-mt-20">
+                <md-input-container class="pa-border-CBCBCB bg-ee ht-40 username md-input-has-placeholder location-input pa-border-4 bg-F6F6F6 md-icon-left pa-mb-0">
+                    <label for="input_664"></label>
+                    <md-icon class="location-search-icon pa-opacity8 pa-font-20 pa-color-999999 material-icons" role="img" aria-label="search">search</md-icon>
+                    <input ng-pattern="/^[a-zA-Z0-9 \\\/,-]+$/" googleplace type="text" ng-disabled="disableLocation" ng-model="city" class="bb-none pa-ht-40 pa-font-16 pa-font-Lato pa-color-999999 search-location-label ng-pristine ng-untouched ng-valid md-input ng-empty" placeholder="Search City or Location"
+                      type="text"  id="input_664" aria-invalid="false" autocomplete="off">
+                    <div class="md-errors-spacer"></div>
+                </md-input-container>
+            </div>
+            <div class="pa-color-pink " ng-click="getCurrentPos();" role="button" tabindex="0">
+                <md-icon class="material-icons tt-mr-10 pa-cursor-pointer" role="img" aria-label="my_location">my_location</md-icon>
+                <span class="pa-bold-font tt-font-16 pa-lh-3 pa-vertical-align pa-cursor-pointer ">Use My Currect Location</span>
+            </div>
+            <div class="pa-color-1D1A20 pa-bold-font pa-font-22 pa-mt-20 pa-mb-15">
+                Popular Location
+            </div>
+            <div class="" ng-click="select(location)" ng-repeat="location in popularCities">
+                <md-icon class="material-icons tt-mr-10 pa-cursor-pointer pa-color-666666" role="img">location_on</md-icon>
+                <span class="pa-color-333333 tt-font-16 pa-bold-font pa-vertical-align  ">{{location.city}}</span>
+                <div class="pa-color-666666 pa-font-14 pa-pl-38 pb-15 br-btm-E4E4E4 pa-mb-15 ">{{location.address}}</div>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile View Ends-->
+    
+</div>

@@ -1,0 +1,29 @@
+<!-- Mobile view -->
+<div flex layout="column" layout-align="start stretch" class="pa-background-white" ng-if="isMobile.matches">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+    <div class="create-new-event pos-r mobile-edit" ng-show="!imageSelected">
+        <div class="mobile-header">
+            <span class="cancel-mobile">
+                <a back-to-history>Cancel</a>
+            </span>
+            <h2 class="pdt-right-30">Add Email Address</h2>
+        </div>
+        <div class="mobile-form email-form pa-mt-70">
+            <form name="forms.editUser" class="event-form edit-user-profile-mob create-w-100 pa-no-padding pa-display-flex">
+                <md-input-container class="form-group full-field flex-gt-sm md-input-has-value pa-mb-12">
+                    <label>Email Address <span class="pa-required">*</span></label>
+                    <input md-no-asterisk ng-model="editUser.email" name="email" type="text" class="form-control pa-font-600 pa-lh-15" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-required="forms.editUser.email.$invalid">
+                    <div ng-messages="forms.editUser.email.$error" class="input-error">
+                        <div ng-message="required">This field is required.</div>
+                        <div ng-message="pattern">Invalid email</div>
+                    </div>
+                </md-input-container>
+            </form>
+        </div>
+        <div class="pa-sticky-footer">
+            <div class="mobile-full-btn-ft">
+                <a ng-click="updateUser()" ng-disabled="!editUser.email" ng-class="editUser.email ?'bg-theme-btn':'gray-btn'">Save</a>
+            </div>
+        </div>
+    </div>
+</div>

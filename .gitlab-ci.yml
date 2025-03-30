@@ -1,0 +1,69 @@
+image: node:14.15
+
+before_script:
+  - npm install -g bower
+  - npm install -g gulp-cli
+  - npm install -g qs
+  - npm install
+  - bower install --allow-root
+
+all:
+  script:
+    - gulp build --env test
+  except:
+    refs:
+      - master
+
+dev_frontend_manual:
+  script:
+    - chmod 400 promoapptest.pem
+    - apt-get update
+    - apt-get -y install zip unzip
+    - bash deploy.sh test
+  when: manual
+  except:
+    refs:
+      - master
+
+dev_backend_manual:
+  script:
+    - cd aws
+    - npm install
+    - npm install -g serverless
+    - sls deploy --stage test
+    - cd db2
+    - npm install
+    - sls deploy --stage test
+  when: manual
+  only:
+    refs:
+      - dev
+
+production:
+  script:
+    - gulp build --env dev
+    - gulp upload --env dev
+    - cd aws
+    - npm install
+    - npm install -g serverless
+    - sls deploy --stage dev
+    - cd db2
+    - npm install
+    - sls deploy --stage dev
+  only:
+    refs:
+      - master
+
+production_backend:
+  script:
+    - cd aws
+    - npm install
+    - npm install -g serverless
+    - sls deploy --stage dev
+    - cd db2
+    - npm install
+    - sls deploy --stage dev
+  when: manual
+  only:
+    refs:
+      - master

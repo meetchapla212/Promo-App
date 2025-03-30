@@ -1,0 +1,75 @@
+.report_header {
+    width: 100%;
+    max-width: 100%;
+    display: inline-block;
+}
+
+.report_list_sec {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.report_header p {
+    font-weight: 500;
+}
+
+.report_list_sec .report_list_box {
+    width: calc(25% - 12px);
+    margin-left: 15px;
+}
+
+.report_list_sec .report_list_box:first-child,
+.report_list_sec .report_list_box:last-child {
+    margin-left: 0;
+}
+
+.report_list_sec.manage-report .report_list_box {
+    width: calc(33.33% - 12px);
+    margin-left: 15px;
+}
+
+.report_list_sec.manage-report .report_list_box:first-child,
+.report_list_sec.manage-report .report_list_box:nth-last-child(2) {
+    margin-left: 0;
+}
+
+.report_list_sec .report_list_box p {
+    min-height: 75px;
+    line-height: 22px;
+    font-weight: 500;
+}
+
+.analytics-section.zone-list {
+    padding: 0 16px 0 0;
+    margin: 0;
+}
+
+.analytics-section.zone-list .zone-dropdown-section>select {
+    margin: 0;
+}
+
+.report_list_sec .report_list_box button {
+    border: 1px solid #CBCBCB;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    display: inline-flex;
+    align-items: center;
+    height: 38px;
+    width: 93px;
+    justify-content: center;
+}
+
+.report_list_sec .report_list_box button:last-child {
+    margin-left: 15px;
+}
+
+.report_list_sec .report_list_box button>i {
+    margin-right: 6px;
+}
+
+.report_header+.wht_bx_btn.disabled {
+    background-color: #E4E4E4 !important;
+    text-decoration: none;
+    cursor: not-allowed;
+    color: #333 !important;
+    opacity: 0.6;
+}

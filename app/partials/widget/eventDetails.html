@@ -1,0 +1,144 @@
+<div ng-controller="eventdetailswidgetController">
+    <div layout="column" layout-align="start stretch" class="pa-bg-EEEEEE">
+        <div class="pa-bg-EEEEEE">
+            <div class="container-wtd-1170 text-center">
+                <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+            </div>
+            <div class="tc_selection_main">
+                <div class="tc_selection_wrap pa-mt-50">
+                    <div class="col-12 col-md-12 col-sm-12 col-xs-12 pa-border-EEEEEE pa-padding-30 pa-med-padding-none pa-background-white">
+                        <div class="row">
+                            <div class="col-md-8 pa-pl-0 pa-pr-0 pa-med-pr-none hidden-xl hidden-md hidden-lg pa-bg-black">
+                                <div class="banner-tag-div banner-img-style">
+                                    <img ng-src="{{event.event_image || '../img/unnamed.png'}}" alt="{{event.event_name}}" class="image-concert-width">
+                                    <div class="green-tag-free pa-bold-font pa-modal-font pa-font-14 Sponsored-text" ng-if="event.highlighted">Sponsored</div>
+                                </div>
+                            </div>
+                            <div class="col-md-9 pa-med-pad-20">
+                                <p class="pa-color-333333 pa-modal-font pa-font-28 pa-bold-font pa-med-font-20 event-title-margin">{{event.event_name}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pa-color-333333 pa-modal-font pa-font-18 pa-capitalize pa-med-font-16">
+                                    <span class="pa-mr-5">
+                                        <img ng-src="{{event.highlighted ? 'img/'+ getCatName(event.category,categoriesMap).id +'_highlight.svg' : getCatName(event.category,categoriesMap).icon}}"
+                                            class="pa-w-26 pa-icon-event" alt="category"></span> {{ getCatName(event.category,categoriesMap).name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pa-mt-15 pa-ml-0 content-border event-info-bg pa-row-eq-height pa-row-eq-height-none">
+                            <div class="col-md-8 pa-pl-0 pa-pr-0 pa-med-pr-none hidden-xs hidden-sm pa-bg-black" layout="row" layout-align="center center">
+                                <div class="banner-tag-div" style="width: 100%">
+                                    <img ng-if="event._user_id != 0" ng-src="{{event.event_image || '../img/unnamed.png'}}" alt="{{event.event_name}}" class="image-concert-width">
+                                    <div ng-if="event._user_id == 0" back-img="{{ (event.event_image ) ? event.event_image : '../img/unnamed.png' }}" class="image-concert-width scraped_image"></div>
+                                    <div class="green-tag-free pa-bold-font pa-modal-font pa-font-14 Sponsored-text" ng-if="event.highlighted">
+                                        Sponsored</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" layout="column" layout-align="stretch start">
+                                <div class="content-date-detail tt-padding-20 pa-med-padding-none">
+                                    <div layout="column" layout-align="space-between start">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="events-name-list pa-color-333333 pa-font-13"> <span><i class="material-icons icon-alignment pa-color-333333 pa-font-24">event_available</i></span>EVENT STARTS
+                                                </div>
+                                                <div class="date-detail-para pa-color-333333 pa-bold-font tt-font-16">
+                                                    {{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} at {{ event.start_date_time | toMoment | momentFormatter:"hh:mm A"}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 pa-mt-20">
+                                                <div class="events-name-list pa-color-333333 pa-font-13"> <span><i class="material-icons icon-alignment pa-color-333333 pa-font-24">event_available</i></span>EVENT ENDS
+                                                </div>
+                                                <div class="date-detail-para pa-color-333333 pa-bold-font tt-font-16">
+                                                    {{event.end_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} at {{event.end_date_time | toMoment | momentFormatter:"hh:mm A"}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 pa-mt-20">
+                                                <div class="events-name-list pa-color-333333 pa-font-13"><span><i class="material-icons icon-alignment pa-color-333333 pa-font-24">location_on</i></span>LOCATION
+                                                </div>
+                                                <div class="date-detail-para pa-color-333333 pa-bold-font tt-font-16">{{event.address}}</div>
+                                                <a target="_blank" href="https://maps.google.com/maps?hl=en&q={{ event.latitude }},{{ event.longitude }}" class="date-detail-para pa-color-pink tt-font-16 pa-mb-100 pa-cursor-pointer" ng-if="event.address" event="event">View Location on Map</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-if="event.ticket_type != 'public'" class="green-banner-tag pa-font-white free-ticket">
+                                        <span class="pa-bold-font pa-font-20 pa-center-div pa-align-items-center pa-height-100p" ng-if="event.ticket_type === 'free'">FREE</span>
+                                        <span class="pa-bold-font pa-font-20 pa-center-div pa-align-items-center pa-height-100p" ng-if="event.ticket_type === 'paid'" event="event" event-ticket-price></span>
+                                    </div>
+                                    <div ng-if="event.ticket_type == 'public'" class="green-banner-tag pa-font-white no-ticket-sold" ng-show="!event.ticket_type">
+                                        <span class="event-create-tag-font pa-font-15 pa-bold-font">
+                                            <!-- if event is not claimed and event is scraped user id will be 0-->
+                                            {{(!event.claimed_by && event._user_id==0)?'Tickets cannot be purchased on
+                                            unclaimed events':'No Tickets Sold on Promo App'}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tt-med-center">
+                                    <view-ticket event="event" ticket="event.ticket" size="'large'"></view-ticket>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="middle-sharing-div row">
+                            <div class="col-sm-8 col-md-6 hidden-lg hidden-md hidden-xl" style="margin-bottom: 20px;">
+                                <button class="Buy-Ticket-btn pa-color-FFFFFF tt-font-16 pa-bold-font pa-background-pink buy-now-btn-med" buy-ticket-or-view-event-widget="" event="event" ng-if="status.active == 'active' ">Get Ticket Now</button>
+                                <span class="pa-text-center pa-font-bold pa-font-18" ng-if="event.closed">This Event is Closed</span>
+                            </div>
+                            <div class="hidden-md hidden-lg col-xs-12 text-center" ng-if="isTicketSaleStart && !isTicketSaleEnd">
+                                <button class="Buy-Ticket-btn pa-color-FFFFFF tt-font-16 pa-bold-font pa-background-pink" buy-ticket-or-view-event="" event="event" ng-if="!event.closed &&  event.status != 'inactive' && allRemaingTicket !== 0 && event.tickets_list.length > 0" ng-disabled="event.is_draft"></button>
+                            </div>
+                            <div ng-if="!rewardExit" class="col-md-6 med-social-icons visible-lg visible-md pa-pl-30 shareevent_mob">
+                                <div class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer" ng-click="socialShare('facebook',false)">
+                                    <i class="fa fa-facebook-f pa-font-18 pa-color-333333"></i>
+                                </div>
+                                <div class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-20 snapchat-share-button" data-share-url="{{getSocialShareURL()}}" ng-click="socialShare('snapchat',false)">
+                                    <i class="fa fa-snapchat-ghost pa-font-20 whatsapp-right-top pa-color-333333"></i>
+                                </div>
+                                <div class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-20" ng-click="socialShare('whatsapp',false)">
+                                    <i class="fa fa-whatsapp pa-font-20 whatsapp-right-top pa-color-333333"></i>
+                                </div>
+                                <div class="col-md-2 social-circle pa-cursor-pointer pa-ml-20" ng-click="emailShare('email',false)">
+                                    <i class="material-icons mail-left-right pa-font-20 pa-color-pink">mail</i>
+                                </div>
+                                <div data-dismiss="modal" social-share-link="{{otherUrl}}" class="col-md-2 col-sm-2 col-xs-2 social-circle pa-cursor-pointer pa-ml-20 " ng-click="socialShare('other',false)">
+                                    <i class="material-icons pa-font-20 mail-left-right pa-color-pink">insert_link</i>
+                                </div>
+                            </div>
+                            <div class="col-md-4 hidden-xs hidden-sm pull-right">
+                                <div ng-if="isTicketSaleStart && !isTicketSaleEnd">
+                                    <button class="Buy-Ticket-btn pa-color-FFFFFF tt-font-16 pa-bold-font pa-background-pink" buy-ticket-or-view-event="" event="event" ng-if="!event.closed &&  event.status != 'inactive' && allRemaingTicket !== 0 && event.tickets_list.length > 0" ng-disabled="event.is_draft"></button>
+                                </div>
+                                <div ng-if="!isTicketSaleStart">
+                                    <button class="Buy-Ticket-btn sales_tc pa-color-FFFFFF tt-font-16 pa-bold-font  no-ticket-sold" ng-if="!event.closed &&  event.status != 'inactive' && allRemaingTicket !== 0 && event.tickets_list.length > 0">Sales
+                                        start {{soonTicketStartDate}}</button>
+                                </div>
+                                <span class="pa-text-center pa-font-bold pa-font-18 pa-787777 pa-row-eq-height pa-align-items-center pa-pt-12" ng-if="!event.closed && allRemaingTicket === 0 && event.tickets_list.length > 0 && event.status !== 'inactive'">All
+                                    Tickets Sold Out</span>
+                                <span class="pa-text-center pa-font-bold pa-font-18" ng-if="event.closed">This Event is
+                                    Closed</span>
+                                <span class="pa-text-center pa-font-bold pa-font-18 pa-center-div pa-787777 pa-row-eq-height pa-align-items-center pa-pt-12" ng-if="isTicketSaleEnd && isTicketSaleStart">Ticket sale has ended</span>
+                                <span class="pa-text-center pa-font-bold pa-font-18" ng-if="event.status == 'inactive' ">This Event is not Active</span>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="pa-color-666666 tt-font-16 content-event-para-width pa-break-word" ta-bind ng-model="event.description" ng-class="{ 'show-more': functionality.showMore, 'event-descrition-sm': event.description.length > 200} ">
+                                    </div>
+                                    <a ng-if="!functionality.showMore && event.description.length > 200" class="mt-10 pa-color-pink pa-font-14 pa-bold-font pa-display-inline-block" ng-click="functionality.showMore = !functionality.showMore">View More</a>
+                                    <a ng-if="functionality.showMore && event.description.length > 200" class="mt-10 pa-color-pink pa-font-14 pa-bold-font pa-display-inline-block" ng-click="functionality.showMore = !functionality.showMore">View Less</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="power_by">Powered by The Promo App</div>
+        </div>
+    </div>
+</div>

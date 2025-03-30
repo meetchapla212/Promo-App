@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="63" height="63" viewBox="0 0 63 63">
+  <g id="choose_tc" transform="translate(0.5 0.5)">
+    <circle id="Oval" cx="31" cy="31" r="31" fill="#f6f6f6" stroke="#979797" stroke-miterlimit="10" stroke-width="1"/>
+    <text id="ICON" transform="translate(31 38)" fill="#333" font-size="14" font-family="SegoeUI, Segoe UI"><tspan x="-16.522" y="0">ICON</tspan></text>
+  </g>
+</svg>

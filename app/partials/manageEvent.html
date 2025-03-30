@@ -1,0 +1,282 @@
+<div flex layout="column" layout-align="start stretch" class="pa-background-white" ng-controller="ManageEventsController">
+    <div flex layout="column" layout-align="start stretch" class="pa-bg-EEEEEE mobile-hide manageevent-main-up">
+        
+
+        <div layout-fill class="event-new-add-parent flex tt-padding-25 pa-height-auto-imp">
+            <div class="row pa-bold-font pa-modal-font tt-row-margin tt-top tt-ticket-heading">
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12 tt-mevent tt-mqwidth-100 tt-mqcenter-flex pa-no-padding">
+                    <div>Manage Events</div>
+                </div>
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12 tt-mevent tt-mqwidth-100 tt-mqcenter-flex pa-no-padding mgevent_search_bx pa-no-margin-imp">
+                    <a href="/analytics_dashboard" ng-if="tabs[selectedTab].events.length > 0" class="vw_an pa-color-pink"><i class="material-icons">assessment</i> View Analytics
+                        Dashboard</a>
+                </div>
+            </div>
+            <div class="mgevent_search_bx">
+                <div class="pa-display-inline-flex pa-align-items-center">
+                    <div class="btn-group tt-mr-15">
+                        <button type="button" ng-click="selectTabById('liveevents')" class="btn btn-primary" ng-class="{'active': selectedTab === 'liveevents'}">Live</button>
+                        <button type="button" ng-click="selectTabById('draft')" class="btn btn-primary" ng-class="{'active': selectedTab === 'draft'}">Draft</button>
+                        <button type="button" ng-click="selectTabById('closedevents')" class="btn btn-primary" ng-class="{'active': selectedTab === 'closedevents'}">Expired</button>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" ng-keyup="$event.keyCode == 13 && eventByName()" ng-model="liveEventSearch" placeholder="Search events by name" class="form-control search-hover-focus" />
+                        <button type="button" class="search-btn"><i class="material-icons">search</i></button>
+                        <i ng-show="liveEventSearch" ng-click="liveEventSearch = ''" class="material-icons pa-remove-icon-search" role="button" tabindex="0" aria-hidden="false">close</i>
+                    </div>
+                </div>
+                <div class="zone_search" ng-if="zoneListOrg.length > 0">
+                    <select class="form-control" ng-disabled="zoneListOrg.length == 0" ng-model="selectedItem" ng-change="getZoneFilterData(selectedItem)">
+                        <option selected value="">Promo Global Event</option>
+                        <option value="{{list.zone_id}}" ng-repeat="list in zoneListOrg">{{list.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <!-- hide this section in mobile -->
+            <div class="row upgrade-manage-events-main pa-bootstrap-row">
+                <div class="rebecca-event my-followers my-ticket">
+                    <div class="upcoming-past-event">
+                        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+                        <div class="upcoming-past-tab-tabs-content" ng-if="!loading" style="margin-top: 0;">
+                            <div class="row tt-row-margin upgrade-manage-events pa-bootstrap-row">
+                                <div ng-class="{'col-md-12':(selectedTab === 'claimedevents'),'col-md-9':(selectedTab === 'liveevents')}" class="upgrade-colum">
+                                    <!-- start -->
+                                    <div ng-if="(tabs[selectedTab].events | filter: {'event_name': liveEventSearch}).length == 0 && liveEventSearch != ''" class="no-data-case pa-normal-font-imp">
+                                        No events to display!
+                                        <div class="pa-display-inline-block" ng-show="selectedTab === 'liveevents' && noEventUIShow">
+                                            The events you create will appear here.
+                                            <md-button class="pa-add-event pa-font-14" ng-show="!zoneSelectedId" href="/createevent">
+                                                Create Event</md-button>
+                                            <md-button class="pa-add-event pa-font-14" ng-show="zoneSelectedId" href="/createevent?eventZone={{zoneSelectedId}}">
+                                                Create Event</md-button>
+                                        </div>
+                                    </div>
+                                    <div class="row upgrade-manage-events-list" ng-if="tabs[selectedTab].events.length > 0" ng-repeat="event in tabs[selectedTab].events | filter: {'event_name': liveEventSearch}">
+                                        <a href="/eventOverview?ev={{event.event_id}}" class="banner-tag-div upcoming-event-box-img">
+                                            <img data-ng-src="{{event.event_image || '/img/unnamed.png'}}" alt="{{event.event_name}}" class="object-cover">
+                                            <div class="green-tag-free pa-bold-font pa-modal-font pa-font-14" ng-if="event.claimed_by === user.user_id && selectedTab !== 'closedevents'">
+                                                Claimed</div>
+                                            <div class="eo-tag eo-tag-sponsored ng-scope" ng-if="event.claimed_by !== user.user_id &amp;&amp; event.highlighted">
+                                                Sponsored</div>
+                                            <span class="" ng-show="event.ticket_type === 'paid'" event="event" event-ticket-price></span>
+                                            <span class="green-colr-imp" ng-show="event.ticket_type === 'free'" event="event" event-ticket-price></span>
+                                        </a>
+
+                                        <div class="tt-rec-left">
+                                            <div class="upgrade-manage-events-list-head">
+                                                <a href="/eventOverview?ev={{event.event_id}}" class="upgrade-manage-events-title">
+                                                    <div class="pa-break-word cursor-pointer tt-text-head">
+                                                        {{event.event_name}}</div>
+                                                </a>
+
+                                                <div class="moremenu-upgrade">
+                                                    <a data-toggle="dropdown" id="dropdownMenuButton{{event.event_id}}"><i
+                                                            class="material-icons">more_vert</i></a>
+
+                                                    <div class="morevert-menu dropdown-menu" aria-labelledby="dropdownMenuButton{{event.event_id}}">
+                                                        <ul>
+                                                            <li><a event-detail-modal event="event">View</a>
+                                                            </li>
+                                                            <li><a ng-if="selectedTab == 'draft'" href="/basicDetails?ev={{event.event_id}}">Edit</a>
+                                                            </li>
+                                                            <li ng-if="event.tickets_list.length > 0"><a href="/eventOverview?ev={{event.event_id}}">Manage</a>
+                                                            </li>
+                                                            <li ng-if="selectedTab === 'liveevents'"><a share-link="{{event}}" event="event" notify-success="true" notify-error="true" update-share-counter="true">Copy URL</a>
+                                                            </li>
+                                                            <li ng-if="selectedTab === 'liveevents' && event.privacy_type === 1"><a ng-click="chooseWidgetType(event.event_id)">Embed
+                                                                    Widget</a></li>
+                                                            <li><a ng-click="duplicateEventAction(event)">Duplicate
+                                                                    Event</a></li>
+                                                            <li ng-if="selectedTab === 'draft'">
+                                                                <a ng-if="!event.is_publish_ready && event.status != 'cancel'" class="menu-disabled" uib-tooltip="To publish this event, please complete the required information." tooltip-placement="left" tooltip-trigger="'hover'">Publish</a>
+                                                                <a ng-if="event.is_publish_ready" ng-click="publishEventConfirmation(event)">Publish{{isPublish}}</a>
+                                                            </li>
+                                                            <li ng-if="selectedTab === 'draft'"><a class="cancelled-clor" ng-click="deleteEventConfirmation(event.event_id)">Delete</a>
+                                                            </li>
+                                                            <li ng-if="event.status == 'cancel' && !event.is_publish_ready">
+                                                                <a ng-click="publishTicketEventConfirmation('active',event.event_id,event.ticket_type)">Publish
+                                                                    Event</a></li>
+                                                            <li ng-if="event.status == 'active' && selectedTab === 'liveevents'">
+                                                                <a ng-click="startStopEvent('stop',event.event_id,event.ticket_type) ">Unpublish
+                                                                    Event</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div ng-if="event.ticket_type==='paid' || (event.ticket_type==='free' && event.tickets_list.length > 0) " class="col-sm-12 col-xs-12 col-lg-4 col-md-4 tt-triangle-flex pa-pr-0 pa-pl-0 pa-mb-12" ng-class="(event.ticket_type=='free')? '': '' ">
+                                                <div class="tt-left-triangle tt-left-triangle-{{event.ticket_type}} ">
+                                                    <i class="fa fa-circle tt-circle-center "></i>
+                                                </div>
+                                                <div class="tt-triangle tt-triangle-{{event.ticket_type}} ">
+                                                    <i class="material-icons" aria-hidden="true">confirmation_number</i>
+                                                    <span class="pa-pl-2 " event="event" event-remain-qty ng-class="(event.ticket_type =='free' )? 'pa-padding-10': '' "></span>
+                                                </div>
+                                            </div>
+                                            <div class="tt-row-margin pa-pl-0 ">
+                                                <div class="location-eventmange ">
+                                                    <md-icon class="pa-color-666666 ">location_on</md-icon>
+                                                    <span ng-if="event.state">{{event.city +", "+ event.state +", "+ event.country}}</span>
+                                                    <span ng-if="!event.state">{{event.city +" "+ event.state +", "+ event.country}}</span>
+                                                </div>
+                                                <div ng-if="selectedTab !=='liveevents' " class="pa-pl-0 pa-font-13 pa-pr-0 pa-color-5B5B5B tt-mqevent-padding pa-flex-grow tt-width-calender upgrade-manage-eventsdate ">
+                                                    <md-icon class="tt-mqcalender " aria-hidden="true ">
+                                                        date_range</md-icon>
+                                                    <label class="pa-vertical-align-sub pa-display-inline ">{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY "}}</label>
+                                                </div>
+
+                                                <div ng-if="selectedTab==='liveevents' " class="pa-pl-0 pa-mt-4 pa-font-13 pa-pr-0 pa-color-5B5B5B tt-mqevent-padding pa-flex-grow tt-width-calender pa-display-inherit upgrade-manage-eventsdate ">
+                                                    <md-icon class="tt-mqcalender " aria-hidden="true ">
+                                                        date_range</md-icon>
+                                                    <div>
+                                                        <label class="pa-vertical-align-sub pa-display-inline ">{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, YYYY "}}</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="addreward " ng-if="selectedTab === 'liveevents'">
+                                                    <a href="/view_rewards_analytics/{{event.reward_details.reward_id}}" ng-if="event.reward_details.is_draft==false && event._user_id == user.user_id"><span
+                                                            class="material-icons">assessment</span> View
+                                                        Promotions Analytics</a>
+                                                    <a href="/createreward/edit/{{event.reward_details.reward_id}}" ng-if="event.reward_details.is_draft==true && event._user_id == user.user_id">Continue
+                                                        Creating Promotion</a>
+                                                    <a ng-click="addPromotionRoute(event.event_id)" ng-show="eventPromotion[event.event_id]" ng-if="(event.reward_details | json)=='{}' && event._user_id == user.user_id"><span
+                                                            class="material-icons">add_circle_outline</span> Add
+                                                        Promotion</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="custom-pagination">
+                                        <ul ng-show="tabs[selectedTab].pageLength > 10" previous-text="Prev" next-text="Next" class="pa-center-div" uib-pagination items-per-page="pagination.numPerPage" total-items="tabs[selectedTab].pageLength" ng-model="pagination.currentPage" ng-change="updateEventList(pagination.currentPage, tabs[selectedTab])"
+                                            max-size="pagination.maxSize" boundary-link-numbers="true" rotate="false"></ul>
+                                    </div>
+                                </div>
+                                <!-- end -->
+                                <div class="col-md-3 tt-hide-web embedwidget" ng-if="(selectedTab === 'liveevents') && (tabs[selectedTab].events.length > 0)" layout="column">
+                                    <div class="embedwidget_section">
+                                        <div class="embedwidget_head">
+                                            <img src="img/code_cmt.svg" alt="Embed Widget" />
+                                            <h2>Embed Widget</h2>
+                                            <span>Add a Promo widget to your website and improve the way users
+                                                interact with your events without ever having to navigate
+                                                away.</span>
+                                            <ul>
+                                                <li> <i class="material-icons">check</i>Button</li>
+                                                <li> <i class="material-icons">check</i>Event Detail</li>
+                                                <li> <i class="material-icons">check</i>Events List View</li>
+                                                <li> <i class="material-icons">check</i>Map Showing Events Location
+                                                </li>
+                                            </ul>
+                                            <button class="pa-font-Lato pa-bold-font pa-border-4 tt-font-16 continue" ng-disabled="tabs[selectedTab].events.length === 0" type="button" ng-click="chooseWidgetType()">Embed
+                                                Widget</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- hide this section in mobile End Here -->
+        </div>
+
+        
+    </div>
+
+    <!-- Mobile view -->
+    <div flex layout="column" layout-align="start stretch" class="pa-background-white desktop-hide">
+        <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content"></div>
+        <div flex layout-fill class="profile_mob_wrap mobile-perent desktop-hide">
+            <div class="search-people-head mytickects_mb tt-padding-20 pa-pb-0-imp">
+                <h1 class="pa-display-flex pa-align-items-center pa-justify-between">My Events </h1>
+            </div>
+            <!--  Events -->
+            <div class="nn_events_list tt-padding-20 pa-pt-0-imp mh-100">
+                <div class="tabs_mob_upc">
+                    <a ng-click="selectTabById('liveevents')" ng-class="{'active': selectedTab === 'liveevents'}">Live</a>
+                    <a ng-click="selectTabById('draft')" ng-class="{'active': selectedTab === 'draft'}">Draft</a>
+                    <a ng-click="selectTabById('closedevents')" ng-class="{'active': selectedTab === 'closedevents'}">Expired</a>
+                </div>
+                <!-- Post List -->
+                <div class="mb_post_list bottom_fxbar">
+                    <div class="mb_post_bx" ng-repeat="event in tabs[selectedTab].events">
+                        <div class="pa-display-inline-block w-100 pa-height-100p">
+                            <div class="img_bx">
+                                <figure><a ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}"><img pa-event-img url="{{event.event_image || '/img/unnamed.png'}}" on-error="/img/unnamed.png" alt="{{event.event_name}}"></a></figure>
+                                <span class="post_lb" event-ticket-price event="event" class="free-event" ng-class="{'eo-free':!(event.ticketType === 'paid')}"></span>
+                            </div>
+                            <div class="post_details_bx">
+                                <div class="myeventMobile moremenu-upgrade">
+                                    <a data-toggle="dropdown" id="dropdownMenuButtonedit" aria-expanded="true"><i class="material-icons">more_vert</i></a>
+
+                                    <div class="morevert-menu dropdown-menu" aria-labelledby="dropdownMenuButtonedit">
+                                        <ul>
+                                            <li><a edit-event-modal="" event="event" action="'Edit'" class="ng-isolate-scope">Edit</a>
+                                            </li>
+                                            <li><a ng-click="duplicateEventAction(event)">Duplicate
+                                                Event</a></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <span class="dt">{{event.start_date_time | toMoment | momentFormatter:"ddd, MMM D, hh:mm A"}} UTC</span>
+                                <p><a ng-href="/eventdetails/{{event.event_name | purger}}/{{event.event_id}}" class="upgrade-manage-events-title">
+                                    
+                                        {{event.event_name}}
+                                </a></p>
+                                <span class="ad">{{event.city +", "+ event.state +", "+ event.country}}</span>
+                                <div class="eventclaimed" ng-if="event.claimed_by === user.user_id && selectedTab !== 'closedevents'">Claimed</div>
+                                <div class="eventSponsored" ng-if="event.claimed_by !== user.user_id && event.highlighted">Sponsored</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="custom-pagination">
+                        <ul ng-show="tabs[selectedTab].pageLength > maxSize" class="pa-center-div" previous-text="Prev" next-text="Next" boundary-link-numbers="true" rotate="false" uib-pagination items-per-page="numPerPage" total-items="tabs[selectedTab].pageLength" ng-change="updateEventList(tabs[selectedTab].currentPage, tabs[selectedTab])"
+                            ng-model="((tabs[selectedTab]).currentPage)" max-size="maxSize"></ul>
+                    </div>
+                    <div ng-if="tabs[selectedTab].events.length == 0" class="no-data-case-profile">
+                        No events to display!
+                        <span ng-if="selectedTab === 'liveevents'" class="events-to-display-content">The events you create will appear
+                            here.</span>
+                        <div ng-if="selectedTab === 'liveevents'" class="add-btn-mob">
+                            <a ng-href="/createevent" class="bg-theme-btn">Create Event</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Post List End -->
+            </div>
+            <!--  Events End  -->
+            
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="cropImage.html">
+    <md-dialog aria-label="Crop Image" class="pa-crop-dialog">
+        <md-toolbar class="pa-bg-FFFFFF">
+            <div class="md-toolbar-tools">
+                <div class="pa-font-24 pa-color-333333 pa-bold-font text-center" flex>Crop Image</div>
+                <md-button class="md-icon-button" ng-click="closeDialog('close')">
+                    <md-icon aria-label="Close dialog">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content class="pa-bg-FFFFFF border-top-E4E4E4" style="height:480px;">
+            <ui-cropper class="pa-pos-fixed" image="imageForCropping" result-image="croppedImage" area-type="rectangle" aspect-ratio="1.3" result-image-size="800" result-image-quality="100" area-min-size="100" area-init-size="200"></ui-cropper>
+        </md-dialog-content>
+
+        <md-dialog-actions class="pa-pt-25" layout="row">
+            <span flex="30">   
+                <md-button class="pa-float-right" ng-click="closeDialog('close')"> 
+                    <md-icon class="pa-font-16 pa-color-pink pa-vertical-align-sub">arrow_back_ios</md-icon> 
+                    <span class="pa-font-16 pa-color-pink pa-bold-font">Back</span>
+            </md-button>
+            </span>
+            <span flex="45"></span>
+            <span flex>
+                <md-button class="pa-pink-button ht-48 pa-bold-font pa-pl-pr-30" ng-click="closeDialog('save')">Save & Continue</md-button>
+            </span>
+        </md-dialog-actions>
+    </md-dialog>
+</script>

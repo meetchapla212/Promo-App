@@ -1,0 +1,1206 @@
+
+<section ng-controller="viewRewardsAnalyticsController" class="rewards-analytics-section pa-bg-EEEEEE">
+    <div loader working="loading" message="loadingMessage" disable-background="true" class="loader-content">
+    </div>
+    <!-- desktop  -->
+    <div class="container mobile-hide">
+        <div class="row hidden-xs hidden-md hidden-sm pa-mb-20 pa-mt-20">
+            <div class="col-md-12">
+                <a href="/manageevent" ng-if="Previouspath === true" class="pa-color-pink pa-font-bold pa-modal-font pa-font-16 pa-cursor-pointer">
+                    <p class="pa-mb-0">
+                        <i class="material-icons pa-vertical-align tt-mr-8">keyboard_arrow_left</i> Back to Manage Events
+                    </p>
+                </a>
+
+                <a href="/manage_rewards_live" ng-if="Previouspath === false" class="pa-color-pink pa-font-bold pa-modal-font pa-font-16 pa-cursor-pointer">
+                    <p class="pa-mb-0">
+                        <i class="material-icons pa-vertical-align tt-mr-8">keyboard_arrow_left</i> Back to Manage Promotion
+                    </p>
+                </a>
+            </div>
+        </div>
+
+        <div class="rewards-analytics">
+            <div class="rewards-analytics-img">
+                <img ng-src="{{reward_details.image}}" alt="{{event_details.event_name}}" class="object-cover">
+            </div>
+
+            <div class="rewards-analytics-content">
+                <div class="rewards-analytics-content-child">
+                    <div class="pa-break-word cursor-pointer tt-text-head">{{reward_details.title}}</div>
+                    <div class="rewards-analytics-venu">
+                        <div class="rewards-analytics-venu-list">
+                            <i class="material-icons">event_available</i>
+                            <span>
+                                PROMOTION STARTS
+                            </span>
+                            <b>{{reward_details.start_date | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} at
+                                {{reward_details.start_date | toMoment | momentFormatter:"hh:mm A"}}</b>
+                        </div>
+
+                        <div class="rewards-analytics-venu-list">
+                            <i class="material-icons">event_available</i>
+                            <span>
+                                PROMOTION ENDS
+                            </span>
+                            <b>{{reward_details.end_date | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} at
+                                {{reward_details.end_date | toMoment | momentFormatter:"hh:mm A"}}</b>
+                        </div>
+                    </div>
+
+                    <div class="rewards-analytics-venu">
+                        <div class="rewards-analytics-venu-list">
+                            <i class="material-icons">star</i>
+                            <span>
+                                PROMOTION WIN SELECTION
+                            </span>
+                            <b>{{reward_details.no_of_people}}
+                                {{reward_details.winner_type == 'first_few'  ? 'First Few' : 'Random'}} Winners</b>
+                        </div>
+
+                        <div class="rewards-analytics-venu-list">
+                            <i class="material-icons">people</i>
+                            <span>
+                                NO OF CLICKS TO GENERATE
+                            </span>
+                            <b>{{reward_details.no_of_click}}</b>
+                        </div>
+                    </div>
+
+                    <div class="rewards-analytics-detail">
+                        <span>{{reward_details.description}}</span>
+                        <a class="pa-color-pink" data-toggle="modal" data-target="#RewardTerms">View Promotion
+                            Terms & Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rewards-analytics-more-event">
+            <div class="rewards-analytics-more-event-head">
+                {{event_details.event_name}}
+                <a href="/eventdetails/{{urlEventName}}/{{event_details.event_id}}" class="pa-color-pink pa-bold-font">View Event
+                    Details</a>
+            </div>
+            <div class="share-eventon">
+                <div class="med-social-icons">
+                    <div class="social-circle pa-cursor-pointer" ng-click="socialShare('facebook')">
+                        <i class="fa fa-facebook-f pa-font-24"></i>
+                    </div>
+
+                    <div class="social-circle pa-cursor-pointer pa-ml-15 snapchat-share-button" data-share-url="{{getSocialShareURL('snapchat')}}" ng-click="socialShare('snapchat')">
+                        <i class="fa fa-snapchat-ghost pa-font-24 snapchat-right-top"></i>
+                    </div>
+
+                    <div class="social-circle pa-cursor-pointer pa-ml-15" ng-click="socialShare('whatsapp')">
+                        <i class="fa fa-whatsapp pa-font-24 whatsapp-right-top"></i>
+                    </div>
+
+                    <div class="social-circle pa-cursor-pointer pa-ml-15" ng-click="emailShare('email')">
+                        <i class="material-icons mail-left-right pa-font-24 pa-color-pink">mail</i>
+                    </div>
+
+                    <div class="social-circle pa-cursor-pointer pa-ml-15" data-dismiss="modal" social-share-link="{{otherUrl}}" ng-click="socialShare('other')">
+                        <i class="material-icons mail-left-right pa-font-24 pa-color-pink">insert_link</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rewards-analytics-total-result">
+            <div class="row-sm row">
+                <div class="col-md-3">
+                    <div class="total-result-number">
+                        <h2 ng-if='total_visiters'>{{total_visiters}}</h2>
+                        <h2 ng-if='!total_visiters'>0</h2>
+                        <span>Total Page Visits</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="total-result-number">
+                        <h2 ng-if='total_shares'>{{total_shares}}</h2>
+                        <h2 ng-if='!total_shares'>0</h2>
+                        <span>Total Shares</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="total-result-number">
+                        <div class="rewards-analytics-social text-capitalize" ng-if='most_share_on.social_type'>
+                            <img ng-src="{{'https://promoappuserdata.s3-eu-west-1.amazonaws.com/social-images/'+ most_share_on.social_type +'.png'}}" alt="{{most_share_on.social_type}}" class="social-img" />
+                            <span>{{most_share_on.social_type}} ({{most_share_on.shares}})</span>
+                        </div>
+                        <div class="rewards-analytics-social" ng-if='!most_share_on.social_type'><span>Not shared</span>
+                        </div>
+                        <span>Mostly Shared On</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="total-result-number">
+                        <h2 ng-if='people_eligible'>{{people_eligible}}</h2>
+                        <h2 ng-if='!people_eligible'>0</h2>
+                        <span>People Eligible for Promotion</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rewards-analytics-view-winners">
+            <div class="row-sm row minus-mr">
+                <div class="col-md-6">
+                    <div class="rewards-analytics-view-list">
+                        <div class="rewards-analytics-view-head">
+                            <h3>View Winners <i>({{winner_users.length}})</i></a>
+                            </h3><a href="javascript:void(0)" class="customtooltip type-twotoltip"><i class="material-icons">help_outline</i> <span
+                                    class="customtooltiptext">These are the people who have officially won the
+                                    reward.</span></a>
+                            <a class="pa-color-pink pa-bold-font" ng-click='covertToCSV(winner_users,"Winner users",true)'>Download CSV</a>
+                        </div>
+                        <div class="analytics-view-winners-list">
+                            <table>
+                                <tbody ng-if='winner_users.length'>
+                                    <tr ng-repeat="winner in winner_users">
+                                        <td class="winners-user-pro-list">
+                                            <img ng-if='winner.profile_pic' ng-src="{{winner.profile_pic}}">
+                                            <img ng-if='!winner.profile_pic' src="../img/defaultProfilePic.png">
+                                            <span class="winners-name">
+                                                <b ng-if="!winner.first_name">{{winner.username}}</b>
+                                                <b ng-if="winner.first_name">{{winner.first_name+' '+winner.last_name}}</b>
+                                                {{winner.email}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span ng-if='winner.city'>{{winner.city}}</span>
+                                            <span ng-if='winner.city && winner.country'>, </span>
+                                            <span ng-if='winner.country'>{{winner.country}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="analytics-view-icon">
+                                                <a ng-href="/chat.html?userId={{winner.quickblox_id}}"><i
+                                                        class="material-icons">chat</i></a>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="analytics-view-icon" ng-click='popup(winner)'>
+                                                <a><i class="material-icons">remove_red_eye</i></a>
+                                            </span>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                                <tbody ng-if='winner_users.length <= 0'>
+                                    <tr>
+                                        <td class="winners-user-pro-list">
+                                            <span>No winner user found</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="rewards-analytics-view-list">
+                        <div class="rewards-analytics-view-head">
+                            <h3>View Eligible Candidates <i>({{eligible_users.length}})</i></h3> <a href="javascript:void(0)" class="customtooltip type-twotoltip"><i
+                                    class="material-icons">help_outline</i> <span class="customtooltiptext">These are
+                                    the people who are eligible for the promotion who have not yet won.</span></a>
+                            <a ng-click='covertToCSV(eligible_users,"Eligible users",true)' class="pa-color-pink pa-bold-font">Download CSV</a>
+                        </div>
+                        <div class="analytics-view-winners-list">
+                            <table>
+                                <tbody ng-if='eligible_users.length'>
+                                    <tr ng-repeat="user in eligible_users">
+                                        <td class="winners-user-pro-list">
+                                            <img ng-if='user.profile_pic' ng-src="{{user.profile_pic}}">
+                                            <img ng-if='!user.profile_pic' src="../img/defaultProfilePic.png">
+                                            <span class="winners-name">
+                                                <b ng-if="!user.first_name">{{user.username}}</b>
+                                                <b ng-if="user.first_name">{{user.first_name+' '+user.last_name}}</b>
+                                                {{user.email}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span ng-if='user.city'>{{user.city}}</span>
+                                            <span ng-if='user.city && user.country'>, </span>
+                                            <span ng-if='user.country'>{{user.country}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="analytics-view-icon">
+                                                <a ng-href="/chat.html?userId={{user.quickblox_id}}" target="_blank" target="_blank"><i
+                                                        class="material-icons">chat</i></a>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="analytics-view-icon" ng-click='eligibleEvent(user)'>
+                                                <a><i class="material-icons">remove_red_eye</i></a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody ng-if='eligible_users.length <= 0'>
+                                    <tr>
+                                        <td class="winners-user-pro-list">
+                                            <span>No Eligible Candidates Found</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-sm row">
+                <div class="col-md-12 mr-top pa-mt-20">
+                    <div class="rewards-analytics-view-winners-table organizer-profile mobile-hide pa-mb-15">
+                        <md-content>
+                            <a ng-if="currentTab == 'visited'" ng-click='covertToCSV(event_visited_users,"Event visited users",true)' class="pa-color-pink pa-bold-font Downloadcsv-postion">Download CSV</a>
+                            <a ng-if="currentTab == 'shared'" ng-click='covertToCSV(event_share_users,"Event share users",true)' class="pa-color-pink pa-bold-font Downloadcsv-postion">Download CSV</a>
+                            <md-tabs class="pa-tabs" md-dynamic-height md-border-bottom>
+                                <md-tab label="Event Visited By ({{event_visited_users.length}} Users)" class="pa-padding-20 pa-font-18" ng-click="tabEvent('visited')">
+                                    <md-content class="upcoming-past-tab-tabs-content">
+                                        <div class="rewards-analytics-view-list">
+                                            <div class="analytics-view-winners-list">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="sr-number">S.No</th>
+                                                            <th>Name</th>
+                                                            <th>Visited From</th>
+                                                            <th>Device</th>
+                                                            <th>Browser / App</th>
+                                                            <th>Date & Time</th>
+                                                            <th>Location</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody ng-if='event_visited_users.length'>
+                                                        <tr ng-repeat="(key,user) in event_visited_users">
+                                                            <td>{{key + 1}}</td>
+
+                                                            <td class="winners-user-pro-list">
+                                                                <img ng-if='user.profile_pic' ng-src="{{user.profile_pic}}">
+                                                                <img ng-if='!user.profile_pic' src="../img/defaultProfilePic.png">
+                                                                <span class="winners-name">
+                                                                    <b ng-if="user.first_name">{{user.first_name+' '+user.last_name}}</b>
+                                                                    <b ng-if="!user.first_name">{{user.username}}</b>
+                                                                    {{user.email}}
+                                                                </span>
+                                                            </td>
+
+                                                            <td class="text-capitalize">
+                                                                {{user.visited_from}}
+                                                            </td>
+                                                            <td class="text-capitalize">
+                                                                {{user.device_type}}
+                                                            </td>
+                                                            <td class="text-capitalize">
+                                                                {{user.browser}}
+                                                            </td>
+                                                            <td>
+                                                                {{user.date_time | toMoment | momentFormatter:"DD/MM/YYYY, HH:SS A"}}
+                                                            </td>
+                                                            <td>
+                                                                <span ng-if='user.city'>{{user.city}}, </span>
+                                                                <span ng-if='user.country'>{{user.country}}</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tbody ng-if='event_visited_users.length <= 0'>
+                                                        <tr>
+                                                            <td class="winners-user-pro-list" colspan="7">
+                                                                <span>No event visiter Found</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Event Shared By ({{event_share_users.length}} Users)" class="pa-padding-20 pa-font-18" ng-click="tabEvent( 'shared')">
+                                    <md-content class="upcoming-past-tab-tabs-content">
+                                        <div class="rewards-analytics-view-list">
+                                            <div class="analytics-view-winners-list">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="sr-number">S.No</th>
+                                                            <th>Name</th>
+                                                            <th>Shared By</th>
+                                                            <th>Device</th>
+                                                            <th>Browser / App</th>
+                                                            <th>Date & Time</th>
+                                                            <th>Location</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody ng-if='event_share_users.length'>
+                                                        <tr ng-repeat="(key,user) in event_share_users">
+                                                            <td>{{key + 1}}</td>
+
+                                                            <td class="winners-user-pro-list">
+                                                                <img ng-if='user.profile_pic' ng-src="{{user.profile_pic}}">
+                                                                <img ng-if='!user.profile_pic' src="../img/defaultProfilePic.png">
+                                                                <span class="winners-name">
+                                                                     <b ng-if="user.first_name">{{user.first_name+' '+user.last_name}}</b>
+                                                                    <b ng-if="!user.first_name">{{user.username}}</b>
+                                                                    {{user.email}}
+                                                                </span>
+                                                            </td>
+
+                                                            <td class="text-capitalize">
+                                                                {{user.shared_from}}
+                                                            </td>
+                                                            <td class="text-capitalize">
+                                                                {{user.device_type}}
+                                                            </td>
+                                                            <td class="text-capitalize">
+                                                                {{user.browser}}
+                                                            </td>
+                                                            <td>
+                                                                {{user.date_time | toMoment | momentFormatter:"DD/MM/YYYY, HH:SS A"}}
+                                                            </td>
+                                                            <td>
+                                                                <span ng-if='user.city'>{{user.city}}, </span>
+                                                                <span ng-if='user.country'>{{user.country}}</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tbody ng-if='event_share_users.length <= 0'>
+                                                        <tr>
+                                                            <td class="winners-user-pro-list" colspan="7">
+                                                                <span>No event share user Found</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                            </md-tabs>
+                        </md-content>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-sm row views-shares-rewards-analytics pa-mb-30">
+                <div class="col-md-6">
+                    <div class="rewards-analytics-view-list">
+                        <div class="rewards-analytics-view-head">
+                            <h3>Views & Shares By Country</h3>
+                            <a ng-click='covertToCSV(share_visit_country,"Share visit country",true)' class="pa-color-pink pa-bold-font">Download CSV</a>
+                        </div>
+                        <div class="analytics-view-winners-list">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Country</th>
+                                        <th>Views</th>
+                                        <th style="width: 70px;">Shares</th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-if='share_visit_country.length'>
+                                    <tr ng-repeat="(key,user) in share_visit_country">
+                                        {{user}}
+                                        <td class="winners-user-pro-list">
+                                            <!-- <img src="img/united-states@2x.png"> -->
+                                            <span class="winners-name">
+                                                <b>{{user.country}}</b>
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            {{user.visit}}
+                                        </td>
+                                        <td>
+                                            {{user.share}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody ng-if='share_visit_country.length <= 0'>
+                                    <tr>
+                                        <td class="winners-user-pro-list" colspan="3">
+                                            <span>No data found!</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="rewards-analytics-view-list">
+                        <div class="rewards-analytics-view-head analytics-graph">
+                            <h3>Views & Shares By Platform</h3>
+                            <a ng-click='covertToCSV(share_visit_social,"Share visit social",true)' class="pa-color-pink pa-bold-font">Download CSV</a>
+                        </div>
+                        <div class="analytics-view-winners-list">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Social type</th>
+                                        <th>Views</th>
+                                        <th style="width: 70px;">Shares</th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-if='share_visit_social.length'>
+                                    <tr ng-repeat="(key,user) in share_visit_social">
+                                        <td class="winners-user-pro-list">
+                                            <span class="winners-name text-capitalize">
+                                                <b>{{user.social_type}}</b>
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            {{user.visit}}
+                                        </td>
+                                        <td>
+                                            {{user.share}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody ng-if='share_visit_social.length === 0'>
+                                    <tr>
+                                        <td class="inners-user-pro-list" colspan="3">
+                                            <span>No data found!</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- mobile -->
+    <div class="container desktop-hide">
+        <div class="row-sm row hidden-xs hidden-md hidden-sm pa-mb-20 pa-mt-20 minus-mr">
+            <div class="col-md-12">
+                <a href="/manageevent" class="pa-color-pink pa-font-bold pa-modal-font pa-font-16 pa-cursor-pointer">
+                    <p class="pa-mb-0">
+                        <i class="material-icons pa-vertical-align tt-mr-8">keyboard_arrow_left</i> Back to Manage Events
+                    </p>
+                </a>
+            </div>
+        </div>
+
+        <div class="rewards-analytics">
+            <div class="rewards-analytics-img">
+                <img ng-src="{{reward_details.image}}" alt="{{event_details.event_name}}" class="object-cover">
+            </div>
+
+            <div class="rewards-analytics-content">
+                <div class="rewards-analytics-content-child">
+                    <div class="pa-break-word cursor-pointer tt-text-head">{{reward_details.title}}</div>
+                    <div class="rewards-analytics-venu">
+                        <div class="rewards-analytics-venu-list">
+                            <i class="material-icons">event_available</i>
+                            <span>
+                                PROMOTION STARTS
+                            </span>
+                            <b>{{reward_details.start_date | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} at
+                                {{reward_details.start_date | toMoment | momentFormatter:"hh:mm A"}}</b>
+                        </div>
+
+                        <div class="rewards-analytics-venu-list">
+                            <i class="material-icons">event_available</i>
+                            <span>
+                                PROMOTION ENDS
+                            </span>
+                            <b>{{reward_details.end_date | toMoment | momentFormatter:"ddd, MMM D, YYYY"}} at
+                                {{reward_details.end_date | toMoment | momentFormatter:"hh:mm A"}}</b>
+                        </div>
+                    </div>
+
+                    <div class="rewards-analytics-venu">
+                        <div class="rewards-analytics-venu-list">
+                            <i class="material-icons">star</i>
+                            <span>
+                                PROMOTION WIN SELECTION
+                            </span>
+                            <b>{{reward_details.no_of_people}}
+                                {{reward_details.winner_type == 'first_few'  ? 'First Few' : 'Rendom'}} Winners</b>
+                        </div>
+
+                        <div class="rewards-analytics-venu-list">
+                            <i class="material-icons">people</i>
+                            <span>
+                                NO OF CLICKS TO GENERATE
+                            </span>
+                            <b>{{reward_details.no_of_click}}</b>
+                        </div>
+                    </div>
+
+                    <div class="rewards-analytics-detail">
+                        <span>{{reward_details.description}}</span>
+                        <a class="pa-color-pink" data-toggle="modal" data-target="#RewardTerms">View Promotion
+                            Terms & Conditions</a>
+                    </div>
+                </div>
+                <div class="moremenu-upgrade">
+                    <a ng-click="toggle()"><i class="material-icons">more_vert</i></a>
+                    <div class="morevert-menu ng-hide" ng-show="morevertany" aria-hidden="true">
+                        <ul>
+                            <li><a href="#">Edit Promotion</a></li>
+                            <li><a href="#">Stop Promotion</a></li>
+                            <li><a href="#">Download Users’ Emails</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rewards-analytics-more-event">
+            <div class="rewards-analytics-more-event-head">
+                {{event_details.event_name}}
+                <a href="/eventdetails/{{urlEventName}}/{{event_details.event_id}}" class="pa-color-pink pa-bold-font">View Event
+                    Details</a>
+            </div>
+            <div class="share-eventon">
+                <div class="med-social-icons">
+                    <div class="social-circle pa-cursor-pointer" ng-click="socialShare( 'facebook')">
+                        <i class="fa fa-facebook-f pa-font-24"></i>
+                    </div>
+
+                    <div class="social-circle pa-cursor-pointer pa-ml-15 snapchat-share-button" data-share-url="{{getSocialShareURL( 'snapchat')}}" ng-click="socialShare( 'snapchat')">
+                        <i class="fa fa-snapchat-ghost pa-font-24 snapchat-right-top"></i>
+                    </div>
+
+                    <div class="social-circle pa-cursor-pointer pa-ml-15" ng-click="socialShare( 'whatsapp')">
+                        <i class="fa fa-whatsapp pa-font-24 whatsapp-right-top"></i>
+                    </div>
+
+                    <div class="social-circle pa-cursor-pointer pa-ml-15" ng-click="emailShare( 'email')">
+                        <i class="material-icons mail-left-right pa-font-24 pa-color-pink">mail</i>
+                    </div>
+
+                    <div class="social-circle pa-cursor-pointer pa-ml-15" data-dismiss="modal" social-share-link="{{otherUrl}}" ng-click="socialShare( 'other')">
+                        <i class="material-icons mail-left-right pa-font-24 pa-color-pink">insert_link</i>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="rewards-analytics-total-result">
+            <div class="row-sm row minus-mr">
+                <div class="col-md-3">
+                    <div class="total-result-number">
+                        <h2 ng-if='total_visiters'>{{total_visiters}}</h2>
+                        <h2 ng-if='!total_visiters'>0</h2>
+                        <span>Total Page Visits</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="total-result-number">
+                        <h2 ng-if='total_shares'>{{total_shares}}</h2>
+                        <h2 ng-if='!total_shares'>0</h2>
+                        <span>Total Shares</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="total-result-number">
+                        <div class="rewards-analytics-social text-capitalize" ng-if='most_share_on.social_type'>
+                            <img ng-src="{{ 'https://promoappuserdata.s3-eu-west-1.amazonaws.com/social-images/'+ most_share_on.social_type + '.png'}}" alt="{{most_share_on.social_type}}" class="social-img" />
+                            <span>{{most_share_on.social_type}} ({{most_share_on.shares}})</span>
+                        </div>
+                        <div class="rewards-analytics-social" ng-if='!most_share_on.social_type'><span>Not shared</span>
+                        </div>
+                        <span>Mostly Shared On</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="total-result-number">
+                        <h2 ng-if='people_eligible'>{{people_eligible}}</h2>
+                        <h2 ng-if='!people_eligible'>0</h2>
+                        <span>People Eligible for Promotion</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rewards-analytics-view-winners">
+            <div class="row-sm row">
+                <div class="col-md-6">
+                    <div class="rewards-analytics-view-list">
+                        <div class="rewards-analytics-view-head">
+                            <h3>View Winners <a class="customtooltip"><i class="material-icons">help_outline</i> <span
+                                        class="customtooltiptext">These
+                                        are the people who have officially won the promotion.</span></a>
+                                <i>({{winner_users.length}})</i></h3>
+                            <a ng-click='covertToCSV(winner_users,"Winner users",true)' class="pa-color-pink pa-bold-font">Download CSV</a>
+                        </div>
+                        <div class="analytics-view-winners-list">
+                            <table>
+                                <tbody ng-if='winner_users.length'>
+                                    <tr ng-repeat="winner in winner_users">
+                                        <td class="winners-user-pro-list">
+                                            <img ng-if='winner.profile_pic' ng-src="{{winner.profile_pic}}">
+                                            <img ng-if='!winner.profile_pic' src="../img/defaultProfilePic.png">
+                                            <span class="winners-name">
+                                                <b ng-if="!winner.first_name">{{winner.username}}</b>
+                                                <b ng-if="winner.first_name">{{winner.first_name+' '+winner.last_name}}</b>
+                                                {{winner.email}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span ng-if='winner.city'>{{winner.city}}</span>
+                                            <span ng-if='winner.city && winner.country'>, </span>
+                                            <span ng-if='winner.country'>{{winner.country}}</span>
+                                        </td>
+
+                                        <td>
+                                            <span class="analytics-view-icon">
+                                                <a ng-href="/chat.html?userId={{winner.quickblox_id}}" target="_blank"><i
+                                                        class="material-icons">chat</i></a>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="analytics-view-icon">
+                                                <a href="#"><i class="material-icons">remove_red_eye</i></a>
+                                            </span>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                                <tbody ng-if='winner_users.length === 0'>
+                                    <tr>
+                                        <td class="winners-user-pro-list">
+                                            <span>No winner user found</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="rewards-analytics-view-list">
+                        <div class="rewards-analytics-view-head">
+                            <h3>View Eligible Candidates <i>({{eligible_users.length}})</i> <a><i
+                                        class="material-icons">help_outline</i></a></h3>
+                            <a ng-click='covertToCSV(eligible_users,"Eligible users",true)' class="pa-color-pink pa-bold-font">Download CSV</a>
+                        </div>
+                        <div class="analytics-view-winners-list">
+                            <table>
+                                <tbody ng-if='eligible_users.length'>
+                                    <tr ng-repeat="user in eligible_users">
+                                        <td class="winners-user-pro-list">
+                                            <img ng-if='user.profile_pic' ng-src="{{user.profile_pic}}">
+                                            <img ng-if='!user.profile_pic' src="../img/defaultProfilePic.png">
+                                            <span class="winners-name">
+                                                <b ng-if="!user.first_name">{{user.username}}</b>
+                                                <b ng-if="user.first_name">{{user.first_name+' '+user.last_name}}</b>
+                                                {{user.email}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span ng-if='user.city'>{{user.city}}</span>
+                                            <span ng-if='user.city && user.country'>, </span>
+                                            <span ng-if='user.country'>{{user.country}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="analytics-view-icon">
+                                                <a ng-href="/chat.html?userId={{user.quickblox_id}}" target="_blank"><i
+                                                        class="material-icons">chat</i></a>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="analytics-view-icon">
+                                                <a href="#"><i class="material-icons">remove_red_eye</i></a>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="analytics-view-icon">
+                                                <a href="#"><i class="material-icons">not_interested</i></a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody ng-if='eligible_users.length === 0'>
+                                    <tr>
+                                        <td class="winners-user-pro-list">
+                                            <span>No Eligible Candidates Found</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-sm">
+                <div class="col-md-12 mr-top pa-mt-20">
+                    <div class="rewards-analytics-view-winners-table organizer-profile mobile-hide pa-mb-15">
+                        <md-content>
+                            <a ng-if="currentTab=='visited'" ng-click='covertToCSV(event_visited_users,"Event visited users",true)' class="pa-color-pink pa-bold-font Downloadcsv-postion">Download CSV</a>
+                            <a ng-if="currentTab=='shared'" ng-click='covertToCSV(event_share_users,"Event share users",true)' class="pa-color-pink pa-bold-font Downloadcsv-postion">Download CSV</a>
+                            <md-tabs class="pa-tabs" md-dynamic-height md-border-bottom>
+                                <md-tab label="Event Visited By ({{event_visited_users.length}} Users)" class="pa-padding-20 pa-font-18" ng-click="tabEvent( 'visited')">
+                                    <md-content class="upcoming-past-tab-tabs-content">
+                                        <div class="rewards-analytics-view-list">
+                                            <div class="analytics-view-winners-list">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="sr-number">S.No</th>
+                                                            <th>Name</th>
+                                                            <th>Visited From</th>
+                                                            <th>Device</th>
+                                                            <th>Browser / App</th>
+                                                            <th>Date & Time</th>
+                                                            <th>Location</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody ng-if='event_visited_users.length'>
+                                                        <tr ng-repeat="(key,user) in event_visited_users">
+                                                            <td>{{key + 1}}</td>
+
+                                                            <td class="winners-user-pro-list">
+                                                                <img ng-if='user.profile_pic' ng-src="{{user.profile_pic}}">
+                                                                <img ng-if='!user.profile_pic' src="../img/defaultProfilePic.png">
+                                                                <span class="winners-name">
+                                                                    <b ng-if="!user.first_name">{{user.username}}</b>
+                                                                    <b ng-if="user.first_name">{{user.first_name+' '+user.last_name}}</b>
+                                                                    {{user.email}}
+                                                                </span>
+                                                            </td>
+
+                                                            <td class="text-capitalize">
+                                                                {{user.visited_from}}
+                                                            </td>
+                                                            <td class="text-capitalize">
+                                                                {{user.device_type}}
+                                                            </td>
+                                                            <td class="text-capitalize">
+                                                                {{user.browser}}
+                                                            </td>
+                                                            <td>
+                                                                {{user.date_time | toMoment | momentFormatter:"DD/MM/YYYY, HH:SS A"}}
+                                                            </td>
+                                                            <td>
+                                                                <span ng-if='user.city'>{{user.city}}, </span>
+                                                                <span ng-if='user.country'>{{user.country}}</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tbody ng-if='event_visited_users.length <= 0'>
+                                                        <tr>
+                                                            <td class="winners-user-pro-list">
+                                                                <span>No event visiter Found</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Event Shared By ({{event_share_users.length}} Users)" class="pa-padding-20 pa-font-18" ng-click="tabEvent( 'shared')">
+                                    <md-content class="upcoming-past-tab-tabs-content">
+                                        <div class="rewards-analytics-view-list">
+                                            <div class="analytics-view-winners-list">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="sr-number">S.No</th>
+                                                            <th>Name</th>
+                                                            <th>Shared From</th>
+                                                            <th>Device</th>
+                                                            <th>Browser / App</th>
+                                                            <th>Date & Time</th>
+                                                            <th>Location</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody ng-if='event_share_users.length'>
+                                                        <tr ng-repeat="(key,user) in event_share_users">
+                                                            <td>{{key + 1}}</td>
+
+                                                            <td class="winners-user-pro-list">
+                                                                <img ng-if='user.profile_pic' ng-src="{{user.profile_pic}}">
+                                                                <img ng-if='!user.profile_pic' src="../img/defaultProfilePic.png">
+                                                                <span class="winners-name">
+                                                                    <b ng-if="!user.first_name">{{user.username}}</b>
+                                                                    <b ng-if="user.first_name">{{user.first_name+' '+user.last_name}}</b>
+                                                                    {{user.email}}
+                                                                </span>
+                                                            </td>
+
+                                                            <td class="text-capitalize">
+                                                                {{user.shared_from}}
+                                                            </td>
+                                                            <td class="text-capitalize">
+                                                                {{user.device_type}}
+                                                            </td>
+                                                            <td class="text-capitalize">
+                                                                {{user.browser}}
+                                                            </td>
+                                                            <td>
+                                                                {{user.date_time | toMoment | momentFormatter:"DD/MM/YYYY, HH:SS A"}}
+                                                            </td>
+                                                            <td>
+                                                                <span ng-if='user.city'>{{user.city}}, </span>
+                                                                <span ng-if='user.country'>{{user.country}}</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tbody ng-if='event_share_users.length <= 0'>
+                                                        <tr>
+                                                            <td class="winners-user-pro-list">
+                                                                <span>No event share user Found</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                            </md-tabs>
+                        </md-content>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-sm views-shares-rewards-analytics pa-mb-30">
+                <div class="col-md-6">
+                    <div class="rewards-analytics-view-list">
+                        <div class="rewards-analytics-view-head">
+                            <h3>Views & Shares By Country</h3>
+                            <a ng-click='covertToCSV(share_visit_country,"Share visit country",true)' class="pa-color-pink pa-bold-font">Download CSV</a>
+                        </div>
+                        <div class="analytics-view-winners-list">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Country</th>
+                                        <th>Views</th>
+                                        <th style="width: 70px;">Shares</th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-if='share_visit_country.length'>
+                                    <tr ng-repeat="(key,user) in share_visit_country">
+                                        {{user}}
+                                        <td class="winners-user-pro-list">
+                                            <span class="winners-name">
+                                                <b>{{user.country}}</b>
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            {{user.visit}}
+                                        </td>
+                                        <td>
+                                            {{user.share}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody ng-if='share_visit_country.length <= 0'>
+                                    <tr>
+                                        <td class="winners-user-pro-list">
+                                            <span>No data found!</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="rewards-analytics-view-list">
+                        <div class="rewards-analytics-view-head analytics-graph">
+                            <h3>Views & Shares By Platform</h3>
+                            <a ng-click='covertToCSV(share_visit_social,"Share visit social",true)' class="pa-color-pink pa-bold-font">Download CSV</a>
+                        </div>
+                        <div class="analytics-view-winners-list">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Social type</th>
+                                        <th>Views</th>
+                                        <th style="width: 70px;">Shares</th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-if='share_visit_social.length'>
+                                    <tr ng-repeat="(key,user) in share_visit_social">
+                                        <td class="winners-user-pro-list">
+                                            <span class="winners-name text-capitalize">
+                                                <b>{{user.social_type}}</b>
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            {{user.visit}}
+                                        </td>
+                                        <td>
+                                            {{user.share}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody ng-if='share_visit_social.length <= 0'>
+                                    <tr>
+                                        <td class="winners-user-pro-list">
+                                            <span>No data found!</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade popup-perent rewards-analytics-popup" id="cancelevent" tabindex="-1" role="dialog" aria-labelledby="cancelevent" aria-hidden="true">
+        <div class="modal-dialog login-modal">
+            <div class="modal-header bg-F9F9F9">
+                <span class="pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">
+                    {{popupDetails.username}}’s Details
+                </span>
+                <md-icon class="pa-float-right pa-cursor-pointer" id="close-icon" data-dismiss="modal">close</md-icon>
+            </div>
+
+            <div class="modal-body pa-text-center pa-background-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="full-analytics-cloum">
+                            <div class="row">
+                                <div class="col-md-6 pa-pr-0">
+                                    <div class="rewards-analytics-popup-featured">
+                                        <i class="material-icons">send</i>
+                                        <span>Give Promotion
+                                            <b ng-if='reward_details.reward_type ==="by_email"'>Through Email</b>
+                                            <b ng-if='reward_details.reward_type ==="at_venue"'>At the Event Venue</b>
+                                            <b ng-if='reward_details.reward_type ==="deliver"'>Deliver on Winner's Address</b>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pa-pl-0">
+                                    <div class="rewards-analytics-popup-featured">
+                                        <div class="pa-display-inline-flex">
+                                            <i class="material-icons">location_on</i>
+                                            <span>Winner's Address
+                                                <b ng-if='!isObjectEmpty(winnerInfo)'>
+                                                    {{winnerInfo.address}}, {{winnerInfo.city}}, {{winnerInfo.state}},
+                                                    {{winnerInfo.country}}, {{winnerInfo.zipcode}}
+                                                </b>
+                                                <b class="disqualify-section" ng-if='isObjectEmpty(winnerInfo)'>
+                                                    <b>Address not Provided yet</b>
+                                                </b>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pa-mb-40">
+                    <div class="col-md-6">
+                        <div class="rewards-analytics-popup-featured">
+                            <i class="material-icons">email</i>
+                            <span>Email <b>{{popupDetails.email}}</b></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="rewards-analytics-popup-featured">
+                            <i class="material-icons">devices</i>
+                            <span>Device<b ng-if='popupDetails.device_type'>{{popupDetails.device_type}}</b>
+                                <b ng-if='!popupDetails.device_type'>-</b></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pa-mb-40">
+                    <div class="col-md-6">
+                        <div class="rewards-analytics-popup-featured">
+                            <i class="material-icons">share</i>
+                            <span>Event Shared On <b
+                                    ng-if='popupDetails.event_shared_on'>{{popupDetails.event_shared_on}}</b>
+                                <b ng-if='!popupDetails.event_shared_on'>-</b></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="rewards-analytics-popup-featured">
+                            <i class="material-icons">people</i>
+                            <span>NO OF CLICKS GENERATED<b
+                                    ng-if='popupDetails.total_clicks'>{{popupDetails.total_clicks}}</b>
+                                <b ng-if='!popupDetails.total_clicks'>-</b></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pa-mb-20">
+                    <div class="col-md-6">
+                        <div class="rewards-analytics-popup-featured">
+                            <i class="material-icons">event_available</i>
+                            <span>Sharing Date &
+                                Time<b
+                                    ng-if='popupDetails.first_share_date'>{{popupDetails.first_share_date | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}
+                                    at
+                                    {{popupDetails.first_share_date | toMoment | momentFormatter:"hh:mm A"}}</b>
+                                <b ng-if='!popupDetails.first_share_date'>-</b></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="rewards-analytics-popup-featured">
+                            <i class="material-icons">event_available</i>
+                            <span>Winning Date &
+                                Time<b
+                                    ng-if='popupDetails.winning_date'>{{popupDetails.winning_date | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}
+                                    at
+                                    {{popupDetails.winning_date | toMoment | momentFormatter:"hh:mm A"}}</b>
+                                <b ng-if='!popupDetails.winning_date'>-</b></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pa-mb-10">
+
+                    <div class="col-md-6">
+                        <div class="rewards-analytics-popup-featured">
+                            <i class="material-icons">phone_iphone</i>
+                            <span>Browser / App<b ng-if='popupDetails.browser_name'>{{popupDetails.browser_name}}</b>
+                                <b ng-if='!popupDetails.browser_name'>-</b></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade popup-perent rewards-analytics-popup" id="eligibleEvent" tabindex="-1" role="dialog" aria-labelledby="eligibleEvent" aria-hidden="true">
+        <div class="modal-dialog login-modal">
+            <div class="modal-header bg-F9F9F9">
+                <span class="pa-font-20 pa-color-333333 pa-bold-font pa-modal-font">
+                    {{eligibleDetails.username}}’s Details
+                </span>
+                <md-icon class="pa-float-right pa-cursor-pointer" id="close-icon" data-dismiss="modal">close</md-icon>
+            </div>
+
+            <div class="modal-body pa-text-center pa-background-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="full-analytics-cloum">
+                            <div class="row">
+                                <div class="col-md-6 pa-pr-0">
+                                    <div class="rewards-analytics-popup-featured">
+                                        <i class="material-icons">send</i>
+
+                                        <span>Give Promotion
+                                            <b ng-if='reward_details.reward_type ==="email"'>Through Email</b>
+                                            <b ng-if='reward_details.reward_type ==="vanue"'>At the Event Vanue</b>
+                                            <b ng-if='reward_details.reward_type ==="deliver"'>Deliver on Winner's Address</b>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pa-pl-0">
+                                    <div class="rewards-analytics-popup-featured">
+                                        <div style="text-align: right;">
+                                            <div class="analytics-text-block" ng-if="eligible===1"><i class="material-icons">block</i> User Disqualified</div>
+                                            <md-button data-dismiss="modal" style="height: 38px; min-width: 110px; border-radius: 4px; background-color: #ffffff; box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2); color: #A02541; font-size: 16px; font-weight:
+                                                                    bold; text-align: center; margin: 0;" ng-click='eligibleButton(false)' ng-if="eligible===0">Disqualify
+                                            </md-button>
+                                            <md-button data-dismiss="modal" style="height: 38px; min-width: 130px; border-radius: 4px; background-color: #ffffff; box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2); color: #A02541; font-size: 16px; font-weight:
+                                                                    bold; text-align: center; margin: 0;" ng-click='eligibleButton(true)' ng-if="eligible===1">Make Eligible
+                                            </md-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pa-mb-40">
+                    <div class="col-md-6">
+                        <div class="rewards-analytics-popup-featured">
+                            <i class="material-icons">email</i>
+                            <span>Email <b>{{eligibleDetails.email}}</b></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="rewards-analytics-popup-featured">
+                            <i class="material-icons">devices</i>
+                            <span>Device<b ng-if='eligibleInfo.device_type'>{{eligibleInfo.device_type}}</b>
+                                <b ng-if='!eligibleInfo.device_type'>-</b></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pa-mb-40">
+                    <div class="col-md-6">
+                        <div class="rewards-analytics-popup-featured">
+                            <i class="material-icons">share</i>
+                            <span>Event Shared On <b
+                                    ng-if='eligibleInfo.event_shared_on'>{{eligibleInfo.event_shared_on}}</b>
+                                <b ng-if='!eligibleInfo.event_shared_on'>-</b></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="rewards-analytics-popup-featured">
+                            <i class="material-icons">people</i>
+                            <span>NO OF CLICKS GENERATED<b
+                                    ng-if='eligibleInfo.total_clicks'>{{eligibleInfo.total_clicks}}</b>
+                                <b ng-if='!eligibleInfo.total_clicks'>-</b></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pa-mb-20">
+                    <div class="col-md-6">
+                        <div class="rewards-analytics-popup-featured">
+                            <i class="material-icons">event_available</i>
+                            <span>Sharing Date &
+                                Time<b
+                                    ng-if='eligibleInfo.first_share_date'>{{eligibleInfo.first_share_date | toMoment | momentFormatter:"ddd, MMM D, YYYY"}}
+                                    at
+                                    {{eligibleInfo.first_share_date | toMoment | momentFormatter:"hh:mm A"}}</b>
+                                <b ng-if='!eligibleInfo.first_share_date'>-</b></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="rewards-analytics-popup-featured">
+                            <i class="material-icons">phone_iphone</i>
+                            <span>Browser / App<b ng-if='eligibleInfo.browser_name'>{{eligibleInfo.browser_name}}</b>
+                                <b ng-if='!eligibleInfo.browser_name'>-</b></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Promotion Terms Popup -->
+    <div class="modal fade popup-perent rewardtermspopup rewardtermspopup-mob-popup info_terms_popup_main" id="RewardTerms" tabindex="-1" role="dialog" aria-labelledby="RewardTerms" aria-hidden="true">
+        <div class="modal-dialog login-modal">
+            <!-- Modal content-->
+            <div class="modal-body pa-text-center pa-background-white">
+                <div class="rewardpopup-content">
+                    <i class="material-icons">info</i>
+                    <h2>Promotion Terms & Conditions</h2>
+                    <span>{{reward_details.terms_condition}}</span>
+                    <md-button data-dismiss="modal">Ok, I understand.</md-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

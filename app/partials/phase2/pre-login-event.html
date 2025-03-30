@@ -1,0 +1,319 @@
+<div ng-controller="PreLoginMapController" class="js-dynamic-height-container layout-align-start-stretch flex bg-F6F6F6" ng-class="{'pa-overflow-hidden':fullScreenLoader}" flex layout="column" layout-align="start stretch">
+    <div class="pa-height-100p" ng-include="'partials/locationFeature.html'" ng-controller="LocationFeatureController" ng-if="locationView"></div>
+
+    <div class="desktop-hide" ng-include="headerTemplate" ng-if="!locationView" ng-show="!showhide.filters"></div>
+
+    <!--new  loader design-->
+    <div flex layout-fill layout="column" class="pa-bg-white pa-container new-loader" ng-show="fullScreenLoader" id="map-loader-1">
+        <div class="text-loader-content text-center">
+            <img src="./img/new-loader.svg" alt="" class="img-loader">
+            <span>Events Loading</span>
+        </div>
+    </div>
+    <!--end new loader section-->
+
+    <div class="pa-width-100 pa-subheader pa-modal-font mobile-hide search-header-desk" ng-if="!locationView">
+        <div ng-class="user.is_zone_member ? 'container-fluid' : 'container'">
+            <div class="row pa-bootstrap-row">
+                <div ng-class="user.is_zone_member ? 'col-sm-3' : 'col-sm-4'">
+                    <div class="location_search">
+                        <span class="map-place"><i class="material-icons">location_on</i></span>
+                        <input type="text" googleplace placeholder="{{locationPlaceholder}}" ng-pattern="/^[a-zA-Z0-9 \\\/,-]+$/" ng-disabled="disableLocation" ng-click="enableHistoryDropdown($event);" ng-model="formFields.chosenPlace" required class="form-control">
+                        <a ng-click="getCurrentPos();" class="gps-current"><i class="material-icons">gps_fixed</i></a>
+                        <a ng-click="clearLocation();" ng-show="formFields.chosenPlace" class="gps-current remove-location-icon"><i class="material-icons pa-color-333333">close</i></a>
+                        <div id="menucontainer" class="dropdown-list-menu" ng-show="recentSearch && !formFields.chosenPlace">
+                            <h3 ng-click="toggleSuggestedCities()">Suggested Cities <i class="material-icons pa-float-right">{{suggestedSection ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}}</i></h3>
+                            <div ng-if="suggestedSection" class="dropdown-list-item dropdown-list-items" ng-repeat="location in popularCities">
+                                <a ng-click="recentSearchCall(location);"><i class="material-icons">location_on</i> {{location.address}}</a>
+                            </div>
+                            <hr ng-show="recentSearchDataInfo.length > 0" ng-class="suggestedSection ? 'pa-mt-0' : 'mt-10'" class="mb-10" />
+                            <h3 ng-show="recentSearchDataInfo.length > 0" ng-click="toggleRecentVisited()">Recent Search <i class="material-icons pa-float-right">{{recentsectionEnables ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}}</i></h3>
+                            <div ng-show="recentsectionEnables && recentSearchDataInfo.length > 0" class="dropdown-list-item" ng-repeat="recentInfos in recentSearchDataInfo | orderBy:'$index':true | limitTo: 5">
+                                <a ng-click="recentSearchCall(recentInfos);"><i class="material-icons">history</i> {{recentInfos.address}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-class="user.is_zone_member ? 'col-sm-3' : 'col-sm-4'">
+                    <div class="location_search">
+                        <span class="map-place"><i class="material-icons">search</i></span>
+                        <input type="text" ng-model="formFields.localSearch" ng-keyup="$event.keyCode == 13 && eventByName()" placeholder="Search Events" class="form-control">
+                        <a><i ng-show="formFields.localSearch" ng-click="clearSearch()"
+                                class="material-icons pa-remove-icon-search">close</i></a>
+                    </div>
+                </div>
+
+                <div ng-class="user.is_zone_member ? 'col-sm-3' : 'col-sm-4'">
+                    <div class="date-pic-input">
+                        <span class="date-picker-icon"><i class="material-icons">date_range</i></span>
+                        <input md-no-asterisk name="endDate" date-range-picker id="dateRangePicker" readonly class="date-picker form-control pa-cursor-pointer" type="text" ng-required="true" ng-model="webDateRangePicker.selectedDate" picker="webDateRangePicker.picker" min="webDateRangePicker.minDate"
+                            options="webDateRangePicker.options" autocomplete="off" />
+                    </div>
+
+                    <div class="date-pic-input">
+                        <span class="date-picker-icon"><i class="material-icons">date_range</i></span>
+                        <div ng-click="webDateRangePicker.toggle()" class="form-control date-pic-input-end-date">
+                            {{filterDateTo.format('ddd, DD MMM')}}</div>
+                    </div>
+                </div>
+
+                <div ng-if="user.is_zone_member" ng-class="user.is_zone_member ? 'col-sm-3' : 'col-sm-4'">
+                    <div class="zone_search">
+                        <select class="form-control" ng-disabled="memberZoneList.length == 0" ng-model="selectedItem" ng-change="updateMapZoneList(selectedItem)">
+                            <i class="material-icons">keyboard_arrow_down</i>
+                            <option selected value="">Select Zone</option>
+                            <option value="{{list.zone_id}}" ng-repeat="list in memberZoneList">{{list.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div flex class="container pre-login-event-container js-no-top-banner noPadding no-top-banner bg-F6F6F6" ng-if="!isMaps && !locationView" ng-class="{'notifications-close':notificationsclose,'notifications-open':!notificationsclose,'get-app-close':getclose,'get-app-open':!getclose}">
+        <div class="col-xs-12 col-md-12 col-lg-12 col-xs-12 filter-row-color hidden-xs hidden-md hidden-sm hidden-lg">
+            <div class="filter-row row" ng-class="{'margin-banner':!isBanner}">
+                <div class="location-event-new col-xs-9 noPadding col-sm-7 col-md-8 hidden-xs">
+                    <form>
+                        <img class="search-pre-login-new" src="../img/search-icon-pre.png">
+                        <input type="text" class="location-new" googleplace placeholder="{{locationPlaceholder}}" ng-disabled="disableLocation" ng-model="formFields.chosenPlace" required>
+                        <div class="current-location-new-event">
+                            <a ng-click="getCurrentPos();">
+                                <md-icon class="custom-pre-loc-img-new pa-color-FFFFFF">gps_fixed</md-icon>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-hide pa-margin-auto" ng-show="!isMaps">
+            <div class="md-toolbar-tools pa-no-padding pa-justify-between">
+                <div md-truncate class="pa-font-24">Showing <span class="pa-bold-font">{{( eventMarkers | categorySort:categoryFilterArray:this | localSearchFilter:formFields.localFilterSearch | unique:'event_id').length}}</span> events in <span class="pa-bold-font">{{chosenPlaceValue}}</span>
+                </div>
+                <div class="pa-display-inline-flex">
+                    <div class="pa-filters-responsive-dropdown-parent">
+                        <div class="pa-custom-btn pa-center-div pa-map-white-bg pa-filter-button pa-mr-20 pa-filters-responsive-dropdown-parent" ng-disabled="preventUnselect" ng-click="openNav($event);">
+                            <md-icon class="pa-map-unselected">filter_list</md-icon>
+                        </div>
+                        <div class="pa-filters-responsive-dropdown-container hidden-xs pa-web-filter-pos" id="categoriesList" ng-show="toggleFilters && !isMaps">
+                            <div class="category-list">
+                                <button type="button" ng-click="toggleCategorySelection()" class="checkall">{{categorySelectionButton}}</button>
+                                <p class="category-warning" ng-if="preventUnselect">Select at least one category to view events <span>*</span></p>
+                                <label ng-repeat="(key, value) in categoriesMap">
+                                    <input class="checkhour" type="checkbox" ng-change="changeCategorySelection()"
+                                        ng-model="categoriesMap[key].selected" />
+                                    <span class="check-ui"></span>
+                                    <span class="chec-category"><img ng-src="{{value.icon}}" alt="concerts" />
+                                        {{categoriesMap[key].name}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pa-custom-btn pa-center-div pa-left-button" ng-click="setView(false)" ng-class="isMaps?'pa-map-white-bg':'pa-map-red-bg'">
+                        <md-icon ng-class="isMaps?'pa-map-unselected':'pa-color-FFFFFF'">list</md-icon>
+                    </div>
+                    <div class="pa-custom-btn pa-center-div pa-right-button" ng-click="setView(true)" ng-class="isMaps?'pa-map-red-bg':'pa-map-white-bg'">
+                        <md-icon ng-class="isMaps?'pa-color-FFFFFF':'pa-map-unselected'">map</md-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 pa-pl-0 pa-pr-0">
+            <section ng-if="showhide.results && !isMaps && !fullScreenLoader" infinite-scroll="increaseLimit(eventMarkers.length)">
+                <div class="events-container pa-mt-40">
+                    <div class="row pa-bootstrap-row popup-gallery" ng-class="{'popup-gallery-style': applyMinWidthStyle}">
+                        <div ng-if="events.length == 0" class="pa-font-24 desktop-hide">Showing <span class="pa-bold-font">0</span> events in <span class="pa-bold-font">{{chosenPlaceValue}}</span></div>
+                        <div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" id="event_box_{{x.event_id}}" ng-repeat="x in events = ( eventMarkers | categorySort:categoryFilterArray:this | localSearchFilter:formFields.localFilterSearch | unique:'event_id' | orderBy:'claimed_on') track by x.event_id"
+                                ng-init="updateShowEventListLoader(events.length,$index)" ng-if="$index < listViewLimit">
+                                <event-overview event="x" skip="skip" read-only="true"></event-overview>
+                            </div>
+                        </div>
+                        <div ng-if="loadingMap" class="text-center pa-color-pink pa-font-18 pa-font-bold">
+                            <div class="text-loader-content for-list">
+                                <img src="./img/new-loader.svg" alt="" class="img-loader">
+                                <span>Events Loading</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div flex id="event_maps" class="pa-container-100p" ng-show="showhide.results && isMaps && !locationView">
+        <div class="pa-container-100p loader-home-left">
+            <div class="event-loader-content bg-black loader-content" ng-show="loadingMap">
+                <div class="loader-content text-loader-content">
+                    <img src="./img/new-loader.svg" alt="" class="img-loader">
+                    <div class="">{{loaderMessage}}</div>
+                </div>
+            </div>
+            <ng-include src="template" ng-controller="EventMapController as emc" ng-init="enableEventsFilters=true;"></ng-include>
+        </div>
+    </div>
+
+    <div flex layout-fill class="container-wtd-1170 desktop-hide pa-no-padding-imp pa-background-white pa-height-auto-imp" ng-if="!locationView" ng-show="showhide.filters">
+        <!-- Filter div starts -->
+        <div class="mobile-perent desktop-hide mobile-filters-list-view mobile-view-filter">
+            <div class="mobile-header display-flex-mob pa-display-grid" ng-if="!showhide.selectdates">
+                <div class="back-btn-mobile">
+                    <a ng-click="showResults()"><i class="material-icons">arrow_back_ios</i></a>
+                </div>
+                <div class="filter-header pa-pl-12 pa-font-bold">
+                    <span class="pa-font-28">Filters</span>
+                    <a ng-click="setView(!isMaps)" class="toggle-view">
+                        <md-icon class="pa-padding-5" ng-class="{'active':!isMaps}" md-svg-src="{{isMaps?'./img/list-view-red.svg':'./img/list-view-white.svg'}}"></md-icon>
+                        <md-icon ng-class="{'active':isMaps}">map</md-icon>
+                    </a>
+                </div>
+            </div>
+            <div class="mobile-header display-flex-mob pa-padding-20" style="border-bottom: 1px solid #CBCBCB !important;" ng-if="showhide.selectdates" layout="row" layout-align="space-between center">
+                <div>
+                    <a ng-click="showFilters()"><i
+                            class="material-icons pa-color-333333 pa-font-22">arrow_back_ios</i></a>
+                </div>
+                <div class="pa-font-20 pa-font-bold" style="flex: 1;">Select date range</div>
+            </div>
+            <div class="pa-pl-20 pa-pr-20 pa-mt-80">
+                <div class="mobile-form">
+                    <div class="event-form create-w-100 pa-no-padding">
+                        <md-input-container ng-if="user.is_zone_member" class="form-group full-field" flex-gt-sm>
+                            <select class="form-control" ng-disabled="memberZoneList.length == 0" ng-model="selectedItem" ng-change="getZoneId(selectedItem)">
+                                <option selected value="">Select Zone</option>
+                                <option value="{{list.zone_id}}" ng-repeat="list in memberZoneList">{{list.name}}</option>
+                            </select>
+                            <i class="material-icons">keyboard_arrow_down</i>
+                        </md-input-container>
+
+                        <md-input-container class="form-group full-field pa-mt-30-imp" flex-gt-sm>
+                            <label>Location <span ng-click="getCurrentPos();" class="pa-pointer-events-all"><a class="mob-detect-city">Detect My City</a></span></label>
+                            <input ng-pattern="/^[a-zA-Z0-9 \\\/,-]+$/" googleplace ng-model="formFields.chosenPlace" id="locationInput" class="form-control" placeholder="{{locationPlaceholder}}">
+                        </md-input-container>
+
+                        <md-input-container class="form-group full-field pa-mt-30-imp">
+                            <label>Search Event By Name</label>
+                            <input type="text" class="form-control" placeholder="e.g. Music Event" ng-model="formFields.localFilterSearch">
+                        </md-input-container>
+
+                        <md-input-container class="form-group full-field pa-mt-30-imp mob-date-range">
+                            <label>Select Date Range</label>
+                            <input md-no-asterisk name="endDate" date-range-picker class="recommended-sub-header-date-left-mobile form-control date-picker pa-font-16 pa-modal-font pa-color-333333" type="text" ng-required="true" ng-model="webDateRangePicker.selectedDate" picker="webDateRangePicker.mobilePicker"
+                                min="webDateRangePicker.minDate" options="webDateRangePicker.options" />
+                            <div type="text" class="form-control end-date-search recommended-sub-header-date-right-mobile" ng-click="webDateRangePicker.toggle()"><span>{{filterDateTo.format('ddd, DD
+                                    MMM')}}</span></div>
+                        </md-input-container>
+
+                        <div class="pa-no-margin full-field cate_event search-reco-cate drop-multi-sec filter-cat filter-event pa-position-relative" flex-gt-sm>
+                            <label class="pa-color-333333">Event Category</label>
+                            <div class="form-control ht-48 categorydropdown" isteven-multi-select selection-mode="multi" input-model="categories" output-model="formFields.selectedCategories" button-label="iconImg name" item-label="iconImg name" tick-property="selected" helper-elements="none"
+                                tooltip-trigger="'none'" uib-tooltip="Category is required." max-labels="1" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mobile-filters-apply-btn">
+                <md-button ng-disabled="canApplyFilter()" class="apply-btn-mob pa-pink-button ht-48" ng-click="applyFilters()">Apply</md-button>
+                <a ng-click="clearFilterMobile()" class="link-mob">Clear Filters</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    div.pac-container {
+        z-index: 100000 !important;
+    }
+    
+    @media screen and (max-width:480px) {
+        .custom-common-div {
+            display: block;
+            border-bottom: 1px solid lightgrey;
+            margin-left: -15px;
+            margin-right: -15px;
+            height: 16px;
+            line-height: 0px;
+            margin-left: -15px;
+        }
+        .location-modal .modal-content {
+            position: relative;
+            top: 45px;
+            width: 101% !important;
+        }
+        .custom-sel-loc-div {
+            display: none;
+        }
+        .mobile-custom-div {
+            display: block;
+        }
+        .mobile-custom-div input {
+            width: 90% !important;
+            left: -10px;
+            top: 14px;
+            outline: solid 2px #A02541;
+        }
+        .custom-loc-common-div img {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        .custom-loc-common-div span {
+            position: absolute;
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        .add-banner span {
+            margin-left: 16px;
+        }
+    }
+    
+    @-moz-document url-prefix() {
+        @media screen and (min-width: 480px) {
+            .mobile-custom-div {
+                display: none !important;
+            }
+            .tempa {
+                left: 8% !important;
+            }
+            .lasvegas {
+                left: 1% !important;
+            }
+            .atlanta {
+                left: -16% !important;
+            }
+            .newyork {
+                left: 0% !important;
+            }
+            .losangeles {
+                left: 8% !important;
+            }
+            .lasvegas {
+                margin-left: -18% !important;
+            }
+        }
+    }
+    
+    @media screen and (min-width:480px) and (-webkit-min-device-pixel-ratio:0) {
+        .mobile-custom-div {
+            display: none !important;
+        }
+        .tempa {
+            left: 8% !important;
+        }
+        .lasvegas {
+            margin-left: -5% !important;
+        }
+        .losangeles {
+            margin-left: 16% !important;
+        }
+        .atlanta {
+            margin-left: -2% !important;
+        }
+        .newyork {
+            left: 0% !important;
+        }
+    }
+</style>

@@ -1,0 +1,227 @@
+.ob-background-color {
+    background-color: #F8F8F8;
+}
+
+.ob-color-input::placeholder {
+    font-size: 16px;
+    color: #999999 !important;
+}
+
+.ob-color-input:focus {
+    border: 1px solid #E1E1E1;
+}
+
+input::-internal-input-suggested,
+textarea::-internal-input-suggested {
+    font-size: 16px !important;
+    font-weight: normal;
+}
+
+input:-webkit-autofill {
+    box-shadow: 0 0 0 50px white inset;
+    /*your box-shadow*/
+    -webkit-box-shadow: 0 0 0 50px white inset;
+    /* Change the color to your own background color */
+    -webkit-text-fill-color: #333333;
+    font-size: 16px !important;
+    font-weight: normal;
+}
+
+input:-webkit-autofill:focus {
+    border: 1px solid #E1E1E1;
+    box-shadow: 0 0 0 50px white inset;
+    /*your box-shadow*/
+    -webkit-box-shadow: 0 0 0 50px white inset;
+    /*your box-shadow*/
+    -webkit-text-fill-color: #333333;
+    font-size: 16px !important;
+    font-weight: normal;
+}
+
+.btn-login:focus {
+    color: #FFFFFF;
+}
+
+.margin-top-50 {
+    margin-top: 50px;
+}
+
+.ob-font-pink {
+    color: #B03D58;
+}
+
+.ob-color-input {
+    color: #333333 !important;
+    -webkit-appearance: none;
+}
+
+.ob-eye-color {
+    color: #828082;
+}
+
+.margin-bottom-30 {
+    margin-bottom: 30px;
+}
+
+.margin-bottom-25 {
+    margin-bottom: 25px;
+}
+
+.pt-top-30 {
+    padding-top: 30px;
+}
+
+.pt-top-10 {
+    padding-top: 10px;
+}
+
+.pt-bottom-30 {
+    padding-bottom: 30px;
+}
+
+.pt-top-50 {
+    padding-top: 50px;
+}
+
+.ob-arrow {
+    margin: 0 8px !important;
+}
+
+.ob-line-ht-48 {
+    line-height: 48px;
+}
+
+.ob-padding-0 {
+    padding: 0 !important;
+}
+
+.ob-login-btn {
+    height: 40px;
+    width: 103px;
+}
+
+.ob-sign-sec {
+    margin-top: 8px;
+}
+
+.padding-bottom-30 {
+    padding-top: 30px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.reset-password-info {
+    width: 75%;
+    margin-top: 25px;
+}
+
+.pt-39 {
+    padding-top: 39px;
+}
+
+.location-icon {
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+}
+
+#login_form md-input-container.md-icon-right>md-icon:last-of-type,
+#signup_form md-input-container.md-icon-right>md-icon:last-of-type,
+#reset_form md-input-container.md-icon-right>md-icon:last-of-type {
+    right: 27px;
+    top: 14px;
+}
+
+@media screen and (max-width:691px) {
+    .ob-arrow {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        position: relative;
+        left: -5px;
+    }
+    .ob-arrow md-icon {
+        font-size: 24px;
+    }
+    .ob-inner-content-div {
+        padding-left: 0px;
+        padding-right: 0px;
+        border-bottom: 1px solid #E1E1E1;
+    }
+}
+
+@media screen and (min-width:768px) {
+    .ob-outer-div {
+        border: 1px solid #E1E1E1;
+        background-color: #FFFFFF;
+        border-radius: 3px;
+        box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.07);
+    }
+    .margin-bottom-13 {
+        margin-bottom: 13px;
+    }
+    .ob-nav-header>.container-fluid>.navbar-header {
+        margin-left: 20px;
+    }
+    .ob-header-logo .mobile-pa-mt-5 {
+        margin-top: 0 !important;
+    }
+    .ob-inner-content-div {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .ob-back-sec {
+        background-color: #F8F8F8;
+        height: 48px;
+        line-height: 48px;
+        border-bottom: 1px solid #E1E1E1;
+    }
+    .ob-outer-div {
+        box-shadow: none;
+        background: #fff;
+    }
+    .sign-up-border-btm {
+        border-bottom: 1px solid #E1E1E1 !important;
+    }
+    .pt-40 {
+        padding-top: 32px;
+    }
+    .ob-background-color .margin-top-50 {
+        margin-top: 0;
+    }
+    md-content {
+        padding-top: 42px !important;
+    }
+    .mt-bt-14 {
+        margin-bottom: 14px;
+    }
+    .ob-color-input {
+        border-radius: 4px;
+    }
+    .ob-nav-header>.container-fluid>.navbar-header {
+        margin-left: 5px;
+    }
+    .ob-header-logo .mobile-pa-mt-5 {
+        margin-top: -9px !important;
+    }
+    .ob-inner-content-div {
+        padding-left: 0px;
+        padding-right: 0px;
+        border-bottom: 1px solid #E1E1E1;
+    }
+}
+
+@media screen and (max-width:640px) and (min-width:435px) {
+    .ob-header-logo .mobile-pa-mt-5 {
+        margin-top: 10px !important;
+        margin-left: -19px;
+    }
+    .ob-inner-content-div {
+        padding-left: 0px;
+        padding-right: 0px;
+        border-bottom: 1px solid #E1E1E1;
+    }
+}
